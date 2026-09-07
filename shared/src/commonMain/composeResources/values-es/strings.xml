@@ -1,0 +1,924 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<!-- App Branding -->
+    <string name="app_name">Simple Physics</string>
+    <string name="app_title">SIMPLE PHYSICS</string>
+    <string name="app_subtitle_mobile">Laboratorio de física interactivo</string>
+    <string name="app_subtitle_wide">Laboratorio interactivo de física</string>
+    <string name="app_description">Demostraciones interactivas a pantalla completa que exploran la mecánica, la óptica, los fluidos, la electrostática y los materiales con física en tiempo real.</string>
+    <string name="whiteboard_button_title">🧑‍🏫 Animador de pizarra interactiva</string>
+
+    <!-- Navigation &amp; Common Actions -->
+    <string name="action_back">Atrás</string>
+    <string name="action_close">Cerrar</string>
+    <string name="action_science">Ciencia</string>
+    <string name="action_explore">EXPLORAR →</string>
+    <string name="action_got_it">Entendido</string>
+    <string name="action_got_it_back">¡Entendido! Volver al experimento</string>
+    <string name="action_reset">Reiniciar</string>
+    <string name="action_play">Reproducir</string>
+    <string name="action_pause">Pausar</string>
+    <string name="action_speed">Velocidad</string>
+    <string name="action_clear">Borrar</string>
+    <string name="action_change_language">Idioma</string>
+    <string name="dialog_select_language">Seleccionar idioma</string>
+
+    <!-- Categories -->
+    <string name="category_all_title">Los 84 días</string>
+    <string name="category_all_short">Todos</string>
+    <string name="category_week1_title">Semana 1: Física en casa</string>
+    <string name="category_week1_short">S1: En casa</string>
+    <string name="category_week2_title">Semana 2: Mecánica &amp; colisiones</string>
+    <string name="category_week2_short">S2: Mecánica</string>
+    <string name="category_week3_title">Semana 3: Órbitas &amp; gravedad</string>
+    <string name="category_week3_short">S3: Gravedad espacial</string>
+    <string name="category_week4_title">Semana 4: Ondas &amp; sonido</string>
+    <string name="category_week4_short">S4: Ondas</string>
+    <string name="category_week5_title">Semana 5: Óptica &amp; luz</string>
+    <string name="category_week5_short">S5: Óptica</string>
+    <string name="category_week6_title">Semana 6: Dinámica de fluidos</string>
+    <string name="category_week6_short">S6: Fluidos</string>
+    <string name="category_week7_title">Semana 7: Termodinámica</string>
+    <string name="category_week7_short">S7: Termo</string>
+    <string name="category_week8_title">Semana 8: Electromagnetismo</string>
+    <string name="category_week8_short">S8: EM &amp; campos</string>
+    <string name="category_week9_title">Semana 9: Caos &amp; fractales</string>
+    <string name="category_week9_short">S9: Caos</string>
+    <string name="category_week10_title">Semana 10: Relatividad &amp; espaciotiempo</string>
+    <string name="category_week10_short">S10: Relatividad</string>
+    <string name="category_week11_title">Semana 11: Mecánica cuántica</string>
+    <string name="category_week11_short">S11: Cuántica</string>
+    <string name="category_week12_title">Semana 12: Fronteras cósmicas</string>
+    <string name="category_week12_short">S12: Cósmica</string>
+
+    <!-- Dialogs &amp; Status -->
+    <string name="coming_soon_title">Próximamente</string>
+    <string name="coming_soon_empty_filter">Este filtro de categoría está actualmente vacío.
+¡Se desbloquearán nuevos experimentos a diario con la serie de 30 días de YouTube!</string>
+    <string name="coming_soon_dialog_unlocked_soon">🎬 ¡Esta simulación interactiva se desbloqueará en SimplePhysics inmediatamente después de que se estrene el video del Día %1$d en YouTube!</string>
+    <string name="coming_soon_theory">Teoría: %1$s</string>
+    <string name="experiment_in_dev">🔬 Experimento en desarrollo
+¡Vuelve pronto!</string>
+    <string name="badge_day_locked">🔒 Día %1$d</string>
+    <string name="scientific_principle">🔬 Principio Científico</string>
+    <string name="coming_soon_in_development">🎬 ¡Esta simulación interactiva está en desarrollo activo y se desbloqueará pronto!</string>
+
+    <!-- Science Dialog Sections -->
+    <string name="dialog_science_revealed">LA CIENCIA AL DESCUBIERTO</string>
+    <string name="dialog_section_magic">✨ La ilusión (lo que parece)</string>
+    <string name="dialog_section_science">🔬 La física &amp; química detrás</string>
+    <string name="dialog_section_try_home">🏠 Pruébalo tú mismo en casa</string>
+
+    <!-- Telemetry &amp; Controls -->
+    <string name="telemetry_live">TELEMETRÍA EN VIVO</string>
+    <string name="telemetry_title">📊 %1$s</string>
+    <string name="controls_title">🎛️ CONTROLES DE SIMULACIÓN</string>
+    <string name="controls_reset">Reiniciar</string>
+
+    <!-- Whiteboard Studio &amp; Animator -->
+    <string name="whiteboard_studio_title">ESTUDIO DE PIZARRA</string>
+    <string name="whiteboard_default_speech">¡Hola! Soy el Dr. Kelvin. ¡Toca cualquier movimiento abajo para controlarme en la pizarra!</string>
+
+    <!-- ========================================== -->
+    <!-- 84 EXPERIMENTS DATA STRINGS              -->
+    <!-- ========================================== -->
+    <!-- Day 1: static_straw -->
+    <string name="exp_static_straw_title">Día 1: Levitación electrostática con pajilla</string>
+    <string name="exp_static_straw_subtitle">Inducción electrostática &amp; torque dipolar</string>
+    <string name="exp_static_straw_badge">Día 1 • Desbloqueado</string>
+    <string name="exp_static_straw_teaser">Haz girar y guía una pajilla de plástico en equilibrio a través del aire sin tocarla jamás con las manos.</string>
+    <string name="exp_static_straw_magic">Una pajilla de plástico en equilibrio sobre el cuello de una botella de vidrio rota y sigue a tu varita cargada por el aire como si estuviera controlada por telequinesis.</string>
+    <string name="exp_static_straw_principle">Frotar una varita de plástico transfiere electrones mediante el efecto triboeléctrico, acumulando carga negativa (-Q). Al acercarla a la pajilla descargada, induce polarización eléctrica: los electrones de la pajilla son repelidos hacia el extremo lejano, dejando una carga positiva neta en el extremo cercano. La atracción electrostática resultante genera un torque neto (tau = r x F) alrededor del punto de equilibrio.</string>
+    <string name="exp_static_straw_formula_title">Ley de Coulomb &amp; torque dipolar inducido</string>
+    <string name="exp_static_straw_how_to">Coloca una pajilla plástica ligera en equilibrio sobre la parte superior de una botella de vidrio o un vaso invertido. Frota otra pajilla, regla de plástico o globo enérgicamente contra un suéter de lana o cabello seco, y luego acércala al extremo de la pajilla en equilibrio.</string>
+
+    <!-- Day 2: citrus_balloon -->
+    <string name="exp_citrus_balloon_title">Día 2: Cáscara de cítrico vs. globo</string>
+    <string name="exp_citrus_balloon_subtitle">Disolución de polímeros &amp; rotura por tensión</string>
+    <string name="exp_citrus_balloon_badge">Día 2 • Bloqueado</string>
+    <string name="exp_citrus_balloon_teaser">Exprime una cáscara de naranja cerca de un globo inflado y observa cómo explota al instante sin tocarlo.</string>
+    <string name="exp_citrus_balloon_magic">El simple hecho de exprimir una cáscara fresca de naranja o limón a pocos centímetros de un globo lo hace estallar al instante con un fuerte estallido, sin agujas ni fuego.</string>
+    <string name="exp_citrus_balloon_principle">La piel de los frutos cítricos contiene pequeños depósitos de d-limoneno, un aceite de hidrocarburo orgánico. Los globos de goma de látex están formados por cadenas reticuladas de poliisopreno sometidas a una gran tensión mecánica. Según el principio químico de que \'lo semejante disuelve a lo semejante\', el limoneno no polar disuelve instantáneamente los enlaces del polímero no polar de látex al contacto, provocando una rápida y catastrófica propagación de grietas a la velocidad del sonido en el caucho (~50 m/s).</string>
+    <string name="exp_citrus_balloon_formula_title">Concentración de esfuerzos &amp; ruptura</string>
+    <string name="exp_citrus_balloon_how_to">Infla un globo de látex hasta que quede bien tenso. Corta un trozo de cáscara de naranja o limón. Sostén la cáscara con la parte coloreada hacia el globo, apriétala firmemente para expulsar el rocío de aceite cítrico, ¡y observa cómo estalla!</string>
+
+    <!-- Day 3: pencil_water_bag -->
+    <string name="exp_pencil_water_bag_title">Día 3: Lápiz a través de una bolsa de agua</string>
+    <string name="exp_pencil_water_bag_subtitle">Elasticidad polimérica &amp; autosellado</string>
+    <string name="exp_pencil_water_bag_badge">Día 3 • Bloqueado</string>
+    <string name="exp_pencil_water_bag_teaser">¡Atraviesa con lápices afilados una bolsa llena de agua sin derramar una sola gota!</string>
+    <string name="exp_pencil_water_bag_magic">Atravesar una bolsa de agua con lápices afilados parece que debería provocar de inmediato que el agua salga a borbotones por todas partes; sin embargo, ¡no se escapa ni una sola gota!</string>
+    <string name="exp_pencil_water_bag_principle">Las bolsas plásticas para sándwich con cierre hermético están hechas de polietileno de alta densidad (HDPE) o de baja densidad (LDPE). Estas son cadenas largas de moléculas de polímero que se repiten. Al ser perforadas por la punta suave y afilada de un lápiz, las cadenas poliméricas flexibles se separan y se ajustan firmemente alrededor del cilindro del lápiz como bandas de goma, formando un sello impermeable temporal.</string>
+    <string name="exp_pencil_water_bag_formula_title">Presión hidrostática vs. esfuerzo tangencial del polímero</string>
+    <string name="exp_pencil_water_bag_how_to">Llena una bolsa hermética con cierre hasta 3/4 de su capacidad con agua y séllala. Afila entre 4 y 6 lápices redondos. Con un movimiento firme y fluido, ¡atraviesa cada lápiz de un lado a otro sobre un fregadero o recipiente!</string>
+
+    <!-- Day 4: disappearing_glass -->
+    <string name="exp_disappearing_glass_title">Día 4: Vidrio invisible</string>
+    <string name="exp_disappearing_glass_subtitle">Coincidencia del índice de refracción</string>
+    <string name="exp_disappearing_glass_badge">Día 4 • Desbloqueado</string>
+    <string name="exp_disappearing_glass_teaser">Sumerge un tubo de vidrio en un líquido y contempla cómo sus contornos desaparecen por completo ante tus ojos.</string>
+    <string name="exp_disappearing_glass_magic">Al sumergirse en un líquido transparente misterioso, un tubo de vidrio macizo real desaparece por completo de la vista, como si se hubiera disuelto en la nada.</string>
+    <string name="exp_disappearing_glass_principle">Vemos el vidrio transparente porque la luz se refleja y refracta en la interfaz entre el medio circundante y el vidrio debido a las diferentes velocidades de la luz (índice de refracción n). El vidrio de borosilicato Pyrex tiene n ≈ 1.474. Al sumergirse en aceite vegetal o glicerina (que también tiene n ≈ 1.47), la luz viaja exactamente a la misma velocidad en ambos medios. La luz ni se desvía ni se refleja en la frontera, ¡haciendo que el vidrio sea 100% invisible!</string>
+    <string name="exp_disappearing_glass_formula_title">Ley de Snell &amp; reflexión de Fresnel</string>
+    <string name="exp_disappearing_glass_how_to">Toma una varilla agitadora de vidrio Pyrex o un tubo de ensayo Pyrex pequeño y colócalo en un vaso con agua común (será visible). Ahora colócalo en un vaso con aceite vegetal de cocina transparente o glicerina: ¡desaparece por completo!</string>
+
+    <!-- Day 5: cartesian_diver -->
+    <string name="exp_cartesian_diver_title">Día 5: Buzo cartesiano</string>
+    <string name="exp_cartesian_diver_subtitle">Ley de Boyle, compresibilidad &amp; flotabilidad</string>
+    <string name="exp_cartesian_diver_badge">Día 5 • Bloqueado</string>
+    <string name="exp_cartesian_diver_teaser">Ordena a un buzo sumergible dentro de una botella de agua sellada descender, mantenerse suspendido y emerger usando solo tus manos.</string>
+    <string name="exp_cartesian_diver_magic">Con solo presionar el exterior de una botella de plástico sellada, un objeto que flota tranquilamente en la parte superior se sumerge de repente hacia el fondo, y vuelve a flotar hacia arriba cuando la sueltas.</string>
+    <string name="exp_cartesian_diver_principle">Nombrado en honor a René Descartes. El buzo contiene una burbuja de aire atrapada. Al apretar la botella, la presión se transmite por igual a todo el fluido (ley de Pascal). El aumento de presión comprime la burbuja de aire atrapada (ley de Boyle: P · V = const), reduciendo su volumen desplazado. Cuando la densidad promedio supera la del agua, la gravedad supera la fuerza de flotabilidad y el buzo se hunde.</string>
+    <string name="exp_cartesian_diver_formula_title">Ley de Boyle &amp; flotabilidad de Arquímedes</string>
+    <string name="exp_cartesian_diver_how_to">Coloca plastilina en la tapa plástica de un bolígrafo hasta que apenas flote verticalmente en un vaso de agua. Colócala dentro de una botella de 2 L llena de agua hasta el tope, ciérrala bien y ¡aprieta!</string>
+
+    <!-- Day 6: oobleck -->
+    <string name="exp_oobleck_title">Día 6: Oobleck no newtoniano</string>
+    <string name="exp_oobleck_subtitle">Fluido espesante por cizallamiento &amp; dilatancia</string>
+    <string name="exp_oobleck_badge">Día 6 • Bloqueado</string>
+    <string name="exp_oobleck_teaser">Un líquido sobre el que puedes correr, pero que se tragará tu pie si te detienes un segundo.</string>
+    <string name="exp_oobleck_magic">Al ser golpeado con fuerza por un martillo o recibir un puñetazo rápido, este extraño líquido blanco se comporta como una armadura sólida; pero relaja la mano y fluirá como el agua entre tus dedos.</string>
+    <string name="exp_oobleck_principle">Una suspensión de fécula de maíz en agua es un fluido no newtoniano dilatante (espesado por cizallamiento). A bajas tasas de cizallamiento, el agua lubrica los gránulos de almidón. Bajo una repentina y elevada tensión de cizallamiento, el agua lubricante es expulsada de entre las partículas, generando fricción y un bloqueo mecánico en una red sólida temporal.</string>
+    <string name="exp_oobleck_formula_title">Ley de potencias de Ostwald-de Waele</string>
+    <string name="exp_oobleck_how_to">Mezcla 2 tazas de fécula de maíz con 1 taza de agua del grifo en un tazón. Golpea rápidamente la superficie con una cuchara y luego apóyala despacio sobre la mezcla: ¡verás cómo se hunde!</string>
+
+    <!-- Day 7: bernoulli_ball -->
+    <string name="exp_bernoulli_ball_title">Día 7: Pelota levitante de Bernoulli</string>
+    <string name="exp_bernoulli_ball_subtitle">Efecto Coanda aerodinámico &amp; gradiente de presión</string>
+    <string name="exp_bernoulli_ball_badge">Día 7 • Bloqueado</string>
+    <string name="exp_bernoulli_ball_teaser">Haz levitar una pelota ligera dentro de una corriente invisible de aire inclinada sin que se caiga.</string>
+    <string name="exp_bernoulli_ball_magic">Una pelota de ping-pong levita de manera estable en el aire sobre un secador de pelo, ¡incluso cuando la boquilla está inclinada en un pronunciado ángulo de 45 grados!</string>
+    <string name="exp_bernoulli_ball_principle">El principio de Bernoulli establece que el aire a mayor velocidad genera menor presión estática. A medida que el aire a gran velocidad fluye alrededor de la pelota, la presión estática dentro de la corriente cae por debajo de la presión ambiente de la habitación. Si la pelota intenta abandonar la corriente, la mayor presión atmosférica exterior la empuja de regreso.</string>
+    <string name="exp_bernoulli_ball_formula_title">Conservación de la energía de Bernoulli</string>
+    <string name="exp_bernoulli_ball_how_to">Enciende un secador de pelo con aire frío. Coloca una pelota de ping-pong en la corriente ascendente e inclina lentamente el secador hasta 45 grados.</string>
+
+    <!-- Day 8: projectile_drag -->
+    <string name="exp_projectile_drag_title">Día 8: Resistencia aerodinámica de proyectiles &amp; vientos cruzados</string>
+    <string name="exp_projectile_drag_subtitle">Arrastre aerodinámico &amp; fuerzas vectoriales de viento</string>
+    <string name="exp_projectile_drag_badge">Día 8 • Bloqueado</string>
+    <string name="exp_projectile_drag_teaser">Apunta un cañón y dispara proyectiles frente a la resistencia aerodinámica cuadrática y vientos cruzados.</string>
+    <string name="exp_projectile_drag_magic">En la física introductoria, los proyectiles vuelan en parábolas simétricas. En la realidad, la resistencia aerodinámica hace que caigan con mayor pendiente al final y no alcancen la distancia prevista.</string>
+    <string name="exp_projectile_drag_principle">El aire real genera fricción superficial y resistencia de forma proporcionales al cuadrado de la velocidad: F_drag = 0.5 * rho * C_d * A * |v_rel|^2, orientada en sentido opuesto al movimiento relativo. Combinadas con la gravedad y las ráfagas de viento, las ecuaciones de movimiento se convierten en ecuaciones diferenciales no lineales acopladas.</string>
+    <string name="exp_projectile_drag_formula_title">2.ª ley de Newton con arrastre cuadrático &amp; viento</string>
+    <string name="exp_projectile_drag_how_to">Deja caer una hoja de papel extendida y una bola de papel arrugada al mismo tiempo. ¡La bola arrugada cae primero debido a su menor área de sección transversal y menor resistencia aerodinámica!</string>
+
+    <!-- Day 9: bouncing_ball -->
+    <string name="exp_bouncing_ball_title">Día 9: Pelota con rebote inelástico</string>
+    <string name="exp_bouncing_ball_subtitle">Coeficiente de restitución &amp; disipación de energía</string>
+    <string name="exp_bouncing_ball_badge">Día 9 • Bloqueado</string>
+    <string name="exp_bouncing_ball_teaser">Deja caer una pelota desde alturas personalizables y observa la disminución de la altura, la deformación contra el suelo y gráficas en vivo de energía cinética vs. potencial.</string>
+    <string name="exp_bouncing_ball_magic">Una pelota de goma que rebota en un piso duro nunca regresa a su altura inicial de caída, perdiendo altura de rebote continuamente hasta detenerse en silencio.</string>
+    <string name="exp_bouncing_ball_principle">Durante el impacto, la pelota se deforma elásticamente y convierte la energía cinética mecánica en energía térmica interna y vibraciones sonoras. La relación entre la velocidad de rebote y la velocidad de impacto es el coeficiente de restitución e = v_rebote / v_impacto &lt;= 1.0.</string>
+    <string name="exp_bouncing_ball_formula_title">Coeficiente de restitución de Newton &amp; disipación de energía</string>
+    <string name="exp_bouncing_ball_how_to">¡Deja caer una pelota de tenis fría y una pelota de tenis tibia sobre una baldosa dura de cocina y compara sus alturas de rebote!</string>
+
+    <!-- Day 10: newtons_cradle -->
+    <string name="exp_newtons_cradle_title">Día 10: Péndulo de Newton</string>
+    <string name="exp_newtons_cradle_subtitle">Ondas de choque de momento &amp; colisiones elásticas</string>
+    <string name="exp_newtons_cradle_badge">Día 10 • Bloqueado</string>
+    <string name="exp_newtons_cradle_teaser">Separa 1, 2 o 3 bolas de acero y observa cómo las ondas de choque de compresión se propagan instantáneamente a través de la cadena.</string>
+    <string name="exp_newtons_cradle_magic">Si sueltas 2 bolas contra 5 bolas inmóviles, saldrán exactamente 2 bolas por el extremo opuesto con la misma velocidad, ¡nunca 1 bola con el doble de velocidad!</string>
+    <string name="exp_newtons_cradle_principle">La conservación simultánea del momento lineal (suma m*v) y de la energía cinética (suma 0.5*m*v^2) impone restricciones estrictas y unívocas sobre la cantidad de esferas que se separan y sus velocidades durante colisiones elásticas.</string>
+    <string name="exp_newtons_cradle_formula_title">Conservación en colisiones elásticas</string>
+    <string name="exp_newtons_cradle_how_to">Alinea 5 monedas idénticas en contacto sobre una mesa lisa. Dale un golpe seco a una moneda hacia un extremo; ¡observa cómo solo la moneda del extremo opuesto sale disparada!</string>
+
+    <!-- Day 11: brachistochrone -->
+    <string name="exp_brachistochrone_title">Día 11: Curva braquistócrona</string>
+    <string name="exp_brachistochrone_subtitle">La trayectoria del descenso más rápido</string>
+    <string name="exp_brachistochrone_badge">Día 11 • Bloqueado</string>
+    <string name="exp_brachistochrone_teaser">Haz competir esferas por una rampa recta, un arco circular y una cicloide para comprobar que la línea recta ¡NO es la más rápida!</string>
+    <string name="exp_brachistochrone_magic">Una bola que rueda por una rampa cicloide curva vence a una bola que desciende por una rampa recta entre los mismos puntos de inicio y fin, todas y cada una de las veces.</string>
+    <string name="exp_brachistochrone_principle">Resuelto por Johann Bernoulli en 1696 mediante el cálculo de variaciones y la analogía con la ley de Snell. La curva cicloide acelera la bola rápidamente desde el inicio, acumulando energía cinética y velocidad iniciales que reducen el tiempo total de recorrido.</string>
+    <string name="exp_brachistochrone_formula_title">Minimización variacional de Euler-Lagrange</string>
+    <string name="exp_brachistochrone_how_to">Construye dos pistas con tubos de plástico flexibles: una recta inclinada y otra con una caída pronunciada al inicio. ¡Haz rodar canicas por ambas a la vez!</string>
+
+    <!-- Day 12: terminal_velocity -->
+    <string name="exp_terminal_velocity_title">Día 12: Velocidad terminal &amp; paracaídas</string>
+    <string name="exp_terminal_velocity_subtitle">Equilibrio de fuerzas gravitatorias &amp; aerodinámicas</string>
+    <string name="exp_terminal_velocity_badge">Día 12 • Bloqueado</string>
+    <string name="exp_terminal_velocity_teaser">Lanza paracaidistas desde 4000 metros, cambia su orientación corporal y despliega paracaídas para observar el equilibrio de velocidades.</string>
+    <string name="exp_terminal_velocity_magic">Sin importar desde qué altura saltes de un avión, dejas de acelerar después de unos 12 segundos y caes a una velocidad constante y estable.</string>
+    <string name="exp_terminal_velocity_principle">A medida que la velocidad aumenta, la resistencia aerodinámica ascendente crece hasta equilibrar con exactitud la fuerza de gravedad descendente (F_neta = 0). En ese instante la aceleración es nula y el objeto cae a su velocidad terminal v_t.</string>
+    <string name="exp_terminal_velocity_formula_title">Equilibrio de velocidad terminal</string>
+    <string name="exp_terminal_velocity_how_to">Deja caer un molde de papel para magdalenas solo frente a una pila de 4 moldes encajados. La pila cae más rápido porque su masa es 4 veces mayor mientras que el área A se mantiene constante.</string>
+
+    <!-- Day 13: stick_slip_friction -->
+    <string name="exp_stick_slip_friction_title">Día 13: Fricción stick-slip &amp; adherencia</string>
+    <string name="exp_stick_slip_friction_subtitle">Transiciones entre fricción estática y cinética</string>
+    <string name="exp_stick_slip_friction_badge">Día 13 • Bloqueado</string>
+    <string name="exp_stick_slip_friction_teaser">Tira de un trineo pesado con un resorte elástico y observa oscilaciones bruscas y repentinas de adherencia y deslizamiento.</string>
+    <string name="exp_stick_slip_friction_magic">Tirar de una caja pesada con una banda de goma hace que avance a tirones y sacudidas rítmicas en vez de deslizarse suavemente por el suelo.</string>
+    <string name="exp_stick_slip_friction_principle">El coeficiente de fricción estática mu_s es estrictamente superior al coeficiente de fricción cinética mu_k. Conforme se acumula la fuerza de tracción, el objeto permanece adherido hasta que F &gt; mu_s * N. Al comenzar el deslizamiento, la resistencia desciende a mu_k * N, causando una aceleración repentina y un avance excesivo.</string>
+    <string name="exp_stick_slip_friction_formula_title">Umbral de fricción estática vs. cinética</string>
+    <string name="exp_stick_slip_friction_how_to">Empuja lentamente un libro pesado sobre una mesa usando solo la punta del dedo índice. ¡Siente las microvibraciones y los tirones intermitentes a medida que avanza!</string>
+
+    <!-- Day 14: compound_pulley -->
+    <string name="exp_compound_pulley_title">Día 14: Sistema de poleas compuestas</string>
+    <string name="exp_compound_pulley_subtitle">Ventaja mecánica &amp; multiplicación de tensión en cable</string>
+    <string name="exp_compound_pulley_badge">Día 14 • Bloqueado</string>
+    <string name="exp_compound_pulley_teaser">Monta sistemas de 1, 2, 4 u 8 poleas para levantar cargas colosales de 1000 kg aplicando la fuerza de una sola mano.</string>
+    <string name="exp_compound_pulley_magic">Añadir simples ruedas giratorias con una cuerda le permite a un niño levantar el bloque del motor de un auto casi sin esfuerzo.</string>
+    <string name="exp_compound_pulley_principle">En un sistema de poleas ideal, la tensión del cable T es uniforme en toda su longitud. Cuando un objeto está sostenido por n tramos verticales de cuerda, la fuerza ascendente es n * T, multiplicando la fuerza aplicada por la ventaja mecánica ideal n a expensas de tirar de n veces más cuerda.</string>
+    <string name="exp_compound_pulley_formula_title">Ventaja mecánica &amp; conservación del trabajo</string>
+    <string name="exp_compound_pulley_how_to">Pasa una cuerda alrededor de dos palos de escoba sostenidos por dos amigos. ¡Tú solo podrás juntar ambos palos aunque ambos amigos opongan toda su fuerza!</string>
+
+    <!-- Day 15: kepler_orbits -->
+    <string name="exp_kepler_orbits_title">Día 15: Órbitas planetarias de Kepler</string>
+    <string name="exp_kepler_orbits_subtitle">Órbitas elípticas &amp; ley de áreas iguales</string>
+    <string name="exp_kepler_orbits_badge">Día 15 • Bloqueado</string>
+    <string name="exp_kepler_orbits_teaser">Dirige un planeta alrededor de una estrella. Ajusta la excentricidad, observa las variaciones del vector velocidad y visualiza la ley de áreas iguales de Kepler.</string>
+    <string name="exp_kepler_orbits_magic">Los planetas no orbitan en círculos perfectos ni viajan a velocidades constantes. Se aceleran a gran velocidad cerca del Sol y avanzan lentamente cuando están lejos.</string>
+    <string name="exp_kepler_orbits_principle">Bajo la ley de gravitación universal de Newton, una fuerza central con variación cuadrática inversa conserva el momento angular orbital L = r x (m v). La segunda ley de Kepler demuestra que el radio vector barre áreas iguales en intervalos de tiempo iguales (dA/dt = L / 2m = constante).</string>
+    <string name="exp_kepler_orbits_formula_title">Gravitación universal de Newton &amp; 2.ª ley de Kepler</string>
+    <string name="exp_kepler_orbits_how_to">Ata un objeto pequeño a una cuerda y hazlo girar describiendo una elipse. ¡Observa cómo tu mano debe ejercer mayor tensión al pasar más cerca del centro!</string>
+
+    <!-- Day 16: gyroscopic_precession -->
+    <string name="exp_gyroscopic_precession_title">Día 16: Precesión giroscópica</string>
+    <string name="exp_gyroscopic_precession_subtitle">Momento angular &amp; rueda antigravedad</string>
+    <string name="exp_gyroscopic_precession_badge">Día 16 • Bloqueado</string>
+    <string name="exp_gyroscopic_precession_teaser">Haz girar una pesada rueda de bicicleta suspendida por una sola cuerda y observa cómo gira hacia los lados en lugar de caerse.</string>
+    <string name="exp_gyroscopic_precession_magic">Una rueda en rotación suspendida por un solo lado se niega a desplomarse por efecto de la gravedad, describiendo en cambio una precesión horizontal en círculo.</string>
+    <string name="exp_gyroscopic_precession_principle">Cuando un cuerpo con un gran momento angular L se somete a un torque gravitatorio tau = r x F_g, el vector torque es perpendicular a L. De acuerdo con tau = dL/dt, el torque modifica la dirección de L en lugar de su magnitud, dando lugar a una precesión horizontal constante.</string>
+    <string name="exp_gyroscopic_precession_formula_title">Velocidad angular de precesión giroscópica</string>
+    <string name="exp_gyroscopic_precession_how_to">Haz girar un giroscopio de juguete sobre la punta de un lápiz. ¡Observa cómo se inclina sin caerse jamás!</string>
+
+    <!-- Day 17: coriolis_effect -->
+    <string name="exp_coriolis_effect_title">Día 17: Efecto Coriolis</string>
+    <string name="exp_coriolis_effect_subtitle">Fuerzas ficticias en sistemas de referencia rotatorios</string>
+    <string name="exp_coriolis_effect_badge">Día 17 • Bloqueado</string>
+    <string name="exp_coriolis_effect_teaser">Lanza una pelota a través de un carrusel giratorio y contempla cómo su trayectoria se curva notoriamente desde el punto de vista del observador en rotación.</string>
+    <string name="exp_coriolis_effect_magic">¡Lanzar una pelota directamente a un compañero en un tiovivo en rotación provoca que la pelota se desvíe hacia un lado en pleno vuelo!</string>
+    <string name="exp_coriolis_effect_principle">En un sistema de referencia rotatorio con velocidad angular Omega, los objetos en movimiento experimentan una aceleración ficticia aparente a_coriolis = -2 * (Omega x v) debido a que la velocidad tangencial del sistema varía con el radio.</string>
+    <string name="exp_coriolis_effect_formula_title">Vector de aceleración de Coriolis</string>
+    <string name="exp_coriolis_effect_how_to">Coloca una canica sobre una bandeja giratoria en rotación y empújala hacia afuera. ¡Observa cómo su trayectoria traza una espiral divergente!</string>
+
+    <!-- Day 18: gravitational_slingshot -->
+    <string name="exp_gravitational_slingshot_title">Día 18: Asistencia gravitatoria (efecto honda)</string>
+    <string name="exp_gravitational_slingshot_subtitle">Asistencia gravitatoria orbital &amp; efecto Oberth</string>
+    <string name="exp_gravitational_slingshot_badge">Día 18 • Bloqueado</string>
+    <string name="exp_gravitational_slingshot_teaser">Haz volar una nave espacial por detrás de un planeta gigante en movimiento y catapúltala hacia el espacio interestelar con un enorme incremento de velocidad cinética.</string>
+    <string name="exp_gravitational_slingshot_magic">¡Una nave espacial puede acelerar miles de kilómetros por hora sin encender sus propulsores, simplemente pasando cerca de Júpiter!</string>
+    <string name="exp_gravitational_slingshot_principle">En el sistema de referencia del planeta, el encuentro es una dispersión hiperbólica elástica sin cambio de energía. En el sistema de referencia del Sol, la sonda gana hasta el doble de la velocidad orbital del planeta: v_final = v_in + 2 * v_planet.</string>
+    <string name="exp_gravitational_slingshot_formula_title">Dispersión elástica en asistencia gravitatoria</string>
+    <string name="exp_gravitational_slingshot_how_to">Deja caer una pelota de tenis con una pequeña pelota saltarina apoyada directamente encima. Al chocar contra el suelo, ¡la pelota superior saldrá disparada a alturas extraordinarias!</string>
+
+    <!-- Day 19: roche_limit -->
+    <string name="exp_roche_limit_title">Día 19: Límite de Roche &amp; creación de anillos por marea</string>
+    <string name="exp_roche_limit_subtitle">Desintegración de lunas por mareas gravitacionales</string>
+    <string name="exp_roche_limit_badge">Día 19 • Bloqueado</string>
+    <string name="exp_roche_limit_teaser">Coloca una luna en órbita demasiado cerca de un gigante gaseoso y observa cómo las fuerzas de marea planetarias la despedazan en anillos brillantes como los de Saturno.</string>
+    <string name="exp_roche_limit_magic">Si una luna se acerca en exceso a su planeta anfitrión, la gravedad del planeta no la precipita en una colisión: la desintegra en miles de millones de fragmentos.</string>
+    <string name="exp_roche_limit_principle">La fuerza gravitatoria diferencial de marea entre la cara cercana y la lejana de la luna supera la cohesión autogravitatoria interna de la luna en el límite de Roche d = 2.44 * R * (rho_M / rho_m)^(1/3), desintegrándola en un disco anular.</string>
+    <string name="exp_roche_limit_formula_title">Radio de desintegración por marea de Roche</string>
+    <string name="exp_roche_limit_how_to">¡Mira fotografías de los anillos de Saturno: son los escombros pulverizados de antiguas lunas de hielo que cruzaron el límite de Roche de Saturno!</string>
+
+    <!-- Day 20: lagrange_points -->
+    <string name="exp_lagrange_points_title">Día 20: Puntos de Lagrange (L1 a L5)</string>
+    <string name="exp_lagrange_points_subtitle">Equilibrio gravitatorio &amp; estacionamiento orbital</string>
+    <string name="exp_lagrange_points_badge">Día 20 • Bloqueado</string>
+    <string name="exp_lagrange_points_teaser">Estaciona telescopios en los puntos L1 y L2 del sistema Tierra-Sol y observa cómo la atracción gravitatoria y la fuerza centrífuga se equilibran a la perfección.</string>
+    <string name="exp_lagrange_points_magic">Existen cinco islas invisibles privilegiadas en el espacio donde las naves espaciales pueden permanecer estacionadas indefinidamente casi sin gastar combustible.</string>
+    <string name="exp_lagrange_points_principle">En un sistema restringido circular de dos cuerpos, el potencial efectivo gravitatorio-centrífugo forma cinco puntos estacionarios donde la fuerza neta en el sistema rotatorio es cero. L4 y L5 forman puntos triangulares equiláteros estables.</string>
+    <string name="exp_lagrange_points_formula_title">Equilibrio del gradiente de potencial efectivo</string>
+    <string name="exp_lagrange_points_how_to">¡Investiga cómo el telescopio espacial James Webb orbita el punto invisible de Lagrange L2 del sistema Tierra-Sol a 1.5 millones de kilómetros de distancia!</string>
+
+    <!-- Day 21: three_body_problem -->
+    <string name="exp_three_body_problem_title">Día 21: Problema caótico de los tres cuerpos</string>
+    <string name="exp_three_body_problem_subtitle">Caos gravitatorio de N cuerpos &amp; eyección orbital</string>
+    <string name="exp_three_body_problem_badge">Día 21 • Bloqueado</string>
+    <string name="exp_three_body_problem_teaser">Simula 3 estrellas gravitatorias: descubre órbitas periódicas en figura de 8, puntos de Lagrange y violentas eyecciones estelares caóticas.</string>
+    <string name="exp_three_body_problem_magic">Mientras que dos cuerpos en órbita cuentan con soluciones matemáticas exactas, agregar solo un cuerpo más vuelve al sistema matemáticamente irresoluble mediante ecuaciones cerradas.</string>
+    <string name="exp_three_body_problem_principle">El problema general de los tres cuerpos presenta la no integrabilidad descubierta por Henri Poincaré. Pequeñas perturbaciones orbitales pueden expulsar una estrella hacia el espacio interestelar profundo mientras las dos restantes forman un par binario excéntrico.</string>
+    <string name="exp_three_body_problem_formula_title">Aceleración gravitatoria de N cuerpos de Newton</string>
+    <string name="exp_three_body_problem_how_to">¡Busca la célebre órbita en forma de 8 del problema de los tres cuerpos descubierta en 1993, donde tres estrellas de igual masa se persiguen a lo largo de una única trayectoria!</string>
+
+    <!-- Day 22: plucked_string -->
+    <string name="exp_plucked_string_title">Día 22: Cuerda pulsada (ecuación de onda 1D)</string>
+    <string name="exp_plucked_string_subtitle">Reflexiones de onda &amp; armónicos estacionarios</string>
+    <string name="exp_plucked_string_badge">Día 22 • Bloqueado</string>
+    <string name="exp_plucked_string_teaser">Toca y pulsa una cuerda tensa en cualquier punto de su longitud. Observa los paquetes de ondas reflejarse, invertirse en los extremos y formar nodos armónicos estacionarios.</string>
+    <string name="exp_plucked_string_magic">Pulsar una cuerda de guitarra en un solo punto minúsculo genera ondas armónicas complejas que viajan de ida y vuelta, produciendo tonos musicales puros y patrones de nodos estacionarios.</string>
+    <string name="exp_plucked_string_principle">Una cuerda con tensión T y densidad lineal de masa mu satisface la ecuación de onda clásica 1D u_tt = c^2 u_xx, donde c = sqrt(T / mu) es la velocidad de propagación. Los extremos fijos imponen u(0, t) = u(L, t) = 0, provocando que los pulsos de onda se inviertan al reflejarse.</string>
+    <string name="exp_plucked_string_formula_title">Ecuación de onda 1D &amp; reflexiones de frontera</string>
+    <string name="exp_plucked_string_how_to">Estira una banda elástica larga entre tus dedos. Dale un toque seco para ver cómo el pulso viaja hasta el extremo fijo, se invierte boca abajo y rebota de regreso.</string>
+
+    <!-- Day 23: fourier_series -->
+    <string name="exp_fourier_series_title">Día 23: Series de Fourier &amp; epiciclos</string>
+    <string name="exp_fourier_series_subtitle">Síntesis armónica fasorial &amp; fenómeno de Gibbs</string>
+    <string name="exp_fourier_series_badge">Día 23 • Bloqueado</string>
+    <string name="exp_fourier_series_teaser">Sintetiza ondas cuadradas, de diente de sierra y triangulares usando círculos epicíclicos en rotación. ¡Observa cómo los armónicos individuales de Fourier se suman en tiempo real!</string>
+    <string name="exp_fourier_series_magic">¿Cómo pueden simples círculos giratorios continuos y tonos senoidales puros combinarse para generar esquinas cuadradas afiladas, perfiles puntiagudos y timbres sonoros complejos?</string>
+    <string name="exp_fourier_series_principle">El teorema de Fourier demuestra que cualquier función periódica puede representarse como una suma infinita de armónicos sinusoidales con frecuencias que son múltiplos enteros n*omega. Truncar la serie a armónicos finitos genera el característico sobreimpulso de ~9% denominado fenómeno de Gibbs.</string>
+    <string name="exp_fourier_series_formula_title">Descomposición &amp; síntesis en series de Fourier</string>
+    <string name="exp_fourier_series_how_to">Descarga una app de análisis de espectro sonoro en tu teléfono. Reproduce una onda senoidal pura y luego una onda cuadrada: ¡observa la escalera de picos de armónicos impares!</string>
+
+    <!-- Day 24: chladni_plates -->
+    <string name="exp_chladni_plates_title">Día 24: Placas de Chladni &amp; cimática</string>
+    <string name="exp_chladni_plates_subtitle">Geometría nodal de ondas acústicas estacionarias en 2D</string>
+    <string name="exp_chladni_plates_badge">Día 24 • Bloqueado</string>
+    <string name="exp_chladni_plates_teaser">Haz vibrar una placa cuadrada a frecuencias resonantes y observa cómo miles de granos de arena se organizan en intrincados patrones geométricos.</string>
+    <string name="exp_chladni_plates_magic">La arena esparcida al azar sobre una lámina de metal baila al instante adoptando formas de mandalas fascinantes y figuras geométricas precisas cuando un arco de violín roza su borde.</string>
+    <string name="exp_chladni_plates_principle">Las ondas estacionarias de flexión en una placa elástica bidimensional delgada producen líneas nodales inmóviles donde el desplazamiento de la placa es exactamente cero. La arena que rebota en las regiones que vibran se reúne naturalmente en estas líneas nodales de amplitud cero.</string>
+    <string name="exp_chladni_plates_formula_title">Ecuación de onda de placas de Kirchhoff-Love</string>
+    <string name="exp_chladni_plates_how_to">Espolvorea sal fina sobre película plástica tensada firmemente sobre el cono de un altavoz. ¡Reproduce tonos de 200 Hz a 1000 Hz y contempla la formación de líneas geométricas!</string>
+
+    <!-- Day 25: acoustic_resonance_shatter -->
+    <string name="exp_acoustic_resonance_shatter_title">Día 25: Resonancia acústica (rotura de copa de cristal)</string>
+    <string name="exp_acoustic_resonance_shatter_subtitle">Factor Q, amplitud &amp; umbral de fractura</string>
+    <string name="exp_acoustic_resonance_shatter_badge">Día 25 • Bloqueado</string>
+    <string name="exp_acoustic_resonance_shatter_teaser">Sintoniza un tono acústico en la frecuencia resonante exacta de una copa de cristal hasta que el esfuerzo mecánico fracture su borde.</string>
+    <string name="exp_acoustic_resonance_shatter_magic">Un cantante que emite una sola nota pura en el tono exacto hace que una copa de cristal al otro lado de la habitación vibre violentamente y se rompa en pedazos sin ningún contacto físico.</string>
+    <string name="exp_acoustic_resonance_shatter_principle">En resonancia, la frecuencia de excitación acústica coincide con el modo propio natural de la copa. Dado que el cristal posee un factor de calidad (Q) elevado, la energía se acumula con cada ciclo hasta que las tensiones circunferenciales superan la resistencia a la tracción de la sílice.</string>
+    <string name="exp_acoustic_resonance_shatter_formula_title">Factor de calidad de oscilador armónico &amp; resonancia</string>
+    <string name="exp_acoustic_resonance_shatter_how_to">Mójate el dedo índice y frótalo alrededor del borde de una copa de cristal para hacerla cantar con un tono resonante limpio y sostenido.</string>
+
+    <!-- Day 26: doppler_mach_cones -->
+    <string name="exp_doppler_mach_cones_title">Día 26: Efecto Doppler &amp; estampido sónico</string>
+    <string name="exp_doppler_mach_cones_subtitle">Compresión de frentes de onda &amp; conos de Mach</string>
+    <string name="exp_doppler_mach_cones_badge">Día 26 • Bloqueado</string>
+    <string name="exp_doppler_mach_cones_teaser">Acelera una fuente de ondas más allá de Mach 1.0 y observa cómo los frentes de onda circulares comprimidos se fusionan en una onda de choque cónica de estampido sónico.</string>
+    <string name="exp_doppler_mach_cones_magic">Cuando un avión supera la velocidad del sonido, todas las ondas sonoras emitidas se acumulan en un cono de choque sumamente delgado, provocando una atronadora explosión percibida en tierra.</string>
+    <string name="exp_doppler_mach_cones_principle">Las fuentes de ondas en movimiento comprimen las longitudes de onda hacia adelante y las dilatan hacia atrás. A velocidad supersónica (v &gt; c), las esferas de los frentes de onda interfieren constructivamente a lo largo de un cono con semiángulo sin(theta) = 1 / Mach.</string>
+    <string name="exp_doppler_mach_cones_formula_title">Desplazamiento Doppler &amp; ángulo del cono de Mach</string>
+    <string name="exp_doppler_mach_cones_how_to">Escucha la sirena de una ambulancia o la bocina de un tren al pasar a toda velocidad: ¡percibe cómo el tono se vuelve más grave al instante en que pasa frente a ti!</string>
+
+    <!-- Day 27: acoustic_beats -->
+    <string name="exp_acoustic_beats_title">Día 27: Batidos acústicos &amp; interferencia</string>
+    <string name="exp_acoustic_beats_subtitle">Superposición de ondas &amp; modulación de envolvente</string>
+    <string name="exp_acoustic_beats_badge">Día 27 • Bloqueado</string>
+    <string name="exp_acoustic_beats_teaser">Reproduce dos frecuencias separadas por apenas 2 Hz y escucha una oscilación periódica del volumen debida a la superposición de ondas.</string>
+    <string name="exp_acoustic_beats_magic">Reproducir dos tonos puros de 440 Hz y 442 Hz genera un sonido pulsante rítmico claramente perceptible a razón de 2 pulsaciones por segundo.</string>
+    <string name="exp_acoustic_beats_principle">Cuando dos ondas con frecuencias f1 y f2 se superponen, la identidad trigonométrica cos(a) + cos(b) = 2 cos((a-b)/2) cos((a+b)/2) da lugar a una frecuencia portadora con una envolvente de amplitud que oscila lentamente a la frecuencia de batido f_beat = |f1 - f2|.</string>
+    <string name="exp_acoustic_beats_formula_title">Envolvente de frecuencia de batido acústico</string>
+    <string name="exp_acoustic_beats_how_to">Tararea una nota sostenida mientras haces sonar una cuerda de guitarra ligeramente desafinada con respecto a tu voz: ¡escucha las pulsaciones rítmicas del batido!</string>
+
+    <!-- Day 28: tacoma_flutter -->
+    <string name="exp_tacoma_flutter_title">Día 28: Flameo aeroelástico de Tacoma Narrows</string>
+    <string name="exp_tacoma_flutter_subtitle">Resonancia de vórtices torsionales autoexcitada</string>
+    <string name="exp_tacoma_flutter_badge">Día 28 • Bloqueado</string>
+    <string name="exp_tacoma_flutter_teaser">Expón un puente colgante a vientos cruzados de 40 mph y observa cómo el flameo aeroelástico amplifica las vibraciones por torsión hasta la falla estructural total.</string>
+    <string name="exp_tacoma_flutter_magic">Un colosal puente de acero y hormigón se retorció como una cinta con una brisa moderada y se destruyó por completo en 1940.</string>
+    <string name="exp_tacoma_flutter_principle">El flujo del viento se desprendió alrededor del tablero con perfil en H, generando un desprendimiento periódico alternado de vórtices. Al alterar la torsión del tablero los ángulos aerodinámicos, las fuerzas aerodinámicas suministraron energía mecánica a la oscilación, desatando un catastrófico flameo aeroelástico.</string>
+    <string name="exp_tacoma_flutter_formula_title">Ecuaciones de movimiento del flameo torsional aeroelástico</string>
+    <string name="exp_tacoma_flutter_how_to">Sostén una tira de papel suavemente entre dos dedos y sopla aire por encima: ¡observa cómo vibra frenéticamente en un flameo autoexcitado!</string>
+
+<!-- Day 29: laser_light_fountain -->
+    <string name="exp_laser_light_fountain_title">Día 29: Reflexión Interna Total (Fuente Láser)</string>
+    <string name="exp_laser_light_fountain_subtitle">Ángulo Crítico &amp; Guías de Luz Ópticas</string>
+    <string name="exp_laser_light_fountain_badge">Día 29 • Bloqueado</string>
+    <string name="exp_laser_light_fountain_teaser">Curva haces de luz láser dentro de un chorro de agua en arco sin que escapen.</string>
+    <string name="exp_laser_light_fountain_magic">La luz viaja en línea recta; sin embargo, ¡apuntar un láser a un chorro de agua en arco curva la luz siguiendo el chorro de agua que cae!</string>
+    <string name="exp_laser_light_fountain_principle">Cuando la luz dentro del agua incide en el límite con el aire en un ángulo mayor que el ángulo crítico theta_c = 48.8°, el 100% de la luz experimenta reflexión interna total.</string>
+    <string name="exp_laser_light_fountain_formula_title">Ley de Snell para el Ángulo Crítico</string>
+    <string name="exp_laser_light_fountain_how_to">¡Perfora un orificio cerca del fondo de una botella de agua y apunta un láser desde el otro lado hacia el chorro que se drena en una habitación a oscuras!</string>
+
+    <!-- Day 30: thin_film_interference -->
+    <string name="exp_thin_film_interference_title">Día 30: Interferencia en Películas Delgadas (Pompas de Jabón)</string>
+    <string name="exp_thin_film_interference_subtitle">Inversión de Fase &amp; Interferencia por Camino Óptico</string>
+    <string name="exp_thin_film_interference_badge">Día 30 • Bloqueado</string>
+    <string name="exp_thin_film_interference_teaser">Ajusta el grosor nanométrico de una película de jabón y observa cómo aparecen brillantes tonos iridiscentes del arcoíris.</string>
+    <string name="exp_thin_film_interference_magic">Una pompa de jabón completamente transparente desarrolla remolinos de vibrantes colores del arcoíris sin una sola gota de pigmento o tinte.</string>
+    <string name="exp_thin_film_interference_principle">La luz que se refleja en las superficies exterior e interior de la pompa interfiere de forma constructiva o destructiva según el espesor de la película y la longitud de onda.</string>
+    <string name="exp_thin_film_interference_formula_title">Interferencia Constructiva en Películas Delgadas</string>
+    <string name="exp_thin_film_interference_how_to">¡Sumerge un aro de alambre en agua jabonosa y observa las franjas de arcoíris a medida que la gravedad adelgaza la parte superior!</string>
+
+    <!-- Day 31: youngs_double_slit -->
+    <string name="exp_youngs_double_slit_title">Día 31: Experimento de la Doble Rendija de Young</string>
+    <string name="exp_youngs_double_slit_subtitle">Dualidad Onda-Partícula &amp; Franjas de Interferencia</string>
+    <string name="exp_youngs_double_slit_badge">Día 31 • Bloqueado</string>
+    <string name="exp_youngs_double_slit_teaser">Haz pasar luz láser coherente a través de dos rendijas submilimétricas para producir franjas alternadas brillantes y oscuras.</string>
+    <string name="exp_youngs_double_slit_magic">Disparar un único haz de luz a través de dos rendijas produce un patrón de múltiples puntos brillantes en la pared en lugar de solo dos líneas.</string>
+    <string name="exp_youngs_double_slit_principle">Las ondas circulares difractadas de ambas rendijas se superponen constructivamente en trayectorias que difieren en longitudes de onda enteras (d sin theta = m lambda) y destructivamente en semilongitudes de onda.</string>
+    <string name="exp_youngs_double_slit_formula_title">Condición de Interferencia de Rendija de Young</string>
+    <string name="exp_youngs_double_slit_how_to">¡Apunta un puntero láser rojo a través de la estrecha separación entre los filos de dos hojas de afeitar unidas firmemente con cinta en una habitación oscura!</string>
+
+    <!-- Day 32: prism_dispersion -->
+    <string name="exp_prism_dispersion_title">Día 32: Dispersión en Prismas &amp; Arcoíris de Newton</string>
+    <string name="exp_prism_dispersion_subtitle">Refracción Dependiente de la Longitud de Onda (Dispersión Cromática)</string>
+    <string name="exp_prism_dispersion_badge">Día 32 • Bloqueado</string>
+    <string name="exp_prism_dispersion_teaser">Descompón la luz blanca pura en el espectro del arcoíris mediante un prisma de vidrio equilátero.</string>
+    <string name="exp_prism_dispersion_magic">Un bloque triangular de vidrio transparente transforma la luz solar blanca ordinaria en siete brillantes colores del arcoíris.</string>
+    <string name="exp_prism_dispersion_principle">El vidrio presenta un índice de refracción mayor para la luz violeta de onda corta (n = 1.53) que para la luz roja de onda larga (n = 1.51), refractando la luz violeta más pronunciadamente.</string>
+    <string name="exp_prism_dispersion_formula_title">Ecuación de Dispersión de Cauchy</string>
+    <string name="exp_prism_dispersion_how_to">¡Haz pasar la luz de una linterna a través de un vaso de vidrio transparente con agua hacia una hoja de papel blanco bajo la luz solar!</string>
+
+    <!-- Day 33: polarization_3_filter -->
+    <string name="exp_polarization_3_filter_title">Día 33: Polarización &amp; La Paradoja de los 3 Filtros</string>
+    <string name="exp_polarization_3_filter_subtitle">Ley de Malus &amp; Proyecciones de Campos Vectoriales</string>
+    <string name="exp_polarization_3_filter_badge">Día 33 • Bloqueado</string>
+    <string name="exp_polarization_3_filter_teaser">Cruza dos láminas polarizadoras a 90° para bloquear el 100% de la luz; ¡inserta un filtro a 45° entre ellas y observa cómo reaparece la luz!</string>
+    <string name="exp_polarization_3_filter_magic">Bloquear toda la luz con dos filtros cruzados se puede revertir colocando un tercer filtro intermedio: ¡añadir un obstáculo permite el paso de la luz!</string>
+    <string name="exp_polarization_3_filter_principle">La luz es una onda electromagnética transversal. El primer filtro transmite el campo E vertical. El filtro intermedio a 45° proyecta una componente diagonal, ¡que ahora posee una proyección horizontal no nula a través del tercer filtro!</string>
+    <string name="exp_polarization_3_filter_formula_title">Ley de Intensidad de Malus</string>
+    <string name="exp_polarization_3_filter_how_to">¡Sostén dos lentes de sol polarizadas cruzadas a 90° (oscuridad total) y luego desliza una tercera lente polarizada en ángulo entre ambas!</string>
+
+    <!-- Day 34: diffraction_grating -->
+    <string name="exp_diffraction_grating_title">Día 34: Espectrómetro de Red de Difracción</string>
+    <string name="exp_diffraction_grating_subtitle">Dispersión Angular Multirrendija &amp; Líneas de Emisión Atómica</string>
+    <string name="exp_diffraction_grating_badge">Día 34 • Bloqueado</string>
+    <string name="exp_diffraction_grating_teaser">Distingue líneas de emisión espectral elemental utilizando una red de difracción de precisión de 1.000 líneas/mm.</string>
+    <string name="exp_diffraction_grating_magic">Observar una bombilla fluorescente a través de un CD descompone la luz en discretas líneas de colores brillantes y definidas en lugar de un arcoíris continuo.</string>
+    <string name="exp_diffraction_grating_principle">La interferencia constructiva a través de miles de ranuras periódicas y paralelas en la red genera picos angulares extraordinariamente nítidos para cada longitud de onda atómica característica.</string>
+    <string name="exp_diffraction_grating_formula_title">Ecuación de la Red de Difracción</string>
+    <string name="exp_diffraction_grating_how_to">¡Refleja la luz de una linterna en la superficie estriada de un disco CD o DVD para observar nítidas líneas de emisión espectral!</string>
+
+    <!-- Day 35: atmospheric_mirage -->
+    <string name="exp_atmospheric_mirage_title">Día 35: Espejismo Atmosférico &amp; Rayos Curvos</string>
+    <string name="exp_atmospheric_mirage_subtitle">Gradientes Continuos de Índice de Refracción en Aire Caliente</string>
+    <string name="exp_atmospheric_mirage_badge">Día 35 • Bloqueado</string>
+    <string name="exp_atmospheric_mirage_teaser">Simula los espejismos de autopista en el desierto donde aparecen charcos de agua brillantes sobre el asfalto ardiente.</string>
+    <string name="exp_atmospheric_mirage_magic">Una carretera ardiente en el desierto parece cubierta de charcos de agua reflectantes, pero está completamente seca.</string>
+    <string name="exp_atmospheric_mirage_principle">El aire intensamente calentado justo sobre el asfalto posee menor densidad y menor índice de refracción. Los rayos de luz procedentes del cielo se curvan hacia arriba hacia los ojos del conductor, simulando el reflejo en el agua.</string>
+    <string name="exp_atmospheric_mirage_formula_title">Principio de Tiempo Mínimo de Fermat</string>
+    <string name="exp_atmospheric_mirage_how_to">¡Mira al ras de la superficie de una bandeja metálica colocada en un horno caliente: observa la línea del horizonte trémula y distorsionada!</string>
+
+    <!-- Day 36: magnus_effect -->
+    <string name="exp_magnus_effect_title">Día 36: El Efecto Magnus (Balones Curvados)</string>
+    <string name="exp_magnus_effect_subtitle">Flujo de Aire Asimétrico en la Capa Límite &amp; Sustentación</string>
+    <string name="exp_magnus_effect_badge">Día 36 • Bloqueado</string>
+    <string name="exp_magnus_effect_teaser">Haz girar un balón de fútbol y observa cómo la capa límite en rotación desvía el flujo de aire y curva la trayectoria.</string>
+    <string name="exp_magnus_effect_magic">Un futbolista patea un balón en línea recta y, en pleno vuelo, este se curva bruscamente esquivando la barrera defensiva hacia la escuadra.</string>
+    <string name="exp_magnus_effect_principle">Un cilindro rotatorio inmerso en una corriente de aire acelera el aire en un lado (menor presión) y lo retarda en el opuesto (mayor presión), generando una fuerza de sustentación de Magnus perpendicular.</string>
+    <string name="exp_magnus_effect_formula_title">Teorema de Sustentación de Kutta-Joukowski</string>
+    <string name="exp_magnus_effect_how_to">¡Deja caer un vaso ligero de cartón enrollado con una banda elástica imprimiéndole un giro hacia atrás: observa cómo planea hacia adelante y hacia arriba!</string>
+
+    <!-- Day 37: vortex_rings -->
+    <string name="exp_vortex_rings_title">Día 37: Anillos de Vórtice Toroidales</string>
+    <string name="exp_vortex_rings_subtitle">Teorema de Circulación de Kelvin &amp; Núcleos de Vórtice</string>
+    <string name="exp_vortex_rings_badge">Día 37 • Bloqueado</string>
+    <string name="exp_vortex_rings_teaser">Lanza anillos de humo toroidales autoestabilizados que recorren metros por una habitación sin dispersarse.</string>
+    <string name="exp_vortex_rings_magic">Una bocanada de humo expulsada por un orificio circular forma un anillo rotatorio con aspecto de rosquilla que vuela recto como un proyectil sólido.</string>
+    <string name="exp_vortex_rings_principle">El rozamiento viscoso en el perímetro del orificio enrolla el chorro emergente en un toroide con un campo de velocidad circulatorio. Por el teorema de circulación de Kelvin, las líneas de vórtice no viscosas permanecen atrapadas en el fluido.</string>
+    <string name="exp_vortex_rings_formula_title">Conservación de la Circulación de Kelvin</string>
+    <string name="exp_vortex_rings_how_to">¡Corta un agujero circular en la base de un vaso de papel, cubre la boca con plástico de cocina, da un golpecito al plástico y apaga una vela a 1 metro de distancia!</string>
+
+    <!-- Day 38: marangoni_propulsion -->
+    <string name="exp_marangoni_propulsion_title">Día 38: Barco de Tensión Superficial de Marangoni</string>
+    <string name="exp_marangoni_propulsion_subtitle">Gradientes de Tensión Superficial &amp; Motor Capilar</string>
+    <string name="exp_marangoni_propulsion_badge">Día 38 • Bloqueado</string>
+    <string name="exp_marangoni_propulsion_teaser">Aplica lavavajillas líquido en la popa de un barquito de papel y observa cómo sale disparado a través del agua.</string>
+    <string name="exp_marangoni_propulsion_magic">Tocar el agua detrás de una figura de papel con un palillo impregnado en jabón la impulsa hacia adelante como una lancha motora.</string>
+    <string name="exp_marangoni_propulsion_principle">El agua posee una tensión superficial elevada (72 mN/m), mientras que el jabón la disminuye (25 mN/m). El gradiente de tensión superficial resultante genera un intenso esfuerzo cortante que arrastra el fluido y el barco hacia adelante.</string>
+    <string name="exp_marangoni_propulsion_formula_title">Esfuerzo Cortante de Marangoni</string>
+    <string name="exp_marangoni_propulsion_how_to">¡Recorta una pequeña silueta de barco en cartulina con una muesca en la parte trasera, colócala en agua y deposita una gota de jabón en la muesca!</string>
+
+    <!-- Day 39: venturi_tube -->
+    <string name="exp_venturi_tube_title">Día 39: Tubo Venturi &amp; Caída de Presión</string>
+    <string name="exp_venturi_tube_subtitle">Continuidad &amp; Variaciones de Presión en Fluidos Incompresibles</string>
+    <string name="exp_venturi_tube_badge">Día 39 • Bloqueado</string>
+    <string name="exp_venturi_tube_teaser">Reduce el diámetro de una tubería y observa cómo la presión estática desciende drásticamente en el cuello estrecho.</string>
+    <string name="exp_venturi_tube_magic">Hacer pasar agua a través de una sección angosta de una tubería provoca que su presión interna caiga abruptamente en vez de aumentar.</string>
+    <string name="exp_venturi_tube_principle">Por la continuidad de la masa A1*v1 = A2*v2, el fluido debe acelerarse en la garganta estrecha. Según la ecuación de Bernoulli, el aumento en la densidad de energía cinética exige una reducción equivalente en la presión estática.</string>
+    <string name="exp_venturi_tube_formula_title">Presión Diferencial de Venturi</string>
+    <string name="exp_venturi_tube_how_to">¡Sopla aire horizontalmente sobre el extremo abierto de una pajita vertical sumergida en un vaso con agua para generar un efecto atomizador!</string>
+
+    <!-- Day 40: hydraulic_press -->
+    <string name="exp_hydraulic_press_title">Día 40: Prensa Hidráulica Multiplicadora de Fuerza</string>
+    <string name="exp_hydraulic_press_subtitle">Ventaja Mecánica Hidráulica de Pascal</string>
+    <string name="exp_hydraulic_press_badge">Día 40 • Bloqueado</string>
+    <string name="exp_hydraulic_press_teaser">Aplica una pequeña fuerza inicial sobre un pistón estrecho y tritura pesados bloques de acero mediante la potencia hidráulica.</string>
+    <string name="exp_hydraulic_press_magic">Un niño presionando el émbolo de una jeringa pequeña puede levantar con facilidad un peso de 50 kg situado sobre una jeringa grande conectada.</string>
+    <string name="exp_hydraulic_press_principle">El principio de Pascal establece que la presión ejercida sobre un fluido confinado se transmite íntegramente en todas direcciones. La igualdad de presiones P1 = P2 implica F2 = F1 * (A2 / A1).</string>
+    <string name="exp_hydraulic_press_formula_title">Multiplicación de Fuerza de Pascal</string>
+    <string name="exp_hydraulic_press_how_to">¡Conecta una jeringa de plástico pequeña a una grande mediante un tubo lleno de agua y comprueba lo fácil que resulta levantar peso sobre la grande!</string>
+
+    <!-- Day 41: capillary_action -->
+    <string name="exp_capillary_action_title">Día 41: Acción Capilar &amp; Ascenso de Menisco</string>
+    <string name="exp_capillary_action_subtitle">Adhesión vs. Cohesión &amp; Ley de Jurin</string>
+    <string name="exp_capillary_action_badge">Día 41 • Bloqueado</string>
+    <string name="exp_capillary_action_teaser">Sumerge tubos capilares de vidrio de diferentes calibres en agua y observa cómo el líquido desafía la gravedad ascendiendo.</string>
+    <string name="exp_capillary_action_magic">El agua trepa espontáneamente por tubos de vidrio estrechos en contra de la fuerza de la gravedad.</string>
+    <string name="exp_capillary_action_principle">Las fuerzas de adhesión entre las moléculas polares de agua y la sílice del vidrio superan las fuerzas de cohesión entre las moléculas de agua. El menisco curvado genera una diferencia de presión de Laplace que impulsa el ascenso del agua.</string>
+    <string name="exp_capillary_action_formula_title">Ley de Jurin para el Ascenso Capilar</string>
+    <string name="exp_capillary_action_how_to">¡Sumerge la punta de una servilleta de papel en agua con colorante: observa cómo el líquido sube verticalmente por las fibras desafiando la gravedad!</string>
+
+    <!-- Day 42: karman_vortex_street -->
+    <string name="exp_karman_vortex_street_title">Día 42: Calle de Vórtices de Kármán</string>
+    <string name="exp_karman_vortex_street_subtitle">Desprendimiento de Estela Laminar a Turbulenta &amp; Número de Strouhal</string>
+    <string name="exp_karman_vortex_street_badge">Día 42 • Bloqueado</string>
+    <string name="exp_karman_vortex_street_teaser">Introduce un cilindro en agua corriente y observa cómo los vórtices alternados se desprenden formando una estela simétrica.</string>
+    <string name="exp_karman_vortex_street_magic">El agua que fluye pasando el pilar de un puente crea una hipnótica serie de remolinos alternados en zigzag.</string>
+    <string name="exp_karman_vortex_street_principle">Para números de Reynolds entre 47 y 10^5, el desprendimiento de la capa límite de las superficies superior e inferior se alterna periódicamente, liberando vórtices contrarrotatorios regulados por el número de Strouhal St.</string>
+    <string name="exp_karman_vortex_street_formula_title">Frecuencia de Desprendimiento de Vórtices de Strouhal</string>
+    <string name="exp_karman_vortex_street_how_to">¡Desplaza despacio un lápiz en un lavabo con agua tranquila bajo una luz cenital para observar la estela de la calle de vórtices!</string>
+
+    <!-- Day 43: ideal_gas_piston -->
+    <string name="exp_ideal_gas_piston_title">Día 43: Pistón de Gas Ideal &amp; Trabajo p-V</string>
+    <string name="exp_ideal_gas_piston_subtitle">Trabajo Termodinámico &amp; Diagrama Indicador p-V</string>
+    <string name="exp_ideal_gas_piston_badge">Día 43 • Bloqueado</string>
+    <string name="exp_ideal_gas_piston_teaser">Comprime partículas de gas con un pistón deslizable y analiza en tiempo real el trabajo p-V y la variación de temperatura.</string>
+    <string name="exp_ideal_gas_piston_magic">Comprimir rápidamente el aire encerrado en un cilindro hace que su temperatura se dispare abrasadoramente sin ninguna fuente de calor externa.</string>
+    <string name="exp_ideal_gas_piston_principle">Al efectuar trabajo mecánico W = integral p dV se comprimen las partículas, aumentando la energía cinética molecular media y la temperatura bajo condiciones adiabáticas.</string>
+    <string name="exp_ideal_gas_piston_formula_title">Primera Ley de la Termodinámica &amp; Ley de los Gases Ideales</string>
+    <string name="exp_ideal_gas_piston_how_to">¡Bombea con rapidez un inflador de mano para bicicleta tapando la boquilla con el pulgar: siente cómo el cilindro metálico se calienta notablemente!</string>
+
+    <!-- Day 44: brownian_motion -->
+    <string name="exp_brownian_motion_title">Día 44: Movimiento Browniano &amp; Paseo Aleatorio</string>
+    <string name="exp_brownian_motion_subtitle">Colisiones Moleculares Térmicas &amp; Relación de Einstein</string>
+    <string name="exp_brownian_motion_badge">Día 44 • Bloqueado</string>
+    <string name="exp_brownian_motion_teaser">Sigue el errático paseo microscópico de granos de polen bombardeados por invisibles moléculas de agua en agitación térmica.</string>
+    <string name="exp_brownian_motion_magic">Granos de polen microscópicos en agua quieta vibran y bailan de manera caótica e ininterrumpida sin detenerse jamás.</string>
+    <string name="exp_brownian_motion_principle">Einstein demostró en 1905 que las fluctuaciones estadísticas en los choques cinéticos térmicos de las moléculas de agua transfieren impulsos aleatorios de cantidad de movimiento, validando la realidad física de los átomos.</string>
+    <string name="exp_brownian_motion_formula_title">Relación de Difusión de Einstein-Smoluchowski</string>
+    <string name="exp_brownian_motion_how_to">¡Haz pasar la luz de un puntero láser a través de leche diluida con agua en una habitación oscura: contempla el tembloroso y errático vaivén de las microgotas de grasa suspendidas!</string>
+
+    <!-- Day 45: leidenfrost_effect -->
+    <string name="exp_leidenfrost_effect_title">Día 45: El Efecto Leidenfrost</string>
+    <string name="exp_leidenfrost_effect_subtitle">Aislamiento Térmico por Cojín de Vapor &amp; Levitación</string>
+    <string name="exp_leidenfrost_effect_badge">Día 45 • Bloqueado</string>
+    <string name="exp_leidenfrost_effect_teaser">Calienta una sartén por encima de 200°C y observa cómo las gotas de agua patinan sin esfuerzo sobre un colchón aislante de vapor.</string>
+    <string name="exp_leidenfrost_effect_magic">En una sartén a 120°C el agua hierve al instante; pero a 220°C levita y se desliza como un disco de hockey de aire durante más de un minuto.</string>
+    <string name="exp_leidenfrost_effect_principle">La vaporización inmediata bajo la gota produce una microcapa de vapor de bajísima conductividad térmica, aislando el volumen restante y garantizando un deslizamiento casi sin rozamiento.</string>
+    <string name="exp_leidenfrost_effect_formula_title">Transferencia Térmica por Cojín de Vapor</string>
+    <string name="exp_leidenfrost_effect_how_to">¡Calienta bien una sartén limpia, salpica unas gotas de agua y observa cómo forman bolitas rodantes que patinan sin fricción!</string>
+
+    <!-- Day 46: stirling_engine -->
+    <string name="exp_stirling_engine_title">Día 46: Motor Térmico de Ciclo Stirling</string>
+    <string name="exp_stirling_engine_subtitle">Combustión Externa Regenerativa de Ciclo Cerrado</string>
+    <string name="exp_stirling_engine_badge">Día 46 • Bloqueado</string>
+    <string name="exp_stirling_engine_teaser">Haz girar un volante interactivo alternando pistones de expansión caliente y compresión fría en un ciclo cerrado de gas.</string>
+    <string name="exp_stirling_engine_magic">Un motor accionado exclusivamente al apoyarse sobre una taza de café caliente hace girar suavemente un volante mecánico durante horas.</string>
+    <string name="exp_stirling_engine_principle">Una masa invariable de gas circula entre focos caliente y frío mediante un regenerador. El calentamiento isocórico y la expansión isotérmica transforman el gradiente térmico en trabajo mecánico útil de rotación.</string>
+    <string name="exp_stirling_engine_formula_title">Rendimiento Térmico del Ciclo Stirling Ideal</string>
+    <string name="exp_stirling_engine_how_to">¡Descubre los modelos de sobremesa de motores Stirling de bajo gradiente de temperatura que funcionan simplemente con el calor de tu mano!</string>
+
+    <!-- Day 47: maxwells_demon -->
+    <string name="exp_maxwells_demon_title">Día 47: El Demonio de Maxwell &amp; Entropía de la Información</string>
+    <string name="exp_maxwells_demon_subtitle">Mecánica Estadística &amp; Principio de Landauer</string>
+    <string name="exp_maxwells_demon_badge">Día 47 • Bloqueado</string>
+    <string name="exp_maxwells_demon_teaser">Simula un guardián microscópico que desvía partículas veloces a la izquierda y lentas a la derecha para generar una diferencia de temperatura.</string>
+    <string name="exp_maxwells_demon_magic">¿Podría una criatura inteligente microscópica ordenar átomos calientes y fríos sin consumir trabajo, vulnerando la Segunda Ley de la Termodinámica?</string>
+    <string name="exp_maxwells_demon_principle">Szilard y Landauer demostraron que el demonio está obligado a medir, registrar y forzosamente borrar la información de cada partícula. Borrar 1 bit de entropía disipa al menos k_B T ln(2) de energía térmica.</string>
+    <string name="exp_maxwells_demon_formula_title">Límite Termodinámico de Borrado de Landauer</string>
+    <string name="exp_maxwells_demon_how_to">¡Explora cómo los chips de memoria de ordenadores modernos disipan calor de forma inevitable debido al límite termodinámico de borrado de Landauer!</string>
+
+    <!-- Day 48: fourier_heat_conduction -->
+    <string name="exp_fourier_heat_conduction_title">Día 48: Conducción Térmica de Fourier en Sólidos</string>
+    <string name="exp_fourier_heat_conduction_subtitle">Conductividad Térmica &amp; Gradientes de Temperatura</string>
+    <string name="exp_fourier_heat_conduction_badge">Día 48 • Bloqueado</string>
+    <string name="exp_fourier_heat_conduction_teaser">Aplica un soplete a un extremo de una barra compuesta y observa la difusión del calor a través del cobre, acero y madera.</string>
+    <string name="exp_fourier_heat_conduction_magic">Sostener una cuchara de madera en sopa hirviendo no quema, pero una cuchara de plata te abrasa los dedos en 5 segundos.</string>
+    <string name="exp_fourier_heat_conduction_principle">El flujo de calor q es proporcional al gradiente térmico negativo. Los metales poseen una elevada conductividad térmica k gracias al transporte de electrones libres de valencia, mientras que los aislantes dependen de lentas oscilaciones fonónicas.</string>
+    <string name="exp_fourier_heat_conduction_formula_title">Ley de Fourier de la Conducción Térmica</string>
+    <string name="exp_fourier_heat_conduction_how_to">¡Coloca un cubito de hielo sobre una sartén de aluminio y otro en una tabla de cortar de plástico: ¡la sartén derrite el hielo 10 veces más rápido gracias a su conductividad térmica!</string>
+
+    <!-- Day 49: blackbody_radiation -->
+    <string name="exp_blackbody_radiation_title">Día 49: Radiación de Cuerpo Negro &amp; Curvas de Planck</string>
+    <string name="exp_blackbody_radiation_subtitle">Espectros de Emisión Térmica &amp; Ley de Desplazamiento de Wien</string>
+    <string name="exp_blackbody_radiation_badge">Día 49 • Bloqueado</string>
+    <string name="exp_blackbody_radiation_teaser">Eleva la temperatura de una cavidad ideal de cuerpo negro de 1.000 K a 10.000 K y observa el desplazamiento del pico espectral desde el infrarrojo al azul.</string>
+    <string name="exp_blackbody_radiation_magic">Al calentar un atizador de hierro pasa de un rojo tenue a rojo cereza, después a amarillo brillante y finalmente a un blanco incandescente deslumbrante.</string>
+    <string name="exp_blackbody_radiation_principle">Planck resolvió la catástrofe ultravioleta postulando la cuantización de las energías de osciladores armónicos (E = nhf). La ley de Wien demuestra que la longitud de onda de máxima emisión resulta inversamente proporcional a la temperatura absoluta.</string>
+    <string name="exp_blackbody_radiation_formula_title">Ley de Planck &amp; Ley de Desplazamiento de Wien</string>
+    <string name="exp_blackbody_radiation_how_to">¡Atenúa con un reóstato una bombilla incandescente: fíjate cómo el color del filamento muta de blanco amarillento a rojo anaranjado intenso conforme se enfría!</string>
+
+    <!-- Day 50: eddy_current_braking -->
+    <string name="exp_eddy_current_braking_title">Día 50: Frenado Magnético por Corrientes de Foucault</string>
+    <string name="exp_eddy_current_braking_subtitle">Ley de Lenz &amp; Contrafuerza Electromotriz Inducida</string>
+    <string name="exp_eddy_current_braking_badge">Día 50 • Bloqueado</string>
+    <string name="exp_eddy_current_braking_teaser">Deja caer un imán de neodimio por el interior de un tubo de cobre grueso y observa cómo cae en una asombrosa cámara lenta casi antigravitatoria.</string>
+    <string name="exp_eddy_current_braking_magic">El cobre no es magnético, pero soltar un imán en su interior hace que caiga a paso de tortuga, burlando la caída libre ordinaria.</string>
+    <string name="exp_eddy_current_braking_principle">Los campos magnéticos móviles inducen bucles circulares de corrientes parásitas (de Foucault) en el cobre conductor. Por la Ley de Lenz, estas corrientes generan un campo magnético de oposición que origina una fuerza de frenado ascendente.</string>
+    <string name="exp_eddy_current_braking_formula_title">Ley de Faraday-Lenz &amp; Arrastre Magnético</string>
+    <string name="exp_eddy_current_braking_how_to">¡Desliza un imán potente de neodimio por una bandeja inclinada de aluminio: compáralo con deslizar un taco de plástico!</string>
+
+    <!-- Day 51: homopolar_motor -->
+    <string name="exp_homopolar_motor_title">Día 51: Motor Eléctrico Homopolar</string>
+    <string name="exp_homopolar_motor_subtitle">Fuerza de Lorentz &amp; Par de Torsión por Corriente Radial</string>
+    <string name="exp_homopolar_motor_badge">Día 51 • Bloqueado</string>
+    <string name="exp_homopolar_motor_teaser">Apoya un cable de cobre sobre una pila AA provista de un imán de neodimio en su base y contempla cómo el cable gira a gran velocidad.</string>
+    <string name="exp_homopolar_motor_magic">Una batería común, un imán y un hilo de cobre doblado dan vida a un motor de giro veloz sin un solo engranaje ni escobillas.</string>
+    <string name="exp_homopolar_motor_principle">La corriente desciende verticalmente por el alambre y se expande radialmente cruzando las líneas de campo magnético. La fuerza de Lorentz resultante F = I L x B produce un par de torsión continuo que sustenta la rotación.</string>
+    <string name="exp_homopolar_motor_formula_title">Torque por Fuerza de Lorentz</string>
+    <string name="exp_homopolar_motor_how_to">¡Fija un imán de neodimio al polo negativo de una pila AA, dobla un hilo de cobre en forma de corazón y apóyalo encima equilibrado!</string>
+
+    <!-- Day 52: lorentz_cyclotron -->
+    <string name="exp_lorentz_cyclotron_title">Día 52: Órbita de Ciclotrón por Fuerza de Lorentz</string>
+    <string name="exp_lorentz_cyclotron_subtitle">Dinámica de Partículas Cargadas en Campos Magnéticos</string>
+    <string name="exp_lorentz_cyclotron_badge">Día 52 • Bloqueado</string>
+    <string name="exp_lorentz_cyclotron_teaser">Lanza protones y electrones perpendicularmente en un campo B y observa cómo se curvan en órbitas circulares de ciclotrón.</string>
+    <string name="exp_lorentz_cyclotron_magic">Proyectar partículas cargadas en una región impregnada por un campo magnético las obliga a describir círculos geométricamente perfectos.</string>
+    <string name="exp_lorentz_cyclotron_principle">La fuerza magnética actúa siempre ortogonal a la velocidad sin realizar trabajo, proporcionando una aceleración centrípeta pura q v B = m v^2 / r que define el radio de ciclotrón r = mv / qB.</string>
+    <string name="exp_lorentz_cyclotron_formula_title">Radio &amp; Frecuencia de Ciclotrón</string>
+    <string name="exp_lorentz_cyclotron_how_to">¡Investiga de qué forma los ciclotrones médicos aceleran protones para generar radiofármacos esenciales contra el cáncer!</string>
+
+    <!-- Day 53: electromagnetic_solenoid -->
+    <string name="exp_electromagnetic_solenoid_title">Día 53: Solenoide Electromagnético</string>
+    <string name="exp_electromagnetic_solenoid_subtitle">Ley de Ampère &amp; Permeabilidad del Núcleo</string>
+    <string name="exp_electromagnetic_solenoid_badge">Día 53 • Bloqueado</string>
+    <string name="exp_electromagnetic_solenoid_teaser">Devana hilo de cobre en torno a un núcleo ferroso y observa cómo las líneas de flujo magnético arrastran piezas metálicas a su interior.</string>
+    <string name="exp_electromagnetic_solenoid_magic">Hacer pasar electricidad por una bobina cilíndrica engendra un electroimán capaz de izar chatarra pesada en un desguace.</string>
+    <string name="exp_electromagnetic_solenoid_principle">La corriente circulando por N espiras densifica el flujo magnético en el interior del núcleo: B = mu * (N/L) * I. Insertar un núcleo ferromagnético amplifica la intensidad de campo según su permeabilidad mu_r ~ 5000.</string>
+    <string name="exp_electromagnetic_solenoid_formula_title">Ley de Ampère para el Campo en Solenoides</string>
+    <string name="exp_electromagnetic_solenoid_how_to">¡Enrolla cable de cobre aislado unas 50 vueltas sobre un clavo grande de hierro, conecta sus extremos a una pila de 1.5 V y levanta clips!</string>
+
+    <!-- Day 54: tesla_coil -->
+    <string name="exp_tesla_coil_title">Día 54: Bobina de Tesla &amp; Arco de Plasma</string>
+    <string name="exp_tesla_coil_subtitle">Circuitos LC Resonantes Dobles &amp; Ruptura Dieléctrica</string>
+    <string name="exp_tesla_coil_badge">Día 54 • Bloqueado</string>
+    <string name="exp_tesla_coil_teaser">Sintoniza dos circuitos resonantes LC a 250 kHz y dispara arcos chisporroteantes de plasma capaces de iluminar tubos fluorescentes sin contacto.</string>
+    <string name="exp_tesla_coil_magic">Aproximar un tubo fluorescente a una bobina de Tesla basta para que se encienda en el aire sin cables ni conexiones.</string>
+    <string name="exp_tesla_coil_principle">Dos circuitos acoplados sintonizados en idéntica frecuencia de resonancia multiplican el voltaje a cientos de miles de voltios, rebasando la rigidez dieléctrica del aire (3 MV/m) y liberando canales de plasma ramificados.</string>
+    <string name="exp_tesla_coil_formula_title">Sintonización de Frecuencia del Transformador Resonante</string>
+    <string name="exp_tesla_coil_how_to">¡Comprueba cómo las bolas de plasma de sobremesa excitan el gas interno mediante campos eléctricos de alta frecuencia para crear brillantes descargas!</string>
+
+    <!-- Day 55: electromagnetic_railgun -->
+    <string name="exp_electromagnetic_railgun_title">Día 55: Cañón de Riel Electromagnético</string>
+    <string name="exp_electromagnetic_railgun_subtitle">Aceleración Extrema por Fuerza de Lorentz</string>
+    <string name="exp_electromagnetic_railgun_badge">Día 55 • Bloqueado</string>
+    <string name="exp_electromagnetic_railgun_teaser">Descarga pulsos de megaamperios a través de rieles paralelos para catapultar un proyectil móvil a velocidades de Mach 7.</string>
+    <string name="exp_electromagnetic_railgun_magic">Dos rieles conductores y un proyectil deslizante bastan para alcanzar velocidades hipersónicas sin quemar un solo gramo de pólvora.</string>
+    <string name="exp_electromagnetic_railgun_principle">La corriente que transita por un riel, atraviesa la armadura y retorna por el otro riel genera un intensísimo campo magnético concentrado en el hueco intermedio. El proyectil experimenta una colosal fuerza impulsora de Lorentz.</string>
+    <string name="exp_electromagnetic_railgun_formula_title">Fuerza de Propulsión del Cañón de Riel</string>
+    <string name="exp_electromagnetic_railgun_how_to">¡Consulta los prototipos navales de cañón de riel electromagnético capaces de disparar munición cinética a más de 160 km empleando únicamente energía eléctrica!</string>
+
+    <!-- Day 56: faraday_cage -->
+    <string name="exp_faraday_cage_title">Día 56: Blindaje de la Jaula de Faraday</string>
+    <string name="exp_faraday_cage_subtitle">Ley de Gauss Electrostática &amp; Cancelación en Mallas</string>
+    <string name="exp_faraday_cage_badge">Día 56 • Bloqueado</string>
+    <string name="exp_faraday_cage_teaser">Impacta una esfera metálica reticulada con descargas simuladas de un millón de voltios mientras en su interior el campo eléctrico es exactamente nulo.</string>
+    <string name="exp_faraday_cage_magic">Permanecer dentro de un vehículo alcanzado por un rayo te mantiene a salvo sin sufrir ningún daño.</string>
+    <string name="exp_faraday_cage_principle">Los conductores disponen de electrones libres que se distribuyen instantáneamente por su superficie exterior hasta anular por completo el campo electrostático interno (E_interior = 0), protegiendo todo lo que albergan dentro.</string>
+    <string name="exp_faraday_cage_formula_title">Blindaje Electrostático según la Ley de Gauss</string>
+    <string name="exp_faraday_cage_how_to">¡Envuelve por completo tu teléfono móvil en papel de aluminio y prueba a llamarlo desde otro móvil: ¡perderá toda cobertura de red al instante!</string>
+
+<!-- Day 57: double_pendulum -->
+    <string name="exp_double_pendulum_title">Día 57: Caos del Péndulo Doble</string>
+    <string name="exp_double_pendulum_subtitle">Caos Determinista &amp; Exponentes de Lyapunov</string>
+    <string name="exp_double_pendulum_badge">Día 57 • Bloqueado</string>
+    <string name="exp_double_pendulum_teaser">Suelta dos péndulos dobles con una diferencia de 0.001° y observa cómo sus trayectorias divergen en una imprevisibilidad absoluta.</string>
+    <string name="exp_double_pendulum_magic">Un péndulo doble regido únicamente por las leyes deterministas de Newton es completamente impredecible después de 5 segundos.</string>
+    <string name="exp_double_pendulum_principle">Las ecuaciones diferenciales no lineales acopladas poseen exponentes de Lyapunov positivos lambda &gt; 0, lo que significa que las incertidumbres iniciales infinitesimales crecen exponencialmente con el tiempo: delta theta(t) ~ e^(lambda t).</string>
+    <string name="exp_double_pendulum_formula_title">Ecuaciones de Euler-Lagrange Acopladas</string>
+    <string name="exp_double_pendulum_how_to">¡Une dos bolígrafos extremo con extremo con un hilo y dale un toque al superior: nota cómo el bolígrafo inferior gira de manera impredecible!</string>
+
+    <!-- Day 58: lorenz_attractor -->
+    <string name="exp_lorenz_attractor_title">Día 58: El Atractor de Lorenz</string>
+    <string name="exp_lorenz_attractor_subtitle">Convección Atmosférica &amp; el Efecto Mariposa</string>
+    <string name="exp_lorenz_attractor_badge">Día 58 • Bloqueado</string>
+    <string name="exp_lorenz_attractor_teaser">Traza el icónico atractor extraño bilobulado de mariposa descubierto por Edward Lorenz en 1963.</string>
+    <string name="exp_lorenz_attractor_magic">Una ecuación meteorológica simplificada de 3 variables demostró que el aleteo de una mariposa en Brasil puede desatar un tornado en Texas.</string>
+    <string name="exp_lorenz_attractor_principle">Un conjunto de 3 EDO no lineales acopladas que modelan la convección atmosférica produce trayectorias que orbitan dentro de una región acotada de dimensión fraccionaria de Hausdorff (~2.06) sin cruzarse ni repetirse jamás.</string>
+    <string name="exp_lorenz_attractor_formula_title">Ecuaciones Diferenciales de Lorenz</string>
+    <string name="exp_lorenz_attractor_how_to">¡Explora cómo el pronóstico meteorológico está fundamentalmente limitado a 10-14 días debido a la sensibilidad caótica de la dinámica de Lorenz!</string>
+
+    <!-- Day 59: magnetic_chaos_pendulum -->
+    <string name="exp_magnetic_chaos_pendulum_title">Día 59: Péndulo Caótico Magnético</string>
+    <string name="exp_magnetic_chaos_pendulum_subtitle">Fronteras Fractales de Cuencas &amp; Multiestabilidad</string>
+    <string name="exp_magnetic_chaos_pendulum_badge">Día 59 • Bloqueado</string>
+    <string name="exp_magnetic_chaos_pendulum_teaser">Suelta un péndulo de hierro sobre 3 imanes atractores de colores y mapea las intrincadas cuencas fractales de destino.</string>
+    <string name="exp_magnetic_chaos_pendulum_magic">Soltar un péndulo sobre tres imanes crea una intrincada frontera fractal donde mover la posición inicial apenas 1 micrómetro cambia el imán final.</string>
+    <string name="exp_magnetic_chaos_pendulum_principle">La frontera entre las tres cuencas de atracción es un límite fractal con dimensión no entera; cerca de la frontera, cualquier entorno contiene puntos que conducen a los tres imanes.</string>
+    <string name="exp_magnetic_chaos_pendulum_formula_title">Movimiento Newtoniano en Potencial Magnético Multipozo</string>
+    <string name="exp_magnetic_chaos_pendulum_how_to">¡Coloca tres imanes pequeños sobre una mesa formando un triángulo y balancea una bola de acero con un hilo directamente sobre ellos!</string>
+
+    <!-- Day 60: conways_game_of_life -->
+    <string name="exp_conways_game_of_life_title">Día 60: El Juego de la Vida de Conway</string>
+    <string name="exp_conways_game_of_life_subtitle">Autómatas Celulares &amp; Complejidad Emergente</string>
+    <string name="exp_conways_game_of_life_badge">Día 60 • Bloqueado</string>
+    <string name="exp_conways_game_of_life_teaser">Configura patrones iniciales de células y observa cómo emergen planeadores, púlsares y naves espaciales a partir de 4 reglas simples.</string>
+    <string name="exp_conways_game_of_life_magic">A partir de tan solo 4 reglas aritméticas simples de supervivencia y reproducción emergen naves espaciales móviles, cañones autorreplicantes y computadoras universales.</string>
+    <string name="exp_conways_game_of_life_principle">El autómata celular en cuadrícula 2D de John Conway demuestra que reglas locales deterministas simples pueden dar lugar a una emergencia computacional Turing-completa y a una complejidad similar a la biológica.</string>
+    <string name="exp_conways_game_of_life_formula_title">Condiciones de las Reglas de Vida (B3/S23)</string>
+    <string name="exp_conways_game_of_life_how_to">¡Dibuja una línea de 3 células en papel cuadriculado y actualízala: observa cómo oscila indefinidamente como un reloj \'parpadeador\' de período 2!</string>
+
+    <!-- Day 61: metronome_sync -->
+    <string name="exp_metronome_sync_title">Día 61: Autosincronización de Metrónomos</string>
+    <string name="exp_metronome_sync_subtitle">Osciladores Acoplados &amp; Bloqueo de Fase de Kuramoto</string>
+    <string name="exp_metronome_sync_badge">Día 61 • Bloqueado</string>
+    <string name="exp_metronome_sync_teaser">Inicia 5 metrónomos desincronizados sobre una base móvil y observa cómo se acoplan espontáneamente al unísono perfecto.</string>
+    <string name="exp_metronome_sync_magic">Cinco metrónomos desfasados colocados sobre una base con ruedas sincronizan mágicamente sus pulsos en menos de 60 segundos.</string>
+    <string name="exp_metronome_sync_principle">Las pequeñas vibraciones horizontales de la base móvil transmiten impulsos mecánicos entre los péndulos. El mecanismo de sincronización de fase de Kuramoto guía al sistema hacia un estado simétrico en fase de mínima energía.</string>
+    <string name="exp_metronome_sync_formula_title">Ecuación de Acoplamiento de Fase de Kuramoto</string>
+    <string name="exp_metronome_sync_how_to">¡Coloca dos metrónomos de cuerda sobre dos latas vacías de refresco con una regla ligera de madera encima: observa cómo sincronizan sus pulsos!</string>
+
+    <!-- Day 62: sandpile_criticality -->
+    <string name="exp_sandpile_criticality_title">Día 62: Criticidad en Montones de Arena &amp; Avalanchas</string>
+    <string name="exp_sandpile_criticality_subtitle">Criticidad Autoorganizada &amp; Dinámica de Ley de Potencias</string>
+    <string name="exp_sandpile_criticality_badge">Día 62 • Bloqueado</string>
+    <string name="exp_sandpile_criticality_teaser">Deja caer granos individuales de arena sobre una pila y registra la distribución de ley de potencias de avalanchas, desde deslizamientos diminutos hasta megacolapsos.</string>
+    <string name="exp_sandpile_criticality_magic">Dejar caer un único y diminuto grano de arena sobre una pila puede desencadenar un deslizamiento microscópico o un colapso catastrófico de toda la montaña.</string>
+    <string name="exp_sandpile_criticality_principle">Bak, Tang y Wiesenfeld (1987) demostraron que el montón de arena se autoajusta de forma natural a un estado crítico donde la frecuencia de avalanchas sigue una distribución de ley de potencias 1/f P(s) ~ s^(-tau).</string>
+    <string name="exp_sandpile_criticality_formula_title">Distribución de Ley de Potencias de Avalanchas</string>
+    <string name="exp_sandpile_criticality_how_to">¡Vierte sal lentamente a través de un embudo sobre un plato y observa cómo un flujo continuo genera avalanchas erráticas y episódicas!</string>
+
+    <!-- Day 63: mandelbrot_chaos -->
+    <string name="exp_mandelbrot_chaos_title">Día 63: Conjuntos de Mandelbrot &amp; Julia</string>
+    <string name="exp_mandelbrot_chaos_subtitle">Iteración de Números Complejos &amp; Autosimilaridad Fractal Infinita</string>
+    <string name="exp_mandelbrot_chaos_badge">Día 63 • Bloqueado</string>
+    <string name="exp_mandelbrot_chaos_teaser">Haz zoom en la frontera de z_(n+1) = z_n^2 + c para descubrir copias infinitas e intrincadas del universo.</string>
+    <string name="exp_mandelbrot_chaos_magic">Una simple ecuación matemática más corta que un tuit contiene una complejidad geométrica infinita e inagotable.</string>
+    <string name="exp_mandelbrot_chaos_principle">El conjunto de Mandelbrot está formado por todos los parámetros complejos c para los cuales la órbita que inicia en z=0 permanece acotada bajo z -&gt; z^2 + c. Su frontera posee dimensión de Hausdorff 2 e infinita autosimilaridad.</string>
+    <string name="exp_mandelbrot_chaos_formula_title">Fórmula de Iteración de Mandelbrot</string>
+    <string name="exp_mandelbrot_chaos_how_to">¡Haz zoom en el conjunto de Mandelbrot en línea para ver mini-Mandelbrots repitiéndose con infinitas variaciones a cualquier escala!</string>
+
+    <!-- Day 64: time_dilation -->
+    <string name="exp_time_dilation_title">Día 64: Dilatación Temporal Relativista</string>
+    <string name="exp_time_dilation_subtitle">Reloj de Luz Fotónico &amp; Factor de Lorentz</string>
+    <string name="exp_time_dilation_badge">Día 64 • Bloqueado</string>
+    <string name="exp_time_dilation_teaser">Pilota una nave espacial a 0.99c y observa cómo su reloj de fotones vertical se alarga en una trayectoria diagonal, ralentizando el tiempo.</string>
+    <string name="exp_time_dilation_magic">Moverse rápido literalmente ralentiza el paso del tiempo. Si viajas al 99% de la velocidad de la luz, envejeces 1 año mientras que la Tierra envejece 7 años.</string>
+    <string name="exp_time_dilation_principle">Debido a que la velocidad de la luz c es invariante en todos los marcos de referencia, la trayectoria diagonal del fotón en un reloj en movimiento es más larga, forzando a que la tasa de tictac disminuya por el factor de Lorentz gamma.</string>
+    <string name="exp_time_dilation_formula_title">Dilatación Temporal en Relatividad Especial</string>
+    <string name="exp_time_dilation_how_to">¡Los satélites GPS que viajan a 14 000 km/h deben calibrar diariamente sus relojes atómicos internos debido a la dilatación temporal relativista!</string>
+
+    <!-- Day 65: length_contraction -->
+    <string name="exp_length_contraction_title">Día 65: Contracción de Longitud de Lorentz</string>
+    <string name="exp_length_contraction_subtitle">Contracción Espacial &amp; Supervivencia de Muones Atmosféricos</string>
+    <string name="exp_length_contraction_badge">Día 65 • Bloqueado</string>
+    <string name="exp_length_contraction_teaser">Observa cómo un tren relativista a gran velocidad se contrae en longitud, explicando cómo los muones atmosféricos sobreviven para alcanzar la superficie terrestre.</string>
+    <string name="exp_length_contraction_magic">Los muones subatómicos creados en la atmósfera superior decaen en 2 microsegundos, ¡pero alcanzan el suelo porque toda la atmósfera se contrae para ellos!</string>
+    <string name="exp_length_contraction_principle">En el marco del objeto en movimiento, las distancias paralelas al movimiento se contraen por 1/gamma. El espacio y el tiempo se fusionan bajo la transformación de Lorentz.</string>
+    <string name="exp_length_contraction_formula_title">Fórmula de Contracción de Longitud de Lorentz</string>
+    <string name="exp_length_contraction_how_to">¡Investiga los muones de rayos cósmicos: sin la contracción relativista de longitud, menos del 0.0001% podría llegar al nivel del mar!</string>
+
+    <!-- Day 66: gravitational_time_dilation -->
+    <string name="exp_gravitational_time_dilation_title">Día 66: Dilatación Temporal Gravitatoria</string>
+    <string name="exp_gravitational_time_dilation_subtitle">Potencial en Relatividad General &amp; Envejecimiento Interestelar</string>
+    <string name="exp_gravitational_time_dilation_badge">Día 66 • Bloqueado</string>
+    <string name="exp_gravitational_time_dilation_teaser">Coloca relojes atómicos cerca de un agujero negro supermasivo y observa cómo el tiempo corre drásticamente más lento que en el espacio profundo.</string>
+    <string name="exp_gravitational_time_dilation_magic">Más cerca de un cuerpo gravitatorio masivo, el tiempo fluye más despacio. Una hora en un planeta cerca de un agujero negro puede equivaler a 7 años en la Tierra.</string>
+    <string name="exp_gravitational_time_dilation_principle">En la relatividad general, los relojes más profundos en un pozo de potencial gravitatorio funcionan más lento de acuerdo con el factor métrico sqrt(1 - 2GM/rc^2).</string>
+    <string name="exp_gravitational_time_dilation_formula_title">Dilatación Temporal Gravitatoria de Schwarzschild</string>
+    <string name="exp_gravitational_time_dilation_how_to">¡Los relojes atómicos en las montañas avanzan ligeramente más rápido que relojes atómicos idénticos a nivel del mar, coincidiendo con precisión con las ecuaciones de Einstein!</string>
+
+    <!-- Day 67: black_hole_lensing -->
+    <string name="exp_black_hole_lensing_title">Día 67: Lente Gravitatoria de Agujero Negro</string>
+    <string name="exp_black_hole_lensing_subtitle">Geodésicas de Schwarzschild &amp; Anillos de Einstein</string>
+    <string name="exp_black_hole_lensing_badge">Día 67 • Bloqueado</string>
+    <string name="exp_black_hole_lensing_teaser">Vuela alrededor de un agujero negro de Schwarzschild y observa cómo las estrellas de fondo se curvan en brillantes anillos de Einstein e imágenes dobles.</string>
+    <string name="exp_black_hole_lensing_magic">Un agujero negro curva los rayos de luz con tanta intensidad que las estrellas detrás de él aparecen como brillantes anillos circulares alrededor de su silueta.</string>
+    <string name="exp_black_hole_lensing_principle">La masa curva el espaciotiempo. Las geodésicas nulas siguen trayectorias curvas con un ángulo de deflexión alpha = 4GM / bc^2. Los rayos que pasan cerca del horizonte de sucesos describen múltiples bucles.</string>
+    <string name="exp_black_hole_lensing_formula_title">Deflexión Gravitatoria de Einstein &amp; Radio de Schwarzschild</string>
+    <string name="exp_black_hole_lensing_how_to">¡Mira una farola brillante a través de la base curva del tallo de una copa de vino para ver un anillo de Einstein simulado!</string>
+
+    <!-- Day 68: photon_sphere_orbit -->
+    <string name="exp_photon_sphere_orbit_title">Día 68: La Órbita de la Esfera de Fotones</string>
+    <string name="exp_photon_sphere_orbit_subtitle">Órbitas Circulares de Luz en r = 1.5 rs</string>
+    <string name="exp_photon_sphere_orbit_badge">Día 68 • Bloqueado</string>
+    <string name="exp_photon_sphere_orbit_teaser">Traza los rayos de luz que entran en la esfera de fotones exactamente a 1.5 radios de Schwarzschild, donde los fotones orbitan en círculos inestables.</string>
+    <string name="exp_photon_sphere_orbit_magic">A exactamente 1.5 veces el radio del agujero negro, la luz orbita en círculos. ¡Si estuvieras allí, podrías ver la parte trasera de tu propia cabeza!</string>
+    <string name="exp_photon_sphere_orbit_principle">En r = 3GM/c^2 = 1.5 r_s, el potencial efectivo para los fotones presenta un máximo inestable donde la velocidad orbital del fotón es igual a c en órbitas circulares.</string>
+    <string name="exp_photon_sphere_orbit_formula_title">Ecuación del Radio de la Esfera de Fotones</string>
+    <string name="exp_photon_sphere_orbit_how_to">¡Estudia la imagen de la sombra de M87* capturada por el Telescopio del Horizonte de Sucesos: el brillante anillo naranja marca la emisión que rodea la esfera de fotones!</string>
+
+    <!-- Day 69: gravitational_redshift -->
+    <string name="exp_gravitational_redshift_title">Día 69: Desplazamiento al Rojo Gravitatorio</string>
+    <string name="exp_gravitational_redshift_subtitle">Pérdida de Energía Fotónica al Escapar de Pozos Gravitatorios</string>
+    <string name="exp_gravitational_redshift_badge">Día 69 • Bloqueado</string>
+    <string name="exp_gravitational_redshift_teaser">Emite fotones verdes de alta frecuencia desde la superficie de una estrella de neutrones y observa cómo se enrojecen al escapar.</string>
+    <string name="exp_gravitational_redshift_magic">Los fotones que escapan de un campo gravitatorio pierden energía y se desplazan hacia longitudes de onda rojas, aunque su velocidad se mantenga en c.</string>
+    <string name="exp_gravitational_redshift_principle">A medida que los fotones escapan desde un radio r hacia el infinito, realizan trabajo gravitatorio, reduciendo su frecuencia cuántica según f_inf = f_0 * sqrt(1 - 2GM/rc^2).</string>
+    <string name="exp_gravitational_redshift_formula_title">Factor de Desplazamiento al Rojo Gravitatorio</string>
+    <string name="exp_gravitational_redshift_how_to">¡Pound y Rebka verificaron el desplazamiento al rojo gravitatorio en una torre de 22 metros en Harvard en 1959 utilizando espectroscopía Mössbauer de rayos gamma!</string>
+
+    <!-- Day 70: kerr_frame_dragging -->
+    <string name="exp_kerr_frame_dragging_title">Día 70: Arrastre del Marco en la Métrica de Kerr</string>
+    <string name="exp_kerr_frame_dragging_subtitle">Agujeros Negros en Rotación &amp; la Ergosfera</string>
+    <string name="exp_kerr_frame_dragging_badge">Día 70 • Bloqueado</string>
+    <string name="exp_kerr_frame_dragging_teaser">Simula un agujero negro de Kerr en rotación que arrastra el propio espaciotiempo en un remolino vertiginoso dentro de la ergosfera.</string>
+    <string name="exp_kerr_frame_dragging_magic">Un agujero negro en rotación arrastra el espaciotiempo vacío a su alrededor con tanta fuerza que nada puede permanecer inmóvil dentro de la ergosfera.</string>
+    <string name="exp_kerr_frame_dragging_principle">La relatividad general predice el efecto Lense-Thirring: una masa en rotación arrastra los marcos inerciales. Fuera del horizonte de sucesos se encuentra una ergosfera donde el límite estático obliga a que toda la materia rote con el agujero.</string>
+    <string name="exp_kerr_frame_dragging_formula_title">Radio de la Ergosfera en la Métrica de Kerr</string>
+    <string name="exp_kerr_frame_dragging_how_to">¡Consulta el proceso de Penrose: un método teórico para extraer energía cinética rotacional de la ergosfera de un agujero negro de Kerr en rotación!</string>
+
+    <!-- Day 71: photoelectric_effect -->
+    <string name="exp_photoelectric_effect_title">Día 71: El Efecto Fotoeléctrico</string>
+    <string name="exp_photoelectric_effect_subtitle">Cuantos de Luz &amp; Umbral de Función de Trabajo</string>
+    <string name="exp_photoelectric_effect_badge">Día 71 • Bloqueado</string>
+    <string name="exp_photoelectric_effect_teaser">Incide luz roja, verde y ultravioleta sobre una placa de potasio metálico y observa la emisión de electrones únicamente por encima de la frecuencia de corte.</string>
+    <string name="exp_photoelectric_effect_magic">Iluminar con luz roja ultrabrillante no desaloja ningún electrón, pero una tenue luz ultravioleta expulsa electrones al instante.</string>
+    <string name="exp_photoelectric_effect_principle">Einstein ganó el Premio Nobel por demostrar que la luz viaja en paquetes cuánticos discretos (fotones) con energía E = hf. Los electrones son expulsados solo si la energía del fotón supera la función de trabajo Phi del metal.</string>
+    <string name="exp_photoelectric_effect_formula_title">Ecuación Fotoeléctrica de Einstein</string>
+    <string name="exp_photoelectric_effect_how_to">¡Los paneles solares y los sensores de cámaras funcionan directamente gracias al efecto fotoeléctrico descubierto por Heinrich Hertz y explicado por Einstein!</string>
+
+    <!-- Day 72: quantum_tunneling -->
+    <string name="exp_quantum_tunneling_title">Día 72: Efecto Túnel Cuántico</string>
+    <string name="exp_quantum_tunneling_subtitle">Penetración de Barrera por Paquetes de Ondas &amp; Decaimiento Exponencial</string>
+    <string name="exp_quantum_tunneling_badge">Día 72 • Bloqueado</string>
+    <string name="exp_quantum_tunneling_teaser">Dispara paquetes de ondas cuánticas de electrones hacia una barrera energética impenetrable y observa partículas atravesando directamente muros sólidos.</string>
+    <string name="exp_quantum_tunneling_magic">Una partícula que no posee suficiente energía para superar una colina puede literalmente desaparecer de un lado y reaparecer en el otro.</string>
+    <string name="exp_quantum_tunneling_principle">En mecánica cuántica, las partículas son funciones de onda complejas Psi(x,t). Al chocar con una barrera V0 &gt; E, la función de onda decae exponencialmente en su interior en lugar de detenerse, dejando una probabilidad no nula en el otro lado.</string>
+    <string name="exp_quantum_tunneling_formula_title">Coeficiente de Transmisión de Barrera WKB</string>
+    <string name="exp_quantum_tunneling_how_to">¡Las unidades SSD de memoria flash de tu portátil almacenan datos digitales transportando electrones por efecto túnel a través de barreras aislantes de óxido de silicio!</string>
+
+    <!-- Day 73: particle_in_box -->
+    <string name="exp_particle_in_box_title">Día 73: Partícula en una Caja 1D</string>
+    <string name="exp_particle_in_box_subtitle">Niveles Cuantizados de Energía &amp; Densidades de Probabilidad</string>
+    <string name="exp_particle_in_box_badge">Día 73 • Bloqueado</string>
+    <string name="exp_particle_in_box_teaser">Confina un electrón dentro de un pozo de potencial infinito y visualiza autovalores discretos de energía y formas de onda estacionaria |Psi|^2.</string>
+    <string name="exp_particle_in_box_magic">Confinar un electrón dentro de una caja diminuta obliga a su energía a dar saltos discretos: ¡tiene prohibido tener velocidades intermedias!</string>
+    <string name="exp_particle_in_box_principle">Las condiciones de frontera obligan a que la función de onda tenga amplitud cero en las paredes, permitiendo únicamente armónicos estacionarios discretos de de Broglie con niveles de energía cuantizados proporcionales a n^2.</string>
+    <string name="exp_particle_in_box_formula_title">Autovalores de Energía en Pozo Infinito</string>
+    <string name="exp_particle_in_box_how_to">¡Las pantallas de puntos cuánticos en televisores QLED modernos producen colores vibrantes y puros ajustando el tamaño físico de las nanopartículas de cajas semiconductoras!</string>
+
+    <!-- Day 74: heisenberg_uncertainty -->
+    <string name="exp_heisenberg_uncertainty_title">Día 74: Principio de Incertidumbre de Heisenberg</string>
+    <string name="exp_heisenberg_uncertainty_subtitle">Paquetes de Ondas Conjugados de Fourier Posición-Momento</string>
+    <string name="exp_heisenberg_uncertainty_badge">Día 74 • Bloqueado</string>
+    <string name="exp_heisenberg_uncertainty_teaser">Comprime el ancho espacial de un paquete de ondas gaussiano y observa cómo la dispersión del momento se dispara hacia una enorme incertidumbre.</string>
+    <string name="exp_heisenberg_uncertainty_magic">Nunca puedes conocer simultáneamente tanto la posición exacta como la velocidad exacta de una partícula subatómica.</string>
+    <string name="exp_heisenberg_uncertainty_principle">La posición y el momento son variables conjugadas por la transformada de Fourier. Al comprimir el ancho espacial Delta x, se amplía matemáticamente el espectro del vector de onda del momento Delta p, imponiendo Delta x * Delta p &gt;= hbar / 2.</string>
+    <string name="exp_heisenberg_uncertainty_formula_title">Relación de Incertidumbre de Heisenberg</string>
+    <string name="exp_heisenberg_uncertainty_how_to">¡Si pudieras medir la posición de un electrón con cero error, su velocidad se volvería instantáneamente indefinida por completo!</string>
+
+    <!-- Day 75: quantum_harmonic_oscillator -->
+    <string name="exp_quantum_harmonic_oscillator_title">Día 75: Oscilador Armónico Cuántico</string>
+    <string name="exp_quantum_harmonic_oscillator_subtitle">Escaleras de Energía Equiespaciadas &amp; Energía del Punto Cero</string>
+    <string name="exp_quantum_harmonic_oscillator_badge">Día 75 • Bloqueado</string>
+    <string name="exp_quantum_harmonic_oscillator_teaser">Haz vibrar una partícula cuántica en un pozo de potencial parabólico y observa polinomios de Hermite y fluctuaciones no nulas del estado fundamental.</string>
+    <string name="exp_quantum_harmonic_oscillator_magic">Incluso en el cero absoluto de temperatura, las partículas cuánticas nunca están del todo quietas: deben vibrar con energía del punto cero.</string>
+    <string name="exp_quantum_harmonic_oscillator_principle">El oscilador armónico cuántico posee peldaños de energía equiespaciados E_n = (n + 1/2) * hbar * omega. Incluso en el estado fundamental n=0, la energía del punto cero E_0 = 1/2 * hbar * omega impide el reposo absoluto.</string>
+    <string name="exp_quantum_harmonic_oscillator_formula_title">Autovalores del Oscilador Cuántico</string>
+    <string name="exp_quantum_harmonic_oscillator_how_to">¡Las fluctuaciones del vacío en el punto cero son responsables de la emisión espontánea de fotones en láseres y del efecto Casimir!</string>
+
+    <!-- Day 76: stern_gerlach -->
+    <string name="exp_stern_gerlach_title">Día 76: Cuantización del Espín de Stern-Gerlach</string>
+    <string name="exp_stern_gerlach_subtitle">Campos Magnéticos Inhomogéneos &amp; Separación Espacial del Espín</string>
+    <string name="exp_stern_gerlach_badge">Día 76 • Bloqueado</string>
+    <string name="exp_stern_gerlach_teaser">Haz pasar átomos neutros de plata a través de un campo magnético inhomogéneo y observa cómo el haz se divide limpiamente en dos trayectorias discretas.</string>
+    <string name="exp_stern_gerlach_magic">Disparar pequeños imanes a través de un campo magnético irregular los separa en dos líneas distintas sin nada intermedio.</string>
+    <string name="exp_stern_gerlach_principle">Otto Stern y Walther Gerlach (1922) descubrieron el momento angular intrínseco de espín S = hbar / 2. A diferencia de los momentos magnéticos clásicos que adoptan cualquier ángulo, el espín cuántico se cuantiza a lo largo del eje de medición como +1/2 o -1/2.</string>
+    <string name="exp_stern_gerlach_formula_title">Fuerza de Interacción Magnética de Espín</string>
+    <string name="exp_stern_gerlach_how_to">¡Las imágenes por resonancia magnética (IRM) en los hospitales se basan en alinear e invertir los espines nucleares cuánticos de los átomos de hidrógeno en el agua!</string>
+
+    <!-- Day 77: quantum_entanglement -->
+    <string name="exp_quantum_entanglement_title">Día 77: Entrelazamiento Cuántico &amp; Pares de Bell</string>
+    <string name="exp_quantum_entanglement_subtitle">Paradoja EPR &amp; Medición de Superposición Cuántica</string>
+    <string name="exp_quantum_entanglement_badge">Día 77 • Bloqueado</string>
+    <string name="exp_quantum_entanglement_teaser">Genera pares de fotones entrelazados en estados de Bell y mide uno para presenciar el colapso instantáneo de la función de onda en el otro.</string>
+    <string name="exp_quantum_entanglement_magic">Medir el espín de una partícula en Tokio determina instantáneamente el espín de su gemela entrelazada al otro lado de la galaxia en Londres.</string>
+    <string name="exp_quantum_entanglement_principle">Los estados entrelazados no se pueden factorizar en estados producto: |Psi&gt; = (|00&gt; + |11&gt;) / sqrt(2). El teorema de Bell y los experimentos de Aspect demostraron que las teorías de variables ocultas locales son falsas, obteniendo el Premio Nobel de Física de 2022.</string>
+    <string name="exp_quantum_entanglement_formula_title">Estado de Bell &amp; Violación de Desigualdades de Bell</string>
+    <string name="exp_quantum_entanglement_how_to">¡La criptografía cuántica y los futuros enlaces satelitales de internet cuántico usan pares de fotones entrelazados para lograr un cifrado impenetrable!</string>
+
+    <!-- Day 78: stellar_fusion -->
+    <string name="exp_stellar_fusion_title">Día 78: Fusión Nuclear Estelar</string>
+    <string name="exp_stellar_fusion_subtitle">Penetración de la Barrera de Coulomb en Estrellas</string>
+    <string name="exp_stellar_fusion_badge">Día 78 • Bloqueado</string>
+    <string name="exp_stellar_fusion_teaser">Haz que los protones de hidrógeno atraviesen por efecto túnel la extrema repulsión electrostática en el núcleo solar para fusionarse en helio.</string>
+    <string name="exp_stellar_fusion_magic">El núcleo del Sol no está lo bastante caliente para fusionar hidrógeno mediante física clásica: ¡arde enteramente porque los protones se cruzan por efecto túnel cuántico!</string>
+    <string name="exp_stellar_fusion_principle">Dos protones cargados positivamente experimentan una intensa repulsión culombiana. A 15 millones de Kelvin, las energías térmicas son de 1 keV, muy inferiores a la barrera de Coulomb de 1,000 keV, pero el efecto túnel cuántico permite la fusión protón-protón.</string>
+    <string name="exp_stellar_fusion_formula_title">Factor de Gamow &amp; Sección Eficaz de Fusión</string>
+    <string name="exp_stellar_fusion_how_to">¡Cada fotón de luz solar que toca tu cara fue forjado mediante efecto túnel cuántico en el núcleo del Sol hace 100 000 años!</string>
+
+    <!-- Day 79: radioactive_decay -->
+    <string name="exp_radioactive_decay_title">Día 79: Desintegración Radiactiva &amp; Vida Media</string>
+    <string name="exp_radioactive_decay_subtitle">Estadística Aleatoria de Poisson &amp; Decaimiento Exponencial</string>
+    <string name="exp_radioactive_decay_badge">Día 79 • Bloqueado</string>
+    <string name="exp_radioactive_decay_teaser">Simula miles de núcleos de isótopos radiactivos inestables desintegrándose al azar según la probabilidad de Poisson.</string>
+    <string name="exp_radioactive_decay_magic">Nunca puedes predecir qué átomo concreto se desintegrará a continuación; sin embargo, una colección de miles de millones de átomos decae con precisión matemática.</string>
+    <string name="exp_radioactive_decay_principle">La desintegración nuclear es un fenómeno cuántico intrínsecamente aleatorio con probabilidad de transición constante lambda por unidad de tiempo. El conjunto sigue la ecuación universal de decaimiento exponencial N(t) = N0 * e^(-lambda t).</string>
+    <string name="exp_radioactive_decay_formula_title">Ley de Decaimiento por Semivida Radiactiva</string>
+    <string name="exp_radioactive_decay_how_to">¡La datación por carbono-14 mide la fracción remanente de isótopos radiactivos para datar momias del antiguo Egipto y fósiles de hasta 50 000 años de antigüedad!</string>
+
+    <!-- Day 80: cherenkov_radiation -->
+    <string name="exp_cherenkov_radiation_title">Día 80: Resplandor de Radiación de Cherenkov</string>
+    <string name="exp_cherenkov_radiation_subtitle">Onda de Choque Óptica en Piscinas de Reactores Nucleares</string>
+    <string name="exp_cherenkov_radiation_badge">Día 80 • Bloqueado</string>
+    <string name="exp_cherenkov_radiation_teaser">Acelera partículas beta por encima de la velocidad local de la luz en el agua (c/1.33) y observa cómo aparece un inquietante resplandor azul de onda de choque.</string>
+    <string name="exp_cherenkov_radiation_magic">Nada puede viajar más rápido que la luz en el vacío, pero en el agua, ¡las partículas pueden superar la barrera de la luz y crear una onda de choque óptica azul!</string>
+    <string name="exp_cherenkov_radiation_principle">En el agua, la velocidad de la luz baja a c/n ~ 225,000 km/s. Los electrones de alta energía procedentes de las barras de combustible nuclear viajan más rápido que la luz en el agua, emitiendo un cono constructivo de onda de choque electromagnética azul.</string>
+    <string name="exp_cherenkov_radiation_formula_title">Ángulo de Onda de Choque de Cherenkov</string>
+    <string name="exp_cherenkov_radiation_how_to">¡Los reactores nucleares de investigación sumergidos brillan con una luz azul eléctrica misteriosa y fascinante producida por la radiación de Cherenkov!</string>
+
+    <!-- Day 81: hubble_expansion -->
+    <string name="exp_hubble_expansion_title">Día 81: Expansión Cósmica de Hubble</string>
+    <string name="exp_hubble_expansion_subtitle">Desplazamiento al Rojo Cosmológico &amp; Métrica Espacial en Expansión</string>
+    <string name="exp_hubble_expansion_badge">Día 81 • Bloqueado</string>
+    <string name="exp_hubble_expansion_teaser">Expande la cuadrícula 2D del universo y observa cómo cada galaxia remota se aleja a una velocidad proporcional a la distancia.</string>
+    <string name="exp_hubble_expansion_magic">Cada galaxia lejana en el universo se aleja a toda prisa de nosotros, no porque se desplace por el espacio, sino porque el espacio mismo se expande.</string>
+    <string name="exp_hubble_expansion_principle">Edwin Hubble descubrió en 1929 que el desplazamiento al rojo espectral es proporcional a la distancia galáctica: v = H0 * d. En la Relatividad General, la métrica de Friedmann-Lemaître-Robertson-Walker expande el factor de escala a(t).</string>
+    <string name="exp_hubble_expansion_formula_title">Ley de Hubble-Lemaître</string>
+    <string name="exp_hubble_expansion_how_to">¡Hornea pan con pasas: a medida que la masa se expande en el horno, cada pasa se aleja de todas las demás!</string>
+
+    <!-- Day 82: dark_matter_rotation -->
+    <string name="exp_dark_matter_rotation_title">Día 82: Curvas de Rotación Galáctica de Materia Oscura</string>
+    <string name="exp_dark_matter_rotation_subtitle">Curvas Planas de Velocidad Galáctica de Vera Rubin</string>
+    <string name="exp_dark_matter_rotation_badge">Día 82 • Bloqueado</string>
+    <string name="exp_dark_matter_rotation_teaser">Compara la caída kepleriana newtoniana frente a las curvas planas de rotación observadas para descubrir halos invisibles de materia oscura.</string>
+    <string name="exp_dark_matter_rotation_magic">Las estrellas del borde exterior de las galaxias orbitan con igual rapidez que las cercanas al centro, desafiando la gravedad de Newton salvo que exista masa invisible a su alrededor.</string>
+    <string name="exp_dark_matter_rotation_principle">Vera Rubin constató que las curvas de velocidad de rotación v(r) de galaxias espirales se mantienen planas a grandes radios en lugar de decrecer como 1/sqrt(r), demostrando que las galaxias están inmersas en gigantescos halos esféricos de materia oscura.</string>
+    <string name="exp_dark_matter_rotation_formula_title">Velocidad de Rotación Kepleriana vs. Materia Oscura</string>
+    <string name="exp_dark_matter_rotation_how_to">¡La materia oscura compone más del 85% de toda la materia del universo, y sin embargo jamás ha emitido ni reflejado un solo fotón de luz!</string>
+
+    <!-- Day 83: gravitational_waves -->
+    <string name="exp_gravitational_waves_title">Día 83: Ondas Gravitacionales (Chirp Binario)</string>
+    <string name="exp_gravitational_waves_subtitle">Interferometría Láser de LIGO &amp; Ondulaciones del Espaciotiempo</string>
+    <string name="exp_gravitational_waves_badge">Día 83 • Bloqueado</string>
+    <string name="exp_gravitational_waves_teaser">Pon en órbita dos agujeros negros en colisión y observa el chirp acelerado de aproximación espiral radiando ondas cuadrupolares en el espaciotiempo.</string>
+    <string name="exp_gravitational_waves_magic">Cuando dos agujeros negros masivos colisionan a mil millones de años luz, emiten ondulaciones a través del tejido del espacio que comprimen la Tierra en menos del ancho de un protón.</string>
+    <string name="exp_gravitational_waves_principle">Los sistemas binarios en colisión espiral pierden energía orbital mediante radiación cuadrupolar gravitatoria. Los interferómetros láser (LIGO) miden la deformación fraccionaria h = delta L / L ~ 10^(-21) usando interferencia láser.</string>
+    <string name="exp_gravitational_waves_formula_title">Amplitud de Deformación de Onda Gravitacional</string>
+    <string name="exp_gravitational_waves_how_to">¡Los detectores láser de LIGO miden variaciones de distancia 10 000 veces más pequeñas que el núcleo de un átomo!</string>
+
+    <!-- Day 84: cosmic_fate -->
+    <string name="exp_cosmic_fate_title">Día 84: El Destino del Universo</string>
+    <string name="exp_cosmic_fate_subtitle">Ecuaciones Cosmológicas de Friedmann &amp; Energía Oscura</string>
+    <string name="exp_cosmic_fate_badge">Día 84 • Bloqueado</string>
+    <string name="exp_cosmic_fate_teaser">Ajusta la densidad de materia Omega_m y la energía oscura Omega_Lambda para simular el Gran Colapso (Big Crunch), la Gran Congelación (Big Freeze) y el Gran Desgarro (Big Rip).</string>
+    <string name="exp_cosmic_fate_magic">¿Colapsará nuestro universo en una ardiente implosión, se congelará en una oscuridad eterna o se desgarrará por completo hasta la escala subatómica?</string>
+    <string name="exp_cosmic_fate_principle">El destino último del espaciotiempo está regido por la ecuación de Friedmann. Con una constante cosmológica de energía oscura Omega_Lambda ~ 0.7, la expansión cósmica se acelera indefinidamente hacia el Big Freeze.</string>
+    <string name="exp_cosmic_fate_formula_title">Ecuación de Aceleración de Friedmann</string>
+    <string name="exp_cosmic_fate_how_to">¡Explora la cronología cósmica: en 100 billones de años, las últimas estrellas se extinguirán, dejando un frío universo repleto de agujeros negros!</string>
+</resources>

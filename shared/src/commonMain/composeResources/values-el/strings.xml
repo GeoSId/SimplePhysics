@@ -1,0 +1,922 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<!-- App Branding -->
+    <string name="app_name">Απλή Φυσική</string>
+    <string name="app_title">ΑΠΛΗ ΦΥΣΙΚΗ</string>
+    <string name="app_subtitle_mobile">Διαδραστικό Εργαστήριο Φυσικής</string>
+    <string name="app_subtitle_wide">Διαδραστικό Εργαστήριο Φυσικής</string>
+    <string name="app_description">Διαδραστικές επιδείξεις πλήρους οθόνης για την εξερεύνηση της μηχανικής, της οπτικής, των ρευστών, της ηλεκτροστατικής και των υλικών με φυσική σε πραγματικό χρόνο.</string>
+    <string name="whiteboard_button_title">🧑‍🏫 Εμψυχωτής Ασπροπίνακα</string>
+
+    <!-- Navigation & Common Actions -->
+    <string name="action_back">Πίσω</string>
+    <string name="action_close">Κλείσιμο</string>
+    <string name="action_science">Επιστήμη</string>
+    <string name="action_explore">ΕΞΕΡΕΥΝΗΣΗ →</string>
+    <string name="action_got_it">Έγινε κατανοητό</string>
+    <string name="action_got_it_back">Κατάλαβα! Πίσω στο Πείραμα</string>
+    <string name="action_reset">Επαναφορά</string>
+    <string name="action_play">Αναπαραγωγή</string>
+    <string name="action_pause">Παύση</string>
+    <string name="action_speed">Ταχύτητα</string>
+    <string name="action_clear">Καθαρισμός</string>
+    <string name="action_change_language">Γλώσσα</string>
+    <string name="dialog_select_language">Επιλογή γλώσσας</string>
+
+    <!-- Categories -->
+    <string name="category_all_title">Και οι 84 Ημέρες</string>
+    <string name="category_all_short">Όλα</string>
+    <string name="category_week1_title">Εβδομάδα 1: Φυσική στο Σπίτι</string>
+    <string name="category_week1_short">Ε1: Σπίτι</string>
+    <string name="category_week2_title">Εβδομάδα 2: Μηχανική &amp; Κρούσεις</string>
+    <string name="category_week2_short">Ε2: Μηχανική</string>
+    <string name="category_week3_title">Εβδομάδα 3: Τροχιές &amp; Βαρύτητα</string>
+    <string name="category_week3_short">Ε3: Βαρύτητα</string>
+    <string name="category_week4_title">Εβδομάδα 4: Κύματα &amp; Ήχος</string>
+    <string name="category_week4_short">Ε4: Κύματα</string>
+    <string name="category_week5_title">Εβδομάδα 5: Οπτική &amp; Φως</string>
+    <string name="category_week5_short">Ε5: Οπτική</string>
+    <string name="category_week6_title">Εβδομάδα 6: Δυναμική των Ρευστών</string>
+    <string name="category_week6_short">Ε6: Ρευστά</string>
+    <string name="category_week7_title">Εβδομάδα 7: Θερμοδυναμική</string>
+    <string name="category_week7_short">Ε7: Θερμοδυναμική</string>
+    <string name="category_week8_title">Εβδομάδα 8: Ηλεκτρομαγνητισμός</string>
+    <string name="category_week8_short">Ε8: ΗΜ &amp; Πεδία</string>
+    <string name="category_week9_title">Εβδομάδα 9: Χάος &amp; Φράκταλ</string>
+    <string name="category_week9_short">Ε9: Χάος</string>
+    <string name="category_week10_title">Εβδομάδα 10: Σχετικότητα &amp; Χωροχρόνος</string>
+    <string name="category_week10_short">Ε10: Σχετικότητα</string>
+    <string name="category_week11_title">Εβδομάδα 11: Κβαντομηχανική</string>
+    <string name="category_week11_short">Ε11: Κβαντική</string>
+    <string name="category_week12_title">Εβδομάδα 12: Κοσμικά Σύνορα</string>
+    <string name="category_week12_short">Ε12: Κοσμικά</string>
+
+    <!-- Dialogs & Status -->
+    <string name="coming_soon_title">Σύντομα Διαθέσιμο</string>
+    <string name="coming_soon_empty_filter">Αυτό το φίλτρο κατηγορίας είναι προς το παρόν κενό.\nΝέα πειράματα θα ξεκλειδώνονται καθημερινά με τη σειρά 30 Ημερών στο YouTube!</string>
+    <string name="coming_soon_dialog_unlocked_soon">🎬 Αυτή η διαδραστική προσομοίωση θα ξεκλειδωθεί στο SimplePhysics αμέσως μετά την κυκλοφορία του βίντεο της Ημέρας %1$d στο YouTube!</string>
+    <string name="coming_soon_theory">Θεωρία: %1$s</string>
+    <string name="experiment_in_dev">🔬 Πείραμα υπό ανάπτυξη\nΕπισκεφθείτε ξανά σύντομα!</string>
+    <string name="badge_day_locked">🔒 Ημέρα %1$d</string>
+    <string name="scientific_principle">🔬 Επιστημονική Αρχή</string>
+    <string name="coming_soon_in_development">🎬 Αυτή η διαδραστική προσομοίωση βρίσκεται υπό ενεργό ανάπτυξη και θα ξεκλειδωθεί σύντομα!</string>
+
+    <!-- Science Dialog Sections -->
+    <string name="dialog_science_revealed">Η ΕΠΙΣΤΗΜΗ ΑΠΟΚΑΛΥΠΤΕΤΑΙ</string>
+    <string name="dialog_section_magic">✨ Η Ψευδαίσθηση (Πώς φαίνεται)</string>
+    <string name="dialog_section_science">🔬 Η Φυσική &amp; η Χημεία πίσω από αυτό</string>
+    <string name="dialog_section_try_home">🏠 Δοκιμάστε το μόνοι σας στο Σπίτι</string>
+
+    <!-- Telemetry & Controls -->
+    <string name="telemetry_live">ΖΩΝΤΑΝΗ ΤΗΛΕΜΕΤΡΙΑ</string>
+    <string name="telemetry_title">📊 %1$s</string>
+    <string name="controls_title">🎛️ ΣΤΟΙΧΕΙΑ ΕΛΕΓΧΟΥ ΠΡΟΣΟΜΟΙΩΣΗΣ</string>
+    <string name="controls_reset">Επαναφορά</string>
+
+    <!-- Whiteboard Studio & Animator -->
+    <string name="whiteboard_studio_title">ΣΤΟΥΝΤΙΟ ΑΣΠΡΟΠΙΝΑΚΑ</string>
+    <string name="whiteboard_default_speech">Γεια σας! Είμαι ο Δρ. Κέλβιν. Πατήστε οποιαδήποτε κίνηση παρακάτω για να με ελέγξετε στον ασπροπίνακα!</string>
+
+    <!-- ========================================== -->
+    <!-- 84 EXPERIMENTS DATA STRINGS              -->
+    <!-- ========================================== -->
+    <!-- Day 1: static_straw -->
+    <string name="exp_static_straw_title">Ημέρα 1: Αιώρηση Καλαμακιού με Στατικό Ηλεκτρισμό</string>
+    <string name="exp_static_straw_subtitle">Ηλεκτροστατική Επαγωγή &amp; Ροπή Διπόλου</string>
+    <string name="exp_static_straw_badge">Ημέρα 1 • Ξεκλείδωτη</string>
+    <string name="exp_static_straw_teaser">Περιστρέψτε και κατευθύνετε ένα ισορροπημένο πλαστικό καλαμάκι στον αέρα χωρίς να το αγγίξετε ποτέ με τα χέρια σας.</string>
+    <string name="exp_static_straw_magic">Ένα πλαστικό καλαμάκι που ισορροπεί στο στόμιο ενός γυάλινου μπουκαλιού περιστρέφεται και ακολουθεί τη φορτισμένη ράβδο σας στον αέρα σαν να κινείται με τηλεκίνηση.</string>
+    <string name="exp_static_straw_principle">Η τριβή μιας πλαστικής ράβδου μεταφέρει ηλεκτρόνια μέσω του τριβοηλεκτρικού φαινομένου, συσσωρεύοντας αρνητικό φορτίο (-Q). Όταν πλησιάζει στο αφόρτιστο καλαμάκι, προκαλεί ηλεκτρική πόλωση: τα ηλεκτρόνια στο καλαμάκι απωθούνται στην απομακρυσμένη πλευρά, αφήνοντας καθαρό θετικό φορτίο στην εγγύς πλευρά. Η προκύπτουσα ηλεκτροστατική έλξη δημιουργεί μια συνισταμένη ροπή (τ = r x F) γύρω από το σημείο ισορροπίας.</string>
+    <string name="exp_static_straw_formula_title">Νόμος του Coulomb &amp; Επαγόμενη Ροπή Διπόλου</string>
+    <string name="exp_static_straw_how_to">Ισορροπήστε ένα ελαφρύ πλαστικό καλαμάκι στο επάνω μέρος ενός γυάλινου μπουκαλιού ή ενός αναποδογυρισμένου ποτηριού. Τρίψτε έντονα ένα άλλο καλαμάκι, έναν πλαστικό χάρακα ή ένα μπαλόνι σε ένα μάλλινο πουλόβερ ή σε στεγνά μαλλιά, και έπειτα πλησιάστε το στην άκρη του ισορροπημένου καλαμακιού.</string>
+
+    <!-- Day 2: citrus_balloon -->
+    <string name="exp_citrus_balloon_title">Ημέρα 2: Φλούδα Εσπεριδοειδούς εναντίον Μπαλονιού</string>
+    <string name="exp_citrus_balloon_subtitle">Διάλυση Πολυμερούς &amp; Έκρηξη υπό Τάση</string>
+    <string name="exp_citrus_balloon_badge">Ημέρα 2 • Κλειδωμένη</string>
+    <string name="exp_citrus_balloon_teaser">Πιέστε μια φλούδα πορτοκαλιού κοντά σε ένα φουσκωμένο μπαλόνι και δείτε το να σκάει ακαριαία χωρίς να το αγγίξετε.</string>
+    <string name="exp_citrus_balloon_magic">Απλώς πιέζοντας μια φρέσκια φλούδα πορτοκαλιού ή λεμονιού λίγα εκατοστά μακριά από ένα μπαλόνι, αυτό σκάει αμέσως με έναν δυνατό κρότο, χωρίς βελόνες ή φλόγες.</string>
+    <string name="exp_citrus_balloon_principle">Η φλούδα των εσπεριδοειδών περιέχει μικροσκοπικούς θύλακες d-λεμονενίου, ενός οργανικού υδρογονανθρακικού ελαίου. Τα μπαλόνια από καουτσούκ λατέξ αποτελούνται από διασταυρωμένες αλυσίδες πολυισοπρενίου υπό εξαιρετικά υψηλή μηχανική εφελκυστική τάση. Σύμφωνα με τον κανόνα της χημείας \'όμοια διαλύουν όμοια\', το μη πολικό λεμονένιο διαλύει ακαριαία τους μη πολικούς πολυμερείς δεσμούς του λατέξ κατά την επαφή, προκαλώντας ταχύτατη καταστροφική διάδοση ρωγμής με την ταχύτητα του ήχου στο καουτσούκ (~50 m/s)!</string>
+    <string name="exp_citrus_balloon_formula_title">Συγκέντρωση Τάσεων &amp; Θραύση</string>
+    <string name="exp_citrus_balloon_how_to">Φουσκώστε ένα μπαλόνι από λατέξ μέχρι να τεντωθεί καλά. Κόψτε ένα κομμάτι φλούδας πορτοκαλιού ή λεμονιού. Κρατήστε τη φλούδα με το εξωτερικό έγχρωμο μέρος στραμμένο προς το μπαλόνι, πιέστε την απότομα για να εκτοξευθεί το εκνέφωμα του ελαίου των εσπεριδοειδών και δείτε το να σκάει!</string>
+
+    <!-- Day 3: pencil_water_bag -->
+    <string name="exp_pencil_water_bag_title">Ημέρα 3: Μολύβι μέσα από Σακούλα Νερού</string>
+    <string name="exp_pencil_water_bag_subtitle">Ελαστικότητα Πολυμερών &amp; Αυτοσφράγιση</string>
+    <string name="exp_pencil_water_bag_badge">Ημέρα 3 • Κλειδωμένη</string>
+    <string name="exp_pencil_water_bag_teaser">Τρυπήστε μια πλαστική σακούλα γεμάτη νερό με κοφτερά μολύβια χωρίς να χυθεί ούτε μία σταγόνα!</string>
+    <string name="exp_pencil_water_bag_magic">Το τρύπημα μιας σακούλας νερού με κοφτερά μολύβια φαίνεται πως θα έπρεπε να εκτοξεύσει νερό παντού, κι όμως δεν στάζει ούτε μια σταγόνα!</string>
+    <string name="exp_pencil_water_bag_principle">Οι πλαστικές σακούλες τροφίμων με φερμουάρ κατασκευάζονται από πολυαιθυλένιο υψηλής (HDPE) ή χαμηλής πυκνότητας (LDPE). Αυτές αποτελούνται από μακριές αλυσίδες επαναλαμβανόμενων μορίων πολυμερούς. Όταν διαπερνώνται από την ομαλή, μυτερή άκρη ενός μολυβιού, οι εύκαμπτες αλυσίδες του πολυμερούς διαχωρίζονται και τεντώνονται σφιχτά γύρω από το στέλεχος του μολυβιού σαν λαστιχάκια, σχηματίζοντας έναν υδατοστεγή προσωρινό δακτύλιο στεγανοποίησης.</string>
+    <string name="exp_pencil_water_bag_formula_title">Υδροστατική Πίεση εναντίον Περιφερειακής Τάσης Πολυμερούς</string>
+    <string name="exp_pencil_water_bag_how_to">Γεμίστε μια καθαρή σακούλα zip-lock κατά τα 3/4 με νερό και σφραγίστε την. Ξύστε 4-6 στρογγυλά μολύβια. Με μια ομαλή, σταθερή κίνηση, περάστε κάθε μολύβι από τη μία πλευρά στην άλλη πάνω από έναν νεροχύτη ή ένα μπολ!</string>
+
+    <!-- Day 4: disappearing_glass -->
+    <string name="exp_disappearing_glass_title">Ημέρα 4: Το Αόρατο Γυαλί</string>
+    <string name="exp_disappearing_glass_subtitle">Ταύτιση Δεικτών Διάθλασης</string>
+    <string name="exp_disappearing_glass_badge">Ημέρα 4 • Ξεκλείδωτη</string>
+    <string name="exp_disappearing_glass_teaser">Βυθίστε έναν γυάλινο σωλήνα σε ένα υγρό και δείτε το περίγραμμά του να εξαφανίζεται εντελώς μπροστά στα μάτια σας.</string>
+    <string name="exp_disappearing_glass_magic">Όταν βυθίζεται σε ένα διαυγές υγρό, ένας πραγματικός συμπαγής γυάλινος σωλήνας εξαφανίζεται εντελώς από το οπτικό πεδίο, σαν να διαλύθηκε στο τίποτα.</string>
+    <string name="exp_disappearing_glass_principle">Βλέπουμε το διαφανές γυαλί επειδή το φως ανακλάται και διαθλάται στη διαχωριστική επιφάνεια μεταξύ του περιβάλλοντος μέσου και του γυαλιού, λόγω της διαφορετικής ταχύτητας του φωτός (δείκτης διάθλασης n). Το βοριοπυριτικό γυαλί Pyrex έχει n ≈ 1,474. Όταν βυθίζεται σε φυτικό λάδι ή γλυκερίνη (που έχει επίσης n ≈ 1,47), το φως ταξιδεύει με την ίδια ακριβώς ταχύτητα και στα δύο. Το φως ούτε κάμπτεται ούτε ανακλάται στη διεπιφάνεια, καθιστώντας το γυαλί 100% αόρατο!</string>
+    <string name="exp_disappearing_glass_formula_title">Νόμος του Snell &amp; Ανάκλαση Fresnel</string>
+    <string name="exp_disappearing_glass_how_to">Πάρτε μια γυάλινη ράβδο ανάδευσης Pyrex ή έναν μικρό δοκιμαστικό σωλήνα Pyrex και τοποθετήστε τον σε ένα ποτήρι με απλό νερό (θα είναι ορατός). Τώρα τοποθετήστε τον σε ένα ποτήρι με διαυγές φυτικό μαγειρικό λάδι ή γλυκερίνη—εξαφανίζεται εντελώς!</string>
+
+    <!-- Day 5: cartesian_diver -->
+    <string name="exp_cartesian_diver_title">Ημέρα 5: Καρτεσιανός Δύτης</string>
+    <string name="exp_cartesian_diver_subtitle">Νόμος του Boyle, Συμπιεστότητα &amp; Άνωση</string>
+    <string name="exp_cartesian_diver_badge">Ημέρα 5 • Κλειδωμένη</string>
+    <string name="exp_cartesian_diver_teaser">Δώστε εντολή σε έναν υποβρύχιο δύτη μέσα σε ένα σφραγισμένο μπουκάλι νερού να καταδυθεί, να αιωρηθεί και να αναδυθεί χρησιμοποιώντας μόνο τα χέρια σας.</string>
+    <string name="exp_cartesian_diver_magic">Πιέζοντας απλώς το εξωτερικό ενός σφραγισμένου πλαστικού μπουκαλιού, ένα αντικείμενο που επιπλέει ήρεμα στην κορυφή καταδύεται ξαφνικά στον πυθμένα κατά βούληση και αναδύεται ξανά μόλις το αφήσετε.</string>
+    <string name="exp_cartesian_diver_principle">Ονομάστηκε έτσι προς τιμήν του Ρενέ Ντεκάρτ (René Descartes). Ο δύτης περιέχει μια παγιδευμένη φυσαλίδα αέρα. Η άσκηση πίεσης στο μπουκάλι μεταδίδει την πίεση εξίσου σε όλο το ρευστό (αρχή του Pascal). Η αυξημένη πίεση συμπιέζει την παγιδευμένη φυσαλίδα αέρα (νόμος του Boyle: P·V = σταθ.), μειώνοντας τον εκτοπιζόμενο όγκο της. Όταν η μέση πυκνότητα υπερβεί εκείνη του νερού, το βάρος υπερνικά την άνωση και ο δύτης βυθίζεται.</string>
+    <string name="exp_cartesian_diver_formula_title">Νόμος του Boyle &amp; Άνωση του Αρχιμήδη</string>
+    <string name="exp_cartesian_diver_how_to">Προσαρμόστε πλαστελίνη στο καπάκι ενός πλαστικού στιλό μέχρι μόλις να επιπλέει όρθιο σε ένα ποτήρι νερό. Τοποθετήστε το μέσα σε ένα μπουκάλι 2L γεμάτο μέχρι πάνω με νερό, κλείστε καλά το καπάκι και πιέστε!</string>
+
+    <!-- Day 6: oobleck -->
+    <string name="exp_oobleck_title">Ημέρα 6: Μη Νευτωνικό Oobleck</string>
+    <string name="exp_oobleck_subtitle">Ρευστό Πυκνούμενο υπό Διάτμηση &amp; Διασταλτικότητα</string>
+    <string name="exp_oobleck_badge">Ημέρα 6 • Κλειδωμένη</string>
+    <string name="exp_oobleck_teaser">Ένα υγρό πάνω στο οποίο μπορείτε να τρέξετε, αλλά θα καταπιεί το πόδι σας αν σταθείτε ακίνητοι για ένα δευτερόλεπτο.</string>
+    <string name="exp_oobleck_magic">Όταν χτυπηθεί δυνατά με ένα σφυρί ή δεχτεί μια γρήγορη γροθιά, αυτό το παράξενο λευκό υγρό συμπεριφέρεται σαν συμπαγής θωράκιση· αλλά αν χαλαρώσετε το χέρι σας, ρέει σαν νερό ανάμεσα στα δάχτυλά σας.</string>
+    <string name="exp_oobleck_principle">Ένα αιώρημα νισεστέ (κορν φλάουρ) σε νερό είναι ένα διασταλτικό (πυκνούμενο υπό διάτμηση) μη νευτωνικό ρευστό. Υπό χαμηλούς ρυθμούς διάτμησης, το νερό λιπαίνει τους κόκκους του αμύλου. Υπό απότομη υψηλή διατμητική τάση, το λιπαντικό νερό εκδιώκεται ανάμεσα από τα σωματίδια, προκαλώντας τριβή και μηχανική εμπλοκή σε ένα προσωρινό στερεό πλέγμα.</string>
+    <string name="exp_oobleck_formula_title">Εκθετικός Νόμος Ostwald-de Waele</string>
+    <string name="exp_oobleck_how_to">Ανακατέψτε 2 φλιτζάνια κορν φλάουρ με 1 φλιτζάνι νερό βρύσης σε ένα μπολ. Χτυπήστε γρήγορα την επιφάνεια με το κουτάλι σας και έπειτα αφήστε το κουτάλι να βυθιστεί αργά μέσα του!</string>
+
+    <!-- Day 7: bernoulli_ball -->
+    <string name="exp_bernoulli_ball_title">Ημέρα 7: Αιωρούμενη Μπάλα Bernoulli</string>
+    <string name="exp_bernoulli_ball_subtitle">Αεροδυναμικό Φαινόμενο Coanda &amp; Βαθμίδα Πίεσης</string>
+    <string name="exp_bernoulli_ball_badge">Ημέρα 7 • Κλειδωμένη</string>
+    <string name="exp_bernoulli_ball_teaser">Αιωρήστε μια ελαφριά μπάλα μέσα σε ένα αόρατο κεκλιμένο ρεύμα αέρα χωρίς να πέσει.</string>
+    <string name="exp_bernoulli_ball_magic">Ένα μπαλάκι του πινγκ-πονγκ αιωρείται σταθερά στον αέρα πάνω από ένα πιστολάκι μαλλιών—ακόμη και όταν το στόμιο έχει κλίση 45 μοιρών!</string>
+    <string name="exp_bernoulli_ball_principle">Η αρχή του Bernoulli δηλώνει ότι ο ταχύτερα κινούμενος αέρας δημιουργεί χαμηλότερη στατική πίεση. Καθώς ο αέρας υψηλής ταχύτητας ρέει γύρω από την μπάλα, η στατική πίεση εντός της ροής πέφτει κάτω από την ατμοσφαιρική πίεση του δωματίου. Εάν η μπάλα επιχειρήσει να εγκαταλείψει το ρεύμα αέρα, η υψηλότερη εξωτερική ατμοσφαιρική πίεση την ωθεί πάλι πίσω.</string>
+    <string name="exp_bernoulli_ball_formula_title">Διατήρηση Ενέργειας κατά Bernoulli</string>
+    <string name="exp_bernoulli_ball_how_to">Ενεργοποιήστε ένα πιστολάκι μαλλιών στον κρύο αέρα. Τοποθετήστε ένα μπαλάκι του πινγκ-πονγκ στο ανοδικό ρεύμα και δώστε αργά κλίση στο πιστολάκι έως και 45 μοίρες!</string>
+
+    <!-- Day 8: projectile_drag -->
+    <string name="exp_projectile_drag_title">Ημέρα 8: Οπισθέλκουσα Βλήματος &amp; Πλάγιοι Άνεμοι</string>
+    <string name="exp_projectile_drag_subtitle">Αεροδυναμική Οπισθέλκουσα &amp; Διανυσματικές Δυνάμεις Ανέμου</string>
+    <string name="exp_projectile_drag_badge">Ημέρα 8 • Κλειδωμένη</string>
+    <string name="exp_projectile_drag_teaser">Σκοπεύστε με ένα κανόνι και εκτοξεύστε βλήματα ενάντια σε τετραγωνική αεροδυναμική οπισθέλκουσα και πλάγιους ανέμους.</string>
+    <string name="exp_projectile_drag_magic">Στη βασική φυσική, τα σώματα διαγράφουν συμμετρικές παραβολές. Στην πραγματικότητα, η αεροδυναμική αντίσταση αναγκάζει τις μπάλες να πέφτουν απότομα προς το τέλος και σε μικρότερη απόσταση.</string>
+    <string name="exp_projectile_drag_principle">Ο πραγματικός αέρας δημιουργεί αεροδυναμική τριβή επιφανείας και οπισθέλκουσα μορφής ανάλογη με το τετράγωνο της ταχύτητας: F_drag = 0.5 * rho * C_d * A * |v_rel|^2, με κατεύθυνση αντίθετη από τη σχετική κίνηση. Σε συνδυασμό με τη βαρύτητα και τις ριπές του ανέμου, οι εξισώσεις κίνησης μετατρέπονται σε συζευγμένες μη γραμμικές διαφορικές εξισώσεις.</string>
+    <string name="exp_projectile_drag_formula_title">2ος Νόμος του Νεύτωνα με Τετραγωνική Οπισθέλκουσα &amp; Άνεμο</string>
+    <string name="exp_projectile_drag_how_to">Αφήστε ταυτόχρονα να πέσουν ένα επίπεδο φύλλο χαρτιού και μια τσαλακωμένη μπάλα χαρτιού. Η τσαλακωμένη μπάλα φτάνει πρώτη στο έδαφος λόγω μικρότερης επιφάνειας διατομής και αντίστασης!</string>
+
+    <!-- Day 9: bouncing_ball -->
+    <string name="exp_bouncing_ball_title">Ημέρα 9: Ανελαστική Αναπήδηση Μπάλας</string>
+    <string name="exp_bouncing_ball_subtitle">Συντελεστής Αποκατάστασης &amp; Απόσβεση Ενέργειας</string>
+    <string name="exp_bouncing_ball_badge">Ημέρα 9 • Κλειδωμένη</string>
+    <string name="exp_bouncing_ball_teaser">Αφήστε μια μπάλα να πέσει από διάφορα ύψη και παρατηρήστε τη μείωση του ύψους, την παραμόρφωση του δαπέδου και γραφήματα κινητικής έναντι δυναμικής ενέργειας σε πραγματικό χρόνο.</string>
+    <string name="exp_bouncing_ball_magic">Μια λαστιχένια μπάλα που αναπηδά σε ένα σκληρό δάπεδο δεν επιστρέφει ποτέ στο αρχικό ύψος πτώσης της, χάνοντας συνεχώς ύψος αναπήδησης μέχρι να ακινητοποιηθεί πλήρως.</string>
+    <string name="exp_bouncing_ball_principle">Κατά την πρόσκρουση, η μπάλα παραμορφώνεται ελαστικά και μετατρέπει τη μηχανική κινητική ενέργεια σε εσωτερική θερμική ενέργεια και ηχητικές ταλαντώσεις. Ο λόγος της ταχύτητας αναπήδησης προς την ταχύτητα πρόσκρουσης είναι ο συντελεστής αποκατάστασης e = v_rebound / v_impact &lt;= 1.0.</string>
+    <string name="exp_bouncing_ball_formula_title">Συντελεστής Αποκατάστασης του Νεύτωνα &amp; Απόσβεση Ενέργειας</string>
+    <string name="exp_bouncing_ball_how_to">Ρίξτε ένα κρύο μπαλάκι του τένις και ένα ζεστό μπαλάκι του τένις σε ένα σκληρό πλακάκι κουζίνας και συγκρίνετε τα ύψη αναπήδησης!</string>
+
+    <!-- Day 10: newtons_cradle -->
+    <string name="exp_newtons_cradle_title">Ημέρα 10: Εκκρεμές του Νεύτωνα</string>
+    <string name="exp_newtons_cradle_subtitle">Κρουστικά Κύματα Ορμής &amp; Ελαστικές Κρούσεις</string>
+    <string name="exp_newtons_cradle_badge">Ημέρα 10 • Κλειδωμένη</string>
+    <string name="exp_newtons_cradle_teaser">Τραβήξτε πίσω 1, 2 ή 3 ατσάλινες μπάλες και δείτε τα κρουστικά κύματα συμπίεσης να διαδίδονται ακαριαία κατά μήκος της διάταξης.</string>
+    <string name="exp_newtons_cradle_magic">Εάν αφήσετε 2 μπάλες να προσκρούσουν σε 5 ακίνητες μπάλες, ακριβώς 2 μπάλες εκτινάσσονται από την άλλη πλευρά με την ίδια ακριβώς ταχύτητα, ποτέ 1 μπάλα με διπλάσια ταχύτητα!</string>
+    <string name="exp_newtons_cradle_principle">Η ταυτόχρονη διατήρηση της γραμμικής ορμής (Σ m*v) και της κινητικής ενέργειας (Σ 0.5*m*v^2) περιορίζει μονοσήμαντα και αυστηρά τον αριθμό των εξερχόμενων σφαιρών και τις ταχύτητές τους κατά τις ελαστικές κρούσεις.</string>
+    <string name="exp_newtons_cradle_formula_title">Διατήρηση στις Ελαστικές Κρούσεις</string>
+    <string name="exp_newtons_cradle_how_to">Ευθυγραμμίστε 5 πανομοιότυπα νομίσματα σε επαφή πάνω σε ένα λείο τραπέζι. Χτυπήστε δυνατά ένα νόμισμα στη μία άκρη και παρατηρήστε μόνο το τελευταίο νόμισμα στην άλλη άκρη να εκτινάσσεται!</string>
+
+    <!-- Day 11: brachistochrone -->
+    <string name="exp_brachistochrone_title">Ημέρα 11: Βραχιστόχρονη Καμπύλη</string>
+    <string name="exp_brachistochrone_subtitle">Η Διαδρομή της Ταχύτερης Καθόδου</string>
+    <string name="exp_brachistochrone_badge">Ημέρα 11 • Κλειδωμένη</string>
+    <string name="exp_brachistochrone_teaser">Κάντε αγώνα ταχύτητας με μπάλες σε ευθεία ράμπα, κυκλικό τόξο και κυκλοειδή καμπύλη για να αποδείξετε ότι η ευθεία ΔΕΝ είναι η ταχύτερη διαδρομή!</string>
+    <string name="exp_brachistochrone_magic">Μια μπάλα που κυλάει σε μια κυρτή κυκλοειδή ράμπα κερδίζει κάθε φορά μια μπάλα που κυλάει σε μια ευθεία ράμπα μεταξύ των ίδιων ακριβώς σημείων εκκίνησης και τερματισμού.</string>
+    <string name="exp_brachistochrone_principle">Επιλύθηκε από τον Γιόχαν Μπερνούλι (Johann Bernoulli) το 1696 χρησιμοποιώντας λογισμό μεταβολών και αναλογία με τον νόμο του Snell. Η κυκλοειδής καμπύλη επιταχύνει τη μπάλα ταχύτατα στην αρχή, συσσωρεύοντας νωρίς κινητική ενέργεια και ταχύτητα, γεγονός που μειώνει τον συνολικό χρόνο διαδρομής.</string>
+    <string name="exp_brachistochrone_formula_title">Ελαχιστοποίηση Μεταβολών Euler-Lagrange</string>
+    <string name="exp_brachistochrone_how_to">Κατασκευάστε δύο διαδρομές από εύκαμπτο πλαστικό σωλήνα: μία ευθεία κεκλιμένη και μία με απότομη αρχική βύθιση. Κυλήστε βόλους ταυτόχρονα και στις δύο!</string>
+
+    <!-- Day 12: terminal_velocity -->
+    <string name="exp_terminal_velocity_title">Ημέρα 12: Οριακή Ταχύτητα &amp; Αλεξίπτωτο</string>
+    <string name="exp_terminal_velocity_subtitle">Ισορροπία Βαρυτικών &amp; Αεροδυναμικών Δυνάμεων</string>
+    <string name="exp_terminal_velocity_badge">Ημέρα 12 • Κλειδωμένη</string>
+    <string name="exp_terminal_velocity_teaser">Ρίξτε αλεξιπτωτιστές από τα 4.000 μέτρα, αλλάξτε τη στάση του σώματός τους και ανοίξτε αλεξίπτωτα για να παρατηρήσετε την ισορροπία ταχύτητας.</string>
+    <string name="exp_terminal_velocity_magic">Ανεξάρτητα από το πόσο ψηλά θα πηδήξετε από ένα αεροπλάνο, σταματάτε να επιταχύνετε μετά από περίπου 12 δευτερόλεπτα και πέφτετε με σταθερή ταχύτητα.</string>
+    <string name="exp_terminal_velocity_principle">Καθώς η ταχύτητα αυξάνεται, η ανοδική αεροδυναμική οπισθέλκουσα μεγαλώνει μέχρι να εξισορροπήσει ακριβώς την καθοδική δύναμη της βαρύτητας (F_net = 0). Σε αυτό το σημείο η επιτάχυνση μηδενίζεται και το αντικείμενο πέφτει με οριακή ταχύτητα v_t.</string>
+    <string name="exp_terminal_velocity_formula_title">Ισορροπία Οριακής Ταχύτητας</string>
+    <string name="exp_terminal_velocity_how_to">Αφήστε να πέσει μια μονή χάρτινη θήκη για μάφιν έναντι μιας στοίβας από 4 θήκες ενωμένες μαζί. Η στοίβα πέφτει ταχύτερα επειδή η μάζα είναι 4πλάσια ενώ η επιφάνεια A παραμένει η ίδια!</string>
+
+    <!-- Day 13: stick_slip_friction -->
+    <string name="exp_stick_slip_friction_title">Ημέρα 13: Τριβή Πρόσφυσης-Ολίσθησης (Stick-Slip) &amp; Στατική Τριβή</string>
+    <string name="exp_stick_slip_friction_subtitle">Μεταβάσεις Στατικής έναντι Κινητικής Τριβής</string>
+    <string name="exp_stick_slip_friction_badge">Ημέρα 13 • Κλειδωμένη</string>
+    <string name="exp_stick_slip_friction_teaser">Τραβήξτε ένα βαρύ έλκηθρο με ένα ελαστικό ελατήριο και παρατηρήστε απότομες ταλαντώσεις πρόσφυσης-ολίσθησης.</string>
+    <string name="exp_stick_slip_friction_magic">Τραβώντας ένα βαρύ κουτί με ένα λαστιχάκι, αυτό τραντάζεται και κινείται με ρυθμικά απότομα άλματα αντί να γλιστρά ομαλά στο δάπεδο.</string>
+    <string name="exp_stick_slip_friction_principle">Ο συντελεστής στατικής τριβής mu_s είναι αυστηρά μεγαλύτερος από τον συντελεστή κινητικής τριβής mu_k. Καθώς η δύναμη έλξης αυξάνεται, το σώμα παραμένει ακίνητο μέχρι F &gt; mu_s * N. Μόλις αρχίσει η ολίσθηση, η αντίσταση πέφτει σε mu_k * N, προκαλώντας απότομη επιτάχυνση και υπέρβαση.</string>
+    <string name="exp_stick_slip_friction_formula_title">Κατώφλι Στατικής έναντι Κινητικής Τριβής</string>
+    <string name="exp_stick_slip_friction_how_to">Σπρώξτε αργά ένα βαρύ βιβλίο πάνω σε ένα τραπέζι χρησιμοποιώντας μόνο την άκρη του δείκτη σας. Παρατηρήστε τους μικρο-κραδασμούς και τα τραντάγματα καθώς κινείται!</string>
+
+    <!-- Day 14: compound_pulley -->
+    <string name="exp_compound_pulley_title">Ημέρα 14: Σύνθετο Σύστημα Τροχαλιών</string>
+    <string name="exp_compound_pulley_subtitle">Μηχανικό Πλεονέκτημα &amp; Πολλαπλασιαστής Τάσης Σχοινιού</string>
+    <string name="exp_compound_pulley_badge">Ημέρα 14 • Κλειδωμένη</string>
+    <string name="exp_compound_pulley_teaser">Συνδέστε 1, 2, 4 ή 8 τροχαλίες για να σηκώσετε τεράστια φορτία 1.000 kg χρησιμοποιώντας τη δύναμη ενός μόνο χεριού.</string>
+    <string name="exp_compound_pulley_magic">Προσθέτοντας απλές περιστρεφόμενες τροχαλίες με ένα σχοινί, ένα παιδί μπορεί να σηκώσει έναν κινητήρα αυτοκινήτου σχεδόν χωρίς κόπο.</string>
+    <string name="exp_compound_pulley_principle">Σε ένα ιδανικό σύστημα τροχαλιών, η τάση του σχοινιού T είναι ομοιόμορφη παντού. Όταν ένα αντικείμενο υποστηρίζεται από n κατακόρυφα τμήματα σχοινιού, η ανοδική δύναμη είναι n * T, πολλαπλασιάζοντας τη δύναμη εισόδου κατά το ιδανικό μηχανικό πλεονέκτημα n, με τίμημα όμως το τράβηγμα n φορές περισσότερου σχοινιού.</string>
+    <string name="exp_compound_pulley_formula_title">Μηχανικό Πλεονέκτημα &amp; Διατήρηση του Έργου</string>
+    <string name="exp_compound_pulley_how_to">Περάστε ένα σχοινί γύρω από δύο σκουπόξυλα που κρατούν δύο φίλοι σας. Εσείς μόνος μπορείτε να τραβήξετε τα δύο ξύλα το ένα κοντά στο άλλο, ακόμα κι αν και οι δύο φίλοι αντιστέκονται με όλη τους τη δύναμη!</string>
+
+    <!-- Day 15: kepler_orbits -->
+    <string name="exp_kepler_orbits_title">Ημέρα 15: Πλανητικές Τροχιές του Kepler</string>
+    <string name="exp_kepler_orbits_subtitle">Ελλειπτικές Τροχιές &amp; Νόμος των Ίσων Εμβαδών</string>
+    <string name="exp_kepler_orbits_badge">Ημέρα 15 • Κλειδωμένη</string>
+    <string name="exp_kepler_orbits_teaser">Κατευθύνετε έναν πλανήτη γύρω από ένα βαρυτικό άστρο. Προσαρμόστε την εκκεντρότητα, παρατηρήστε τις μεταβολές του διανύσματος ταχύτητας και οπτικοποιήστε τον νόμο των ίσων εμβαδών του Kepler!</string>
+    <string name="exp_kepler_orbits_magic">Οι πλανήτες δεν περιφέρονται σε απλούς κύκλους ούτε κινούνται με σταθερή ταχύτητα. Επιταχύνουν με τεράστια ταχύτητα κοντά στον ήλιο και κινούνται αργά όταν βρίσκονται μακριά.</string>
+    <string name="exp_kepler_orbits_principle">Σύμφωνα με τον παγκόσμιο νόμο της βαρύτητας του Νεύτωνα, μια κεντρική δύναμη αντιστρόφως ανάλογη του τετραγώνου διατηρεί την τροχιακή στροφορμή L = r x (m v). Ο δεύτερος νόμος του Kepler αποδεικνύει ότι η επιβατική ακτίνα διαγράφει ίσα εμβαδά σε ίσους χρόνους (dA/dt = L / 2m = σταθερό).</string>
+    <string name="exp_kepler_orbits_formula_title">Παγκόσμια Έλξη του Νεύτωνα &amp; 2ος Νόμος του Kepler</string>
+    <string name="exp_kepler_orbits_how_to">Δέστε ένα μικρό βάρος σε ένα σπάγκο και περιστρέψτε το σε έλλειψη. Παρατηρήστε πώς το χέρι σας πρέπει να ασκήσει μεγαλύτερη τάση όταν το σώμα διέρχεται από το πλησιέστερο σημείο στο κέντρο!</string>
+
+    <!-- Day 16: gyroscopic_precession -->
+    <string name="exp_gyroscopic_precession_title">Ημέρα 16: Γυροσκοπική Μετάπτωση</string>
+    <string name="exp_gyroscopic_precession_subtitle">Στροφορμή &amp; Τροχός «Αντιβαρύτητας»</string>
+    <string name="exp_gyroscopic_precession_badge">Ημέρα 16 • Κλειδωμένη</string>
+    <string name="exp_gyroscopic_precession_teaser">Περιστρέψτε έναν βαρύ τροχό ποδηλάτου που στηρίζεται σε ένα μόνο σχοινί και παρατηρήστε πώς περιστρέφεται πλευρικά αντί να πέσει κάτω.</string>
+    <string name="exp_gyroscopic_precession_magic">Ένας περιστρεφόμενος τροχός αναρτημένος μόνο από τη μία πλευρά αρνείται να ανατραπεί λόγω της βαρύτητας, εκτελώντας οριζόντια κυκλική μετάπτωση.</string>
+    <string name="exp_gyroscopic_precession_principle">Όταν ένα σώμα με μεγάλη στροφορμή L υποβάλλεται σε βαρυτική ροπή τ = r x F_g, το διάνυσμα της ροπής είναι κάθετο στο L. Σύμφωνα με τη σχέση τ = dL/dt, η ροπή μεταβάλλει την κατεύθυνση της L και όχι το μέτρο της, προκαλώντας σταθερή οριζόντια μετάπτωση.</string>
+    <string name="exp_gyroscopic_precession_formula_title">Γωνιακή Ταχύτητα Γυροσκοπικής Μετάπτωσης</string>
+    <string name="exp_gyroscopic_precession_how_to">Περιστρέψτε ένα παιδικό γυροσκόπιο στην άκρη ενός μολυβιού. Παρατηρήστε πώς γέρνει χωρίς να πέφτει!</string>
+
+    <!-- Day 17: coriolis_effect -->
+    <string name="exp_coriolis_effect_title">Ημέρα 17: Φαινόμενο Coriolis</string>
+    <string name="exp_coriolis_effect_subtitle">Αδρανειακές Δυνάμεις σε Περιστρεφόμενα Συστήματα Αναφοράς</string>
+    <string name="exp_coriolis_effect_badge">Ημέρα 17 • Κλειδωμένη</string>
+    <string name="exp_coriolis_effect_teaser">Πετάξτε μια μπάλα κατά πλάτος ενός περιστρεφόμενου καρουζέλ και δείτε την τροχιά της να καμπυλώνεται δραματικά από την οπτική του περιστρεφόμενου παρατηρητή.</string>
+    <string name="exp_coriolis_effect_magic">Πετώντας μια μπάλα ευθεία σε έναν φίλο πάνω σε ένα περιστρεφόμενο καρουζέλ παιδικής χαράς, η μπάλα παρεκκλίνει πλευρικά στον αέρα!</string>
+    <string name="exp_coriolis_effect_principle">Σε ένα σύστημα αναφοράς που περιστρέφεται με γωνιακή ταχύτητα Ω, τα κινούμενα αντικείμενα δέχονται μια φαινομενική αδρανειακή επιτάχυνση a_coriolis = -2 * (Ω x v) λόγω της μεταβολής της εφαπτομενικής ταχύτητας του συστήματος με την ακτίνα.</string>
+    <string name="exp_coriolis_effect_formula_title">Διάνυσμα Επιτάχυνσης Coriolis</string>
+    <string name="exp_coriolis_effect_how_to">Τοποθετήστε έναν βόλο σε έναν περιστρεφόμενο δίσκο και κυλήστε τον προς τα έξω. Παρατηρήστε πώς η τροχιά του διαγράφει μια σπειροειδή καμπύλη προς τα έξω!</string>
+
+    <!-- Day 18: gravitational_slingshot -->
+    <string name="exp_gravitational_slingshot_title">Ημέρα 18: Βαρυτική Σφενδόνη</string>
+    <string name="exp_gravitational_slingshot_subtitle">Τροχιακή Βαρυτική Υποβοήθηση &amp; Φαινόμενο Oberth</string>
+    <string name="exp_gravitational_slingshot_badge">Ημέρα 18 • Κλειδωμένη</string>
+    <string name="exp_gravitational_slingshot_teaser">Πετάξτε ένα διαστημόπλοιο πίσω από έναν κινούμενο γιγάντιο πλανήτη και εκτοξευθείτε στο διαστρικό διάστημα με τεράστιο κέρδος κινητικής ταχύτητας.</string>
+    <string name="exp_gravitational_slingshot_magic">Ένα διαστημόπλοιο μπορεί να επιταχύνει κατά χιλιάδες χιλιόμετρα την ώρα χωρίς να ανάψει κανέναν κινητήρα, περνώντας απλώς κοντά από τον Δία!</string>
+    <string name="exp_gravitational_slingshot_principle">Στο σύστημα αναφοράς του πλανήτη, η συνάντηση είναι μια ελαστική υπερβολική σκέδαση με μηδενική μεταβολή ενέργειας. Στο σύστημα αναφοράς του Ήλιου, το σκάφος κερδίζει έως και το διπλάσιο της τροχιακής ταχύτητας του πλανήτη: v_final = v_in + 2 * v_planet.</string>
+    <string name="exp_gravitational_slingshot_formula_title">Ελαστική Σκέδαση Βαρυτικής Υποβοήθησης</string>
+    <string name="exp_gravitational_slingshot_how_to">Αφήστε να πέσει ένα μπαλάκι του τένις έχοντας ακριβώς από πάνω του ένα μικρό αναπηδητικό μπαλάκι (superball). Με την πρόσκρουση στο δάπεδο, το επάνω μπαλάκι εκτοξεύεται σε τεράστιο ύψος!</string>
+
+    <!-- Day 19: roche_limit -->
+    <string name="exp_roche_limit_title">Ημέρα 19: Όριο του Roche &amp; Δημιουργία Πλανητικών Δακτυλίων</string>
+    <string name="exp_roche_limit_subtitle">Βαρυτική Παλιρροϊκή Διάλυση Δορυφόρων</string>
+    <string name="exp_roche_limit_badge">Ημέρα 19 • Κλειδωμένη</string>
+    <string name="exp_roche_limit_teaser">Στείλτε έναν δορυφόρο σε τροχιά πολύ κοντά σε έναν γίγαντα αερίων και δείτε τις πλανητικές παλιρροϊκές δυνάμεις να τον διαλύουν σχηματίζοντας λαμπερούς δακτυλίους όπως του Κρόνου.</string>
+    <string name="exp_roche_limit_magic">Εάν ένας δορυφόρος πλησιάσει υπερβολικά τον πλανήτη του, η βαρύτητα του πλανήτη δεν τον παρασύρει απλώς σε συντριβή—κομματιάζει τον δορυφόρο σε δισεκατομμύρια θραύσματα.</string>
+    <string name="exp_roche_limit_principle">Η διαφορική παλιρροϊκή βαρυτική δύναμη μεταξύ της εγγύς και της απομακρυσμένης πλευράς του δορυφόρου υπερβαίνει την εσωτερική συνοχή της αυτοβαρύτητάς του στο όριο Roche d = 2.44 * R * (rho_M / rho_m)^(1/3), διαλύοντάς τον σε έναν δίσκο δακτυλίων.</string>
+    <string name="exp_roche_limit_formula_title">Ακτίνα Παλιρροϊκής Διάλυσης Roche</string>
+    <string name="exp_roche_limit_how_to">Αναζητήστε φωτογραφίες από τους δακτυλίους του Κρόνου—είναι τα κονιορτοποιημένα συντρίμμια αρχαίων παγωμένων δορυφόρων που διέσχισαν το όριο Roche του Κρόνου!</string>
+
+    <!-- Day 20: lagrange_points -->
+    <string name="exp_lagrange_points_title">Ημέρα 20: Σημεία Lagrange (L1 έως L5)</string>
+    <string name="exp_lagrange_points_subtitle">Βαρυτική Ισορροπία &amp; Τροχιακή Στάθμευση</string>
+    <string name="exp_lagrange_points_badge">Ημέρα 20 • Κλειδωμένη</string>
+    <string name="exp_lagrange_points_teaser">Σταθμεύστε τηλεσκόπια στα σημεία L1 και L2 Γης-Ήλιου και παρατηρήστε πώς η βαρυτική έλξη και η φυγόκεντρος δύναμη εξισορροπούνται τέλεια.</string>
+    <string name="exp_lagrange_points_magic">Υπάρχουν πέντε ειδικά αόρατα \"νησιά\" στο κενό διάστημα όπου τα διαστημόπλοια μπορούν να παραμείνουν για πάντα με σχεδόν μηδενικά καύσιμα.</string>
+    <string name="exp_lagrange_points_principle">Σε ένα κυκλικό περιορισμένο πρόβλημα δύο σωμάτων, το ενεργό βαρυτικό-φυγόκεντρο δυναμικό σχηματίζει πέντε στάσιμα σημεία όπου η συνισταμένη δύναμη στο περιστρεφόμενο σύστημα είναι μηδέν. Τα L4 και L5 σχηματίζουν ευσταθή ισόπλευρα τριγωνικά σημεία.</string>
+    <string name="exp_lagrange_points_formula_title">Ισορροπία Βαθμίδας Ενεργού Δυναμικού</string>
+    <string name="exp_lagrange_points_how_to">Ερευνήστε πώς το διαστημικό τηλεσκόπιο James Webb περιφέρεται γύρω από το αόρατο σημείο Lagrange L2 Γης-Ήλιου, 1,5 εκατομμύριο χιλιόμετρα μακριά!</string>
+
+    <!-- Day 21: three_body_problem -->
+    <string name="exp_three_body_problem_title">Ημέρα 21: Χαοτικό Πρόβλημα Τριών Σωμάτων</string>
+    <string name="exp_three_body_problem_subtitle">Βαρυτικό Χάος N-Σωμάτων &amp; Τροχιακή Εκτίναξη</string>
+    <string name="exp_three_body_problem_badge">Ημέρα 21 • Κλειδωμένη</string>
+    <string name="exp_three_body_problem_teaser">Προσομοιώστε 3 βαρυτικά άστρα: ανακαλύψτε περιοδικές τροχιές σε σχήμα 8, σημεία Lagrange και βίαιες χαοτικές αστρικές εκτινάξεις.</string>
+    <string name="exp_three_body_problem_magic">Ενώ δύο περιφερόμενα σώματα διαθέτουν ακριβείς μαθηματικές λύσεις, η προσθήκη ενός και μόνο επιπλέον σώματος καθιστά το σύστημα μαθηματικά μη επιλύσιμο με εξισώσεις κλειστής μορφής.</string>
+    <string name="exp_three_body_problem_principle">Το γενικό πρόβλημα των τριών σωμάτων παρουσιάζει μη ολοκληρωσιμότητα, την οποία ανακάλυψε ο Ανρί Πουανκαρέ (Henri Poincaré). Μικρές τροχιακές διαταραχές μπορούν να εκτοξεύσουν το ένα άστρο στο βαθύ διαστρικό διάστημα, ενώ τα άλλα δύο σχηματίζουν ένα έκκεντρο διπλό σύστημα.</string>
+    <string name="exp_three_body_problem_formula_title">Βαρυτική Επιτάχυνση N-Σωμάτων κατά Νεύτωνα</string>
+    <string name="exp_three_body_problem_how_to">Αναζητήστε τη διάσημη τροχιά τριών σωμάτων σε σχήμα 8 που ανακαλύφθηκε το 1993, όπου τρία ίσα άστρα καταδιώκουν το ένα το άλλο κατά μήκος ενός μοναδικού βρόχου σε σχήμα οκτώ!</string>
+
+    <!-- Day 22: plucked_string -->
+    <string name="exp_plucked_string_title">Ημέρα 22: Παλλομένη Χορδή (Μονοδιάστατη Κυματική Εξίσωση)</string>
+    <string name="exp_plucked_string_subtitle">Ανακλάσεις Κυμάτων &amp; Στάσιμες Αρμονικές</string>
+    <string name="exp_plucked_string_badge">Ημέρα 22 • Κλειδωμένη</string>
+    <string name="exp_plucked_string_teaser">Αγγίξτε και τσιμπήστε μια τεντωμένη μουσική χορδή σε οποιοδήποτε σημείο της. Δείτε κυματοπακέτα να ανακλώνται, να αναστρέφονται στα άκρα και να σχηματίζουν στάσιμους αρμονικούς δεσμούς!</string>
+    <string name="exp_plucked_string_magic">Το τσίμπημα μιας χορδής κιθάρας σε ένα μοναδικό μικρό σημείο δημιουργεί σύνθετα αρμονικά κύματα που ταξιδεύουν εμπρός-πίσω, παράγοντας καθαρούς μουσικούς τόνους και μοτίβα στάσιμων δεσμών.</string>
+    <string name="exp_plucked_string_principle">Μια χορδή με τάση T και γραμμική πυκνότητα μάζας mu ικανοποιεί την κλασική μονοδιάστατη κυματική εξίσωση u_tt = c^2 u_xx, όπου c = sqrt(T / mu) είναι η ταχύτητα διάδοσης. Τα σταθερά άκρα επιβάλλουν u(0, t) = u(L, t) = 0, αναγκάζοντας τους κυματικούς παλμούς να αναστρέφονται κατά την ανάκλαση.</string>
+    <string name="exp_plucked_string_formula_title">Μονοδιάστατη Κυματική Εξίσωση &amp; Ανακλάσεις στα Όρια</string>
+    <string name="exp_plucked_string_how_to">Τεντώστε ένα μακρύ λαστιχάκι ανάμεσα στα δάχτυλά σας. Χτυπήστε το απότομα για να δείτε τον κυματικό παλμό να ταξιδεύει στο σταθερό άκρο, να αναστρέφεται ανάποδα και να επιστρέφει πίσω!</string>
+
+    <!-- Day 23: fourier_series -->
+    <string name="exp_fourier_series_title">Ημέρα 23: Σειρές Fourier &amp; Επίκυκλοι</string>
+    <string name="exp_fourier_series_subtitle">Σύνθεση Αρμονικών Φασόρων &amp; Φαινόμενο Gibbs</string>
+    <string name="exp_fourier_series_badge">Ημέρα 23 • Κλειδωμένη</string>
+    <string name="exp_fourier_series_teaser">Συνθέστε τετραγωνικές, πριονωτές και τριγωνικές κυματομορφές χρησιμοποιώντας περιστρεφόμενους επικυκλικούς κύκλους. Δείτε τις επιμέρους αρμονικές Fourier να αθροίζονται σε πραγματικό χρόνο!</string>
+    <string name="exp_fourier_series_magic">Πώς μπορεί ένα σύνολο από λείους, στρογγυλούς περιστρεφόμενους κύκλους και καθαρούς ημιτονοειδείς τόνους να συνδυαστεί για να δημιουργήσει αιχμηρές ορθογώνιες γωνίες, οδοντωτά πριόνια και σύνθετα ηχοχρώματα;</string>
+    <string name="exp_fourier_series_principle">Το θεώρημα του Fourier αποδεικνύει ότι κάθε περιοδική συνάρτηση μπορεί να αναπαρασταθεί ως ένα άπειρο άθροισμα ημιτονοειδών αρμονικών με ακέραιες πολλαπλάσιες συχνότητες n*omega. Η αποκοπή σε πεπερασμένες αρμονικές παράγει τη διάσημη υπέρβαση ~9% που είναι γνωστή ως φαινόμενο Gibbs.</string>
+    <string name="exp_fourier_series_formula_title">Ανάλυση &amp; Σύνθεση Σειρών Fourier</string>
+    <string name="exp_fourier_series_how_to">Κατεβάστε μια εφαρμογή ανάλυσης ηχητικού φάσματος στο τηλέφωνό σας. Αναπαραγάγετε ένα καθαρό ημιτονοειδές κύμα, έπειτα ένα τετραγωνικό κύμα, και παρατηρήστε τη σκάλα των κορυφών των περιττών αρμονικών!</string>
+
+    <!-- Day 24: chladni_plates -->
+    <string name="exp_chladni_plates_title">Ημέρα 24: Πλάκες Chladni &amp; Κυματική (Cymatics)</string>
+    <string name="exp_chladni_plates_subtitle">Ακουστική 2D Γεωμετρία Στάσιμων Δεσμικών Γραμμών</string>
+    <string name="exp_chladni_plates_badge">Ημέρα 24 • Κλειδωμένη</string>
+    <string name="exp_chladni_plates_teaser">Διεγείρετε σε ταλάντωση μια τετράγωνη πλάκα σε συχνότητες συντονισμού και παρακολουθήστε χιλιάδες κόκκους άμμου να οργανώνονται σε περίπλοκα γεωμετρικά μοτίβα.</string>
+    <string name="exp_chladni_plates_magic">Άμμος διασκορπισμένη τυχαία πάνω σε ένα μεταλλικό έλασμα χορεύει αμέσως σχηματίζοντας εκπληκτικές μάνταλα και γεωμετρικά σχήματα όταν ένα δοξάρι βιολιού χτυπά την άκρη του.</string>
+    <string name="exp_chladni_plates_principle">Τα στάσιμα καμπτικά κύματα σε μια λεπτή ελαστική δισδιάστατη πλάκα παράγουν στάσιμες δεσμικές γραμμές όπου η μετατόπιση της πλάκας είναι ταυτοτικά μηδενική. Η άμμος που αναπηδά από τις παλλόμενες περιοχές συγκεντρώνεται φυσικά σε αυτές τις δεσμικές γραμμές μηδενικού πλάτους.</string>
+    <string name="exp_chladni_plates_formula_title">Κυματική Εξίσωση Πλάκας Kirchhoff-Love</string>
+    <string name="exp_chladni_plates_how_to">Πασπαλίστε ψιλό αλάτι σε μια διάφανη μεμβράνη τεντωμένη σφιχτά πάνω από τον κώνο ενός ηχείου. Παίξτε συχνότητες από 200 Hz έως 1000 Hz και δείτε να εμφανίζονται γεωμετρικές γραμμές!</string>
+
+    <!-- Day 25: acoustic_resonance_shatter -->
+    <string name="exp_acoustic_resonance_shatter_title">Ημέρα 25: Ακουστικός Συντονισμός (Θραύση Κρυστάλλινου Ποτηριού)</string>
+    <string name="exp_acoustic_resonance_shatter_subtitle">Συντελεστής Ποιότητας Q, Πλάτος &amp; Κατώφλι Θραύσης</string>
+    <string name="exp_acoustic_resonance_shatter_badge">Ημέρα 25 • Κλειδωμένη</string>
+    <string name="exp_acoustic_resonance_shatter_teaser">Συντονίστε έναν ακουστικό τόνο στην ακριβή συχνότητα ιδιοσυντονισμού ενός κρυστάλλινου ποτηριού κρασιού μέχρι η μηχανική τάση να θρυμματίσει το χείλος του.</string>
+    <string name="exp_acoustic_resonance_shatter_magic">Ένας τραγουδιστής που παράγει μια ενιαία καθαρή νότα στο σωστό τονικό ύψος αναγκάζει ένα κρυστάλλινο ποτήρι στην άλλη άκρη του δωματίου να δονηθεί βίαια και να γίνει θρύψαλα χωρίς καμία φυσική επαφή.</string>
+    <string name="exp_acoustic_resonance_shatter_principle">Στον συντονισμό, η συχνότητα διέγερσης ταυτίζεται με την ιδιοσυχνότητα του ποτηριού. Επειδή το γυαλί έχει υψηλό συντελεστή ποιότητας (Q), η ενέργεια συσσωρεύεται σε κάθε κύκλο μέχρι οι περιφερειακές τάσεις να υπερβούν την αντοχή σε εφελκυσμό του πυριτίου.</string>
+    <string name="exp_acoustic_resonance_shatter_formula_title">Συντελεστής Ποιότητας Αρμονικού Ταλαντωτή &amp; Συντονισμός</string>
+    <string name="exp_acoustic_resonance_shatter_how_to">Βρέξτε τον δείκτη σας και τρίψτε τον γύρω από το χείλος ενός κρυστάλλινου ποτηριού κρασιού για να το κάνετε να \"τραγουδήσει\" με έναν διαπεραστικό τόνο συντονισμού!</string>
+
+    <!-- Day 26: doppler_mach_cones -->
+    <string name="exp_doppler_mach_cones_title">Ημέρα 26: Φαινόμενο Doppler &amp; Ηχητική Έκρηξη</string>
+    <string name="exp_doppler_mach_cones_subtitle">Συμπίεση Μετώπων Κύματος &amp; Κώνοι Mach</string>
+    <string name="exp_doppler_mach_cones_badge">Ημέρα 26 • Κλειδωμένη</string>
+    <string name="exp_doppler_mach_cones_teaser">Επιταχύνετε μια πηγή κυμάτων πέρα από το Mach 1.0 και δείτε πώς τα συμπιεσμένα κυκλικά μέτωπα κύματος συγχωνεύονται σε ένα κωνικό κρουστικό κύμα ηχητικής έκρηξης.</string>
+    <string name="exp_doppler_mach_cones_magic">Καθώς ένα αεροπλάνο υπερβαίνει την ταχύτητα του ήχου, όλα τα εκπεμπόμενα ηχητικά κύματα συσσωρεύονται σε έναν εξαιρετικά λεπτό κώνο κρουστικού κύματος, δημιουργώντας μια εκκωφαντική έκρηξη στο έδαφος.</string>
+    <string name="exp_doppler_mach_cones_principle">Οι κινούμενες πηγές κυμάτων συμπιέζουν τα μήκη κύματος μπροστά τους και τα επιμηκύνουν πίσω τους. Σε υπερηχητική ταχύτητα (v &gt; c), τα σφαιρικά μέτωπα κύματος συμβάλλουν ενισχυτικά κατά μήκος ενός κώνου με ημιγωνία sin(theta) = 1 / Mach.</string>
+    <string name="exp_doppler_mach_cones_formula_title">Μετατόπιση Doppler &amp; Γωνία Κώνου Mach</string>
+    <string name="exp_doppler_mach_cones_how_to">Ακούστε μια σειρήνα ασθενοφόρου ή κόρνα τρένου να περνά γρήγορα από μπροστά σας: παρατηρήστε πώς το τονικό ύψος πέφτει ακαριαία μόλις προσπεράσει τα αυτιά σας!</string>
+
+    <!-- Day 27: acoustic_beats -->
+    <string name="exp_acoustic_beats_title">Ημέρα 27: Ακουστικές Διακροτήσεις &amp; Συμβολή</string>
+    <string name="exp_acoustic_beats_subtitle">Επαλληλία Κυμάτων &amp; Παλμός Περιβάλλουσας</string>
+    <string name="exp_acoustic_beats_badge">Ημέρα 27 • Κλειδωμένη</string>
+    <string name="exp_acoustic_beats_teaser">Αναπαραγάγετε δύο συχνότητες με διαφορά μόλις 2 Hz και ακούστε έναν περιοδικό παλμό αυξομείωσης της έντασης που προκαλείται από την επαλληλία των κυμάτων.</string>
+    <string name="exp_acoustic_beats_magic">Παίζοντας δύο καθαρούς τόνους 440 Hz και 442 Hz παράγεται ένας ευδιάκριτος ρυθμικός κυματισμός έντασης με 2 διακροτήσεις ανά δευτερόλεπτο.</string>
+    <string name="exp_acoustic_beats_principle">Όταν δύο κύματα με συχνότητες f1 και f2 βρίσκονται σε επαλληλία, η τριγωνομετρική ταυτότητα cos(a) + cos(b) = 2 cos((a-b)/2) cos((a+b)/2) αποκαλύπτει μια φέρουσα συχνότητα με μια αργά ταλαντευόμενη περιβάλλουσα πλάτους συχνότητας διακρότησης f_beat = |f1 - f2|.</string>
+    <string name="exp_acoustic_beats_formula_title">Περιβάλλουσα Συχνότητας Ακουστικών Διακροτήσεων</string>
+    <string name="exp_acoustic_beats_how_to">Σιγομουρμουρίστε μια σταθερή νότα παίζοντας ταυτόχρονα μια χορδή κιθάρας που είναι ελαφρώς ξεκούρδιστη σε σχέση με τη φωνή σας: ακούστε τις ρυθμικές παλλόμενες διακροτήσεις!</string>
+
+    <!-- Day 28: tacoma_flutter -->
+    <string name="exp_tacoma_flutter_title">Ημέρα 28: Αεροελαστικός Πτερυγισμός Tacoma Narrows</string>
+    <string name="exp_tacoma_flutter_subtitle">Αυτοδιεγειρόμενος Στρεπτικός Συντονισμός Στροβίλων</string>
+    <string name="exp_tacoma_flutter_badge">Ημέρα 28 • Κλειδωμένη</string>
+    <string name="exp_tacoma_flutter_teaser">Εκθέστε μια κρεμαστή γέφυρα σε πλάγιους ανέμους 40 mph (περ. 64 km/h) και δείτε τον αεροελαστικό πτερυγισμό να ενισχύει τις στρεπτικές ταλαντώσεις μέχρι την πλήρη δομική κατάρρευση.</string>
+    <string name="exp_tacoma_flutter_magic">Μια γιγάντια γέφυρα από χάλυβα και σκυρόδεμα συστράφηκε σαν κορδέλα από έναν μέτριο άνεμο και διαλύθηκε το 1940.</string>
+    <string name="exp_tacoma_flutter_principle">Η ροή του αέρα αποκολλήθηκε γύρω από το κατάστρωμα διατομής H, δημιουργώντας εναλλασσόμενη αποκόλληση στροβίλων (vortex shedding). Όταν η στρεπτική περιστροφή του καταστρώματος μετέβαλε τις αεροδυναμικές γωνίες, οι αεροδυναμικές δυνάμεις τροφοδότησαν μηχανική ενέργεια στην ταλάντωση, δημιουργώντας καταστροφικό αεροελαστικό πτερυγισμό (flutter).</string>
+    <string name="exp_tacoma_flutter_formula_title">Αεροελαστικές Στρεπτικές Εξισώσεις Κίνησης</string>
+    <string name="exp_tacoma_flutter_how_to">Κρατήστε χαλαρά μια λωρίδα χαρτιού ανάμεσα σε δύο δάχτυλα και φυσήξτε αέρα από πάνω της: παρατηρήστε πώς πάλλεται φρενήρως σε αυτοδιεγειρόμενο πτερυγισμό!</string>
+
+<!-- Day 29: laser_light_fountain -->
+    <string name="exp_laser_light_fountain_title">Ημέρα 29: Ολική Εσωτερική Ανάκλαση (Συντριβάνι Λέιζερ)</string>
+    <string name="exp_laser_light_fountain_subtitle">Κρίσιμη Γωνία &amp; Οπτικοί Οδηγοί Φωτός</string>
+    <string name="exp_laser_light_fountain_badge">Ημέρα 29 • Κλειδωμένο</string>
+    <string name="exp_laser_light_fountain_teaser">Κάμψη δεσμών λέιζερ μέσα σε μια καμπύλη ροή νερού χωρίς να διαφεύγουν.</string>
+    <string name="exp_laser_light_fountain_magic">Το φως ταξιδεύει σε ευθείες γραμμές—κι όμως, στοχεύοντας ένα λέιζερ σε μια τοξωτή ροή νερού, το φως καμπυλώνεται ακολουθώντας την πτώση της ροής!</string>
+    <string name="exp_laser_light_fountain_principle">Όταν το φως μέσα στο νερό προσπίπτει στη διαχωριστική επιφάνεια με τον αέρα υπό γωνία μεγαλύτερη από την κρίσιμη γωνία θ_c = 48,8°, το 100% του φωτός υφίσταται ολική εσωτερική ανάκλαση.</string>
+    <string name="exp_laser_light_fountain_formula_title">Νόμος του Snell για την Κρίσιμη Γωνία</string>
+    <string name="exp_laser_light_fountain_how_to">Ανοίξτε μια τρύπα κοντά στον πυθμένα ενός μπουκαλιού νερού και στοχεύστε ένα λέιζερ από την άλλη πλευρά προς τη ροή εξόδου σε ένα σκοτεινό δωμάτιο!</string>
+
+    <!-- Day 30: thin_film_interference -->
+    <string name="exp_thin_film_interference_title">Ημέρα 30: Συμβολή σε Λεπτά Υμένια Σαπουνόφουσκας</string>
+    <string name="exp_thin_film_interference_subtitle">Αναστροφή Φάσης &amp; Συμβολή Οπτικής Διαδρομής</string>
+    <string name="exp_thin_film_interference_badge">Ημέρα 30 • Κλειδωμένο</string>
+    <string name="exp_thin_film_interference_teaser">Ρυθμίστε το πάχος του υμενίου σαπουνιού σε νανόμετρα και παρακολουθήστε ιριδίζοντα χρώματα ουράνιου τόξου να αναδύονται.</string>
+    <string name="exp_thin_film_interference_magic">Μια εντελώς διάφανη σαπουνόφουσκα εμφανίζει στροβιλιζόμενα, ζωντανά χρώματα ουράνιου τόξου χωρίς ούτε μια σταγόνα χρωστικής.</string>
+    <string name="exp_thin_film_interference_principle">Το φως που ανακλάται από την εξωτερική και την εσωτερική επιφάνεια της φούσκας συμβάλλει ενισχυτικά ή αποσβεστικά, ανάλογα με το πάχος του υμενίου και το μήκος κύματος.</string>
+    <string name="exp_thin_film_interference_formula_title">Ενισχυτική Συμβολή σε Λεπτά Υμένια</string>
+    <string name="exp_thin_film_interference_how_to">Βουτήξτε έναν συρμάτινο βρόχο σε σαπουνόνερο και παρατηρήστε τις πολύχρωμες λωρίδες καθώς η βαρύτητα λεπταίνει το επάνω μέρος!</string>
+
+    <!-- Day 31: youngs_double_slit -->
+    <string name="exp_youngs_double_slit_title">Ημέρα 31: Πείραμα Διπλής Σχισμής του Young</string>
+    <string name="exp_youngs_double_slit_subtitle">Κυματοσωματιδιακός Δυισμός &amp; Κροσσοί Συμβολής</string>
+    <string name="exp_youngs_double_slit_badge">Ημέρα 31 • Κλειδωμένο</string>
+    <string name="exp_youngs_double_slit_teaser">Περάστε συμφωνικό φως λέιζερ μέσα από δύο υποχιλιοστομετρικές σχισμές για να δημιουργήσετε εναλλασσόμενους φωτεινούς και σκοτεινούς κροσσούς.</string>
+    <string name="exp_youngs_double_slit_magic">Στοχεύοντας μια μοναδική δέσμη φωτός μέσα από δύο σχισμές, σχηματίζεται στον τοίχο μια κλίμακα από πολλά φωτεινά σημεία αντί για δύο μόνο γραμμές.</string>
+    <string name="exp_youngs_double_slit_principle">Τα περιθλώμενα κυκλικά κυμάτια από τις δύο σχισμές υπερτίθενται ενισχυτικά σε σημεία όπου η διαφορά διαδρομής είναι ακέραιο πολλαπλάσιο του μήκους κύματος (d sin θ = m λ) και αποσβεστικά σε ημιακέραια πολλαπλάσια.</string>
+    <string name="exp_youngs_double_slit_formula_title">Συνθήκη Συμβολής Σχισμών του Young</string>
+    <string name="exp_youngs_double_slit_how_to">Στοχεύστε έναν κόκκινο δείκτη λέιζερ μέσα από το λεπτό διάκενο ανάμεσα σε δύο λεπίδες ξυραφιού κολλημένες σφιχτά μεταξύ τους σε ένα σκοτεινό δωμάτιο!</string>
+
+    <!-- Day 32: prism_dispersion -->
+    <string name="exp_prism_dispersion_title">Ημέρα 32: Διασπορά Πρίσματος &amp; Το Ουράνιο Τόξο του Νεύτωνα</string>
+    <string name="exp_prism_dispersion_subtitle">Διάθλαση Εξαρτώμενη από το Μήκος Κύματος (Χρωματική Διασπορά)</string>
+    <string name="exp_prism_dispersion_badge">Ημέρα 32 • Κλειδωμένο</string>
+    <string name="exp_prism_dispersion_teaser">Διαχωρίστε το λευκό φως στο φάσμα του ουράνιου τόξου μέσα από ένα ισόπλευρο γυάλινο πρίσμα.</string>
+    <string name="exp_prism_dispersion_magic">Ένα διαυγές τριγωνικό κομμάτι γυαλιού μεταμορφώνει το απλό λευκό ηλιακό φως σε επτά λαμπερά χρώματα του ουράνιου τόξου.</string>
+    <string name="exp_prism_dispersion_principle">Το γυαλί έχει μεγαλύτερο δείκτη διάθλασης για το ιώδες φως μικρού μήκους κύματος (n = 1,53) από ό,τι για το ερυθρό φως μεγάλου μήκους κύματος (n = 1,51), εκτρέποντας το ιώδες πιο έντονα.</string>
+    <string name="exp_prism_dispersion_formula_title">Εξίσωση Διασποράς του Cauchy</string>
+    <string name="exp_prism_dispersion_how_to">Φωτίστε με έναν φακό μέσα από ένα διαφανές γυάλινο ποτήρι με νερό πάνω σε ένα λευκό φύλλο χαρτιού κάτω από το ηλιακό φως!</string>
+
+    <!-- Day 33: polarization_3_filter -->
+    <string name="exp_polarization_3_filter_title">Ημέρα 33: Πόλωση &amp; Το Παράδοξο των 3 Φίλτρων</string>
+    <string name="exp_polarization_3_filter_subtitle">Νόμος του Malus &amp; Προβολές Διανυσματικού Πεδίου</string>
+    <string name="exp_polarization_3_filter_badge">Ημέρα 33 • Κλειδωμένο</string>
+    <string name="exp_polarization_3_filter_teaser">Σταυρώστε δύο πολωτικά φίλτρα στις 90° για να αποκλείσετε το 100% του φωτός. Τοποθετήστε ένα φίλτρο 45° ανάμεσά τους και δείτε το φως να επανεμφανίζεται!</string>
+    <string name="exp_polarization_3_filter_magic">Ο πλήρης αποκλεισμός του φωτός από δύο διασταυρωμένα φίλτρα μπορεί να αναστραφεί εισάγοντας ένα τρίτο φίλτρο ανάμεσά τους—προσθέτοντας ένα εμπόδιο, το φως περνάει!</string>
+    <string name="exp_polarization_3_filter_principle">Το φως είναι ένα εγκάρσιο ηλεκτρομαγνητικό κύμα. Το πρώτο φίλτρο επιτρέπει τη διέλευση του κατακόρυφου πεδίου E. Το ενδιάμεσο φίλτρο 45° προβάλλει μια διαγώνια συνιστώσα, η οποία πλέον έχει μη μηδενική οριζόντια προβολή μέσω του τρίτου φίλτρου!</string>
+    <string name="exp_polarization_3_filter_formula_title">Νόμος Έντασης του Malus</string>
+    <string name="exp_polarization_3_filter_how_to">Κρατήστε δύο πολωτικούς φακούς γυαλιών ηλίου σταυρωμένους στις 90° (πλήρες σκοτάδι) και στη συνέχεια τοποθετήστε έναν τρίτο πολωτικό φακό υπό γωνία ανάμεσά τους!</string>
+
+    <!-- Day 34: diffraction_grating -->
+    <string name="exp_diffraction_grating_title">Ημέρα 34: Φασματόμετρο Φράγματος Περίθλασης</string>
+    <string name="exp_diffraction_grating_subtitle">Γωνιακή Διασπορά Πολλαπλών Σχισμών &amp; Ατομικές Γραμμές Εκπομπής</string>
+    <string name="exp_diffraction_grating_badge">Ημέρα 34 • Κλειδωμένο</string>
+    <string name="exp_diffraction_grating_teaser">Διαχωρίστε τις φασματικές γραμμές εκπομπής στοιχείων χρησιμοποιώντας ένα φράγμα περίθλασης ακριβείας 1.000 γραμμών/mm.</string>
+    <string name="exp_diffraction_grating_magic">Κοιτάζοντας έναν λαμπτήρα φθορισμού μέσα από έναν δίσκο CD, το φως διαχωρίζεται σε διακριτές, λαμπερές έγχρωμες γραμμές αντί για ένα συνεχές ουράνιο τόξο.</string>
+    <string name="exp_diffraction_grating_principle">Η ενισχυτική συμβολή μέσα από χιλιάδες παράλληλες περιοδικές αυλακώσεις του φράγματος παράγει εξαιρετικά ευκρινείς γωνιακές κορυφές για κάθε διακριτό ατομικό μήκος κύματος.</string>
+    <string name="exp_diffraction_grating_formula_title">Εξίσωση Φράγματος Περίθλασης</string>
+    <string name="exp_diffraction_grating_how_to">Ανακλάστε το φως ενός φακού πάνω στην αυλακωτή επιφάνεια εγγραφής ενός δίσκου DVD ή CD για να δείτε ευκρινείς φασματικές γραμμές εκπομπής!</string>
+
+    <!-- Day 35: atmospheric_mirage -->
+    <string name="exp_atmospheric_mirage_title">Ημέρα 35: Ατμοσφαιρικός Αντικατοπτρισμός &amp; Καμπύλες Ακτίνες</string>
+    <string name="exp_atmospheric_mirage_subtitle">Συνεχείς Βαθμίδες Δείκτη Διάθλασης στον Θερμό Αέρα</string>
+    <string name="exp_atmospheric_mirage_badge">Ημέρα 35 • Κλειδωμένο</string>
+    <string name="exp_atmospheric_mirage_teaser">Προσομοιώστε οφθαλμαπάτες σε καυτή άσφαλτο όπου τρεμοπαίζουν λίμνες νερού στην έρημο.</string>
+    <string name="exp_atmospheric_mirage_magic">Ένας καυτός δρόμος στην έρημο μοιάζει καλυμμένος με ανακλαστικές λίμνες νερού, αλλά στην πραγματικότητα είναι εντελώς στεγνός.</string>
+    <string name="exp_atmospheric_mirage_principle">Ο έντονα θερμαινόμενος αέρας ακριβώς πάνω από την άσφαλτο έχει χαμηλότερη πυκνότητα και μικρότερο δείκτη διάθλασης. Οι ακτίνες φωτός από τον ουρανό καμπυλώνονται προς τα πάνω φτάνοντας στα μάτια του οδηγού, μιμούμενες ανάκλαση από νερό.</string>
+    <string name="exp_atmospheric_mirage_formula_title">Αρχή Ελάχιστου Χρόνου του Fermat</string>
+    <string name="exp_atmospheric_mirage_how_to">Κοιτάξτε κατά μήκος της επιφάνειας ενός μεταλλικού ταψιού ψησίματος που έχει τοποθετηθεί σε ζεστό φούρνο: παρατηρήστε την παραμορφωμένη, τρεμάμενη γραμμή του ορίζοντα!</string>
+
+    <!-- Day 36: magnus_effect -->
+    <string name="exp_magnus_effect_title">Ημέρα 36: Το Φαινόμενο Magnus (Φάλτσο Μπάλας)</string>
+    <string name="exp_magnus_effect_subtitle">Ασύμμετρη Ροή Οριακού Στρώματος Αέρα &amp; Άνωση</string>
+    <string name="exp_magnus_effect_badge">Ημέρα 36 • Κλειδωμένο</string>
+    <string name="exp_magnus_effect_teaser">Περιστρέψτε μια μπάλα ποδοσφαίρου και παρατηρήστε πώς τα περιστρεφόμενα οριακά στρώματα εκτρέπουν τη ροή αέρα και καμπυλώνουν την τροχιά.</string>
+    <string name="exp_magnus_effect_magic">Ένας ποδοσφαιριστής σουτάρει ευθεία και στον αέρα η μπάλα στρίβει απότομα γύρω από το τείχος καταλήγοντας στο παραθυράκι της εστίας.</string>
+    <string name="exp_magnus_effect_principle">Ένας περιστρεφόμενος κύλινδρος σε ροή αέρα παρασύρει τον αέρα ταχύτερα από τη μία πλευρά (χαμηλότερη πίεση) και τον επιβραδύνει από την άλλη (υψηλότερη πίεση), δημιουργώντας μια κάθετη δύναμη άνωσης Magnus.</string>
+    <string name="exp_magnus_effect_formula_title">Θεώρημα Άνωσης Kutta-Joukowski</string>
+    <string name="exp_magnus_effect_how_to">Αφήστε να πέσει ένα ελαφρύ χάρτινο ποτήρι τυλιγμένο με ένα λαστιχάκι δίνοντάς του γρήγορη ανάστροφη περιστροφή (backspin): δείτε το να εκτινάσσεται προς τα εμπρός και πάνω!</string>
+
+    <!-- Day 37: vortex_rings -->
+    <string name="exp_vortex_rings_title">Ημέρα 37: Τοροειδείς Δακτύλιοι Στροβιλισμού</string>
+    <string name="exp_vortex_rings_subtitle">Θεώρημα Κυκλοφορίας του Kelvin &amp; Πυρήνες Στροβίλων</string>
+    <string name="exp_vortex_rings_badge">Ημέρα 37 • Κλειδωμένο</string>
+    <string name="exp_vortex_rings_teaser">Εκτοξεύστε αυτοσταθεροποιούμενους τοροειδείς δακτυλίους καπνού που ταξιδεύουν μέτρα μέσα σε ένα δωμάτιο χωρίς να διασκορπίζονται.</string>
+    <string name="exp_vortex_rings_magic">Μια ριπή καπνού που ωθείται μέσα από μια στρογγυλή τρύπα σχηματίζει έναν περιστρεφόμενο δακτύλιο που πετάει ευθεία σαν συμπαγές βλήμα.</string>
+    <string name="exp_vortex_rings_principle">Η τριβή στην περίμετρο του στομίου τυλίγει τον εξερχόμενο πίδακα σε τόρο με πεδίο κυκλοφορίας ταχύτητας. Σύμφωνα με το θεώρημα κυκλοφορίας του Kelvin, οι ασυμπίεστες γραμμές στροβιλισμού παραμένουν δεσμευμένες με το ρευστό.</string>
+    <string name="exp_vortex_rings_formula_title">Διατήρηση Κυκλοφορίας του Kelvin</string>
+    <string name="exp_vortex_rings_how_to">Ανοίξτε μια κυκλική τρύπα στον πυθμένα ενός χάρτινου ποτηριού. Καλύψτε το επάνω μέρος με πλαστική μεμβράνη, χτυπήστε ελαφρά τη μεμβράνη και σβήστε ένα κερί σε απόσταση 1 μέτρου!</string>
+
+    <!-- Day 38: marangoni_propulsion -->
+    <string name="exp_marangoni_propulsion_title">Ημέρα 38: Σκάφος Επιφανειακής Τάσης Marangoni</string>
+    <string name="exp_marangoni_propulsion_subtitle">Βαθμίδες Επιφανειακής Τάσης &amp; Τριχοειδικός Κινητήρας</string>
+    <string name="exp_marangoni_propulsion_badge">Ημέρα 38 • Κλειδωμένο</string>
+    <string name="exp_marangoni_propulsion_teaser">Ρίξτε υγρό πιάτων στην πρύμνη μιας μικροσκοπικής χάρτινης βαρκούλας και δείτε την να εκτινάσσεται πάνω στο νερό.</string>
+    <string name="exp_marangoni_propulsion_magic">Ακουμπώντας μια οδοντογλυφίδα βουτηγμένη σε υγρό πιάτων στο νερό πίσω από ένα χάρτινο σκαφάκι, αυτό επιταχύνει σαν ταχύπλοο.</string>
+    <string name="exp_marangoni_propulsion_principle">Το νερό έχει υψηλή επιφανειακή τάση (72 mN/m), ενώ το σαπούνι τη μειώνει (25 mN/m). Η προκύπτουσα βαθμίδα επιφανειακής τάσης δημιουργεί ισχυρή διατμητική τάση που έλκει το ρευστό και το σκάφος προς τα εμπρός.</string>
+    <string name="exp_marangoni_propulsion_formula_title">Διατμητική Τάση Marangoni</string>
+    <string name="exp_marangoni_propulsion_how_to">Κόψτε ένα μικρό σχήμα βάρκας από χαρτόνι με μια εγκοπή στο πίσω μέρος. Τοποθετήστε το στο νερό και βάλτε μια σταγόνα υγρού πιάτων στην εγκοπή!</string>
+
+    <!-- Day 39: venturi_tube -->
+    <string name="exp_venturi_tube_title">Ημέρα 39: Σωλήνας Venturi &amp; Πτώση Πίεσης</string>
+    <string name="exp_venturi_tube_subtitle">Συνέχεια Ροής &amp; Μεταβολές Πίεσης Ασυμπίεστου Ρευστού</string>
+    <string name="exp_venturi_tube_badge">Ημέρα 39 • Κλειδωμένο</string>
+    <string name="exp_venturi_tube_teaser">Στενέψτε τη διάμετρο ενός σωλήνα ρευστού και παρατηρήστε τη στατική πίεση να πέφτει κατακόρυφα στο στενό τμήμα.</string>
+    <string name="exp_venturi_tube_magic">Η διέλευση νερού μέσα από έναν στενότερο σωλήνα κάνει την εσωτερική του πίεση να πέφτει απότομα αντί να αυξάνεται.</string>
+    <string name="exp_venturi_tube_principle">Λόγω της συνέχειας της μάζας A1*v1 = A2*v2, το ρευστό επιταχύνεται στο στενό τμήμα. Σύμφωνα με την εξίσωση Bernoulli, η αυξημένη πυκνότητα κινητικής ενέργειας απαιτεί ισοδύναμη πτώση της στατικής πίεσης.</string>
+    <string name="exp_venturi_tube_formula_title">Διαφορική Πίεση Venturi</string>
+    <string name="exp_venturi_tube_how_to">Φυσήξτε αέρα οριζόντια πάνω από το άκρο ενός κατακόρυφου καλαμακίου βυθισμένου σε ένα ποτήρι με νερό για να δημιουργήσετε ψεκασμό εκνεφωτή!</string>
+
+    <!-- Day 40: hydraulic_press -->
+    <string name="exp_hydraulic_press_title">Ημέρα 40: Υδραυλική Πρέσα Πολλαπλασιασμού Δύναμης</string>
+    <string name="exp_hydraulic_press_subtitle">Μηχανικό Πλεονέκτημα Ρευστών κατά Pascal</string>
+    <string name="exp_hydraulic_press_badge">Ημέρα 40 • Κλειδωμένο</string>
+    <string name="exp_hydraulic_press_teaser">Εφαρμόστε μια μικρή δύναμη εισόδου σε ένα στενό έμβολο και συνθλίψτε βαριά ατσάλινα μπλοκ με την ισχύ του ρευστού.</string>
+    <string name="exp_hydraulic_press_magic">Ένα παιδί που πιέζει το έμβολο μιας μικρής σύριγγας μπορεί να σηκώσει εύκολα βάρος 50 κιλών σε μια συνδεδεμένη μεγάλη σύριγγα.</string>
+    <string name="exp_hydraulic_press_principle">Η αρχή του Pascal δηλώνει ότι η πίεση που ασκείται σε ένα κλειστό ρευστό μεταδίδεται εξίσου προς όλες τις κατευθύνσεις. Ίση πίεση P1 = P2 συνεπάγεται F2 = F1 * (A2 / A1).</string>
+    <string name="exp_hydraulic_press_formula_title">Πολλαπλασιασμός Δύναμης κατά Pascal</string>
+    <string name="exp_hydraulic_press_how_to">Συνδέστε μια μικρή πλαστική σύριγγα με μια μεγάλη μέσω ενός σωλήνα γεμάτου με νερό. Νιώστε πόσο εύκολα η μικρή σηκώνει βάρη στη μεγάλη!</string>
+
+    <!-- Day 41: capillary_action -->
+    <string name="exp_capillary_action_title">Ημέρα 41: Τριχοειδές Φαινόμενο &amp; Άνοδος Μηνίσκου</string>
+    <string name="exp_capillary_action_subtitle">Πρόσφυση έναντι Συνοχής &amp; Νόμος του Jurin</string>
+    <string name="exp_capillary_action_badge">Ημέρα 41 • Κλειδωμένο</string>
+    <string name="exp_capillary_action_teaser">Βυθίστε γυάλινους τριχοειδείς σωλήνες διαφορετικών διαμέτρων στο νερό και παρακολουθήστε το ρευστό να αψηφά τη βαρύτητα ανεβαίνοντας προς τα πάνω.</string>
+    <string name="exp_capillary_action_magic">Το νερό αναρριχάται αυθόρμητα σε στενούς γυάλινους σωλήνες ενάντια στην έλξη της βαρύτητας.</string>
+    <string name="exp_capillary_action_principle">Οι δυνάμεις πρόσφυσης μεταξύ των πολικών μορίων νερού και του πυριτίου του γυαλιού υπερτερούν των δυνάμεων συνοχής μεταξύ των μορίων νερού. Ο καμπύλος μηνίσκος δημιουργεί έλλειμμα πίεσης Laplace που έλκει το νερό προς τα πάνω.</string>
+    <string name="exp_capillary_action_formula_title">Νόμος Τριχοειδούς Ανόδου του Jurin</string>
+    <string name="exp_capillary_action_how_to">Βυθίστε την άκρη μιας χαρτοπετσέτας σε χρωματιστό νερό: δείτε το υγρό να ανεβαίνει κατακόρυφα στις ίνες ενάντια στη βαρύτητα!</string>
+
+    <!-- Day 42: karman_vortex_street -->
+    <string name="exp_karman_vortex_street_title">Ημέρα 42: Δρόμος Στροβίλων Kármán</string>
+    <string name="exp_karman_vortex_street_subtitle">Αποκόλληση Ομόρρου από Στρωτή σε Τυρβώδη Ροή &amp; Αριθμός Strouhal</string>
+    <string name="exp_karman_vortex_street_badge">Ημέρα 42 • Κλειδωμένο</string>
+    <string name="exp_karman_vortex_street_teaser">Τοποθετήστε έναν κύλινδρο σε ρέον νερό και παρατηρήστε εναλλασσόμενους στροβίλους να αποκολλώνται σχηματίζοντας έναν συμμετρικό δρόμο.</string>
+    <string name="exp_karman_vortex_street_magic">Το νερό που ρέει γύρω από έναν πυλώνα γέφυρας σχηματίζει μια μαγευτική τεθλασμένη σειρά από εναλλασσόμενες δίνες.</string>
+    <string name="exp_karman_vortex_street_principle">Σε αριθμούς Reynolds μεταξύ 47 και 10^5, η αποκόλληση του οριακού στρώματος από την άνω και κάτω επιφάνεια εναλλάσσεται περιοδικά, αποκολλώντας αντιστρόφως περιστρεφόμενους στροβίλους που καθορίζονται από τον αριθμό Strouhal St.</string>
+    <string name="exp_karman_vortex_street_formula_title">Συχνότητα Αποκόλλησης Στροβίλων Strouhal</string>
+    <string name="exp_karman_vortex_street_how_to">Σύρετε αργά ένα μολύβι μέσα σε έναν νιπτήρα γεμάτο ήρεμο νερό φωτισμένο από πάνω για να δείτε τον σχηματισμό του δρόμου στροβίλων!</string>
+
+    <!-- Day 43: ideal_gas_piston -->
+    <string name="exp_ideal_gas_piston_title">Ημέρα 43: Έμβολο Ιδανικού Αερίου &amp; Έργο p-V</string>
+    <string name="exp_ideal_gas_piston_subtitle">Θερμοδυναμικό Έργο &amp; Διάγραμμα Κατάστασης p-V</string>
+    <string name="exp_ideal_gas_piston_badge">Ημέρα 43 • Κλειδωμένο</string>
+    <string name="exp_ideal_gas_piston_teaser">Συμπιέστε σωματίδια αερίου με ένα συρόμενο έμβολο και παρακολουθήστε σε πραγματικό χρόνο το έργο p-V και τη μεταβολή της θερμοκρασίας.</string>
+    <string name="exp_ideal_gas_piston_magic">Η ταχεία συμπίεση αέρα μέσα σε έναν κλειστό κύλινδρο εκτοξεύει τη θερμοκρασία του σε καυτά επίπεδα χωρίς εξωτερική εστία θερμότητας.</string>
+    <string name="exp_ideal_gas_piston_principle">Η παραγωγή μηχανικού έργου W = ολοκλήρωμα p dV συμπιέζει τα σωματίδια, αυξάνοντας τη μέση μοριακή κινητική ενέργεια και τη θερμοκρασία υπό αδιαβατικές συνθήκες.</string>
+    <string name="exp_ideal_gas_piston_formula_title">1ος Νόμος Θερμοδυναμικής &amp; Καταστατική Εξίσωση Ιδανικών Αερίων</string>
+    <string name="exp_ideal_gas_piston_how_to">Τρομπάρετε γρήγορα μια χειροκίνητη τρόμπα ποδηλάτου κλείνοντας το στόμιο με τον αντίχειρά σας: νιώστε τον μεταλλικό κύλινδρο να καίει!</string>
+
+    <!-- Day 44: brownian_motion -->
+    <string name="exp_brownian_motion_title">Ημέρα 44: Κίνηση Brown &amp; Τυχαίος Περίπατος</string>
+    <string name="exp_brownian_motion_subtitle">Θερμικές Μοριακές Συγκρούσεις &amp; Σχέση του Einstein</string>
+    <string name="exp_brownian_motion_badge">Ημέρα 44 • Κλειδωμένο</string>
+    <string name="exp_brownian_motion_teaser">Παρακολουθήστε τον μικροσκοπικό τυχαίο περίπατο κόκκων γύρης που βομβαρδίζονται από αόρατα θερμικά μόρια νερού.</string>
+    <string name="exp_brownian_motion_magic">Μικροσκοπικοί κόκκοι γύρης σε ακίνητο νερό χορεύουν και κινούνται ακανόνιστα αδιάκοπα χωρίς να σταματούν ποτέ.</string>
+    <string name="exp_brownian_motion_principle">Ο Einstein απέδειξε το 1905 ότι οι στατιστικές διακυμάνσεις στις θερμικές κινητικές συγκρούσεις των μορίων νερού προσδίδουν τυχαίες ωθήσεις ορμής, επιβεβαιώνοντας την ατομική υπόσταση της ύλης.</string>
+    <string name="exp_brownian_motion_formula_title">Σχέση Διάχυσης Einstein-Smoluchowski</string>
+    <string name="exp_brownian_motion_how_to">Στοχεύστε έναν δείκτη λέιζερ μέσα από γάλα αραιωμένο με νερό σε σκοτεινό δωμάτιο: δείτε τον ακανόνιστο παλμό των αιωρούμενων σταγονιδίων λίπους!</string>
+
+    <!-- Day 45: leidenfrost_effect -->
+    <string name="exp_leidenfrost_effect_title">Ημέρα 45: Το Φαινόμενο Leidenfrost</string>
+    <string name="exp_leidenfrost_effect_subtitle">Θερμομόνωση μέσω Στρώματος Ατμού &amp; Αιώρηση</string>
+    <string name="exp_leidenfrost_effect_badge">Ημέρα 45 • Κλειδωμένο</string>
+    <string name="exp_leidenfrost_effect_teaser">Ζεστάνετε ένα τηγάνι πάνω από τους 200°C και δείτε σταγόνες νερού να γλιστρούν αβίαστα πάνω σε ένα μονωτικό στρώμα ατμού.</string>
+    <string name="exp_leidenfrost_effect_magic">Σε ένα τηγάνι στους 120°C το νερό εξατμίζεται ακαριαία, αλλά στους 220°C αιωρείται και ολισθαίνει σαν δίσκος χόκεϊ αέρα για πάνω από ένα λεπτό!</string>
+    <string name="exp_leidenfrost_effect_principle">Η ακαριαία εξάτμιση κάτω από τη σταγόνα σχηματίζει ένα μικροστρώμα ατμού με πολύ χαμηλή θερμική αγωγιμότητα, μονώνοντας το υπόλοιπο της σταγόνας και προσφέροντας ολίσθηση χωρίς τριβές.</string>
+    <string name="exp_leidenfrost_effect_formula_title">Μεταφορά Θερμότητας Στρώματος Ατμού</string>
+    <string name="exp_leidenfrost_effect_how_to">Ζεστάνετε καλά ένα καθαρό τηγάνι. Ρίξτε μερικές σταγόνες νερού και δείτε τις να παίρνουν σφαιρικό σχήμα και να γλιστρούν χωρίς τριβή!</string>
+
+    <!-- Day 46: stirling_engine -->
+    <string name="exp_stirling_engine_title">Ημέρα 46: Θερμική Μηχανή Κύκλου Stirling</string>
+    <string name="exp_stirling_engine_subtitle">Αναγεννητικός Κλειστός Κύκλος Εξωτερικής Καύσης</string>
+    <string name="exp_stirling_engine_badge">Ημέρα 46 • Κλειδωμένο</string>
+    <string name="exp_stirling_engine_teaser">Κινήστε έναν διαδραστικό σφόνδυλο χρησιμοποιώντας έμβολα θερμής εκτόνωσης και ψυχρής συμπίεσης σε έναν κλειστό κύκλο αερίου.</string>
+    <string name="exp_stirling_engine_magic">Μια μηχανή που τροφοδοτείται απλώς ακουμπώντας πάνω σε ένα ζεστό φλιτζάνι καφέ περιστρέφει ομαλά έναν μηχανικό σφόνδυλο για ώρες.</string>
+    <string name="exp_stirling_engine_principle">Μια σταθερή μάζα αερίου μετακινείται ανάμεσα σε θερμή και ψυχρή δεξαμενή μέσω αναγεννητή. Η ισόχωρη θέρμανση και η ισόθερμη εκτόνωση μετατρέπουν τις θερμικές διαφορές σε μηχανικό έργο άξονα.</string>
+    <string name="exp_stirling_engine_formula_title">Θερμική Απόδοση Ιδανικού Κύκλου Stirling</string>
+    <string name="exp_stirling_engine_how_to">Αναζητήστε επιτραπέζιες μηχανές Stirling χαμηλής διαφοράς θερμοκρασίας που λειτουργούν αποκλειστικά με τη θερμότητα της παλάμης σας!</string>
+
+    <!-- Day 47: maxwells_demon -->
+    <string name="exp_maxwells_demon_title">Ημέρα 47: Ο Δαίμονας του Maxwell &amp; Εντροπία Πληροφορίας</string>
+    <string name="exp_maxwells_demon_subtitle">Στατιστική Μηχανική &amp; Αρχή του Landauer</string>
+    <string name="exp_maxwells_demon_badge">Ημέρα 47 • Κλειδωμένο</string>
+    <string name="exp_maxwells_demon_teaser">Προσομοιώστε έναν μικροσκοπικό θυρωρό που διαχωρίζει τα γρήγορα σωματίδια αριστερά και τα αργά δεξιά για να δημιουργήσει διαφορά θερμοκρασίας.</string>
+    <string name="exp_maxwells_demon_magic">Θα μπορούσε ένα ευφυές μικροσκοπικό πλάσμα να διαχωρίσει θερμά και ψυχρά άτομα χωρίς παραγωγή έργου, παραβιάζοντας τον 2ο Νόμο της Θερμοδυναμικής;</string>
+    <string name="exp_maxwells_demon_principle">Οι Szilard και Landauer έδειξαν ότι ο δαίμονας πρέπει να μετράει, να καταγράφει και τελικά να διαγράφει πληροφορίες σωματιδίων. Η διαγραφή 1 bit θερμοδυναμικής εντροπίας εκλύει τουλάχιστον k_B T ln(2) θερμικής ενέργειας.</string>
+    <string name="exp_maxwells_demon_formula_title">Θερμοδυναμικό Όριο Διαγραφής του Landauer</string>
+    <string name="exp_maxwells_demon_how_to">Ανακαλύψτε πώς τα σύγχρονα τσιπ μνήμης υπολογιστών εκλύουν θερμότητα θεμελιωδώς λόγω του θερμοδυναμικού ορίου διαγραφής του Landauer!</string>
+
+    <!-- Day 48: fourier_heat_conduction -->
+    <string name="exp_fourier_heat_conduction_title">Ημέρα 48: Αγωγή Θερμότητας Fourier στα Στερεά</string>
+    <string name="exp_fourier_heat_conduction_subtitle">Θερμική Αγωγιμότητα &amp; Βαθμίδες Θερμοκρασίας</string>
+    <string name="exp_fourier_heat_conduction_badge">Ημέρα 48 • Κλειδωμένο</string>
+    <string name="exp_fourier_heat_conduction_teaser">Εφαρμόστε φλόγιστρο στη μία πλευρά μιας σύνθετης ράβδου και δείτε τη θερμότητα να διαχέεται μέσα από χαλκό, χάλυβα και ξύλο.</string>
+    <string name="exp_fourier_heat_conduction_magic">Αγγίζοντας μια ξύλινη κουτάλα σε σούπα που βράζει δεν νιώθετε τίποτα, αλλά ένα ασημένιο κουτάλι θα κάψει τα δάχτυλά σας σε 5 δευτερόλεπτα.</string>
+    <string name="exp_fourier_heat_conduction_principle">Η ροή θερμότητας q είναι ανάλογη της αρνητικής θερμοκρασιακής βαθμίδας. Τα μέταλλα έχουν υψηλή θερμική αγωγιμότητα k λόγω μεταφοράς ελεύθερων ηλεκτρονίων σθένους, ενώ οι μονωτές βασίζονται σε αργές ταλαντώσεις φωνονίων.</string>
+    <string name="exp_fourier_heat_conduction_formula_title">Νόμος Θερμικής Αγωγιμότητας του Fourier</string>
+    <string name="exp_fourier_heat_conduction_how_to">Τοποθετήστε ένα παγάκι σε ένα αλουμινένιο ταψί και ένα άλλο σε μια πλαστική επιφάνεια κοπής: το ταψί λιώνει τον πάγο 10 φορές ταχύτερα λόγω θερμικής αγωγιμότητας!</string>
+
+    <!-- Day 49: blackbody_radiation -->
+    <string name="exp_blackbody_radiation_title">Ημέρα 49: Ακτινοβολία Μέλανος Σώματος &amp; Καμπύλες Planck</string>
+    <string name="exp_blackbody_radiation_subtitle">Φάσματα Θερμικής Εκπομπής &amp; Νόμος Μετατόπισης του Wien</string>
+    <string name="exp_blackbody_radiation_badge">Ημέρα 49 • Κλειδωμένο</string>
+    <string name="exp_blackbody_radiation_teaser">Θερμάνετε μια ιδανική κοιλότητα μέλανος σώματος από τους 1.000 K στους 10.000 K και παρατηρήστε τη φασματική κορυφή να μετατοπίζεται από το υπέρυθρο στο μπλε.</string>
+    <string name="exp_blackbody_radiation_magic">Θερμαίνοντας μια μεταλλική μασιά, γίνεται θαμπή κόκκινη, μετά έντονα κερασί, κατόπιν λαμπερή κίτρινη και τελικά εκτυφλωτικά λευκοπυρωμένη.</string>
+    <string name="exp_blackbody_radiation_principle">Ο Planck έλυσε την υπεριώδη καταστροφή κβαντίζοντας τις ενέργειες των αρμονικών ταλαντωτών (E = nhf). Ο νόμος του Wien δείχνει ότι το μήκος κύματος μέγιστης εκπομπής είναι αντιστρόφως ανάλογο της απόλυτης θερμοκρασίας.</string>
+    <string name="exp_blackbody_radiation_formula_title">Νόμος του Planck &amp; Νόμος Μετατόπισης του Wien</string>
+    <string name="exp_blackbody_radiation_how_to">Ρυθμίστε την ένταση ενός λαμπτήρα πυρακτώσεως με ροοστάτη: παρατηρήστε πώς το χρώμα του νήματος αλλάζει από λευκοκίτρινο σε βαθύ πορτοκαλοκόκκινο καθώς πέφτει η θερμοκρασία!</string>
+
+    <!-- Day 50: eddy_current_braking -->
+    <string name="exp_eddy_current_braking_title">Ημέρα 50: Μαγνητική Πέδηση με Δινορεύματα (Eddy Currents)</string>
+    <string name="exp_eddy_current_braking_subtitle">Νόμος του Lenz &amp; Επαγόμενη Αντι-ΗΕΔ</string>
+    <string name="exp_eddy_current_braking_badge">Ημέρα 50 • Κλειδωμένο</string>
+    <string name="exp_eddy_current_braking_teaser">Ρίξτε έναν μαγνήτη νεοδυμίου μέσα σε έναν παχύ χάλκινο σωλήνα και δείτε τον να πέφτει σε παράξενη αργή κίνηση σαν να αψηφά τη βαρύτητα.</string>
+    <string name="exp_eddy_current_braking_magic">Ο χαλκός δεν είναι μαγνητικός, κι όμως, ρίχνοντας έναν μαγνήτη μέσα σε έναν χάλκινο σωλήνα, αυτός πέφτει απελπιστικά αργά, αψηφώντας την ελεύθερη πτώση.</string>
+    <string name="exp_eddy_current_braking_principle">Τα κινούμενα μαγνητικά πεδία επάγουν κυκλικά δινορεύματα στον αγώγιμο χαλκό. Σύμφωνα με τον Νόμο του Lenz, τα ρεύματα αυτά δημιουργούν ένα αντίθετο μαγνητικό πεδίο που παράγει δύναμη μαγνητικής πέδησης προς τα πάνω.</string>
+    <string name="exp_eddy_current_braking_formula_title">Νόμος Faraday-Lenz &amp; Μαγνητική Οπισθέλκουσα</string>
+    <string name="exp_eddy_current_braking_how_to">Γλιστρήστε έναν ισχυρό μαγνήτη νεοδυμίου σε ένα κεκλιμένο αλουμινένιο ταψί: συγκρίνετέ το με την ολίσθηση ενός πλαστικού κύβου!</string>
+
+    <!-- Day 51: homopolar_motor -->
+    <string name="exp_homopolar_motor_title">Ημέρα 51: Ομοπολικός Ηλεκτρικός Κινητήρας</string>
+    <string name="exp_homopolar_motor_subtitle">Δύναμη Lorentz &amp; Ροπή Ακτινικού Ρεύματος</string>
+    <string name="exp_homopolar_motor_badge">Ημέρα 51 • Κλειδωμένο</string>
+    <string name="exp_homopolar_motor_teaser">Τοποθετήστε ένα χάλκινο σύρμα πάνω σε μια μπαταρία AA με έναν μαγνήτη νεοδυμίου στη βάση και δείτε το σύρμα να περιστρέφεται με ορμή.</string>
+    <string name="exp_homopolar_motor_magic">Μια απλή μπαταρία, ένας μαγνήτης και ένα λυγισμένο χάλκινο σύρμα δημιουργούν έναν κινητήρα ταχείας περιστροφής χωρίς γρανάζια ή συλλέκτες.</string>
+    <string name="exp_homopolar_motor_principle">Το ρεύμα ρέει κατακόρυφα μέσα από το σύρμα και ακτινικά προς τα έξω μέσω των γραμμών του μαγνητικού πεδίου. Η προκύπτουσα δύναμη Lorentz F = I L x B παράγει συνεχή ροπή περιστροφής.</string>
+    <string name="exp_homopolar_motor_formula_title">Ροπή Δύναμης Lorentz</string>
+    <string name="exp_homopolar_motor_how_to">Πάρτε μια μπαταρία AA, κολλήστε έναν δισκοειδή μαγνήτη νεοδυμίου στον αρνητικό πόλο και λυγίστε ένα χάλκινο σύρμα σε σχήμα καρδιάς πάνω από την κορυφή!</string>
+
+    <!-- Day 52: lorentz_cyclotron -->
+    <string name="exp_lorentz_cyclotron_title">Ημέρα 52: Τροχιά Κύκλοτρου με Δύναμη Lorentz</string>
+    <string name="exp_lorentz_cyclotron_subtitle">Κίνηση Φορτισμένων Σωματιδίων σε Μαγνητικά Πεδία</string>
+    <string name="exp_lorentz_cyclotron_badge">Ημέρα 52 • Κλειδωμένο</string>
+    <string name="exp_lorentz_cyclotron_teaser">Εκτοξεύστε πρωτόνια και ηλεκτρόνια σε ένα κάθετο μαγνητικό πεδίο B και δείτε τα να καμπυλώνονται σε κυκλικές τροχιές κύκλοτρου.</string>
+    <string name="exp_lorentz_cyclotron_magic">Η εκτόξευση φορτισμένων σωματιδίων σε χώρο με μαγνητικό πεδίο τα αναγκάζει να διαγράφουν τέλειους κύκλους.</string>
+    <string name="exp_lorentz_cyclotron_principle">Η μαγνητική δύναμη είναι πάντα κάθετη στην ταχύτητα, παράγοντας μηδενικό έργο ενώ παρέχει κεντρομόλο επιτάχυνση q v B = m v^2 / r, δίνοντας ακτίνα κύκλοτρου r = mv / qB.</string>
+    <string name="exp_lorentz_cyclotron_formula_title">Ακτίνα &amp; Συχνότητα Κύκλοτρου</string>
+    <string name="exp_lorentz_cyclotron_how_to">Αναζητήστε πώς τα κύκλοτρα στα νοσοκομεία επιταχύνουν πρωτόνια για την παραγωγή ραδιενεργών ιχνηθετών για τη θεραπεία του καρκίνου!</string>
+
+    <!-- Day 53: electromagnetic_solenoid -->
+    <string name="exp_electromagnetic_solenoid_title">Ημέρα 53: Ηλεκτρομαγνητικό Σωληνοειδές</string>
+    <string name="exp_electromagnetic_solenoid_subtitle">Νόμος του Ampère &amp; Μαγνητική Διαπερατότητα Πυρήνα</string>
+    <string name="exp_electromagnetic_solenoid_badge">Ημέρα 53 • Κλειδωμένο</string>
+    <string name="exp_electromagnetic_solenoid_teaser">Τυλίξτε χάλκινο σύρμα γύρω από έναν σιδερένιο πυρήνα και παρατηρήστε τις γραμμές μαγνητικής ροής να έλκουν βαριά ατσάλινα αντικείμενα στο εσωτερικό.</string>
+    <string name="exp_electromagnetic_solenoid_magic">Η διέλευση ηλεκτρικού ρεύματος μέσα από ένα τυλιγμένο σύρμα δημιουργεί έναν μαγνήτη αρκετά ισχυρό ώστε να σηκώνει παλιοσίδερα και αυτοκίνητα.</string>
+    <string name="exp_electromagnetic_solenoid_principle">Το ρεύμα που κυκλοφορεί μέσα από N σπείρες συγκεντρώνει τη μαγνητική ροή μέσα στον πυρήνα: B = μ * (N/L) * I. Η εισαγωγή σιδηρομαγνητικού πυρήνα πολλαπλασιάζει την ένταση του πεδίου με τη σχετική διαπερατότητα μ_r ~ 5000.</string>
+    <string name="exp_electromagnetic_solenoid_formula_title">Νόμος του Ampère για Πεδίο Σωληνοειδούς</string>
+    <string name="exp_electromagnetic_solenoid_how_to">Τυλίξτε μονωμένο χάλκινο σύρμα 50 φορές γύρω από ένα μεγάλο σιδερένιο καρφί, συνδέστε τα άκρα σε μια μπαταρία 1,5V τύπου D και μαγνητίστε συνδετήρες!</string>
+
+    <!-- Day 54: tesla_coil -->
+    <string name="exp_tesla_coil_title">Ημέρα 54: Πηνίο Tesla &amp; Τόξο Πλάσματος</string>
+    <string name="exp_tesla_coil_subtitle">Διπλά Συντονισμένα Κυκλώματα LC &amp; Διηλεκτρική Διάσπαση</string>
+    <string name="exp_tesla_coil_badge">Ημέρα 54 • Κλειδωμένο</string>
+    <string name="exp_tesla_coil_teaser">Συντονίστε δύο κυκλώματα LC στα 250 kHz και εκτοξεύστε ηλεκτρικά τόξα πλάσματος στον αέρα για να ανάψετε ασύρματα λαμπτήρες.</string>
+    <string name="exp_tesla_coil_magic">Κρατώντας έναν σωλήνα φθορισμού κοντά σε ένα πηνίο Tesla, αυτός ανάβει έντονα στον αέρα χωρίς καθόλου καλώδια ή μπαταρίες.</string>
+    <string name="exp_tesla_coil_principle">Δύο συζευγμένα συντονισμένα κυκλώματα LC συντονισμένα στην ίδια συχνότητα ανυψώνουν την τάση σε εκατοντάδες χιλιάδες βολτ, υπερβαίνοντας τη διηλεκτρική αντοχή διάσπασης του αέρα (3 MV/m) και δημιουργώντας διακλαδισμένους διαύλους πλάσματος.</string>
+    <string name="exp_tesla_coil_formula_title">Συντονισμός Συχνότητας Συντονισμένου Μετασχηματιστή</string>
+    <string name="exp_tesla_coil_how_to">Παρατηρήστε πώς οι οθόνες αφής και οι σφαίρες πλάσματος χρησιμοποιούν ηλεκτρικά πεδία υψηλής συχνότητας για να ανάψουν σωλήνες αερίου νέον!</string>
+
+    <!-- Day 55: electromagnetic_railgun -->
+    <string name="exp_electromagnetic_railgun_title">Ημέρα 55: Ηλεκτρομαγνητικό Πυροβόλο Ραγών (Railgun)</string>
+    <string name="exp_electromagnetic_railgun_subtitle">Ακραία Επιτάχυνση μέσω Δύναμης Lorentz</string>
+    <string name="exp_electromagnetic_railgun_badge">Ημέρα 55 • Κλειδωμένο</string>
+    <string name="exp_electromagnetic_railgun_teaser">Στείλτε παλμούς ρεύματος μεγααμπέρ σε παράλληλες ράγες για να εκτοξεύσετε ένα βλήμα οπλισμού σε ταχύτητες Mach 7.</string>
+    <string name="exp_electromagnetic_railgun_magic">Δύο μεταλλικές ράγες και μια συρόμενη ράβδος μπορούν να εκτοξεύσουν βλήματα σε υπερηχητικές ταχύτητες χωρίς ίχνος πυρίτιδας.</string>
+    <string name="exp_electromagnetic_railgun_principle">Το ρεύμα που διατρέχει τη μία ράγα, περνά από τον οπλισμό (armature) και επιστρέφει από την άλλη ράγα, δημιουργεί ένα έντονα συγκεντρωμένο μαγνητικό πεδίο ανάμεσα στις ράγες. Ο οπλισμός δέχεται τεράστια δύναμη Lorentz.</string>
+    <string name="exp_electromagnetic_railgun_formula_title">Δύναμη Προώθησης Railgun</string>
+    <string name="exp_electromagnetic_railgun_how_to">Ερευνήστε τα ναυτικά πρωτότυπα ηλεκτρομαγνητικών πυροβόλων ραγών που βάλλουν κινητικά βλήματα σε απόσταση άνω των 100 μιλίων αποκλειστικά με ηλεκτρική ενέργεια!</string>
+
+    <!-- Day 56: faraday_cage -->
+    <string name="exp_faraday_cage_title">Ημέρα 56: Θωράκιση Κλωβού Faraday</string>
+    <string name="exp_faraday_cage_subtitle">Ηλεκτροστατικός Νόμος του Gauss &amp; Εξουδετέρωση Πλέγματος</string>
+    <string name="exp_faraday_cage_badge">Ημέρα 56 • Κλειδωμένο</string>
+    <string name="exp_faraday_cage_teaser">Χτυπήστε μια μεταλλική σφαίρα-πλέγμα με προσομοιωμένους κεραυνούς εκατομμυρίων βολτ, ενώ το εσωτερικό παραμένει με απολύτως μηδενικό πεδίο.</string>
+    <string name="exp_faraday_cage_magic">Αν βρίσκεστε μέσα σε ένα μεταλλικό αυτοκίνητο που χτυπιέται από κεραυνό, παραμένετε εντελώς αλώβητοι.</string>
+    <string name="exp_faraday_cage_principle">Οι αγωγοί διαθέτουν ελεύθερα ηλεκτρόνια που ανακατανέμονται ακαριαία στην εξωτερική επιφάνεια μέχρι το εσωτερικό ηλεκτρικό πεδίο να γίνει ακριβώς μηδέν (E_inside = 0), θωρακίζοντας οτιδήποτε βρίσκεται στο εσωτερικό.</string>
+    <string name="exp_faraday_cage_formula_title">Ηλεκτροστατική Θωράκιση κατά τον Νόμο του Gauss</string>
+    <string name="exp_faraday_cage_how_to">Τυλίξτε το κινητό σας τηλέφωνο εντελώς με αλουμινόχαρτο και προσπαθήστε να το καλέσετε από άλλο τηλέφωνο: χάνει εντελώς το σήμα του!</string>
+
+<!-- Day 57: double_pendulum -->
+    <string name="exp_double_pendulum_title">Ημέρα 57: Χάος Διπλού Εκκρεμούς</string>
+    <string name="exp_double_pendulum_subtitle">Ντετερμινιστικό Χάος &amp; Εκθέτες Lyapunov</string>
+    <string name="exp_double_pendulum_badge">Ημέρα 57 • Κλειδωμένο</string>
+    <string name="exp_double_pendulum_teaser">Αφήστε δύο διπλά εκκρεμή με διαφορά μόλις 0,001° και παρατηρήστε τις διαδρομές τους να αποκλίνουν σε μια ανεξέλεγκτη απροβλεψιμότητα.</string>
+    <string name="exp_double_pendulum_magic">Ένα διπλό εκκρεμές που καθορίζεται καθαρά από τους ντετερμινιστικούς νόμους του Newton γίνεται εντελώς απρόβλεπτο μετά από 5 δευτερόλεπτα.</string>
+    <string name="exp_double_pendulum_principle">Οι συζευγμένες μη γραμμικές διαφορικές εξισώσεις διαθέτουν θετικούς εκθέτες Lyapunov lambda &gt; 0, πράγμα που σημαίνει ότι οι αρχικές απειροελάχιστες αβεβαιότητες αυξάνονται εκθετικά με τον χρόνο: delta theta(t) ~ e^(lambda t).</string>
+    <string name="exp_double_pendulum_formula_title">Συζευγμένες Εξισώσεις Euler-Lagrange</string>
+    <string name="exp_double_pendulum_how_to">Δέστε δύο στυλό άκρη με άκρη με σπάγκο και χτυπήστε ελαφρά το επάνω στυλό: παρατηρήστε πώς το κάτω στυλό περιστρέφεται απρόβλεπτα!</string>
+
+    <!-- Day 58: lorenz_attractor -->
+    <string name="exp_lorenz_attractor_title">Ημέρα 58: Ο Ελκυστής Lorenz</string>
+    <string name="exp_lorenz_attractor_subtitle">Ατμοσφαιρική Μεταφορά &amp; Το Φαινόμενο της Πεταλούδας</string>
+    <string name="exp_lorenz_attractor_badge">Ημέρα 58 • Κλειδωμένο</string>
+    <string name="exp_lorenz_attractor_teaser">Ιχνηλατήστε τον εμβληματικό παράξενο ελκυστή δύο λοβών σε σχήμα πεταλούδας που ανακάλυψε ο Edward Lorenz το 1963.</string>
+    <string name="exp_lorenz_attractor_magic">Μια απλοποιημένη εξίσωση καιρού 3 μεταβλητών απέδειξε ότι το πέταγμα μιας πεταλούδας στη Βραζιλία μπορεί να προκαλέσει ανεμοστρόβιλο στο Τέξας.</string>
+    <string name="exp_lorenz_attractor_principle">Ένα σύστημα 3 συζευγμένων μη γραμμικών ΣΔΕ που μοντελοποιεί την ατμοσφαιρική μεταφορά παράγει τροχιές οι οποίες περιφέρονται εντός μιας φραγμένης περιοχής κλασματικής διάστασης Hausdorff (~2,06) χωρίς ποτέ να τέμνονται ή να επαναλαμβάνονται.</string>
+    <string name="exp_lorenz_attractor_formula_title">Διαφορικές Εξισώσεις Lorenz</string>
+    <string name="exp_lorenz_attractor_how_to">Εξερευνήστε πώς η πρόγνωση του καιρού περιορίζεται θεμελιωδώς σε 10-14 ημέρες λόγω της χαοτικής ευαισθησίας της δυναμικής Lorenz!</string>
+
+    <!-- Day 59: magnetic_chaos_pendulum -->
+    <string name="exp_magnetic_chaos_pendulum_title">Ημέρα 59: Εκκρεμές Μαγνητικού Χάους</string>
+    <string name="exp_magnetic_chaos_pendulum_subtitle">Φρακταλικά Όρια Λεκανών &amp; Πολυστάθεια</string>
+    <string name="exp_magnetic_chaos_pendulum_badge">Ημέρα 59 • Κλειδωμένο</string>
+    <string name="exp_magnetic_chaos_pendulum_teaser">Αφήστε ένα σιδερένιο εκκρεμές πάνω από 3 έγχρωμους μαγνήτες-ελκυστές και χαρτογραφήστε τις περίπλοκες φρακταλικές λεκάνες προορισμού.</string>
+    <string name="exp_magnetic_chaos_pendulum_magic">Η απελευθέρωση ενός εκκρεμούς πάνω από τρεις μαγνήτες δημιουργεί ένα περίπλοκο φρακταλικό όριο, όπου η μετατόπιση της αρχικής θέσης κατά 1 μικρόμετρο αλλάζει τον τελικό μαγνήτη.</string>
+    <string name="exp_magnetic_chaos_pendulum_principle">Το όριο μεταξύ των τριών λεκανών έλξης είναι ένα φρακταλικό όριο μη ακέραιας διάστασης· κοντά στο όριο, οποιαδήποτε γειτονιά περιέχει σημεία που οδηγούν και στους τρεις μαγνήτες.</string>
+    <string name="exp_magnetic_chaos_pendulum_formula_title">Νευτώνεια Κίνηση σε Μαγνητικό Δυναμικό Πολλαπλών Πηγαδιών</string>
+    <string name="exp_magnetic_chaos_pendulum_how_to">Τοποθετήστε τρεις μικρούς μαγνήτες σε ένα τραπέζι σχηματίζοντας τρίγωνο και αιωρήστε μια ατσάλινη μπίλια δεμένη σε σπάγκο ακριβώς από πάνω τους!</string>
+
+    <!-- Day 60: conways_game_of_life -->
+    <string name="exp_conways_game_of_life_title">Ημέρα 60: Το Παιχνίδι της Ζωής του Conway</string>
+    <string name="exp_conways_game_of_life_subtitle">Κυψελικά Αυτόματα &amp; Αναδυόμενη Πολυπλοκότητα</string>
+    <string name="exp_conways_game_of_life_badge">Ημέρα 60 • Κλειδωμένο</string>
+    <string name="exp_conways_game_of_life_teaser">Διαμορφώστε αρχικά μοτίβα κελιών και δείτε ανεμοπλάνα, πάλσαρ και διαστημόπλοια να αναδύονται μέσα από 4 απλούς κανόνες.</string>
+    <string name="exp_conways_game_of_life_magic">Από μόλις 4 απλούς αριθμητικούς κανόνες επιβίωσης και αναπαραγωγής αναδύονται κινούμενα διαστημόπλοια, αυτοαναπαραγόμενα πυροβόλα και καθολικοί υπολογιστές.</string>
+    <string name="exp_conways_game_of_life_principle">Το δισδιάστατο κυψελικό αυτόματο πλέγματος του John Conway καταδεικνύει ότι απλοί τοπικοί ντετερμινιστικοί κανόνες μπορούν να προκαλέσουν Turing-πλήρη υπολογιστική ανάδυση και πολυπλοκότητα που θυμίζει ζωντανούς οργανισμούς.</string>
+    <string name="exp_conways_game_of_life_formula_title">Συνθήκες Κανόνων Ζωής (B3/S23)</string>
+    <string name="exp_conways_game_of_life_how_to">Σχεδιάστε μια γραμμή 3 κελιών σε τετραγωνισμένο χαρτί και ανανεώστε την: παρατηρήστε την να ταλαντώνεται αιώνια ως ρολόι περιόδου 2 (\'blinker\')!</string>
+
+    <!-- Day 61: metronome_sync -->
+    <string name="exp_metronome_sync_title">Ημέρα 61: Αυτοσυγχρονισμός Μετρονόμων</string>
+    <string name="exp_metronome_sync_subtitle">Συζευγμένοι Ταλαντωτές &amp; Κλείδωμα Φάσης Kuramoto</string>
+    <string name="exp_metronome_sync_badge">Ημέρα 61 • Κλειδωμένο</string>
+    <string name="exp_metronome_sync_teaser">Ξεκινήστε 5 ασυγχρόνιστους μετρονόμους πάνω σε μια κινούμενη βάση και δείτε τους να κλειδώνουν αυθόρμητα σε τέλειο συγχρονισμό.</string>
+    <string name="exp_metronome_sync_magic">Πέντε ασυγχρόνιστοι μετρονόμοι πάνω σε μια κυλιόμενη βάση συγχρονίζουν μαγικά τους χτύπους τους σε λιγότερο από 60 δευτερόλεπτα.</string>
+    <string name="exp_metronome_sync_principle">Μικρές οριζόντιες ταλαντώσεις της κυλιόμενης βάσης μεταδίδουν μηχανικές ώσεις μεταξύ των εκκρεμών. Ο μηχανισμός κλειδώματος φάσης Kuramoto οδηγεί το σύστημα προς μια συμμετρική συμφασική κατάσταση ελάχιστης ενέργειας.</string>
+    <string name="exp_metronome_sync_formula_title">Εξίσωση Σύζευξης Φάσης Kuramoto</string>
+    <string name="exp_metronome_sync_how_to">Τοποθετήστε δύο κουρδιστούς μετρονόμους πάνω σε δύο άδεια κουτάκια αναψυκτικού με έναν ελαφρύ ξύλινο χάρακα στην κορυφή: δείτε τους να συγχρονίζουν τους χτύπους τους!</string>
+
+    <!-- Day 62: sandpile_criticality -->
+    <string name="exp_sandpile_criticality_title">Ημέρα 62: Κρισιμότητα Σωρού Άμμου &amp; Χιονοστιβάδες</string>
+    <string name="exp_sandpile_criticality_subtitle">Αυτοοργανωμένη Κρισιμότητα &amp; Δυναμική Νόμου Δύναμης</string>
+    <string name="exp_sandpile_criticality_badge">Ημέρα 62 • Κλειδωμένο</string>
+    <string name="exp_sandpile_criticality_teaser">Ρίξτε μεμονωμένους κόκκους άμμου πάνω σε έναν σωρό και καταγράψτε την κατανομή νόμου δύναμης των κατολισθήσεων, από μικρές ολισθήσεις έως κολοσσιαίες καταρρεύσεις.</string>
+    <string name="exp_sandpile_criticality_magic">Η πτώση ενός και μόνο μικροσκοπικού κόκκου άμμου σε έναν σωρό μπορεί να προκαλέσει από μια ανεπαίσθητη ολίσθηση μέχρι μια τεράστια κατάρρευση.</string>
+    <string name="exp_sandpile_criticality_principle">Οι Bak, Tang και Wiesenfeld (1987) απέδειξαν ότι ο σωρός άμμου αυτορρυθμίζεται φυσικά σε μια κρίσιμη κατάσταση όπου η συχνότητα των κατολισθήσεων ακολουθεί κατανομή νόμου δύναμης 1/f: P(s) ~ s^(-tau).</string>
+    <string name="exp_sandpile_criticality_formula_title">Κατανομή Κατολισθήσεων Νόμου Δύναμης</string>
+    <string name="exp_sandpile_criticality_how_to">Ρίξτε αλάτι αργά μέσα από ένα χωνί πάνω σε ένα πιάτο και παρατηρήστε πώς η σταθερή ροή παράγει ακανόνιστες, επεισοδιακές κατολισθήσεις!</string>
+
+    <!-- Day 63: mandelbrot_chaos -->
+    <string name="exp_mandelbrot_chaos_title">Ημέρα 63: Σύνολα Mandelbrot &amp; Julia</string>
+    <string name="exp_mandelbrot_chaos_subtitle">Επανάληψη Μιγαδικών Αριθμών &amp; Άπειρη Φρακταλική Αυτοομοιότητα</string>
+    <string name="exp_mandelbrot_chaos_badge">Ημέρα 63 • Κλειδωμένο</string>
+    <string name="exp_mandelbrot_chaos_teaser">Κάντε ζουμ στο όριο της z_(n+1) = z_n^2 + c για να ανακαλύψετε άπειρα περίπλοκα αντίγραφα του σύμπαντος.</string>
+    <string name="exp_mandelbrot_chaos_magic">Μια απλή μαθηματική εξίσωση συντομότερη από ένα tweet περικλείει άπειρη, ανεξάντλητη γεωμετρική πολυπλοκότητα.</string>
+    <string name="exp_mandelbrot_chaos_principle">Το σύνολο Mandelbrot αποτελείται από όλες τις μιγαδικές παραμέτρους c για τις οποίες η τροχιά που ξεκινά από z=0 παραμένει φραγμένη υπό την απεικόνιση z -&gt; z^2 + c. Το όριό του έχει διάσταση Hausdorff 2 και άπειρη αυτοομοιότητα.</string>
+    <string name="exp_mandelbrot_chaos_formula_title">Τύπος Επανάληψης Mandelbrot</string>
+    <string name="exp_mandelbrot_chaos_how_to">Μεγεθύνετε το σύνολο Mandelbrot στο διαδίκτυο για να δείτε μικρογραφίες Mandelbrot να επαναλαμβάνονται με άπειρες παραλλαγές σε κάθε κλίμακα!</string>
+
+    <!-- Day 64: time_dilation -->
+    <string name="exp_time_dilation_title">Ημέρα 64: Σχετικιστική Διαστολή Χρόνου</string>
+    <string name="exp_time_dilation_subtitle">Ρολόι Φωτονίων &amp; Παράγοντας Lorentz</string>
+    <string name="exp_time_dilation_badge">Ημέρα 64 • Κλειδωμένο</string>
+    <string name="exp_time_dilation_teaser">Ταξιδέψτε με διαστημόπλοιο με ταχύτητα 0,99c και παρατηρήστε πώς το κατακόρυφο ρολόι φωτονίων επιμηκύνεται σε διαγώνια διαδρομή, επιβραδύνοντας τον χρόνο.</string>
+    <string name="exp_time_dilation_magic">Η κίνηση με μεγάλη ταχύτητα επιβραδύνει κυριολεκτικά τη ροή του χρόνου. Εάν ταξιδεύετε με το 99% της ταχύτητας του φωτός, εσείς γερνάτε κατά 1 έτος ενώ η Γη κατά 7 χρόνια.</string>
+    <string name="exp_time_dilation_principle">Επειδή η ταχύτητα του φωτός c είναι αναλλοίωτη σε όλα τα συστήματα αναφοράς, η διαγώνια διαδρομή του φωτονίου σε ένα κινούμενο ρολόι είναι μακρύτερη, εξαναγκάζοντας τον ρυθμό χτύπων να επιβραδυνθεί κατά τον παράγοντα Lorentz gamma.</string>
+    <string name="exp_time_dilation_formula_title">Διαστολή Χρόνου Ειδικής Σχετικότητας</string>
+    <string name="exp_time_dilation_how_to">Οι δορυφόροι GPS που κινούνται με 14.000 km/h πρέπει να βαθμονομούν καθημερινά τα εσωτερικά ατομικά τους ρολόγια λόγω της σχετικιστικής διαστολής του χρόνου!</string>
+
+    <!-- Day 65: length_contraction -->
+    <string name="exp_length_contraction_title">Ημέρα 65: Συστολή Μήκους Lorentz</string>
+    <string name="exp_length_contraction_subtitle">Συστολή Χώρου &amp; Επιβίωση Ατμοσφαιρικών Μιονίων</string>
+    <string name="exp_length_contraction_badge">Ημέρα 65 • Κλειδωμένο</string>
+    <string name="exp_length_contraction_teaser">Δείτε ένα σχετικιστικό τρένο υψηλής ταχύτητας να συστέλλεται σε μήκος, εξηγώντας πώς τα ατμοσφαιρικά μιόνια επιβιώνουν φτάνοντας στην επιφάνεια της Γης.</string>
+    <string name="exp_length_contraction_magic">Τα υποατομικά μιόνια που παράγονται στην ανώτερη ατμόσφαιρα διασπώνται σε 2 μικροδευτερόλεπτα, όμως φτάνουν στο έδαφος επειδή ολόκληρη η ατμόσφαιρα συρρικνώνεται γι\' αυτά!</string>
+    <string name="exp_length_contraction_principle">Στο σύστημα αναφοράς του κινούμενου αντικειμένου, οι αποστάσεις παράλληλα προς την κίνηση συστέλλονται κατά 1/gamma. Ο χώρος και ο χρόνος συνενώνονται μέσω του μετασχηματισμού Lorentz.</string>
+    <string name="exp_length_contraction_formula_title">Τύπος Συστολής Μήκους Lorentz</string>
+    <string name="exp_length_contraction_how_to">Αναζητήστε πληροφορίες για τα μιόνια των κοσμικών ακτίνων: χωρίς τη σχετικιστική συστολή μήκους, λιγότερο από το 0,0001% θα έφτανε ποτέ στο επίπεδο της θάλασσας!</string>
+
+    <!-- Day 66: gravitational_time_dilation -->
+    <string name="exp_gravitational_time_dilation_title">Ημέρα 66: Βαρυτική Διαστολή Χρόνου</string>
+    <string name="exp_gravitational_time_dilation_subtitle">Δυναμικό Γενικής Σχετικότητας &amp; Διαστρική Γήρανση</string>
+    <string name="exp_gravitational_time_dilation_badge">Ημέρα 66 • Κλειδωμένο</string>
+    <string name="exp_gravitational_time_dilation_teaser">Τοποθετήστε ατομικά ρολόγια κοντά σε μια υπερμεγέθη μαύρη τρύπα και παρατηρήστε τον χρόνο να κυλά δραστικά πιο αργά απ\' ό,τι στο βαθύ διάστημα.</string>
+    <string name="exp_gravitational_time_dilation_magic">Όσο πιο κοντά βρίσκεστε σε ένα σώμα μεγάλης μάζας, τόσο πιο αργά κυλά ο χρόνος. Μία ώρα σε έναν πλανήτη κοντά σε μαύρη τρύπα μπορεί να ισοδυναμεί με 7 χρόνια στη Γη.</string>
+    <string name="exp_gravitational_time_dilation_principle">Στη Γενική Σχετικότητα, τα ρολόγια που βρίσκονται βαθύτερα σε ένα πηγάδι βαρυτικού δυναμικού λειτουργούν πιο αργά σύμφωνα με τον μετρικό παράγοντα sqrt(1 - 2GM/rc^2).</string>
+    <string name="exp_gravitational_time_dilation_formula_title">Βαρυτική Διαστολή Χρόνου Schwarzschild</string>
+    <string name="exp_gravitational_time_dilation_how_to">Τα ατομικά ρολόγια στα βουνά χτυπούν ελαφρώς ταχύτερα από πανομοιότυπα ατομικά ρολόγια στο επίπεδο της θάλασσας, συμφωνώντας απόλυτα με τις εξισώσεις του Einstein!</string>
+
+    <!-- Day 67: black_hole_lensing -->
+    <string name="exp_black_hole_lensing_title">Ημέρα 67: Βαρυτικός Εστιασμός Μαύρης Τρύπας</string>
+    <string name="exp_black_hole_lensing_subtitle">Γεωδαισιακές Schwarzschild &amp; Δακτύλιοι Einstein</string>
+    <string name="exp_black_hole_lensing_badge">Ημέρα 67 • Κλειδωμένο</string>
+    <string name="exp_black_hole_lensing_teaser">Περιηγηθείτε γύρω από μια μαύρη τρύπα Schwarzschild και παρακολουθήστε τα αστέρια του φόντου να παραμορφώνονται σε λαμπερούς δακτυλίους Einstein και διπλά είδωλα.</string>
+    <string name="exp_black_hole_lensing_magic">Μια μαύρη τρύπα καμπυλώνει τις ακτίνες του φωτός τόσο ισχυρά, ώστε τα αστέρια πίσω της εμφανίζονται ως φωτεινοί κυκλικοί δακτύλιοι γύρω από τη σιλουέτα της.</string>
+    <string name="exp_black_hole_lensing_principle">Η μάζα καμπυλώνει τον χωροχρόνο. Οι φωτοειδείς γεωδαισιακές ακολουθούν καμπύλες διαδρομές με γωνία απόκλισης alpha = 4GM / bc^2. Οι ακτίνες που διέρχονται κοντά στον ορίζοντα γεγονότων διαγράφουν πολλαπλές περιφορές.</string>
+    <string name="exp_black_hole_lensing_formula_title">Βαρυτική Εκτροπή Einstein &amp; Ακτίνα Schwarzschild</string>
+    <string name="exp_black_hole_lensing_how_to">Κοιτάξτε έναν φωτεινό λαμπτήρα δρόμου μέσα από την καμπύλη βάση ενός ποτηριού κρασιού για να δείτε έναν προσομοιωμένο δακτύλιο Einstein!</string>
+
+    <!-- Day 68: photon_sphere_orbit -->
+    <string name="exp_photon_sphere_orbit_title">Ημέρα 68: Η Τροχιά της Φωτονόσφαιρας</string>
+    <string name="exp_photon_sphere_orbit_subtitle">Κυκλικές Τροχιές Φωτός σε r = 1,5 rs</string>
+    <string name="exp_photon_sphere_orbit_badge">Ημέρα 68 • Κλειδωμένο</string>
+    <string name="exp_photon_sphere_orbit_teaser">Ιχνηλατήστε ακτίνες φωτός που εισέρχονται στη φωτονόσφαιρα σε ακριβώς 1,5 ακτίνα Schwarzschild, όπου τα φωτόνια περιφέρονται σε ασταθείς κύκλους.</string>
+    <string name="exp_photon_sphere_orbit_magic">Σε ακριβώς 1,5 φορά την ακτίνα της μαύρης τρύπας, το φως περιφέρεται σε κυκλική τροχιά. Αν στεκόσασταν εκεί, θα μπορούσατε να δείτε το πίσω μέρος του κεφαλιού σας!</string>
+    <string name="exp_photon_sphere_orbit_principle">Στο r = 3GM/c^2 = 1,5 r_s, το ενεργό δυναμικό για τα φωτόνια παρουσιάζει ένα ασταθές μέγιστο όπου η τροχιακή ταχύτητα του φωτονίου ισούται με c σε κυκλικές τροχιές.</string>
+    <string name="exp_photon_sphere_orbit_formula_title">Εξίσωση Ακτίνας Φωτονόσφαιρας</string>
+    <string name="exp_photon_sphere_orbit_how_to">Μελετήστε την εικόνα της σκιάς του M87* από το Τηλεσκόπιο Ορίζοντα Γεγονότων (EHT)—ο λαμπερός πορτοκαλί δακτύλιος σηματοδοτεί την ακτινοβολία γύρω από τη φωτονόσφαιρα!</string>
+
+    <!-- Day 69: gravitational_redshift -->
+    <string name="exp_gravitational_redshift_title">Ημέρα 69: Βαρυτική Ερυθρή Μετατόπιση</string>
+    <string name="exp_gravitational_redshift_subtitle">Απώλεια Ενέργειας Φωτονίου κατά τη Διαφυγή από Βαρυτικά Πηγάδια</string>
+    <string name="exp_gravitational_redshift_badge">Ημέρα 69 • Κλειδωμένο</string>
+    <string name="exp_gravitational_redshift_teaser">Εκπέμψτε πράσινα φωτόνια υψηλής συχνότητας από την επιφάνεια ενός αστέρα νετρονίων και δείτε τα να μετατοπίζονται προς το ερυθρό καθώς διαφεύγουν.</string>
+    <string name="exp_gravitational_redshift_magic">Τα φωτόνια που διαφεύγουν από ένα βαρυτικό πεδίο χάνουν ενέργεια και μετατοπίζονται προς τα ερυθρά μήκη κύματος, παρόλο που η ταχύτητά τους παραμένει c.</string>
+    <string name="exp_gravitational_redshift_principle">Καθώς τα φωτόνια διαφεύγουν από ακτίνα r στο άπειρο, παράγουν βαρυτικό έργο, μειώνοντας την κβαντική συχνότητά τους σύμφωνα με τον τύπο f_inf = f_0 * sqrt(1 - 2GM/rc^2).</string>
+    <string name="exp_gravitational_redshift_formula_title">Συντελεστής Βαρυτικής Ερυθράς Μετατόπισης</string>
+    <string name="exp_gravitational_redshift_how_to">Οι Pound και Rebka επαλήθευσαν τη βαρυτική ερυθρή μετατόπιση σε έναν πύργο 22 μέτρων στο Harvard το 1959 χρησιμοποιώντας φασματοσκοπία ακτίνων γάμμα Mössbauer!</string>
+
+    <!-- Day 70: kerr_frame_dragging -->
+    <string name="exp_kerr_frame_dragging_title">Ημέρα 70: Συμπαράσυρση Πλαισίου Μετρικής Kerr</string>
+    <string name="exp_kerr_frame_dragging_subtitle">Περιστρεφόμενες Μαύρες Τρύπες &amp; Η Εργόσφαιρα</string>
+    <string name="exp_kerr_frame_dragging_badge">Ημέρα 70 • Κλειδωμένο</string>
+    <string name="exp_kerr_frame_dragging_teaser">Προσομοιώστε μια περιστρεφόμενη μαύρη τρύπα Kerr που παρασύρει τον ίδιο τον χωροχρόνο σε μια δίνη μέσα στην εργόσφαιρα.</string>
+    <string name="exp_kerr_frame_dragging_magic">Μια περιστρεφόμενη μαύρη τρύπα συμπαρασύρει τον κενό χωροχρόνο γύρω της τόσο έντονα, ώστε τίποτα δεν μπορεί να σταθεί ακίνητο μέσα στην εργόσφαιρα.</string>
+    <string name="exp_kerr_frame_dragging_principle">Η Γενική Σχετικότητα προβλέπει το φαινόμενο Lense-Thirring: μια περιστρεφόμενη μάζα συμπαρασύρει τα αδρανειακά πλαίσια. Έξω από τον ορίζοντα γεγονότων βρίσκεται η εργόσφαιρα, όπου το στατικό όριο υποχρεώνει όλη την ύλη να περιστρέφεται μαζί με τη μαύρη τρύπα.</string>
+    <string name="exp_kerr_frame_dragging_formula_title">Ακτίνα Εργόσφαιρας Μετρικής Kerr</string>
+    <string name="exp_kerr_frame_dragging_how_to">Αναζητήστε τη Διαδικασία Penrose: μια θεωρητική μέθοδο εξαγωγής περιστροφικής κινητικής ενέργειας από την εργόσφαιρα μιας περιστρεφόμενης μαύρης τρύπας Kerr!</string>
+
+    <!-- Day 71: photoelectric_effect -->
+    <string name="exp_photoelectric_effect_title">Ημέρα 71: Το Φωτοηλεκτρικό Φαινόμενο</string>
+    <string name="exp_photoelectric_effect_subtitle">Κβάντα Φωτός &amp; Κατώφλι Έργου Εξαγωγής</string>
+    <string name="exp_photoelectric_effect_badge">Ημέρα 71 • Κλειδωμένο</string>
+    <string name="exp_photoelectric_effect_teaser">Ρίξτε κόκκινο, πράσινο και υπεριώδες φως σε μια μεταλλική πλάκα καλίου και παρατηρήστε την εκπομπή ηλεκτρονίων αποκλειστικά πάνω από τη συχνότητα αποκοπής.</string>
+    <string name="exp_photoelectric_effect_magic">Ακόμη και εξαιρετικά έντονο κόκκινο φως δεν αποσπά κανένα ηλεκτρόνιο, αλλά ένα αμυδρό υπεριώδες φως εκτοξεύει ηλεκτρόνια ακαριαία.</string>
+    <string name="exp_photoelectric_effect_principle">Ο Einstein κέρδισε το Βραβείο Νόμπελ αποδεικνύοντας ότι το φως φτάνει σε διακριτά κβαντισμένα πακέτα (φωτόνια) με ενέργεια E = hf. Τα ηλεκτρόνια εκπέμπονται μόνο εάν η ενέργεια του φωτονίου υπερβαίνει το έργο εξαγωγής Phi του μετάλλου.</string>
+    <string name="exp_photoelectric_effect_formula_title">Φωτοηλεκτρική Εξίσωση του Einstein</string>
+    <string name="exp_photoelectric_effect_how_to">Τα φωτοβολταϊκά πάνελ και οι αισθητήρες καμερών λειτουργούν άμεσα με βάση το φωτοηλεκτρικό φαινόμενο που ανακάλυψε ο Heinrich Hertz και εξήγησε ο Einstein!</string>
+
+    <!-- Day 72: quantum_tunneling -->
+    <string name="exp_quantum_tunneling_title">Ημέρα 72: Κβαντικό Φαινόμενο Σήραγγας</string>
+    <string name="exp_quantum_tunneling_subtitle">Διείσδυση Κυματοπακέτου σε Φράγμα &amp; Εκθετική Απόσβεση</string>
+    <string name="exp_quantum_tunneling_badge">Ημέρα 72 • Κλειδωμένο</string>
+    <string name="exp_quantum_tunneling_teaser">Εκτοξεύστε κβαντικά κυματοπακέτα ηλεκτρονίων προς ένα αδιαπέραστο ενεργειακό φράγμα και παρατηρήστε σωματίδια να διέρχονται μέσα από συμπαγείς τοίχους.</string>
+    <string name="exp_quantum_tunneling_magic">Ένα σωματίδιο που δεν διαθέτει αρκετή ενέργεια για να υπερπηδήσει έναν λόφο δυναμικού μπορεί κυριολεκτικά να εξαφανιστεί από τη μία πλευρά και να επανεμφανιστεί στην άλλη.</string>
+    <string name="exp_quantum_tunneling_principle">Στην κβαντομηχανική, τα σωματίδια περιγράφονται από μιγαδικές κυματοσυναρτήσεις Psi(x,t). Όταν συναντούν ένα φράγμα V0 &gt; E, η κυματοσυνάρτηση φθίνει εκθετικά στο εσωτερικό του αντί να σταματά απότομα, διατηρώντας μια μη μηδενική πιθανότητα στην άλλη πλευρά.</string>
+    <string name="exp_quantum_tunneling_formula_title">Συντελεστής Διέλευσης Φράγματος WKB</string>
+    <string name="exp_quantum_tunneling_how_to">Οι μονάδες flash SSD του φορητού υπολογιστή σας αποθηκεύουν ψηφιακά δεδομένα μέσω σήραγγας ηλεκτρονίων μέσα από μονωτικά φράγματα οξειδίου του πυριτίου!</string>
+
+    <!-- Day 73: particle_in_box -->
+    <string name="exp_particle_in_box_title">Ημέρα 73: Σωματίδιο σε Μονοδιάστατο Κουτί</string>
+    <string name="exp_particle_in_box_subtitle">Κβαντισμένες Ενεργειακές Στάθμες &amp; Πυκνότητες Πιθανότητας</string>
+    <string name="exp_particle_in_box_badge">Ημέρα 73 • Κλειδωμένο</string>
+    <string name="exp_particle_in_box_teaser">Περιορίστε ένα ηλεκτρόνιο μέσα σε ένα άπειρο πηγάδι δυναμικού και οπτικοποιήστε διακριτές ιδιοτιμές ενέργειας και στάσιμα κύματα |Psi|^2.</string>
+    <string name="exp_particle_in_box_magic">Ο περιορισμός ενός ηλεκτρονίου μέσα σε ένα μικροσκοπικό κουτί αναγκάζει την ενέργειά του να μεταπηδά σε διακριτά σκαλοπάτια—απαγορεύεται αυστηρά να έχει ενδιάμεσες ταχύτητες!</string>
+    <string name="exp_particle_in_box_principle">Οι συνοριακές συνθήκες εξαναγκάζουν την κυματοσυνάρτηση να έχει μηδενικό πλάτος στα τοιχώματα, επιτρέποντας μόνο διακριτές στάσιμες αρμονικές de Broglie με κβαντισμένες στάθμες ενέργειας ανάλογες του n^2.</string>
+    <string name="exp_particle_in_box_formula_title">Ιδιοτιμές Ενέργειας Απειρόβαθου Πηγαδιού</string>
+    <string name="exp_particle_in_box_how_to">Οι οθόνες κβαντικών κουκκίδων στις σύγχρονες τηλεοράσεις QLED παράγουν ζωηρά και καθαρά χρώματα ρυθμίζοντας το φυσικό μέγεθος των νανοσωματιδίων στα ημιαγώγιμα κουτιά!</string>
+
+    <!-- Day 74: heisenberg_uncertainty -->
+    <string name="exp_heisenberg_uncertainty_title">Ημέρα 74: Αρχή της Απροσδιοριστίας Heisenberg</string>
+    <string name="exp_heisenberg_uncertainty_subtitle">Συζυγείς Μεταβλητές Θέσης-Ορμής Fourier &amp; Κυματοπακέτα</string>
+    <string name="exp_heisenberg_uncertainty_badge">Ημέρα 74 • Κλειδωμένο</string>
+    <string name="exp_heisenberg_uncertainty_teaser">Περιορίστε το χωρικό εύρος ενός κυματοπακέτου Gauss και δείτε τη διασπορά της ορμής να εκρήγνυται σε απόλυτη αβεβαιότητα.</string>
+    <string name="exp_heisenberg_uncertainty_magic">Δεν μπορείτε ποτέ να γνωρίζετε ταυτόχρονα την ακριβή θέση και την ακριβή ταχύτητα ενός υποατομικού σωματιδίου.</string>
+    <string name="exp_heisenberg_uncertainty_principle">Η θέση και η ορμή είναι συζυγείς μεταβλητές μέσω μετασχηματισμού Fourier. Η συμπίεση του χωρικού εύρους Delta x διευρύνει μαθηματικά το φάσμα κυματοδιανύσματος ορμής Delta p, επιβάλλοντας Delta x * Delta p &gt;= hbar / 2.</string>
+    <string name="exp_heisenberg_uncertainty_formula_title">Σχέση Απροσδιοριστίας Heisenberg</string>
+    <string name="exp_heisenberg_uncertainty_how_to">Αν μπορούσατε να μετρήσετε τη θέση ενός ηλεκτρονίου με μηδενικό σφάλμα, η ταχύτητά του θα γινόταν ακαριαία εντελώς απροσδιόριστη!</string>
+
+    <!-- Day 75: quantum_harmonic_oscillator -->
+    <string name="exp_quantum_harmonic_oscillator_title">Ημέρα 75: Κβαντικός Αρμονικός Ταλαντωτής</string>
+    <string name="exp_quantum_harmonic_oscillator_subtitle">Ισαπέχουσες Ενεργειακές Σκάλες &amp; Ενέργεια Μηδενικού Σημείου</string>
+    <string name="exp_quantum_harmonic_oscillator_badge">Ημέρα 75 • Κλειδωμένο</string>
+    <string name="exp_quantum_harmonic_oscillator_teaser">Ταλαντώστε ένα κβαντικό σωματίδιο σε ένα παραβολικό πηγάδι δυναμικού και παρατηρήστε πολυώνυμα Hermite και διακυμάνσεις βασικής στάθμης διάφορες του μηδενός.</string>
+    <string name="exp_quantum_harmonic_oscillator_magic">Ακόμα και στο απόλυτο μηδέν της θερμοκρασίας, τα κβαντικά σωματίδια δεν παραμένουν ποτέ εντελώς ακίνητα—ταλαντώνονται υποχρεωτικά με ενέργεια μηδενικού σημείου.</string>
+    <string name="exp_quantum_harmonic_oscillator_principle">Ο κβαντικός αρμονικός ταλαντωτής έχει ισαπέχουσες ενεργειακές βαθμίδες E_n = (n + 1/2) * hbar * omega. Ακόμη και στη βασική στάθμη n=0, η ενέργεια μηδενικού σημείου E_0 = 1/2 * hbar * omega εμποδίζει την πλήρη ηρεμία.</string>
+    <string name="exp_quantum_harmonic_oscillator_formula_title">Ιδιοτιμές Κβαντικού Ταλαντωτή</string>
+    <string name="exp_quantum_harmonic_oscillator_how_to">Οι κενές διακυμάνσεις μηδενικού σημείου ευθύνονται για την αυθόρμητη εκπομπή φωτονίων στα λέιζερ και για το φαινόμενο Casimir!</string>
+
+    <!-- Day 76: stern_gerlach -->
+    <string name="exp_stern_gerlach_title">Ημέρα 76: Κβάντωση Σπιν Stern-Gerlach</string>
+    <string name="exp_stern_gerlach_subtitle">Ανομοιογενή Μαγνητικά Πεδία &amp; Χωρικός Διαχωρισμός Σπιν</string>
+    <string name="exp_stern_gerlach_badge">Ημέρα 76 • Κλειδωμένο</string>
+    <string name="exp_stern_gerlach_teaser">Περάστε ουδέτερα άτομα αργύρου μέσα από ένα ανομοιογενές μαγνητικό πεδίο και δείτε τη δέσμη να διαχωρίζεται καθαρά σε δύο διακριτές διαδρομές.</string>
+    <string name="exp_stern_gerlach_magic">Η διέλευση μικροσκοπικών μαγνητών μέσα από ένα ανομοιόμορφο μαγνητικό πεδίο τους διαχωρίζει σε δύο διακριτές γραμμές, χωρίς τίποτα στο ενδιάμεσο.</string>
+    <string name="exp_stern_gerlach_principle">Οι Otto Stern και Walther Gerlach (1922) ανακάλυψαν την εγγενή στροφορμή σπιν S = hbar / 2. Σε αντίθεση με τις κλασικές μαγνητικές ροπές που μπορούν να λάβουν οποιαδήποτε γωνία, το κβαντικό σπιν κβαντώνεται κατά μήκος του άξονα μέτρησης είτε ως +1/2 είτε ως -1/2.</string>
+    <string name="exp_stern_gerlach_formula_title">Δύναμη Μαγνητικής Αλληλεπίδρασης Σπιν</string>
+    <string name="exp_stern_gerlach_how_to">Η Μαγνητική Τομογραφία (MRI) στα νοσοκομεία βασίζεται στον ευθυγραμμισμό και την αναστροφή των κβαντικών πυρηνικών σπιν των ατόμων υδρογόνου στο νερό!</string>
+
+    <!-- Day 77: quantum_entanglement -->
+    <string name="exp_quantum_entanglement_title">Ημέρα 77: Κβαντική Σύμπλεξη &amp; Ζεύγη Bell</string>
+    <string name="exp_quantum_entanglement_subtitle">Παράδοξο EPR &amp; Μέτρηση Κβαντικής Υπέρθεσης</string>
+    <string name="exp_quantum_entanglement_badge">Ημέρα 77 • Κλειδωμένο</string>
+    <string name="exp_quantum_entanglement_teaser">Δημιουργήστε συμπλεγμένα ζεύγη φωτονίων κατάστασης Bell και μετρήστε το ένα για να δείτε την ακαριαία κατάρρευση της κυματοσυνάρτησης στο άλλο.</string>
+    <string name="exp_quantum_entanglement_magic">Η μέτρηση του σπιν ενός σωματιδίου στο Τόκιο καθορίζει ακαριαία το σπιν του συμπλεγμένου διδύμου του στο Λονδίνο, στην άλλη άκρη του γαλαξία.</string>
+    <string name="exp_quantum_entanglement_principle">Οι συμπλεγμένες καταστάσεις δεν μπορούν να αναλυθούν σε γινόμενα επιμέρους καταστάσεων: |Psi&gt; = (|00&gt; + |11&gt;) / sqrt(2). Το θεώρημα Bell και τα πειράματα του Aspect απέδειξαν ότι οι τοπικές θεωρίες κρυμμένων μεταβλητών είναι εσφαλμένες, κερδίζοντας το Βραβείο Νόμπελ Φυσικής 2022.</string>
+    <string name="exp_quantum_entanglement_formula_title">Κατάσταση Bell &amp; Παραβίαση Ανισότητας Bell</string>
+    <string name="exp_quantum_entanglement_how_to">Η κβαντική κρυπτογραφία και οι μελλοντικοί δορυφορικοί σύνδεσμοι κβαντικού διαδικτύου χρησιμοποιούν συμπλεγμένα ζεύγη φωτονίων για απόλυτα ασφαλή κρυπτογράφηση!</string>
+
+    <!-- Day 78: stellar_fusion -->
+    <string name="exp_stellar_fusion_title">Ημέρα 78: Αστρική Πυρηνική Σύντηξη</string>
+    <string name="exp_stellar_fusion_subtitle">Διείσδυση Φράγματος Coulomb στα Άστρα</string>
+    <string name="exp_stellar_fusion_badge">Ημέρα 78 • Κλειδωμένο</string>
+    <string name="exp_stellar_fusion_teaser">Περάστε πρωτόνια υδρογόνου μέσω κβαντικής σήραγγας υπερνικώντας την ακραία ηλεκτροστατική άπωση στον πυρήνα του Ήλιου για να συντηχθούν σε ήλιο.</string>
+    <string name="exp_stellar_fusion_magic">Ο πυρήνας του Ήλιου δεν είναι αρκετά θερμός ώστε να επιτευχθεί σύντηξη υδρογόνου βάσει κλασικής φυσικής—καίει αποκλειστικά επειδή τα πρωτόνια διέρχονται μέσω κβαντικής σήραγγας το ένα μέσα στο άλλο!</string>
+    <string name="exp_stellar_fusion_principle">Δύο θετικά φορτισμένα πρωτόνια βιώνουν ισχυρή άπωση Coulomb. Στους 15 εκατομμύρια Kelvin, οι θερμικές ενέργειες είναι 1 keV, πολύ κάτω από το φράγμα Coulomb των 1.000 keV, αλλά η κβαντική σήραγγα καθιστά εφικτή τη σύντηξη πρωτονίου-πρωτονίου.</string>
+    <string name="exp_stellar_fusion_formula_title">Παράγοντας Gamow &amp; Ενεργός Διατομή Σύντηξης</string>
+    <string name="exp_stellar_fusion_how_to">Κάθε φωτόνιο ηλιακού φωτός που αγγίζει το πρόσωπό σας δημιουργήθηκε μέσω κβαντικής σήραγγας στον πυρήνα του Ήλιου πριν από 100.000 χρόνια!</string>
+
+    <!-- Day 79: radioactive_decay -->
+    <string name="exp_radioactive_decay_title">Ημέρα 79: Ραδιενεργός Διάσπαση &amp; Χρόνος Ημιζωής</string>
+    <string name="exp_radioactive_decay_subtitle">Τυχαία Στατιστική Poisson &amp; Εκθετική Διάσπαση</string>
+    <string name="exp_radioactive_decay_badge">Ημέρα 79 • Κλειδωμένο</string>
+    <string name="exp_radioactive_decay_teaser">Προσομοιώστε χιλιάδες ασταθείς ραδιενεργούς πυρήνες ισοτόπων να διασπώνται τυχαία σύμφωνα με την πιθανότητα Poisson.</string>
+    <string name="exp_radioactive_decay_magic">Δεν μπορείτε ποτέ να προβλέψετε ποιο συγκεκριμένο άτομο θα διασπαστεί στη συνέχεια, κι όμως ένα σύνολο δισεκατομμυρίων ατόμων διασπάται με μαθηματική ακρίβεια.</string>
+    <string name="exp_radioactive_decay_principle">Η πυρηνική διάσπαση είναι ένα εγγενώς τυχαίο κβαντικό συμβάν με σταθερή πιθανότητα μετάβασης lambda ανά μονάδα χρόνου. Το στατιστικό σύνολο υπακούει στην καθολική εξίσωση εκθετικής διάσπασης N(t) = N0 * e^(-lambda t).</string>
+    <string name="exp_radioactive_decay_formula_title">Νόμος Ραδιενεργού Διάσπασης Ημιζωής</string>
+    <string name="exp_radioactive_decay_how_to">Η χρονολόγηση με άνθρακα-14 μετρά το εναπομείναν κλάσμα ραδιενεργού ισοτόπου για να χρονολογήσει αρχαίες αιγυπτιακές μούμιες και απολιθώματα ηλικίας έως και 50.000 ετών!</string>
+
+    <!-- Day 80: cherenkov_radiation -->
+    <string name="exp_cherenkov_radiation_title">Ημέρα 80: Λάμψη Ακτινοβολίας Cherenkov</string>
+    <string name="exp_cherenkov_radiation_subtitle">Οπτική Ηχητική Έκρηξη σε Δεξαμενές Πυρηνικών Αντιδραστήρων</string>
+    <string name="exp_cherenkov_radiation_badge">Ημέρα 80 • Κλειδωμένο</string>
+    <string name="exp_cherenkov_radiation_teaser">Επιταχύνετε σωματίδια βήτα πάνω από την τοπική ταχύτητα του φωτός στο νερό (c/1,33) και παρατηρήστε μια απόκοσμη μπλε λάμψη κρουστικού κύματος να εμφανίζεται.</string>
+    <string name="exp_cherenkov_radiation_magic">Τίποτα δεν μπορεί να ταξιδέψει ταχύτερα από την ταχύτητα του φωτός στο κενό—στο νερό όμως, τα σωματίδια μπορούν να ξεπεράσουν το φράγμα του φωτός δημιουργώντας μια μπλε οπτική ηχητική έκρηξη!</string>
+    <string name="exp_cherenkov_radiation_principle">Στο νερό, η ταχύτητα του φωτός μειώνεται σε c/n ~ 225.000 km/s. Ηλεκτρόνια υψηλής ενέργειας από τις ράβδους καυσίμου του αντιδραστήρα κινούνται ταχύτερα από το φως στο νερό, εκπέμποντας έναν συμβολικό κώνο μπλε ηλεκτρομαγνητικού κρουστικού κύματος.</string>
+    <string name="exp_cherenkov_radiation_formula_title">Γωνία Κρουστικού Κύματος Cherenkov</string>
+    <string name="exp_cherenkov_radiation_how_to">Οι υποβρύχιοι πυρηνικοί ερευνητικοί αντιδραστήρες λάμπουν με ένα απόκοσμο, υπέροχο ηλεκτρικό μπλε φως που οφείλεται στην ακτινοβολία Cherenkov!</string>
+
+    <!-- Day 81: hubble_expansion -->
+    <string name="exp_hubble_expansion_title">Ημέρα 81: Κοσμική Διαστολή Hubble</string>
+    <string name="exp_hubble_expansion_subtitle">Κοσμολογική Ερυθρή Μετατόπιση &amp; Μετρική Διαστελλόμενου Χώρου</string>
+    <string name="exp_hubble_expansion_badge">Ημέρα 81 • Κλειδωμένο</string>
+    <string name="exp_hubble_expansion_teaser">Διαστείλετε το δισδιάστατο πλέγμα του σύμπαντος και παρατηρήστε πώς κάθε μακρινός γαλαξίας απομακρύνεται με ταχύτητα ανάλογη της απόστασης.</string>
+    <string name="exp_hubble_expansion_magic">Κάθε μακρινός γαλαξίας στο σύμπαν απομακρύνεται ταχύτατα από εμάς, όχι επειδή κινείται μέσα στον χώρο, αλλά επειδή ο ίδιος ο χώρος διαστέλλεται.</string>
+    <string name="exp_hubble_expansion_principle">Ο Edwin Hubble ανακάλυψε το 1929 ότι η φασματική ερυθρή μετατόπιση είναι ανάλογη της γαλαξιακής απόστασης: v = H0 * d. Στη Γενική Σχετικότητα, η μετρική Friedmann-Lemaître-Robertson-Walker διαστέλλει τον παράγοντα κλίμακας a(t).</string>
+    <string name="exp_hubble_expansion_formula_title">Νόμος Hubble-Lemaître</string>
+    <string name="exp_hubble_expansion_how_to">Ψήστε σταφιδόψωμο: καθώς η ζύμη διαστέλλεται στον φούρνο, κάθε σταφίδα απομακρύνεται από κάθε άλλη σταφίδα!</string>
+
+    <!-- Day 82: dark_matter_rotation -->
+    <string name="exp_dark_matter_rotation_title">Ημέρα 82: Καμπύλες Περιστροφής Γαλαξιών Σκοτεινής Ύλης</string>
+    <string name="exp_dark_matter_rotation_subtitle">Οι Επίπεδες Γαλαξιακές Καμπύλες Ταχύτητας της Vera Rubin</string>
+    <string name="exp_dark_matter_rotation_badge">Ημέρα 82 • Κλειδωμένο</string>
+    <string name="exp_dark_matter_rotation_teaser">Συγκρίνετε την κεπλεριανή πτώση κατά Newton με τις παρατηρούμενες επίπεδες καμπύλες περιστροφής για να αποκαλύψετε τα αόρατα άλων σκοτεινής ύλης.</string>
+    <string name="exp_dark_matter_rotation_magic">Τα αστέρια στις εξωτερικές παρυφές των γαλαξιών περιφέρονται εξίσου γρήγορα με τα αστέρια κοντά στο κέντρο, αψηφώντας τους νόμους βαρύτητας του Newton εκτός κι αν περιβάλλονται από αόρατη μάζα.</string>
+    <string name="exp_dark_matter_rotation_principle">Η Vera Rubin μέτρησε ότι οι καμπύλες ταχύτητας περιστροφής των σπειροειδών γαλαξιών v(r) παραμένουν επίπεδες σε μεγάλες ακτίνες αντί να μειώνονται ως 1/sqrt(r), αποδεικνύοντας ότι οι γαλαξίες είναι εγκιβωτισμένοι σε τεράστια σφαιρικά άλων σκοτεινής ύλης.</string>
+    <string name="exp_dark_matter_rotation_formula_title">Κεπλεριανή Ταχύτητα Περιστροφής έναντι Σκοτεινής Ύλης</string>
+    <string name="exp_dark_matter_rotation_how_to">Η σκοτεινή ύλη αποτελεί πάνω από το 85% όλης της ύλης στο σύμπαν, κι όμως δεν έχει εκπέμψει ή ανακλάσει ποτέ ούτε ένα φωτόνιο φωτός!</string>
+
+    <!-- Day 83: gravitational_waves -->
+    <string name="exp_gravitational_waves_title">Ημέρα 83: Βαρυτικά Κύματα (Δυαδικό Chirp)</string>
+    <string name="exp_gravitational_waves_subtitle">Συμβολομετρία Λέιζερ LIGO &amp; Ρυτιδώσεις Χωροχρόνου</string>
+    <string name="exp_gravitational_waves_badge">Ημέρα 83 • Κλειδωμένο</string>
+    <string name="exp_gravitational_waves_teaser">Θέστε σε τροχιά δύο συγκρουόμενες μαύρες τρύπες και παρατηρήστε το επιταχυνόμενο σπειροειδές chirp να εκπέμπει τετραπολικές ρυτιδώσεις στον χωροχρόνο.</string>
+    <string name="exp_gravitational_waves_magic">Όταν δύο τεράστιες μαύρες τρύπες συγκρούονται ένα δισεκατομμύριο έτη φωτός μακριά, στέλνουν ρυτιδώσεις στον ιστό του χώρου που παραμορφώνουν τη Γη κατά λιγότερο από το εύρος ενός πρωτονίου.</string>
+    <string name="exp_gravitational_waves_principle">Τα συστήματα δυαδικής σπειροειδούς κατάρρευσης χάνουν τροχιακή ενέργεια μέσω βαρυτικής τετραπολικής ακτινοβολίας. Τα συμβολόμετρα λέιζερ (LIGO) μετρούν την κλασματική παραμόρφωση h = delta L / L ~ 10^(-21) μέσω συμβολής ακτίνων λέιζερ.</string>
+    <string name="exp_gravitational_waves_formula_title">Πλάτος Παραμόρφωσης Βαρυτικών Κυμάτων</string>
+    <string name="exp_gravitational_waves_how_to">Οι ανιχνευτές λέιζερ LIGO μετρούν μεταβολές απόστασης 10.000 φορές μικρότερες από τη διάμετρο του πυρήνα ενός ατόμου!</string>
+
+    <!-- Day 84: cosmic_fate -->
+    <string name="exp_cosmic_fate_title">Ημέρα 84: Η Μοίρα του Σύμπαντος</string>
+    <string name="exp_cosmic_fate_subtitle">Κοσμολογικές Εξισώσεις Friedmann &amp; Σκοτεινή Ενέργεια</string>
+    <string name="exp_cosmic_fate_badge">Ημέρα 84 • Κλειδωμένο</string>
+    <string name="exp_cosmic_fate_teaser">Ρυθμίστε την πυκνότητα ύλης Omega_m και τη σκοτεινή ενέργεια Omega_Lambda για να προσομοιώσετε τη Μεγάλη Σύνθλιψη, τη Μεγάλη Ψύξη και τον Μεγάλο Διαμελισμό.</string>
+    <string name="exp_cosmic_fate_magic">Θα καταρρεύσει το σύμπαν μας πίσω σε μια πύρινη κατάρρευση, θα παγώσει στο αιώνιο σκοτάδι ή θα διαμελιστεί μέχρι το επίπεδο των υποατομικών σωματιδίων;</string>
+    <string name="exp_cosmic_fate_principle">Η τελική μοίρα του χωροχρόνου καθορίζεται από την εξίσωση Friedmann. Με κοσμολογική σταθερά σκοτεινής ενέργειας Omega_Lambda ~ 0,7, η κοσμική διαστολή επιταχύνεται επ\' άπειρον προς τη Μεγάλη Ψύξη.</string>
+    <string name="exp_cosmic_fate_formula_title">Εξίσωση Επιτάχυνσης Friedmann</string>
+    <string name="exp_cosmic_fate_how_to">Εξερευνήστε το κοσμικό χρονολόγιο: σε 100 τρισεκατομμύρια χρόνια, τα τελευταία αστέρια θα σβήσουν, αφήνοντας ένα παγωμένο σύμπαν γεμάτο μαύρες τρύπες!</string>
+</resources>
