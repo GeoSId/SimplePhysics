@@ -15,7 +15,6 @@ import com.geosid.simplephysics.ui.components.BackArrowIcon
 import com.geosid.simplephysics.ui.components.InfoLightbulbIcon
 import com.geosid.simplephysics.ui.components.ScienceExplanationDialog
 import com.geosid.simplephysics.ui.theme.*
-
 import androidx.compose.ui.text.style.TextOverflow
 import com.geosid.simplephysics.ui.expirementsRegistry.ExperimentScreenRegistry
 import org.jetbrains.compose.resources.stringResource
