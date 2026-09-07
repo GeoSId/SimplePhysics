@@ -27,5 +27,5 @@ scripts/
 *.ogg
 
 # Experiment weeks (choose which to upload when ready)
-shared/src/commonMain/kotlin/com/geosid/simplephysics/ui/experiments/week*
-shared/src/commonMain/kotlin/com/geosid/simplephysics/ui/experiments/ExperimentScreenRegistryBackUp.kt
+shared/src/commonMain/kotlin/com/geosid/simplephysics/ui/experiments/
+shared/src/commonMain/kotlin/com/geosid/simplephysics/ui/expirementsRegistry/ExperimentScreenRegistryBackUp.kt
