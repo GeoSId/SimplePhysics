@@ -2,10 +2,12 @@ package com.geosid.simplephysics.ui.expirementsRegistry
 
 import androidx.compose.runtime.Composable
 import com.geosid.simplephysics.ui.experiments.week1.Day1.StaticStrawExperiment
+import com.geosid.simplephysics.ui.experiments.week1.Day2.CitrusBalloonExperiment
 
 object ExperimentScreenRegistry {
     val screens: Map<String, @Composable () -> Unit> = mapOf(
         "static_straw" to { StaticStrawExperiment() },
+        "citrus_balloon" to { CitrusBalloonExperiment() }
     )
 
     fun isReleased(id: String): Boolean = screens.containsKey(id)
