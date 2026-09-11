@@ -48,5 +48,13 @@ Use the run button in your IDE's editor gutter, or run tests using Gradle tasks:
 - Desktop tests: `./gradlew :shared:jvmTest`
 - iOS tests: `./gradlew :shared:iosSimulatorArm64Test`
 
+---
+
+### 🎬 Video Generation & Social Media Automation
+
+SimplePhysics includes an automated pipeline for generating YouTube Shorts (9:16 vertical) and standard YouTube videos (16:9 landscape) with realistic IDE code-typing, physics formula cards, voiceovers, and relax background music:
+
+- See the **[Complete Video Automation Guide](scripts/README.md)** for full documentation, track selection, and copy-paste commands.
+- Background relax music guide: **[scripts/audio/music/README.md](scripts/audio/music/README.md)**.
 
 ![Screenshot from 2026-09-06 22-40-20.png](Screenshot%20from%202026-09-06%2022-40-20.png)
