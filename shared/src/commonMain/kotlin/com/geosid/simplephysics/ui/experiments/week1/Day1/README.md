@@ -10,26 +10,46 @@
 **Visual Hook:** Spin and steer a balanced plastic straw through empty air without ever touching it with your hands.
 
 ### Scientific Principles & Mechanism
-Rubbing a plastic wand transfers electrons via the triboelectric effect, accumulating negative charge (-Q). When brought close to the uncharged straw, it induces electric polarization: electrons in the straw are repelled to the far side, leaving a net positive charge on the near side. The resulting electrostatic attraction creates a net torque (tau = r x F) about the balance point.
+Rubbing a plastic wand with wool or hair causes negative electric charge (electrons) to transfer via the **triboelectric effect**, leaving the wand with net charge $-Q$.
+
+When the charged wand is brought near an uncharged plastic straw delicately balanced on the pivot of a glass bottle:
+1. **Electrostatic Induction:** The electric field of the negative wand repels mobile electrons in the plastic straw toward the far end, leaving a net positive charge induced on the near end.
+2. **Net Attractive Force (Coulomb's Law):** Because the positive induced charges are closer to the wand than the repelled negative charges ($r_{\text{near}} < r_{\text{far}}$), the attractive force strictly exceeds the repulsive force ($F \propto 1/r^2$).
+3. **Induced Dipole Torque:** This net electrostatic attraction generates an angular torque ($\tau = r \times F$) around the bottle's pivot point, causing the balanced straw to rotate and track the wand's motion through empty air!
 
 ### Laboratory / Kitchen Protocol (Try It At Home)
-> Balance a lightweight plastic straw across the top of a glass bottle or upside-down cup. Rub another straw, plastic ruler, or balloon vigorously against a wool sweater or dry hair, then bring it near the end of the balanced straw.
+> Balance a lightweight drinking straw horizontally across the dome cap of a dry glass bottle. Rub another plastic straw or ruler vigorously against a wool sweater or dry hair for 10 seconds. Bring the charged end close to (but not touching) the balanced straw, and watch it swing toward the wand like a compass needle!
 
 ---
 
 ## 2. Mathematical Foundation & Governing Equations
 
-The physical behavior in this simulation is governed by:
+### Coulomb's Law of Electrostatics
+The electrostatic force between two point charges $q_1$ and $q_2$ separated by distance $r$:
 
 $$
-F = \frac{1}{4\pi \varepsilon_0} \frac{q_1 q_2}{r^2}, \quad \tau = I \frac{d^2\theta}{dt^2} + b\frac{d\theta}{dt}
+F = \frac{1}{4\pi \varepsilon_0} \frac{q_1 q_2}{r^2}
+$$
+
+### Induced Dipole Torque & Angular Equation of Motion
+The straw experiences a rotational restoring torque $\tau(\theta)$ directed toward the charged wand:
+
+$$
+\tau(\theta) = k \cdot \frac{|Q_{\text{wand}}|}{d^2} \cdot \Delta\theta
+$$
+
+Under rotational inertia $I$ and air drag damping $b$, the angular acceleration $\alpha = \frac{d^2\theta}{dt^2}$ satisfies:
+
+$$
+I \frac{d^2\theta}{dt^2} = \tau(\theta) - b \frac{d\theta}{dt}
 $$
 
 ### Physical Meaning & Quantities
-The mathematical formulation connects key physical parameters:
-- **Forces & Accelerations:** Dynamic balance between external driving forces, restoring forces, and frictional/drag damping.
-- **Conservation Principles:** Energy, momentum, or probability density conservation in the physical medium.
-- **Boundary Conditions:** Interactions occurring at boundaries, surfaces, or event horizons.
+- **$Q_{\text{wand}}$ (Wand Charge):** Static charge on the wand ($-1.0$ negative electrons to $+1.0$ positive ions).
+- **$d$ (Distance):** Separation distance between wand tip and straw pivot.
+- **$\Delta\theta$:** Angular misalignment between the straw's orientation and the wand position vector.
+- **$I$ (Moment of Inertia):** Rotational inertia of the straw spinning on its center pivot ($I = \frac{1}{12} m L^2$).
+- **$b$ (Damping Coefficient):** Aerodynamic resistance slowing the straw's rotation down to rest.
 
 ---
 
@@ -43,31 +63,35 @@ The mathematical formulation connects key physical parameters:
 ### Reactive State Variables
 The interactive state is managed via Compose `mutableStateOf` variables:
 
-| State Variable | Initialization | Functional Role in Simulation |
+| State Variable | Type / Default | Functional Role in Simulation |
 | :--- | :--- | :--- |
-| `wandPos` | `mutableStateOf(Offset(0.72f, 0.38f))` | Reactive state tracking physical coordinate or control parameter |
-| `wandCharge` | `mutableStateOf(-0.85f)` | Reactive state tracking physical coordinate or control parameter |
-| `strawAngleRad` | `mutableStateOf(0.3f)` | Reactive state tracking physical coordinate or control parameter |
-| `strawAngularVelocity` | `mutableStateOf(0f)` | Reactive state tracking physical coordinate or control parameter |
-| `isRubbing` | `mutableStateOf(false)` | Reactive state tracking physical coordinate or control parameter |
+| `wandPos` | `mutableStateOf(Offset(0.72f, 0.38f))` | Normalized 2D spatial coordinate of the charged wand |
+| `wandCharge` | `mutableStateOf(-0.85f)` | Wand static charge level ($-100\%$ negative to $+100\%$ positive) |
+| `strawAngleRad` | `mutableStateOf(0.3f)` | Instantaneous orientation angle $\theta$ of the balanced straw |
+| `strawAngularVelocity` | `mutableStateOf(0f)` | Angular velocity $\omega$ of the spinning straw |
+| `isRubbing` | `mutableStateOf(false)` | Wool friction charging animation state |
+| `sparkPhase` | `Float` | Continuous cyclic phase driving electric field spark animations |
 
-### Frame Loop & Physics Integration
-- **High-Precision Physics Loop:** Driven by `withFrameNanos` inside `LaunchedEffect`.
-- **Time-Delta Numerical Integration:** Uses elapsed nanosecond delta ($\Delta t$) to compute velocity changes, angular acceleration, and position updates, ensuring smooth 60–120 FPS execution independent of device refresh rate.
-- **Damping & Dissipation:** Exponential or linear damping applied per frame to simulate air resistance, viscosity, or thermal dissipation.
+### Frame Loop & Rotational Physics
+- **High-Precision Physics Loop:** Driven by `withFrameNanos` inside `LaunchedEffect(wandPos, wandCharge)`.
+- **Symmetric Dipole Tracking:** Evaluates angular misalignment $\Delta\theta$ relative to the closest tip of the straw (accounting for the straw's $180^\circ$ rotational symmetry).
+- **Inverse-Square Torque Coupling:** Computes dynamic torque strength $\tau \propto \frac{|Q|}{d^2}$ and applies rotational damping ($b = 2.8$) to simulate realistic air friction and over-swing oscillation.
 
 ### User Gestures & Interactivity
-- **Pointer Drag Gestures:** Configured via `.pointerInput { detectDragGestures { ... } }`, allowing real-time direct manipulation of particles, sources, or boundary walls on screen.
-- **HUD & Slider Controls:** Real-time tweaking of physical constants (gravity, charge, index of refraction, viscosity, or frequency).
+- **2D Wand Dragging:** Touch and drag the charged wand anywhere around the bottle to steer the straw in full $360^\circ$ rotation.
+- **`⚡ Rub Wool` Button:** Friction charges the wand to $-100\%$ negative charge.
+- **`Ground` Button:** Discharges the wand to $0\%$ neutral, immediately cutting electrostatic coupling.
+- **Reset Button:** Restores default wand position, charge ($-85\%$), and straw angle.
 
 ### Canvas Graphics Pipeline
-- **Normalized Coordinates:** Physics calculations mapped to Canvas dimensions (`size.width`, `size.height`) via responsive scaling.
-- **Render Functions:** Utilizes Compose DrawScope methods: `drawBalancedStraw`, `drawChargedWand`, `drawCircle`, `drawElectrostaticField`, `drawGlassBottlePivot`, `drawLine`.
-- **Visual Polish:** Neon color palette, anti-aliased vectors, radial gradients for glowing fields, and dynamic trail decay.
+- **Glass Bottle Stand & Pivot:** Semi-transparent glass bottle with neck, shoulder, and domed cap supporting the pivot (`drawGlassBottlePivot`).
+- **Balanced Plastic Straw:** Horizontal drinking straw with center pivot pin that rotates with angle $\theta$ (`drawBalancedStraw`).
+- **Draggable Charged Wand:** Wand with glowing charge tip, wool friction sparks, and polarity indicators (`drawChargedWand`).
+- **Electric Force Field Vectors:** Animated neon spark lines connecting the charged wand tip to the induced straw end (`drawElectrostaticField`).
 
 ---
 
 ## 4. Suggested Investigations & Parameter Experiments
-1. **Extremal Value Testing:** Push sliders to their minimum and maximum bounds to observe physical phase shifts or asymptotic behavior.
-2. **Perturbation Dynamics:** Disturb the equilibrium state via touch drag and record how quickly the system dissipates energy back to ground state.
-3. **Cross-Platform Verification:** Run across Android, iOS, and Desktop to ensure consistent physics step integration and high-DPI Canvas scaling.
+1. **Non-Contact Tracking:** Drag the wand in a slow circular path around the bottle. Observe how the straw continuously tracks the wand's tip without physical contact.
+2. **Grounding & Discharge:** While the straw is actively spinning toward the wand, press `Ground`. Notice how the electric field collapses immediately, and the straw coasts freely under friction until coming to rest.
+3. **Distance & Inverse-Square Falloff:** Move the wand close to the straw versus far across the screen. Notice that electrostatic torque drops precipitously as distance increases ($\tau \propto 1/d^2$).

@@ -10,26 +10,53 @@
 **Visual Hook:** Squeeze an orange peel near an inflated balloon and watch it pop instantaneously without touching.
 
 ### Scientific Principles & Mechanism
-The skin of citrus fruits contains tiny reservoirs of d-limonene, an organic hydrocarbon oil. Latex rubber balloons are composed of cross-linked polyisoprene chains held under extreme mechanical tensile stress. Under the chemistry rule of 'like dissolves like', the non-polar limonene instantly dissolves the non-polar latex polymer bonds upon contact, causing rapid catastrophic crack propagation at the speed of sound in rubber (~50 m/s)!
+The outer rind (flavedo) of citrus fruits (oranges, lemons, limes, grapefruits) contains microscopic oil pockets packed with **d-limonene** ($C_{10}H_{16}$), a volatile, non-polar cyclic terpene hydrocarbon.
+
+Common party balloons are manufactured from vulcanized natural latex rubber (**polyisoprene**). When inflated, the cross-linked polymer chains are stretched near their elastic breaking limit under high mechanical tensile stress.
+
+Under the chemical principle of *"like dissolves like"*, non-polar limonene instantly dissolves non-polar polyisoprene rubber upon contact:
+1. Squeezing the citrus peel squirts an aerosol spray of tiny limonene droplets toward the balloon.
+2. Upon landing, the oil immediately dissolves and breaks the polymer backbone bonds at the contact point.
+3. This creates a microscopic defect (crack). The enormous stored elastic strain energy converts into crack surface energy, driving catastrophic crack propagation at the speed of sound in stretched rubber ($\sim 50\text{ m/s}$), causing the balloon to violently burst!
 
 ### Laboratory / Kitchen Protocol (Try It At Home)
-> Blow up a latex balloon until it is tightly inflated. Cut a piece of orange or lemon peel. Hold the peel with the colored rind facing the balloon, squeeze it sharply to express the citrus oil mist, and watch it pop!
+> Inflate a rubber latex balloon until it is firm and taut. Cut a fresh strip of orange or lemon peel. Point the colored outer surface toward the balloon and pinch the peel sharply between your fingers to eject the citrus mist—the balloon bursts instantly!
 
 ---
 
 ## 2. Mathematical Foundation & Governing Equations
 
-The physical behavior in this simulation is governed by:
+### Membrane Tensile Stress (Laplace's Law)
+In a thin-walled spherical balloon of radius $r$, membrane thickness $t$, and internal overpressure $P$:
 
 $$
-\sigma = \frac{P \cdot r}{2t}, \quad K_I = \sigma \sqrt{\pi a} \ge K_{Ic}
+\sigma = \frac{P \cdot r}{2t}
+$$
+
+As the balloon is inflated to larger scale, the wall thickness $t$ decreases ($t \propto 1/r^2$), causing tensile stress $\sigma$ to skyrocket:
+
+$$
+\sigma \propto P \cdot r^3
+$$
+
+### Griffith Fracture Criterion & Stress Intensity ($K_I$)
+When limonene dissolves a localized patch of rubber, it creates a surface crack of initial length $a$. The stress intensity factor at the crack tip is:
+
+$$
+K_I = \sigma \sqrt{\pi a}
+$$
+
+When the localized stress intensity exceeds the critical fracture toughness of latex rubber ($K_I \ge K_{Ic}$), the crack propagates unstably at the acoustic shear wave speed:
+
+$$
+v_{\text{crack}} \approx \sqrt{\frac{E}{\rho_{\text{rubber}}}} \approx 50\text{ m/s}
 $$
 
 ### Physical Meaning & Quantities
-The mathematical formulation connects key physical parameters:
-- **Forces & Accelerations:** Dynamic balance between external driving forces, restoring forces, and frictional/drag damping.
-- **Conservation Principles:** Energy, momentum, or probability density conservation in the physical medium.
-- **Boundary Conditions:** Interactions occurring at boundaries, surfaces, or event horizons.
+- **$\sigma$ (Membrane Stress):** Enormous biaxial tension held by stretched polyisoprene chains.
+- **$P$ (Internal Pressure):** Gauge pressure of air trapped inside the balloon.
+- **$t$ (Latex Thickness):** Wall thickness of the rubber membrane ($\approx 0.1 - 0.3\text{ mm}$).
+- **$K_{Ic}$ (Fracture Toughness):** Material resistance to rapid crack extension.
 
 ---
 
@@ -38,38 +65,42 @@ The mathematical formulation connects key physical parameters:
 ### Source Location
 - **Primary Composable:** [`CitrusBalloonExperiment`](./CitrusBalloonExperiment.kt)
 - **Package:** `com.geosid.simplephysics.ui.experiments.week1.Day2`
-- **Screen Architecture:** Compose Multiplatform with Canvas rendering & high-frequency physics tick.
+- **Screen Architecture:** Compose Multiplatform with Canvas rendering & particle burst dynamics.
 
 ### Reactive State Variables
-The interactive state is managed via Compose `mutableStateOf` variables:
+The interactive state is managed via Compose `mutableStateOf` and `mutableStateListOf` variables:
 
-| State Variable | Initialization | Functional Role in Simulation |
+| State Variable | Type / Default | Functional Role in Simulation |
 | :--- | :--- | :--- |
-| `isPopped` | `mutableStateOf(false)` | Reactive state tracking physical coordinate or control parameter |
-| `balloonColorIndex` | `mutableStateOf(0)` | Reactive state tracking physical coordinate or control parameter |
-| `inflationScale` | `mutableStateOf(1f)` | Reactive state tracking physical coordinate or control parameter |
-| `peelPos` | `mutableStateOf(Offset(0.78f, 0.45f))` | Reactive state tracking physical coordinate or control parameter |
-| `isSqueezing` | `mutableStateOf(false)` | Reactive state tracking physical coordinate or control parameter |
-| `shockwaveRadius` | `mutableStateOf(0f)` | Reactive state tracking physical coordinate or control parameter |
-| `shockwaveAlpha` | `mutableStateOf(0f)` | Reactive state tracking physical coordinate or control parameter |
+| `isPopped` | `mutableStateOf(false)` | Flag indicating whether the balloon has burst |
+| `balloonColorIndex` | `mutableStateOf(0)` | Active balloon color preset (Orange, Cyan, Purple, Red) |
+| `inflationScale` | `mutableStateOf(1f)` | Balloon inflation scale driving membrane radius and tension |
+| `peelPos` | `mutableStateOf(Offset(0.78f, 0.45f))` | Normalized 2D coordinate of the citrus peel |
+| `isSqueezing` | `mutableStateOf(false)` | Flag indicating active peel squeeze ejection |
+| `droplets` | `SnapshotStateList<LimoneneDroplet>` | Active limonene oil spray droplets traveling toward the balloon |
+| `shards` | `SnapshotStateList<RubberShard>` | Exploded rubber shards flying outward with ballistic gravity and spin |
+| `shockwaveRadius`, `shockwaveAlpha` | `Float` | Rapidly expanding white circular shockwave ring upon burst |
 
 ### Frame Loop & Physics Integration
-- **High-Precision Physics Loop:** Driven by `withFrameNanos` inside `LaunchedEffect`.
-- **Time-Delta Numerical Integration:** Uses elapsed nanosecond delta ($\Delta t$) to compute velocity changes, angular acceleration, and position updates, ensuring smooth 60–120 FPS execution independent of device refresh rate.
-- **Damping & Dissipation:** Exponential or linear damping applied per frame to simulate air resistance, viscosity, or thermal dissipation.
+- **High-Precision Physics Loop:** Driven by `withFrameNanos` inside `LaunchedEffect(isPopped, droplets.size, isSqueezing)`.
+- **Droplet Collision Detection:** Traces each limonene droplet's trajectory. When distance to balloon center falls below the inflated boundary, dissolution is triggered, immediately bursting the balloon.
+- **Explosion Shard Physics:** Generates 28 independent rubber shards with randomized linear velocities ($150 - 600\text{ px/s}$), rotational velocities ($\pm 360^\circ/\text{s}$), and gravity acceleration ($g = 450$).
 
 ### User Gestures & Interactivity
-- **Pointer Drag Gestures:** Configured via `.pointerInput { detectDragGestures { ... } }`, allowing real-time direct manipulation of particles, sources, or boundary walls on screen.
-- **HUD & Slider Controls:** Real-time tweaking of physical constants (gravity, charge, index of refraction, viscosity, or frequency).
+- **Peel Dragging:** Touch and drag the orange peel anywhere on screen to adjust distance and angle relative to the balloon.
+- **`🍊 Squeeze Peel` Button:** Ejects a high-velocity burst of limonene oil droplets toward the balloon.
+- **Balloon Color Switcher:** Cycles between vibrant latex colors (Orange, Cyan, Purple, Red).
+- **Reset Button:** Inflates a new, taut balloon and clears active particles.
 
 ### Canvas Graphics Pipeline
-- **Normalized Coordinates:** Physics calculations mapped to Canvas dimensions (`size.width`, `size.height`) via responsive scaling.
-- **Render Functions:** Utilizes Compose DrawScope methods: `drawArc`, `drawCircle`, `drawCitrusPeel`, `drawOval`, `drawPath`, `drawRect`.
-- **Visual Polish:** Neon color palette, anti-aliased vectors, radial gradients for glowing fields, and dynamic trail decay.
+- **Floating Balloon:** Glossy, taut rubber balloon with realistic 3D specular highlight and floating harmonic bobbing (`drawTautBalloon`).
+- **Citrus Peel:** Rendered orange crescent with outer orange rind, white pith, and juicy zest texture (`drawCitrusPeel`).
+- **Limonene Droplet Stream:** Bright yellow/orange aerosol particles flying from the peel.
+- **Shockwave & Rubber Shards:** High-speed expanding white circular shockwave ring and tumbling, spinning rubber fragments.
 
 ---
 
 ## 4. Suggested Investigations & Parameter Experiments
-1. **Extremal Value Testing:** Push sliders to their minimum and maximum bounds to observe physical phase shifts or asymptotic behavior.
-2. **Perturbation Dynamics:** Disturb the equilibrium state via touch drag and record how quickly the system dissipates energy back to ground state.
-3. **Cross-Platform Verification:** Run across Android, iOS, and Desktop to ensure consistent physics step integration and high-DPI Canvas scaling.
+1. **Distance vs. Dispersion:** Squeeze the peel from far away versus right beside the balloon. Notice how droplet dispersion makes hits harder from afar, while close proximity causes instantaneous detonation.
+2. **Dissolution Mechanism:** Observe that the peel itself never touches the balloon; the explosion is entirely triggered by the airborne chemical solvent droplets landing on the stressed rubber.
+3. **Explosion Fragmentation Dynamics:** Trigger the burst and observe the high-speed tumbling fragments and expanding acoustic shockwave simulating the rapid release of stored strain energy.

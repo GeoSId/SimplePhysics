@@ -10,26 +10,49 @@
 **Visual Hook:** Poke sharp pencils straight through a water-filled plastic bag without spilling a single drop!
 
 ### Scientific Principles & Mechanism
-Plastic zipper sandwich bags are made of High-Density Polyethylene (HDPE) or Low-Density Polyethylene (LDPE). These are long chains of repeating polymer molecules. When pierced by a smooth, sharp pencil tip, the flexible polymer chains separate and stretch tightly around the shaft of the pencil like rubber bands, forming a watertight temporary gasket.
+Plastic zip-lock sandwich bags are manufactured from Low-Density Polyethylene (LDPE) or High-Density Polyethylene (HDPE). These materials consist of extremely long, tangled chains of repeating ethylene monomer molecules ($-\text{CH}_2-\text{CH}_2-$).
+
+When a smooth, round pencil pierces the bag:
+1. The sharp tip slips between the flexible polymer chains rather than tearing them apart.
+2. The long polymer chains separate elastically, stretching tightly around the cylindrical shaft of the pencil like rubber bands.
+3. Under the hydrostatic pressure of the contained water, the stretched polymer chains form a hermetic, watertight temporary gasket around the pencil surface, preventing leaks.
+4. However, if a pencil is pulled out, the permanently deformed plastic cannot snap shut across the open puncture wound, allowing water to drain out under gravity.
 
 ### Laboratory / Kitchen Protocol (Try It At Home)
-> Fill a clean zip-lock bag 3/4 full with water and seal it. Sharpen 4-6 round pencils. With one smooth, steady motion, poke each pencil through one side and out the other over a sink or bowl!
+> Fill a clean zip-lock bag 3/4 full with tap water and seal it tightly. Sharpen 3 to 6 smooth, round pencils. In one confident, continuous motion, poke each pencil through one side and out the opposite side over a sink or basin!
 
 ---
 
 ## 2. Mathematical Foundation & Governing Equations
 
-The physical behavior in this simulation is governed by:
+### Hydrostatic Head Pressure
+At any depth $h$ below the free water surface:
 
 $$
-P = \rho g h \quad \text{sealed by} \quad \sigma_\theta = \frac{P \cdot r}{t}
+P(h) = \rho_{\text{water}} \cdot g \cdot h
 $$
+
+### Hoop Stress in Thin-Walled Polymers
+The circumferential (hoop) stress $\sigma_\theta$ exerted around the pencil shaft of radius $r$ through a bag film of thickness $t$:
+
+$$
+\sigma_\theta = \frac{P \cdot r}{t}
+$$
+
+### Elastic Gasket Sealing Condition
+For a watertight seal without leaking, the compressive contact pressure $P_{\text{contact}}$ exerted by the stretched polymer chains against the pencil must exceed the outward hydrostatic water pressure:
+
+$$
+P_{\text{contact}} = \frac{E \cdot \Delta r}{r} > P_{\text{water}}(h) = \rho g h
+$$
+
+Where $E$ is the Young's modulus of polyethylene and $\Delta r$ is the radial interference fit.
 
 ### Physical Meaning & Quantities
-The mathematical formulation connects key physical parameters:
-- **Forces & Accelerations:** Dynamic balance between external driving forces, restoring forces, and frictional/drag damping.
-- **Conservation Principles:** Energy, momentum, or probability density conservation in the physical medium.
-- **Boundary Conditions:** Interactions occurring at boundaries, surfaces, or event horizons.
+- **$\rho_{\text{water}} = 1000\text{ kg/m}^3$:** Density of water.
+- **$h$ (Water Depth):** Height of the liquid column above the puncture site.
+- **$P(h)$:** Hydrostatic pressure pushing outward against the puncture hole.
+- **$E$ (Polymer Elastic Modulus):** Elastic stiffness of LDPE chains resisting puncture expansion.
 
 ---
 
@@ -38,33 +61,40 @@ The mathematical formulation connects key physical parameters:
 ### Source Location
 - **Primary Composable:** [`PencilWaterBagExperiment`](./PencilWaterBagExperiment.kt)
 - **Package:** `com.geosid.simplephysics.ui.experiments.week1.Day3`
-- **Screen Architecture:** Compose Multiplatform with Canvas rendering & high-frequency physics tick.
+- **Screen Architecture:** Compose Multiplatform with Canvas rendering & dynamic particle physics.
 
 ### Reactive State Variables
-The interactive state is managed via Compose `mutableStateOf` variables:
+The interactive state is managed via Compose `mutableStateOf` and `mutableStateListOf` variables:
 
-| State Variable | Initialization | Functional Role in Simulation |
+| State Variable | Type / Default | Functional Role in Simulation |
 | :--- | :--- | :--- |
-| `waterLevel` | `mutableStateOf(0.78f)` | Reactive state tracking physical coordinate or control parameter |
-| `leakActive` | `mutableStateOf(false)` | Reactive state tracking physical coordinate or control parameter |
+| `waterLevel` | `mutableStateOf(0.78f)` | Normalized water volume inside the bag ($0.05 - 1.00$) |
+| `leakActive` | `mutableStateOf(false)` | Flag indicating broken seal and active water drainage |
+| `pencils` | `SnapshotStateList<PuncturePencil>` | Active pencils pierced through the bag (position, angle, state) |
+| `leakParticles` | `SnapshotStateList<WaterLeakParticle>` | Dynamic water spray droplets expelled from unplugged holes |
+| `wavePhase` | `Float` | Animated surface meniscus wave oscillation phase |
 
-### Frame Loop & Physics Integration
-- **High-Precision Physics Loop:** Driven by `withFrameNanos` inside `LaunchedEffect`.
-- **Time-Delta Numerical Integration:** Uses elapsed nanosecond delta ($\Delta t$) to compute velocity changes, angular acceleration, and position updates, ensuring smooth 60–120 FPS execution independent of device refresh rate.
-- **Damping & Dissipation:** Exponential or linear damping applied per frame to simulate air resistance, viscosity, or thermal dissipation.
+### Frame Loop & Dynamic Leak Simulation
+- **Water Drain Loop:** Driven by `withFrameNanos` inside `LaunchedEffect(leakActive, waterLevel)`.
+- **Drainage Dynamics:** When `leakActive == true`, water level drains continuously ($\Delta \text{water} = -0.0015/\text{frame}$).
+- **Particle System:** Unplugged holes continuously spawn ballistic water particles subject to horizontal ejection velocity and downward gravitational acceleration ($g = 0.35$).
 
 ### User Gestures & Interactivity
-- **Pointer Drag Gestures:** Configured via `.pointerInput { detectDragGestures { ... } }`, allowing real-time direct manipulation of particles, sources, or boundary walls on screen.
-- **HUD & Slider Controls:** Real-time tweaking of physical constants (gravity, charge, index of refraction, viscosity, or frequency).
+- **Interactive Pencil Manipulation:** Drag on the canvas to tilt the angle ($\pm 25^\circ$) and adjust the vertical position of active pencils.
+- **`+ Poke Pencil` Button:** Dynamically inserts additional colored pencils through the bag at randomized tilt angles.
+- **`Pull Out Pencil ⚡` Button:** Unplugs the last inserted pencil, permanently tearing the polymer seal and initiating pressurized water jet leaks.
+- **Reset Button:** Re-seals the bag, refills the water to $78\%$, and restores the default pencil configuration.
 
 ### Canvas Graphics Pipeline
-- **Normalized Coordinates:** Physics calculations mapped to Canvas dimensions (`size.width`, `size.height`) via responsive scaling.
-- **Render Functions:** Utilizes Compose DrawScope methods: `drawArc`, `drawCircle`, `drawLine`, `drawPath`, `drawPiercingPencil`, `drawRoundRect`.
-- **Visual Polish:** Neon color palette, anti-aliased vectors, radial gradients for glowing fields, and dynamic trail decay.
+- **Suspension Hanger & Clips:** Metallic crossbar with two hanging binder clips supporting the bag (`drawSuspensionHanger`).
+- **Water-Filled Plastic Bag:** Translucent plastic envelope with animated sine wave surface water meniscus and blue depth fill (`drawWaterBag`).
+- **Piercing Pencils:** Textured wooden pencil shafts with sharpened graphite tips and colored paint bands spanning across the bag (`drawPiercingPencil`).
+- **Polymer Seal Highlight Rings:** Neon cyan stress halos indicating tight, watertight polymer gasket seals.
+- **Puncture Leak Jets:** Red puncture holes with blue ballistic water spray droplets.
 
 ---
 
 ## 4. Suggested Investigations & Parameter Experiments
-1. **Extremal Value Testing:** Push sliders to their minimum and maximum bounds to observe physical phase shifts or asymptotic behavior.
-2. **Perturbation Dynamics:** Disturb the equilibrium state via touch drag and record how quickly the system dissipates energy back to ground state.
-3. **Cross-Platform Verification:** Run across Android, iOS, and Desktop to ensure consistent physics step integration and high-DPI Canvas scaling.
+1. **Multi-Pencil Capacity:** Tap `+ Poke Pencil` repeatedly to pierce 4, 5, or 6 pencils at various heights. Notice how the polymer maintains $100\%$ seal integrity regardless of pencil count.
+2. **Pencil Extraction & Catastrophic Drain:** Tap `Pull Out Pencil ⚡`. Observe how removing a pencil leaves an open hole, triggering ballistic water sprays and draining the bag.
+3. **Pencil Angle Drag:** Drag an inserted pencil up and down or tilt it at an angle. Notice how the polymer chains accommodate angular tilt while preserving the seal.
