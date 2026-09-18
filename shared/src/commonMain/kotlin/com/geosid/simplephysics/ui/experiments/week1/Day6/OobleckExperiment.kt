@@ -1,18 +1,15 @@
 package com.geosid.simplephysics.ui.experiments.week1.Day6
 
-import androidx.compose.animation.core.*
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectDragGestures
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.*
@@ -203,7 +200,7 @@ fun OobleckExperiment(
                             onDragStart = { offset ->
                                 touchPos = offset
                                 lastTouchPos = offset
-                                lastTouchTime = System.currentTimeMillis()
+                                lastTouchTime = Clock.System.now().toEpochMilliseconds()
                             },
                             onDragEnd = {
                                 touchPos = null
@@ -214,7 +211,7 @@ fun OobleckExperiment(
                                 lastTouchPos = null
                             },
                             onDrag = { change, _ ->
-                                val now = System.currentTimeMillis()
+                                val now = Clock.System.now().toEpochMilliseconds()
                                 val dt = max(1L, now - lastTouchTime) / 1000f
                                 lastTouchTime = now
 
