@@ -11,8 +11,6 @@ import com.geosid.simplephysics.ui.experiments.week1.Day7.BernoulliBallExperimen
 import com.geosid.simplephysics.ui.experiments.week2.Day10.NewtonsCradleExperiment
 import com.geosid.simplephysics.ui.experiments.week2.Day11.BrachistochroneExperiment
 import com.geosid.simplephysics.ui.experiments.week2.Day12.TerminalVelocityExperiment
-import com.geosid.simplephysics.ui.experiments.week2.Day13.StickSlipFrictionExperiment
-import com.geosid.simplephysics.ui.experiments.week2.Day14.CompoundPulleyExperiment
 import com.geosid.simplephysics.ui.experiments.week2.Day8.ProjectileMotionExperiment
 import com.geosid.simplephysics.ui.experiments.week2.Day9.BouncingBallExperiment
 
