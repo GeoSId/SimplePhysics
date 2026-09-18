@@ -57,4 +57,6 @@ SimplePhysics includes an automated pipeline for generating YouTube Shorts (9:16
 - See the **[Complete Video Automation Guide](scripts/README.md)** for full documentation, track selection, and copy-paste commands.
 - Background relax music guide: **[scripts/audio/music/README.md](scripts/audio/music/README.md)**.
 
-![Screenshot from 2026-09-06 22-40-20.png](Screenshot%20from%202026-09-06%2022-40-20.png)
+---
+
+![SimplePhysics Experiments Preview](Screenshot%20from%202026-09-18%2013-51-25.png)

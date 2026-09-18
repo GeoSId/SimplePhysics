@@ -11,11 +11,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.*
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.graphics.drawscope.rotate
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -232,6 +234,410 @@ internal fun DrawScope.drawExperimentIllustration(id: String) {
             // Floor shadow
             drawOval(Color.Black.copy(alpha = 0.4f), Offset(w * 0.26f - 16f, groundY - 4f), Size(32f, 8f))
         }
+        "newtons_cradle" -> {
+            val cx = w * 0.5f
+            val topY = h * 0.22f
+            val stringL = h * 0.45f
+            val ballR = 9f
+            val groundY = topY + stringL + ballR * 2.2f
+
+            // 1. Frame Base Shadow & Ground line
+            drawOval(
+                color = Color.Black.copy(alpha = 0.35f),
+                topLeft = Offset(cx - 52f, groundY - 3f),
+                size = Size(104f, 8f)
+            )
+
+            // 2. Top Chrome Frame Crossbar & Pillars
+            val frameHalfW = 46f
+            drawRoundRect(
+                brush = Brush.verticalGradient(listOf(Color.White, Color(0xFFB0BEC5), Color(0xFF37474F))),
+                topLeft = Offset(cx - frameHalfW, topY - 3f),
+                size = Size(frameHalfW * 2f, 6f),
+                cornerRadius = androidx.compose.ui.geometry.CornerRadius(3f, 3f)
+            )
+            // Left & Right Support Pillars
+            drawLine(Color(0xFF78909C), Offset(cx - frameHalfW + 4f, topY), Offset(cx - frameHalfW + 4f, groundY), 3.5f, StrokeCap.Round)
+            drawLine(Color(0xFF78909C), Offset(cx + frameHalfW - 4f, topY), Offset(cx + frameHalfW - 4f, groundY), 3.5f, StrokeCap.Round)
+
+            // 3. Angles for 5 Balls (Left ball swung back, middle 3 vertical, right ball reacting)
+            val angles = floatArrayOf(-0.65f, 0f, 0f, 0f, 0.22f)
+
+            // 4. Motion Blur Trail for swung Left Ball
+            val leftPivotX = cx - 2 * (ballR * 2f)
+            for (trail in 1..3) {
+                val tAngle = angles[0] + 0.08f * trail
+                val tx = leftPivotX + stringL * sin(tAngle)
+                val ty = topY + stringL * cos(tAngle)
+                drawCircle(
+                    color = CyanNeon.copy(alpha = 0.15f / trail),
+                    radius = ballR * 0.85f,
+                    center = Offset(tx, ty)
+                )
+            }
+
+            // 5. Impact Spark on Right side (Energy transfer wave)
+            val contactX = cx + (ballR * 2f)
+            drawCircle(
+                color = CyanNeon.copy(alpha = 0.6f),
+                radius = 6f,
+                center = Offset(contactX, topY + stringL),
+                style = Stroke(width = 1.5f)
+            )
+
+            // 6. Draw 5 Balls with Dual V-Strings and Metallic Shading
+            for (i in 0 until 5) {
+                val pivotX = cx + (i - 2) * (ballR * 2f)
+                val angle = angles[i]
+                val bx = pivotX + stringL * sin(angle)
+                val by = topY + stringL * cos(angle)
+
+                // Dual V-suspension strings
+                val vSpread = ballR * 0.5f
+                drawLine(Color.White.copy(alpha = 0.65f), Offset(pivotX - vSpread, topY), Offset(bx, by - ballR), 1.2f)
+                drawLine(Color.White.copy(alpha = 0.65f), Offset(pivotX + vSpread, topY), Offset(bx, by - ballR), 1.2f)
+
+                // Ball drop shadow
+                drawOval(
+                    color = Color.Black.copy(alpha = 0.3f),
+                    topLeft = Offset(bx - ballR * 0.7f, groundY - 2f),
+                    size = Size(ballR * 1.4f, 5f)
+                )
+
+                // Metallic Chrome Sphere Shader
+                val hlOffset = Offset(bx - ballR * 0.32f, by - ballR * 0.32f)
+                drawCircle(
+                    brush = Brush.radialGradient(
+                        colors = listOf(Color.White, Color(0xFFE0E0E0), Color(0xFF78909C), Color(0xFF263238)),
+                        center = hlOffset,
+                        radius = ballR * 1.3f
+                    ),
+                    radius = ballR,
+                    center = Offset(bx, by)
+                )
+                // Specular highlight spot
+                drawCircle(Color.White.copy(alpha = 0.95f), ballR * 0.25f, hlOffset)
+                // Chrome rim
+                drawCircle(Color(0xFFCFD8DC), ballR, Offset(bx, by), style = Stroke(width = 1f))
+            }
+        }
+        "brachistochrone" -> {
+            val startX = w * 0.14f
+            val startY = h * 0.22f
+            val endX = w * 0.86f
+            val endY = h * 0.78f
+
+            // 1. Release Platform at Top-Left
+            drawLine(
+                color = Color.White.copy(alpha = 0.4f),
+                start = Offset(startX - 12f, startY),
+                end = Offset(startX + 4f, startY),
+                strokeWidth = 3f,
+                cap = StrokeCap.Round
+            )
+
+            // 2. Straight Incline (Slower comparison path - dashed Amber)
+            val straightPath = Path().apply {
+                moveTo(startX, startY)
+                lineTo(endX, endY)
+            }
+            drawPath(
+                path = straightPath,
+                color = AmberVibrant.copy(alpha = 0.45f),
+                style = Stroke(
+                    width = 2f,
+                    pathEffect = PathEffect.dashPathEffect(floatArrayOf(6f, 6f))
+                )
+            )
+
+            // 3. Lagging Ball on Straight Path (showing it loses the race)
+            val straightT = 0.38f
+            val sBallX = startX + (endX - startX) * straightT
+            val sBallY = startY + (endY - startY) * straightT
+            drawCircle(
+                color = AmberVibrant.copy(alpha = 0.7f),
+                radius = 4.5f,
+                center = Offset(sBallX, sBallY - 4.5f)
+            )
+
+            // 4. Brachistochrone Cycloid Curve (The Quickest Descent - Glowing Cyan)
+            val cycloidPath = Path().apply {
+                moveTo(startX, startY)
+                cubicTo(
+                    startX + (endX - startX) * 0.18f, startY + (endY - startY) * 0.82f,
+                    startX + (endX - startX) * 0.58f, endY + 6f,
+                    endX, endY
+                )
+            }
+            // Cyan outer glow
+            drawPath(
+                path = cycloidPath,
+                color = CyanNeon.copy(alpha = 0.35f),
+                style = Stroke(width = 7f, cap = StrokeCap.Round)
+            )
+            // Crisp foreground curve
+            drawPath(
+                path = cycloidPath,
+                color = CyanNeon,
+                style = Stroke(width = 3f, cap = StrokeCap.Round)
+            )
+
+            // 5. Winning Marble on Cycloid (Racing ahead near finish line)
+            val winX = startX + (endX - startX) * 0.72f
+            val winY = endY - 6f
+            // Motion blur / speed trail behind winning marble
+            drawLine(
+                color = CyanNeon.copy(alpha = 0.5f),
+                start = Offset(winX - 16f, winY + 2f),
+                end = Offset(winX - 2f, winY),
+                strokeWidth = 2f,
+                cap = StrokeCap.Round
+            )
+            // Winning marble glow & sphere
+            drawCircle(
+                brush = Brush.radialGradient(
+                    colors = listOf(Color.White, CyanNeon, Color(0xFF007A99)),
+                    center = Offset(winX - 1.5f, winY - 1.5f),
+                    radius = 7.5f
+                ),
+                radius = 6.5f,
+                center = Offset(winX, winY)
+            )
+
+            // 6. Finish Flag at Bottom-Right
+            val poleHeight = 28f
+            drawLine(
+                color = Color.White.copy(alpha = 0.8f),
+                start = Offset(endX, endY + 4f),
+                end = Offset(endX, endY - poleHeight),
+                strokeWidth = 2f
+            )
+            val flagPath = Path().apply {
+                moveTo(endX, endY - poleHeight)
+                lineTo(endX + 14f, endY - poleHeight + 7f)
+                lineTo(endX, endY - poleHeight + 14f)
+                close()
+            }
+            drawPath(flagPath, EmeraldNeon)
+        }
+        "terminal_velocity" -> {
+            val cx = w * 0.5f
+            val cy = h * 0.50f
+
+            // 1. Upward Air Streamlines (Aerodynamic flow field)
+            val streamCount = 5
+            for (i in 0 until streamCount) {
+                val sx = cx + (i - 2) * (w * 0.16f)
+                val sy = cy + (if (i % 2 == 0) 18f else -12f)
+                drawLine(
+                    color = CyanNeon.copy(alpha = 0.35f),
+                    start = Offset(sx, sy + 28f),
+                    end = Offset(sx, sy - 28f),
+                    strokeWidth = 2f,
+                    cap = StrokeCap.Round
+                )
+            }
+
+            // 2. Parachute Canopy (Billowing Aerodynamic Arc)
+            val canopyW = min(w * 0.44f, 105f)
+            val canopyH = canopyW * 0.42f
+            val canopyY = cy - 24f
+
+            val canopyPath = Path().apply {
+                moveTo(cx - canopyW * 0.5f, canopyY)
+                cubicTo(
+                    cx - canopyW * 0.4f, canopyY - canopyH,
+                    cx + canopyW * 0.4f, canopyY - canopyH,
+                    cx + canopyW * 0.5f, canopyY
+                )
+                close()
+            }
+            // Multi-color neon parachute canopy
+            drawPath(
+                path = canopyPath,
+                brush = Brush.horizontalGradient(
+                    colors = listOf(CyanNeon, EmeraldNeon, AmberVibrant, CyanNeon),
+                    startX = cx - canopyW * 0.5f,
+                    endX = cx + canopyW * 0.5f
+                )
+            )
+            drawPath(
+                path = canopyPath,
+                color = Color.White,
+                style = Stroke(width = 2f)
+            )
+
+            // 3. Parachute Suspension Lines
+            val harnessY = cy + 18f
+            val lineCount = 4
+            for (k in 0 until lineCount) {
+                val t = k / (lineCount - 1).toFloat()
+                val lineX = cx - canopyW * 0.42f + t * canopyW * 0.84f
+                drawLine(
+                    color = Color.White.copy(alpha = 0.65f),
+                    start = Offset(cx, harnessY - 6f),
+                    end = Offset(lineX, canopyY - 2f),
+                    strokeWidth = 1.2f
+                )
+            }
+
+            // 4. Skydiver Figure
+            drawCircle(AmberVibrant, 4.5f, Offset(cx, harnessY - 8f)) // Helmet
+            drawLine(Color.White, Offset(cx, harnessY - 4f), Offset(cx, harnessY + 8f), 3f, StrokeCap.Round) // Body
+            drawLine(CyanNeon, Offset(cx, harnessY + 8f), Offset(cx - 4f, harnessY + 16f), 2.5f, StrokeCap.Round) // Left Leg
+            drawLine(CyanNeon, Offset(cx, harnessY + 8f), Offset(cx + 4f, harnessY + 16f), 2.5f, StrokeCap.Round) // Right Leg
+
+            // 5. Force Vectors: Upward Drag Fd (Cyan) & Downward Gravity Fg (Amber)
+            val arrowOffset = canopyW * 0.60f
+            val vectorX = cx + arrowOffset
+            if (vectorX + 8f < w) {
+                val vLen = 20f
+                // Upward Drag Vector
+                drawLine(CyanNeon, Offset(vectorX, cy + 2f), Offset(vectorX, cy - vLen), 2.5f, StrokeCap.Round)
+                val upHead = Path().apply {
+                    moveTo(vectorX, cy - vLen - 4f)
+                    lineTo(vectorX - 3.5f, cy - vLen)
+                    lineTo(vectorX + 3.5f, cy - vLen)
+                    close()
+                }
+                drawPath(upHead, CyanNeon)
+
+                // Downward Gravity Vector
+                drawLine(AmberVibrant, Offset(vectorX, cy + 2f), Offset(vectorX, cy + 2f + vLen), 2.5f, StrokeCap.Round)
+                val downHead = Path().apply {
+                    moveTo(vectorX, cy + 2f + vLen + 4f)
+                    lineTo(vectorX - 3.5f, cy + 2f + vLen)
+                    lineTo(vectorX + 3.5f, cy + 2f + vLen)
+                    close()
+                }
+                drawPath(downHead, AmberVibrant)
+            }
+        }
+        "stick_slip_friction" -> {
+            val floorY = h * 0.65f
+            val floorHeight = 16f
+
+            // 1. Base rail with hatch lines
+            drawRect(
+                color = ScienceDarkSurfaceVariant,
+                topLeft = Offset(0f, floorY),
+                size = Size(w, floorHeight)
+            )
+            drawLine(
+                color = AmberVibrant.copy(alpha = 0.8f),
+                start = Offset(0f, floorY),
+                end = Offset(w, floorY),
+                strokeWidth = 2f
+            )
+            val spacing = 16f
+            var hx = 0f
+            while (hx < w) {
+                drawLine(
+                    color = ScienceBorder.copy(alpha = 0.5f),
+                    start = Offset(hx, floorY),
+                    end = Offset(hx - 8f, floorY + floorHeight),
+                    strokeWidth = 1f
+                )
+                hx += spacing
+            }
+
+            // 2. Sled Block (Mass m)
+            val blockW = min(w * 0.28f, 72f)
+            val blockH = 34f
+            val blockX = w * 0.30f
+            val blockTop = floorY - blockH
+
+            // Block Body
+            drawRoundRect(
+                brush = Brush.verticalGradient(
+                    colors = listOf(ScienceDarkSurfaceVariant, ScienceDarkSurface),
+                    startY = blockTop,
+                    endY = floorY
+                ),
+                topLeft = Offset(blockX - blockW * 0.5f, blockTop),
+                size = Size(blockW, blockH),
+                cornerRadius = CornerRadius(6f, 6f)
+            )
+            drawRoundRect(
+                color = AmberVibrant,
+                topLeft = Offset(blockX - blockW * 0.5f, blockTop),
+                size = Size(blockW, blockH),
+                cornerRadius = CornerRadius(6f, 6f),
+                style = Stroke(width = 1.8f)
+            )
+
+            // Block Grip/Detail lines
+            drawLine(
+                Color.White.copy(alpha = 0.25f),
+                Offset(blockX - blockW * 0.35f, blockTop + blockH * 0.38f),
+                Offset(blockX + blockW * 0.35f, blockTop + blockH * 0.38f),
+                1.5f
+            )
+            drawLine(
+                Color.White.copy(alpha = 0.25f),
+                Offset(blockX - blockW * 0.35f, blockTop + blockH * 0.58f),
+                Offset(blockX + blockW * 0.35f, blockTop + blockH * 0.58f),
+                1.5f
+            )
+
+            // 3. Motor Puller Bracket
+            val pullerX = w * 0.82f
+            val pullerH = 38f
+            val pullerW = 18f
+            drawRoundRect(
+                color = EmeraldNeon,
+                topLeft = Offset(pullerX, floorY - pullerH),
+                size = Size(pullerW, pullerH),
+                cornerRadius = CornerRadius(4f, 4f)
+            )
+
+            // 4. Helical Spring
+            val springStartY = blockTop + blockH * 0.5f
+            val springStartX = blockX + blockW * 0.5f
+            val springEndX = pullerX
+            val coils = 7
+            val amp = 9f
+            val path = Path()
+            path.moveTo(springStartX, springStartY)
+            val span = springEndX - springStartX
+            val step = span / (coils * 2)
+            for (i in 0 until coils * 2) {
+                val cx = springStartX + (i + 0.5f) * step
+                val cy = springStartY + (if (i % 2 == 0) -amp else amp)
+                val ex = springStartX + (i + 1f) * step
+                path.quadraticTo(cx, cy, ex, springStartY)
+            }
+            drawPath(path, CyanNeon, style = Stroke(width = 2.2f, cap = StrokeCap.Round))
+
+            // 5. Force Arrows
+            // Spring Tension Fs (Cyan, pulling right)
+            val fsArrowStart = Offset(blockX + blockW * 0.2f, blockTop - 10f)
+            val fsArrowEnd = Offset(fsArrowStart.x + 28f, fsArrowStart.y)
+            drawLine(CyanNeon, fsArrowStart, fsArrowEnd, 2f, StrokeCap.Round)
+            val fsHead = Path().apply {
+                moveTo(fsArrowEnd.x + 4f, fsArrowEnd.y)
+                lineTo(fsArrowEnd.x - 3f, fsArrowEnd.y - 3f)
+                lineTo(fsArrowEnd.x - 3f, fsArrowEnd.y + 3f)
+                close()
+            }
+            drawPath(fsHead, CyanNeon)
+
+            // Friction Resistance Ff (Amber, opposing left)
+            val ffArrowStart = Offset(blockX - blockW * 0.1f, floorY - 2f)
+            val ffArrowEnd = Offset(ffArrowStart.x - 26f, ffArrowStart.y)
+            drawLine(AmberVibrant, ffArrowStart, ffArrowEnd, 2f, StrokeCap.Round)
+            val ffHead = Path().apply {
+                moveTo(ffArrowEnd.x - 4f, ffArrowEnd.y)
+                lineTo(ffArrowEnd.x + 3f, ffArrowEnd.y - 3f)
+                lineTo(ffArrowEnd.x + 3f, ffArrowEnd.y + 3f)
+                close()
+            }
+            drawPath(ffHead, AmberVibrant)
+
+            // 6. Micro-Asperity Contact Sparks
+            drawCircle(CoralNeon, 2.5f, Offset(blockX - blockW * 0.2f, floorY - 1f))
+            drawCircle(AmberVibrant, 2f, Offset(blockX + blockW * 0.1f, floorY - 2f))
+        }
         "plucked_string" -> {
             val baseY = h * 0.52f
             // Pegs
@@ -447,36 +853,284 @@ internal fun DrawScope.drawExperimentIllustration(id: String) {
             drawCircle(CitrusZest, 2.5f, Offset(w * 0.52f, cy - 4f))
         }
         "cartesian_diver" -> {
-            // Bottle & Cartesian diver
-            val bw = w * 0.28f
-            val bh = h * 0.75f
+            val bw = min(w * 0.34f, 80f)
+            val bh = h * 0.76f
             val bx = (w - bw) / 2f
-            val by = (h - bh) / 2f
+            val by = h * 0.12f
+            val cornerR = 12f
+            val neckW = bw * 0.42f
+            val neckH = 14f
 
-            // Water
-            drawRoundRect(
-                color = WaterBlue.copy(alpha = 0.5f),
-                topLeft = Offset(bx, by),
-                size = Size(bw, bh),
-                cornerRadius = androidx.compose.ui.geometry.CornerRadius(14f)
+            // 1. Water Fill inside Bottle
+            val waterPath = Path().apply {
+                moveTo(bx + (bw - neckW) / 2f, by + neckH)
+                quadraticTo(bx + bw, by + neckH + 8f, bx + bw - 4f, by + bh * 0.45f) // Right waist squeeze
+                quadraticTo(bx + bw - 6f, by + bh * 0.55f, bx + bw, by + bh - cornerR)
+                quadraticTo(bx + bw, by + bh, bx + bw - cornerR, by + bh)
+                lineTo(bx + cornerR, by + bh)
+                quadraticTo(bx, by + bh, bx, by + bh - cornerR)
+                quadraticTo(bx + 6f, by + bh * 0.55f, bx + 4f, by + bh * 0.45f) // Left waist squeeze
+                quadraticTo(bx, by + neckH + 8f, bx + (bw - neckW) / 2f, by + neckH)
+                close()
+            }
+            drawPath(
+                path = waterPath,
+                brush = Brush.verticalGradient(
+                    colors = listOf(Color(0xFF00ACC1).copy(alpha = 0.45f), Color(0xFF01579B).copy(alpha = 0.80f)),
+                    startY = by + neckH,
+                    endY = by + bh
+                )
             )
+
+            // 2. Clear Plastic Bottle Outline
+            drawPath(
+                path = waterPath,
+                color = Color.White.copy(alpha = 0.6f),
+                style = Stroke(width = 2f)
+            )
+
+            // 3. Blue Bottle Cap
             drawRoundRect(
-                color = Color(0x66FFFFFF),
-                topLeft = Offset(bx, by),
-                size = Size(bw, bh),
-                cornerRadius = androidx.compose.ui.geometry.CornerRadius(14f),
+                color = Color(0xFF1976D2),
+                topLeft = Offset(bx + (bw - neckW - 4f) / 2f, by),
+                size = Size(neckW + 4f, neckH),
+                cornerRadius = androidx.compose.ui.geometry.CornerRadius(3f, 3f)
+            )
+
+            // 4. Squeeze Hand Grip Cues (Coral neon squeeze pinch lines)
+            val squeezeY = by + bh * 0.50f
+            drawLine(CoralNeon, Offset(bx - 8f, squeezeY), Offset(bx - 2f, squeezeY), 2.5f, StrokeCap.Round)
+            drawLine(CoralNeon, Offset(bx + bw + 8f, squeezeY), Offset(bx + bw + 2f, squeezeY), 2.5f, StrokeCap.Round)
+
+            // 5. Eyedropper Cartesian Diver inside Water
+            val dx = w * 0.5f
+            val dy = by + bh * 0.44f
+            val diverH = 34f
+            val diverW = 12f
+
+            // Red bulb on top
+            drawCircle(Color(0xFFE53935), 4.5f, Offset(dx, dy - diverH * 0.5f))
+
+            // Glass barrel
+            drawRoundRect(
+                color = Color.White.copy(alpha = 0.75f),
+                topLeft = Offset(dx - diverW * 0.5f, dy - diverH * 0.35f),
+                size = Size(diverW, diverH * 0.65f),
+                cornerRadius = androidx.compose.ui.geometry.CornerRadius(2f, 2f),
+                style = Stroke(width = 1.2f)
+            )
+
+            // Compressed Cyan Air Bubble inside Diver
+            val bubbleH = diverH * 0.32f
+            drawRoundRect(
+                brush = Brush.verticalGradient(listOf(Color.White, CyanNeon)),
+                topLeft = Offset(dx - diverW * 0.5f + 1.5f, dy - diverH * 0.35f + 1.5f),
+                size = Size(diverW - 3f, bubbleH),
+                cornerRadius = androidx.compose.ui.geometry.CornerRadius(1.5f, 1.5f)
+            )
+
+            // Brass ballast coil at bottom
+            drawLine(Color(0xFFFFB300), Offset(dx - 4f, dy + diverH * 0.28f), Offset(dx + 4f, dy + diverH * 0.28f), 2f, StrokeCap.Round)
+            drawLine(Color(0xFFFFB300), Offset(dx - 4f, dy + diverH * 0.36f), Offset(dx + 4f, dy + diverH * 0.36f), 2f, StrokeCap.Round)
+
+            // 6. Upward Buoyant Force Vector (Fb) & Downward Weight Vector (W)
+            val vecX = dx + diverW + 6f
+            // Fb arrow (Cyan)
+            drawLine(CyanNeon, Offset(vecX, dy - 1f), Offset(vecX, dy - 14f), 2f, StrokeCap.Round)
+            // W arrow (Amber)
+            drawLine(AmberVibrant, Offset(vecX, dy + 1f), Offset(vecX, dy + 14f), 2f, StrokeCap.Round)
+
+            // 7. Rising tiny bubbles
+            drawCircle(Color.White.copy(alpha = 0.6f), 1.5f, Offset(dx - 4f, dy - diverH * 0.6f))
+            drawCircle(Color.White.copy(alpha = 0.4f), 1f, Offset(dx + 3f, dy - diverH * 0.8f))
+        }
+        "oobleck" -> {
+            val cx = w * 0.5f
+            val cy = h * 0.56f
+            val dishRx = min(w * 0.42f, 95f)
+            val dishRy = dishRx * 0.56f
+
+            // 1. Drop shadow under dish
+            drawOval(
+                color = Color.Black.copy(alpha = 0.45f),
+                topLeft = Offset(cx - dishRx * 0.95f, cy - dishRy * 0.8f + 10f),
+                size = Size(dishRx * 1.9f, dishRy * 1.6f)
+            )
+
+            // 2. Glass Petri Dish Base & Rim
+            drawOval(
+                color = Color(0xFF263238),
+                topLeft = Offset(cx - dishRx * 1.05f, cy - dishRy * 1.05f),
+                size = Size(dishRx * 2.1f, dishRy * 2.1f)
+            )
+            drawOval(
+                color = Color.White.copy(alpha = 0.55f),
+                topLeft = Offset(cx - dishRx * 1.02f, cy - dishRy * 1.02f),
+                size = Size(dishRx * 2.04f, dishRy * 2.04f),
                 style = Stroke(width = 2.5f)
             )
 
-            // Mini diver inside
-            val dx = w * 0.5f
-            val dy = by + bh * 0.4f
-            drawCircle(Color(0xFFD32F2F), 6f, Offset(dx, dy - 14f))
+            // 3. Oobleck Fluid Pool (gradient from minty turquoise to chalky cyan)
+            drawOval(
+                brush = Brush.horizontalGradient(
+                    colors = listOf(Color(0xFFE0F7FA), Color(0xFF80DEEA), Color(0xFF00ACC1)),
+                    startX = cx - dishRx,
+                    endX = cx + dishRx
+                ),
+                topLeft = Offset(cx - dishRx * 0.92f, cy - dishRy * 0.92f),
+                size = Size(dishRx * 1.84f, dishRy * 1.84f)
+            )
+
+            // 4. Left Impact Zone: Punch Strike & Crystalline Fracture Web (Solid State)
+            val impactX = cx - dishRx * 0.38f
+            val impactY = cy - dishRy * 0.12f
+
+            // Impact Fist / Hammer Head
             drawRoundRect(
-                color = Color.White,
-                topLeft = Offset(dx - 5f, dy - 8f),
-                size = Size(10f, 22f),
-                cornerRadius = androidx.compose.ui.geometry.CornerRadius(3f)
+                brush = Brush.verticalGradient(listOf(Color.White, Color(0xFFCFD8DC), Color(0xFF455A64))),
+                topLeft = Offset(impactX - 12f, impactY - 26f),
+                size = Size(24f, 18f),
+                cornerRadius = androidx.compose.ui.geometry.CornerRadius(3f, 3f)
+            )
+            drawLine(Color(0xFF8D6E63), Offset(impactX, impactY - 26f), Offset(impactX - 10f, impactY - 44f), 5f, StrokeCap.Round)
+
+            // Solid Stress Fracture Rays radiating from impact point
+            val rays = 5
+            for (i in 0 until rays) {
+                val angle = i * (PI.toFloat() / (rays - 1)) + 0.3f
+                val crackLen = 22f
+                val ex = impactX + cos(angle) * crackLen
+                val ey = impactY + sin(angle) * crackLen * 0.6f
+                drawLine(Color.White, Offset(impactX, impactY), Offset(ex, ey), 1.8f, StrokeCap.Round)
+            }
+            // Impact shockwave ring
+            drawOval(
+                color = CyanNeon.copy(alpha = 0.8f),
+                topLeft = Offset(impactX - 16f, impactY - 9f),
+                size = Size(32f, 18f),
+                style = Stroke(width = 1.5f)
+            )
+
+            // 5. Right Zone: Smooth Viscous Ripples & Melting Drips (Liquid State)
+            val dripX = cx + dishRx * 0.42f
+            val dripY = cy + dishRy * 0.20f
+            // Viscous concentric liquid rings
+            drawOval(
+                color = Color.White.copy(alpha = 0.45f),
+                topLeft = Offset(dripX - 15f, dripY - 8f),
+                size = Size(30f, 16f),
+                style = Stroke(width = 1.2f)
+            )
+            drawOval(
+                color = Color.White.copy(alpha = 0.25f),
+                topLeft = Offset(dripX - 22f, dripY - 12f),
+                size = Size(44f, 24f),
+                style = Stroke(width = 1f)
+            )
+
+            // Liquid teardrop dripping downward
+            drawCircle(Color(0xFF80DEEA), 3f, Offset(dripX + 8f, cy + dishRy * 0.85f))
+            drawCircle(Color(0xFF80DEEA), 2f, Offset(dripX + 8f, cy + dishRy * 0.85f + 8f))
+        }
+        "bernoulli_ball" -> {
+            val nozzleX = w * 0.36f
+            val nozzleY = h * 0.82f
+            val tiltAngleRad = 26f * (PI.toFloat() / 180f)
+            val streamDir = Offset(sin(tiltAngleRad), -cos(tiltAngleRad))
+            val streamNorm = Offset(cos(tiltAngleRad), sin(tiltAngleRad))
+            val streamLen = 135f
+
+            // 1. Tilted Airflow Jet Cone (CyanNeon glow)
+            val conePath = Path().apply {
+                val bLeft = Offset(nozzleX - streamNorm.x * 12f, nozzleY - streamNorm.y * 12f)
+                val bRight = Offset(nozzleX + streamNorm.x * 12f, nozzleY + streamNorm.y * 12f)
+                val tLeft = Offset(nozzleX + streamDir.x * streamLen - streamNorm.x * 32f, nozzleY + streamDir.y * streamLen - streamNorm.y * 32f)
+                val tRight = Offset(nozzleX + streamDir.x * streamLen + streamNorm.x * 32f, nozzleY + streamDir.y * streamLen + streamNorm.y * 32f)
+
+                moveTo(bLeft.x, bLeft.y)
+                lineTo(tLeft.x, tLeft.y)
+                lineTo(tRight.x, tRight.y)
+                lineTo(bRight.x, bRight.y)
+                close()
+            }
+            drawPath(
+                path = conePath,
+                brush = Brush.radialGradient(
+                    colors = listOf(CyanNeon.copy(alpha = 0.35f), CyanNeon.copy(alpha = 0.08f), Color.Transparent),
+                    center = Offset(nozzleX + streamDir.x * (streamLen * 0.5f), nozzleY + streamDir.y * (streamLen * 0.5f)),
+                    radius = streamLen * 0.7f
+                )
+            )
+
+            // 2. Air Streamlines (Flowing upward in jet)
+            for (i in -1..1) {
+                val offset = streamNorm * (i * 12f)
+                val sStart = Offset(nozzleX + offset.x, nozzleY + offset.y)
+                val sEnd = Offset(nozzleX + streamDir.x * streamLen + offset.x * 2.2f, nozzleY + streamDir.y * streamLen + offset.y * 2.2f)
+                drawLine(
+                    color = CyanNeon.copy(alpha = 0.6f),
+                    start = sStart,
+                    end = sEnd,
+                    strokeWidth = 1.6f,
+                    pathEffect = PathEffect.dashPathEffect(floatArrayOf(8f, 8f))
+                )
+            }
+
+            // 3. Levitating Ping-Pong Ball (Hovering trapped in stream)
+            val ballDist = streamLen * 0.62f
+            val bx = nozzleX + streamDir.x * ballDist
+            val by = nozzleY + streamDir.y * ballDist
+            val ballR = 11f
+
+            // Coandă effect curved streamline hugging top of ball
+            drawArc(
+                color = CyanNeon,
+                startAngle = -110f,
+                sweepAngle = 75f,
+                useCenter = false,
+                topLeft = Offset(bx - ballR * 1.35f, by - ballR * 1.35f),
+                size = Size(ballR * 2.7f, ballR * 2.7f),
+                style = Stroke(width = 2f)
+            )
+
+            // 3D Ping-Pong Sphere
+            drawCircle(
+                brush = Brush.radialGradient(
+                    colors = listOf(Color(0xFFFFF3E0), Color(0xFFFFB74D), Color(0xFFE65100)),
+                    center = Offset(bx - ballR * 0.3f, by - ballR * 0.35f),
+                    radius = ballR * 1.25f
+                ),
+                radius = ballR,
+                center = Offset(bx, by)
+            )
+            // White specular highlight
+            drawCircle(Color.White.copy(alpha = 0.95f), ballR * 0.25f, Offset(bx - ballR * 0.3f, by - ballR * 0.35f))
+            // Outer neon rim
+            drawCircle(CyanNeon.copy(alpha = 0.7f), ballR, Offset(bx, by), style = Stroke(width = 1.2f))
+
+            // 4. Inward Bernoulli Restoring Pressure Arrow
+            val arrowStart = Offset(bx + streamNorm.x * (ballR + 14f), by + streamNorm.y * (ballR + 14f))
+            val arrowEnd = Offset(bx + streamNorm.x * (ballR + 3f), by + streamNorm.y * (ballR + 3f))
+            drawLine(AmberVibrant, arrowStart, arrowEnd, 2f, StrokeCap.Round)
+
+            // 5. Tilted Hairdryer Blower Barrel & Stand at Base
+            rotate(degrees = 26f, pivot = Offset(nozzleX, nozzleY)) {
+                // Metal Barrel
+                drawRoundRect(
+                    brush = Brush.horizontalGradient(listOf(Color(0xFF78909C), Color(0xFFECEFF1), Color(0xFF37474F))),
+                    topLeft = Offset(nozzleX - 11f, nozzleY - 18f),
+                    size = Size(22f, 36f),
+                    cornerRadius = androidx.compose.ui.geometry.CornerRadius(3f, 3f)
+                )
+                // Nozzle rim with blue LED turbine glow
+                drawOval(CyanNeon, topLeft = Offset(nozzleX - 11f, nozzleY - 21f), size = Size(22f, 6f))
+            }
+            // Stand base
+            drawRoundRect(
+                color = Color(0xFF37474F),
+                topLeft = Offset(nozzleX - 18f, nozzleY + 8f),
+                size = Size(36f, 10f),
+                cornerRadius = androidx.compose.ui.geometry.CornerRadius(2f, 2f)
             )
         }
         else -> {
