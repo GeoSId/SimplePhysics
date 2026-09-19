@@ -13,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.geometry.Rect
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.*
 import androidx.compose.ui.graphics.drawscope.DrawScope
@@ -637,6 +638,173 @@ internal fun DrawScope.drawExperimentIllustration(id: String) {
             // 6. Micro-Asperity Contact Sparks
             drawCircle(CoralNeon, 2.5f, Offset(blockX - blockW * 0.2f, floorY - 1f))
             drawCircle(AmberVibrant, 2f, Offset(blockX + blockW * 0.1f, floorY - 2f))
+        }
+        "compound_pulley" -> {
+            val girderY = h * 0.12f
+            val girderH = 10f
+
+            // 1. Ceiling mount / Support girder
+            drawRect(
+                color = ScienceDarkSurfaceVariant,
+                topLeft = Offset(w * 0.15f, girderY - girderH),
+                size = Size(w * 0.70f, girderH)
+            )
+            drawLine(
+                color = ScienceBorder,
+                start = Offset(w * 0.15f, girderY),
+                end = Offset(w * 0.85f, girderY),
+                strokeWidth = 2f
+            )
+
+            // Girder rivets
+            drawCircle(Color.White.copy(alpha = 0.4f), 2f, Offset(w * 0.22f, girderY - girderH * 0.5f))
+            drawCircle(Color.White.copy(alpha = 0.4f), 2f, Offset(w * 0.78f, girderY - girderH * 0.5f))
+
+            // 2. Pulley Sheaves Layout
+            // Top Fixed Sheave (Gun Tackle setup: 2 strands supporting load)
+            val topSheaveCenter = Offset(w * 0.42f, h * 0.28f)
+            val sheaveRadius = 14f
+
+            // Bottom Movable Sheave
+            val bottomSheaveCenter = Offset(w * 0.42f, h * 0.56f)
+
+            // Top bracket from girder to top axle
+            drawLine(
+                color = ScienceBorder.copy(alpha = 0.8f),
+                start = Offset(topSheaveCenter.x, girderY),
+                end = topSheaveCenter,
+                strokeWidth = 3f
+            )
+
+            // Anchor point for dead-end rope on ceiling girder
+            val ropeAnchor = Offset(w * 0.30f, girderY)
+            drawCircle(AmberVibrant, 3f, ropeAnchor)
+
+            // 3. Threaded Cable
+            val ropePath = Path().apply {
+                // Strand 1: from anchor down to movable sheave left
+                moveTo(ropeAnchor.x, ropeAnchor.y)
+                lineTo(bottomSheaveCenter.x - sheaveRadius, bottomSheaveCenter.y)
+                // Wrap around bottom sheave (underneath)
+                arcTo(
+                    rect = Rect(
+                        bottomSheaveCenter.x - sheaveRadius,
+                        bottomSheaveCenter.y - sheaveRadius,
+                        bottomSheaveCenter.x + sheaveRadius,
+                        bottomSheaveCenter.y + sheaveRadius
+                    ),
+                    startAngleDegrees = 180f,
+                    sweepAngleDegrees = -180f,
+                    forceMoveTo = false
+                )
+                // Strand 2: from movable sheave right up to top sheave left
+                lineTo(topSheaveCenter.x - sheaveRadius * 0.5f, topSheaveCenter.y)
+                // Wrap over top sheave
+                arcTo(
+                    rect = Rect(
+                        topSheaveCenter.x - sheaveRadius,
+                        topSheaveCenter.y - sheaveRadius,
+                        topSheaveCenter.x + sheaveRadius,
+                        topSheaveCenter.y + sheaveRadius
+                    ),
+                    startAngleDegrees = 180f,
+                    sweepAngleDegrees = 180f,
+                    forceMoveTo = false
+                )
+                // Pull rope dropping down on right
+                lineTo(topSheaveCenter.x + sheaveRadius, h * 0.72f)
+            }
+            // Draw rope glow & line
+            drawPath(ropePath, CyanNeon.copy(alpha = 0.35f), style = Stroke(width = 5f, cap = StrokeCap.Round))
+            drawPath(ropePath, CyanNeon, style = Stroke(width = 2.2f, cap = StrokeCap.Round))
+
+            // 4. Draw Top Sheave (Fixed)
+            drawCircle(ScienceDarkSurfaceVariant, sheaveRadius, topSheaveCenter)
+            drawCircle(CyanNeon, sheaveRadius, topSheaveCenter, style = Stroke(2f))
+            drawCircle(Color.White.copy(alpha = 0.7f), 3f, topSheaveCenter)
+
+            // 5. Draw Bottom Sheave (Movable)
+            drawCircle(ScienceDarkSurfaceVariant, sheaveRadius, bottomSheaveCenter)
+            drawCircle(AmberVibrant, sheaveRadius, bottomSheaveCenter, style = Stroke(2f))
+            drawCircle(Color.White.copy(alpha = 0.7f), 3f, bottomSheaveCenter)
+
+            // Movable Hook & Bracket
+            val hookTop = bottomSheaveCenter.y + sheaveRadius
+            val hookBottom = hookTop + 10f
+            drawLine(AmberVibrant, Offset(bottomSheaveCenter.x, hookTop), Offset(bottomSheaveCenter.x, hookBottom), 2.5f)
+
+            // 6. Suspended Cargo Box (1000 kg)
+            val cargoW = 54f
+            val cargoH = 26f
+            val cargoTop = hookBottom + 2f
+            val cargoLeft = bottomSheaveCenter.x - cargoW * 0.5f
+
+            drawRoundRect(
+                brush = Brush.verticalGradient(
+                    colors = listOf(ScienceDarkSurfaceVariant, ScienceDarkSurface),
+                    startY = cargoTop,
+                    endY = cargoTop + cargoH
+                ),
+                topLeft = Offset(cargoLeft, cargoTop),
+                size = Size(cargoW, cargoH),
+                cornerRadius = CornerRadius(4f, 4f)
+            )
+            drawRoundRect(
+                color = AmberVibrant,
+                topLeft = Offset(cargoLeft, cargoTop),
+                size = Size(cargoW, cargoH),
+                cornerRadius = CornerRadius(4f, 4f),
+                style = Stroke(1.8f)
+            )
+
+            // Cargo Weight stripe / markings
+            drawLine(
+                Color.White.copy(alpha = 0.25f),
+                Offset(cargoLeft + 8f, cargoTop + cargoH * 0.5f),
+                Offset(cargoLeft + cargoW - 8f, cargoTop + cargoH * 0.5f),
+                1.5f
+            )
+
+            // 7. Force Vectors (Tension T & Pull Force F_in)
+            val t1X = bottomSheaveCenter.x - sheaveRadius
+            val t2X = bottomSheaveCenter.x + sheaveRadius * 0.5f
+            val tY = bottomSheaveCenter.y - 14f
+
+            listOf(t1X, t2X).forEach { tx ->
+                drawLine(CyanNeon, Offset(tx, tY + 12f), Offset(tx, tY), 1.8f, StrokeCap.Round)
+                val tHead = Path().apply {
+                    moveTo(tx, tY - 3f)
+                    lineTo(tx - 3f, tY + 3f)
+                    lineTo(tx + 3f, tY + 3f)
+                    close()
+                }
+                drawPath(tHead, CyanNeon)
+            }
+
+            // Gravity Arrow W = mg (pointing DOWN from cargo)
+            val wStartY = cargoTop + cargoH + 2f
+            val wEndY = min(wStartY + 14f, h - 4f)
+            drawLine(CoralNeon, Offset(bottomSheaveCenter.x, wStartY), Offset(bottomSheaveCenter.x, wEndY), 2f, StrokeCap.Round)
+            val wHead = Path().apply {
+                moveTo(bottomSheaveCenter.x, wEndY + 3f)
+                lineTo(bottomSheaveCenter.x - 3f, wEndY - 3f)
+                lineTo(bottomSheaveCenter.x + 3f, wEndY - 3f)
+                close()
+            }
+            drawPath(wHead, CoralNeon)
+
+            // Effort Pull Arrow (Emerald Neon, pulling down on rope end)
+            val pullX = topSheaveCenter.x + sheaveRadius
+            val pullStartY = h * 0.72f
+            val pullEndY = min(pullStartY + 16f, h - 4f)
+            drawLine(EmeraldNeon, Offset(pullX, pullStartY), Offset(pullX, pullEndY), 2.2f, StrokeCap.Round)
+            val pullHead = Path().apply {
+                moveTo(pullX, pullEndY + 4f)
+                lineTo(pullX - 3.5f, pullEndY - 3f)
+                lineTo(pullX + 3.5f, pullEndY - 3f)
+                close()
+            }
+            drawPath(pullHead, EmeraldNeon)
         }
         "plucked_string" -> {
             val baseY = h * 0.52f

@@ -11,6 +11,7 @@ import com.geosid.simplephysics.ui.experiments.week1.Day7.BernoulliBallExperimen
 import com.geosid.simplephysics.ui.experiments.week2.Day10.NewtonsCradleExperiment
 import com.geosid.simplephysics.ui.experiments.week2.Day11.BrachistochroneExperiment
 import com.geosid.simplephysics.ui.experiments.week2.Day12.TerminalVelocityExperiment
+import com.geosid.simplephysics.ui.experiments.week2.Day13.StickSlipFrictionExperiment
 import com.geosid.simplephysics.ui.experiments.week2.Day8.ProjectileMotionExperiment
 import com.geosid.simplephysics.ui.experiments.week2.Day9.BouncingBallExperiment
 
@@ -29,7 +30,8 @@ object ExperimentScreenRegistry {
         "bouncing_ball" to { BouncingBallExperiment() },
         "newtons_cradle" to { NewtonsCradleExperiment() },
         "brachistochrone" to { BrachistochroneExperiment() },
-        "terminal_velocity" to { TerminalVelocityExperiment() } //DAY 12
+        "terminal_velocity" to { TerminalVelocityExperiment() }, //DAY 12
+        "stick_slip_friction" to { StickSlipFrictionExperiment() }, //DAY 13
     )
 
     fun isReleased(id: String): Boolean = screens.containsKey(id)
