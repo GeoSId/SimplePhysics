@@ -3,6 +3,9 @@ package com.geosid.simplephysics
 import com.geosid.simplephysics.ui.experiments.week2.Day14.PulleyCargo
 import com.geosid.simplephysics.ui.experiments.week2.Day14.PulleyConfig
 import com.geosid.simplephysics.ui.expirementsRegistry.ExperimentScreenRegistry
+import com.geosid.simplephysics.ui.experiments.week3.Day15.PlanetPreset
+import kotlin.math.PI
+import kotlin.math.sqrt
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
@@ -45,6 +48,57 @@ class SharedLogicDesktopTest {
             // Golden Rule of Mechanics: Work In == Work Out (ideal)
             assertEquals(workOutput, workInput, 0.01f)
             assertTrue(idealForce <= weight)
+        }
+    }
+
+    @Test
+    fun testDay15Registry() {
+        assertTrue(ExperimentScreenRegistry.isReleased("kepler_orbits"))
+        assertNotNull(ExperimentScreenRegistry.getScreen("kepler_orbits"))
+    }
+
+    @Test
+    fun testDay15KeplerOrbitalMechanics() {
+        // 1. Verify Presets
+        assertEquals(0.00f, PlanetPreset.CIRCULAR.eccentricity)
+        assertEquals(0.02f, PlanetPreset.EARTH.eccentricity)
+        assertEquals(0.09f, PlanetPreset.MARS.eccentricity)
+        assertEquals(0.25f, PlanetPreset.PLUTO.eccentricity)
+        assertEquals(0.75f, PlanetPreset.COMET.eccentricity)
+
+        val a = 1.0f // Semi-major axis normalized
+        val mu = 1.0f // Normalized standard gravitational parameter GM
+
+        for (preset in PlanetPreset.entries) {
+            val e = preset.eccentricity
+            assertTrue(e in 0.0f..<1.0f, "Eccentricity must be elliptical ($e)")
+
+            // Perihelion and Aphelion distances
+            val rPerihelion = a * (1f - e)
+            val rAphelion = a * (1f + e)
+            val semiMinorB = a * sqrt(1f - e * e)
+
+            // Vis-Viva Equation: v^2 = mu * (2/r - 1/a)
+            val vPerihelion = sqrt(mu * (2f / rPerihelion - 1f / a))
+            val vAphelion = sqrt(mu * (2f / rAphelion - 1f / a))
+
+            // Specific Angular Momentum: h = r * v
+            val hPerihelion = rPerihelion * vPerihelion
+            val hAphelion = rAphelion * vAphelion
+            val hTheoretical = sqrt(mu * a * (1f - e * e))
+
+            // Kepler's Second Law: Angular momentum must be equal at both extremes
+            assertEquals(hTheoretical, hPerihelion, 0.001f)
+            assertEquals(hTheoretical, hAphelion, 0.001f)
+
+            // Dynamic speed differential: perihelion is always >= aphelion
+            assertTrue(vPerihelion >= vAphelion)
+
+            // Differential rate of change in Eccentric Anomaly: dE/dt = omega / (1 - e * cos(E))
+            val omega = 1.0f
+            val rateAtPerihelion = omega / (1f - e) // E = 0
+            val rateAtAphelion = omega / (1f + e)   // E = PI
+            assertTrue(rateAtPerihelion >= rateAtAphelion)
         }
     }
 }
