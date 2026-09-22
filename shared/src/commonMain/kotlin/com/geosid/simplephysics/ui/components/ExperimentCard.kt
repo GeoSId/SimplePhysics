@@ -920,6 +920,128 @@ internal fun DrawScope.drawExperimentIllustration(id: String) {
             }
             drawPath(wedgePath, AmberVibrant.copy(alpha = 0.3f))
         }
+        "gyroscopic_precession" -> {
+            val cx = w * 0.44f
+            val cy = h * 0.52f
+            val floorY = h * 0.82f
+
+            // 1. Floor perspective grid / base oval
+            drawOval(
+                color = ScienceBorder.copy(alpha = 0.35f),
+                topLeft = Offset(cx - 55f, floorY - 10f),
+                size = Size(110f, 20f),
+                style = Stroke(width = 1.5f)
+            )
+
+            // 2. Vertical Support Column & Pedestal
+            drawLine(
+                brush = Brush.verticalGradient(listOf(Color(0xFFB0BEC5), Color(0xFF37474F))),
+                start = Offset(cx, cy),
+                end = Offset(cx, floorY),
+                strokeWidth = 6f,
+                cap = StrokeCap.Round
+            )
+
+            // 3. Precession Horizontal Orbit Ring (dashed Cyan)
+            val orbitRx = 68f
+            val orbitRy = 22f
+            drawOval(
+                color = CyanNeon.copy(alpha = 0.35f),
+                topLeft = Offset(cx - orbitRx, cy - orbitRy - 12f),
+                size = Size(orbitRx * 2f, orbitRy * 2f),
+                style = Stroke(width = 1.5f, pathEffect = PathEffect.dashPathEffect(floatArrayOf(4f, 4f)))
+            )
+
+            // 4. Tilted Axle
+            val wheelCenterX = cx + 48f
+            val wheelCenterY = cy - 14f
+            val axleTipX = cx + 68f
+            val axleTipY = cy - 20f
+
+            // Axle shaft
+            drawLine(
+                color = Color(0xFFCFD8DC),
+                start = Offset(cx, cy),
+                end = Offset(axleTipX, axleTipY),
+                strokeWidth = 4f,
+                cap = StrokeCap.Round
+            )
+            drawLine(
+                color = Color.White,
+                start = Offset(cx, cy),
+                end = Offset(axleTipX, axleTipY),
+                strokeWidth = 1.5f,
+                cap = StrokeCap.Round
+            )
+
+            // 5. Spinning Flywheel / Wheel (tilted ellipse)
+            val wheelR = 26f
+            val wheelThickness = 12f
+            // Outer rim with gradient
+            drawOval(
+                brush = Brush.radialGradient(
+                    colors = listOf(CyanNeon.copy(alpha = 0.2f), CyanNeon, Color.White),
+                    center = Offset(wheelCenterX, wheelCenterY),
+                    radius = wheelR
+                ),
+                topLeft = Offset(wheelCenterX - wheelThickness * 0.5f, wheelCenterY - wheelR),
+                size = Size(wheelThickness, wheelR * 2f),
+                style = Stroke(width = 3.5f)
+            )
+            // Spokes
+            drawLine(CyanNeon.copy(alpha = 0.7f), Offset(wheelCenterX, wheelCenterY - wheelR + 2f), Offset(wheelCenterX, wheelCenterY + wheelR - 2f), 1.5f)
+            drawLine(CyanNeon.copy(alpha = 0.7f), Offset(wheelCenterX - wheelThickness * 0.4f, wheelCenterY - wheelR * 0.5f), Offset(wheelCenterX + wheelThickness * 0.4f, wheelCenterY + wheelR * 0.5f), 1.5f)
+            drawLine(CyanNeon.copy(alpha = 0.7f), Offset(wheelCenterX - wheelThickness * 0.4f, wheelCenterY + wheelR * 0.5f), Offset(wheelCenterX + wheelThickness * 0.4f, wheelCenterY - wheelR * 0.5f), 1.5f)
+
+            // Central wheel hub
+            drawCircle(Color.White, 3.5f, Offset(wheelCenterX, wheelCenterY))
+
+            // 6. Vector Arrows:
+            // L: Angular Momentum along axle (CyanNeon)
+            drawLine(CyanNeon, Offset(wheelCenterX, wheelCenterY), Offset(axleTipX + 18f, axleTipY - 6f), 2.5f, StrokeCap.Round)
+            val lHead = Path().apply {
+                val tx = axleTipX + 18f
+                val ty = axleTipY - 6f
+                moveTo(tx, ty)
+                lineTo(tx - 6f, ty + 2f)
+                lineTo(tx - 4f, ty - 5f)
+                close()
+            }
+            drawPath(lHead, CyanNeon)
+
+            // τ: Gravitational Torque horizontal perpendicular (CoralNeon)
+            val tauEndX = wheelCenterX + 4f
+            val tauEndY = wheelCenterY + 22f
+            drawLine(CoralNeon, Offset(wheelCenterX, wheelCenterY), Offset(tauEndX, tauEndY), 2.5f, StrokeCap.Round)
+            val tauHead = Path().apply {
+                moveTo(tauEndX, tauEndY)
+                lineTo(tauEndX - 4f, tauEndY - 6f)
+                lineTo(tauEndX + 4f, tauEndY - 4f)
+                close()
+            }
+            drawPath(tauHead, CoralNeon)
+
+            // Ω_p: Precession Velocity straight UP from pivot (EmeraldNeon)
+            drawLine(EmeraldNeon, Offset(cx, cy), Offset(cx, cy - 38f), 2.5f, StrokeCap.Round)
+            val omegaHead = Path().apply {
+                moveTo(cx, cy - 38f)
+                lineTo(cx - 4f, cy - 30f)
+                lineTo(cx + 4f, cy - 30f)
+                close()
+            }
+            drawPath(omegaHead, EmeraldNeon)
+
+            // 7. Pivot Gimbal Sphere
+            drawCircle(
+                brush = Brush.radialGradient(
+                    colors = listOf(Color.White, AmberVibrant, Color(0xFFE65100)),
+                    center = Offset(cx - 1.5f, cy - 1.5f),
+                    radius = 6f
+                ),
+                radius = 5.5f,
+                center = Offset(cx, cy)
+            )
+        }
         "pencil_water_bag" -> {
             // Draw mini water bag with pencil
             val bagW = w * 0.45f
