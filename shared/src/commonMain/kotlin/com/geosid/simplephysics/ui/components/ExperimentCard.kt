@@ -1042,6 +1042,132 @@ internal fun DrawScope.drawExperimentIllustration(id: String) {
                 center = Offset(cx, cy)
             )
         }
+        "coriolis_effect" -> {
+            val cx = w * 0.48f
+            val cy = h * 0.52f
+            val rx = w * 0.42f
+            val ry = h * 0.38f
+
+            // 1. Perspective Turntable Platter (tilted oval)
+            drawOval(
+                brush = Brush.radialGradient(
+                    colors = listOf(Color(0xFF263238), Color(0xFF161E22), Color(0xFF0B0F12)),
+                    center = Offset(cx, cy),
+                    radius = rx
+                ),
+                topLeft = Offset(cx - rx, cy - ry),
+                size = Size(rx * 2f, ry * 2f)
+            )
+            // Turntable Rim Ring
+            drawOval(
+                color = ScienceBorder.copy(alpha = 0.45f),
+                topLeft = Offset(cx - rx, cy - ry),
+                size = Size(rx * 2f, ry * 2f),
+                style = Stroke(width = 1.5f)
+            )
+            // Concentric Range Ring
+            drawOval(
+                color = CyanNeon.copy(alpha = 0.25f),
+                topLeft = Offset(cx - rx * 0.55f, cy - ry * 0.55f),
+                size = Size(rx * 1.1f, ry * 1.1f),
+                style = Stroke(width = 1f, pathEffect = PathEffect.dashPathEffect(floatArrayOf(4f, 4f)))
+            )
+
+            // 2. Rotating Turntable Spoke Crosshairs
+            drawLine(ScienceBorder.copy(alpha = 0.35f), Offset(cx - rx * 0.9f, cy), Offset(cx + rx * 0.9f, cy), 1f)
+            drawLine(ScienceBorder.copy(alpha = 0.35f), Offset(cx, cy - ry * 0.9f), Offset(cx, cy + ry * 0.9f), 1f)
+
+            // 3. Rotation Direction Indicator (CCW curved arc in AmberVibrant)
+            val rotPath = Path().apply {
+                val rInd = rx * 0.75f
+                val rIndY = ry * 0.75f
+                moveTo(cx + rInd * 0.6f, cy - rIndY * 0.8f)
+                quadraticTo(
+                    cx - rInd * 0.2f, cy - rIndY * 1.1f,
+                    cx - rInd * 0.85f, cy - rIndY * 0.3f
+                )
+            }
+            drawPath(rotPath, AmberVibrant.copy(alpha = 0.7f), style = Stroke(width = 1.5f, cap = StrokeCap.Round))
+            val rotHead = Path().apply {
+                val hx = cx - rx * 0.85f * 0.75f
+                val hy = cy - ry * 0.3f * 0.75f
+                moveTo(hx, hy)
+                lineTo(hx + 4f, hy - 5f)
+                lineTo(hx + 6f, hy + 2f)
+                close()
+            }
+            drawPath(rotHead, AmberVibrant)
+
+            // 4. Inertial Straight Line Path (what external observer sees)
+            drawLine(
+                color = Color.White.copy(alpha = 0.3f),
+                start = Offset(cx, cy),
+                end = Offset(cx + rx * 0.82f, cy - ry * 0.78f),
+                strokeWidth = 1.2f,
+                pathEffect = PathEffect.dashPathEffect(floatArrayOf(3f, 3f))
+            )
+
+            // 5. Coriolis Deflected Curved Trajectory (AmberVibrant glow + solid)
+            val curvePath = Path().apply {
+                moveTo(cx, cy)
+                cubicTo(
+                    cx + rx * 0.32f, cy - ry * 0.65f,
+                    cx + rx * 0.75f, cy - ry * 0.45f,
+                    cx + rx * 0.82f, cy + ry * 0.25f
+                )
+            }
+            drawPath(curvePath, AmberVibrant.copy(alpha = 0.25f), style = Stroke(width = 4f, cap = StrokeCap.Round))
+            drawPath(curvePath, AmberVibrant, style = Stroke(width = 2f, cap = StrokeCap.Round))
+
+            // 6. Moving Particle on Trajectory
+            val pX = cx + rx * 0.68f
+            val pY = cy - ry * 0.18f
+
+            drawCircle(CyanNeon.copy(alpha = 0.3f), 8f, Offset(pX, pY))
+            drawCircle(
+                brush = Brush.radialGradient(
+                    colors = listOf(Color.White, CyanNeon, Color(0xFF00838F)),
+                    center = Offset(pX, pY),
+                    radius = 4f
+                ),
+                radius = 4f,
+                center = Offset(pX, pY)
+            )
+
+            // 7. Dynamic Force / Velocity Vectors at the Particle:
+            // Velocity vector v_rel (CyanNeon)
+            val vEndX = pX + 16f
+            val vEndY = pY + 14f
+            drawLine(CyanNeon, Offset(pX, pY), Offset(vEndX, vEndY), 2f, StrokeCap.Round)
+            val vHead = Path().apply {
+                moveTo(vEndX, vEndY)
+                lineTo(vEndX - 4f, vEndY - 1f)
+                lineTo(vEndX - 1f, vEndY - 4f)
+                close()
+            }
+            drawPath(vHead, CyanNeon)
+
+            // Coriolis Acceleration vector a_cor perpendicular to the right (CoralNeon)
+            val aCorEndX = pX - 12f
+            val aCorEndY = pY + 12f
+            drawLine(CoralNeon, Offset(pX, pY), Offset(aCorEndX, aCorEndY), 2f, StrokeCap.Round)
+            val aCorHead = Path().apply {
+                moveTo(aCorEndX, aCorEndY)
+                lineTo(aCorEndX + 4f, aCorEndY)
+                lineTo(aCorEndX + 1f, aCorEndY - 4f)
+                close()
+            }
+            drawPath(aCorHead, CoralNeon)
+
+            // Centrifugal Acceleration vector a_cent radially outward (PurpleNeon)
+            val aCentEndX = pX + 14f
+            val aCentEndY = pY - 6f
+            drawLine(PurpleNeon, Offset(pX, pY), Offset(aCentEndX, aCentEndY), 1.8f, StrokeCap.Round)
+
+            // 8. Turntable Center Spindle
+            drawCircle(Color.White, 3.5f, Offset(cx, cy))
+            drawCircle(CyanNeon, 2f, Offset(cx, cy))
+        }
         "pencil_water_bag" -> {
             // Draw mini water bag with pencil
             val bagW = w * 0.45f

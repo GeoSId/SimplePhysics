@@ -22,14 +22,16 @@ import simplephysics.shared.generated.resources.*
 fun ExperimentHudCard(
     modifier: Modifier = Modifier,
     title: String,
-    items: List<Pair<String, String>>
+    items: List<Pair<String, String>>,
+    backgroundColor: Color = Color.Transparent,
+    borderColor: Color = ScienceBorder.copy(alpha = 0.35f)
 ) {
     Column(
         modifier = modifier
-            .clip(RoundedCornerShape(12.dp))
-            .background(ScienceDarkSurface.copy(alpha = 0.92f))
-            .border(1.dp, ScienceBorder, RoundedCornerShape(12.dp))
-            .padding(horizontal = 14.dp, vertical = 10.dp)
+            .clip(RoundedCornerShape(10.dp))
+            .background(backgroundColor)
+            .border(1.dp, borderColor, RoundedCornerShape(10.dp))
+            .padding(horizontal = 10.dp, vertical = 6.dp)
     ) {
         Row(
             modifier = Modifier.fillMaxWidth(),
@@ -38,44 +40,44 @@ fun ExperimentHudCard(
         ) {
             Text(
                 text = "📊 $title".uppercase(),
-                color = CyanNeon,
-                fontSize = 11.sp,
+                color = CyanNeon.copy(alpha = 0.9f),
+                fontSize = 10.sp,
                 fontWeight = FontWeight.Bold,
-                letterSpacing = 1.sp
+                letterSpacing = 0.8.sp
             )
             Surface(
-                color = CyanNeon.copy(alpha = 0.15f),
+                color = CyanNeon.copy(alpha = 0.12f),
                 shape = RoundedCornerShape(4.dp)
             ) {
                 Text(
                     text = stringResource(Res.string.telemetry_live),
                     color = CyanNeon,
-                    fontSize = 9.sp,
+                    fontSize = 8.sp,
                     fontWeight = FontWeight.Bold,
-                    modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.dp)
+                    modifier = Modifier.padding(horizontal = 5.dp, vertical = 1.5.dp)
                 )
             }
         }
-        Spacer(Modifier.height(6.dp))
-        HorizontalDivider(color = ScienceBorder.copy(alpha = 0.5f), thickness = 0.8.dp)
-        Spacer(Modifier.height(6.dp))
+        Spacer(Modifier.height(4.dp))
+        HorizontalDivider(color = ScienceBorder.copy(alpha = 0.35f), thickness = 0.8.dp)
+        Spacer(Modifier.height(4.dp))
         items.forEach { (label, value) ->
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(vertical = 3.dp),
+                    .padding(vertical = 1.5.dp),
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
                     text = label,
-                    color = TextSecondary,
-                    fontSize = 12.sp
+                    color = TextSecondary.copy(alpha = 0.85f),
+                    fontSize = 11.sp
                 )
                 Text(
                     text = value,
                     color = TextPrimary,
-                    fontSize = 12.sp,
+                    fontSize = 11.sp,
                     fontFamily = FontFamily.Monospace,
                     fontWeight = FontWeight.Bold
                 )

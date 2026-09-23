@@ -1,6 +1,7 @@
 package com.geosid.simplephysics.ui.components
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -11,6 +12,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -52,7 +54,7 @@ fun ResponsiveExperimentContainer(
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .weight(1.05f)
+                        .weight(1.2f)
                         .clipToBounds()
                         .background(ScienceDarkBg)
                 ) {
@@ -68,11 +70,11 @@ fun ResponsiveExperimentContainer(
                 Column(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .weight(1f)
+                        .weight(0.95f)
                         .background(ScienceDarkSurface)
                         .verticalScroll(rememberScrollState())
-                        .padding(horizontal = 14.dp, vertical = 10.dp),
-                    verticalArrangement = Arrangement.spacedBy(10.dp)
+                        .padding(horizontal = 12.dp, vertical = 8.dp),
+                    verticalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
                     if (instructions != null) {
                         Surface(
@@ -84,9 +86,9 @@ fun ResponsiveExperimentContainer(
                             Text(
                                 text = instructions,
                                 color = TextPrimary,
-                                fontSize = 12.sp,
+                                fontSize = 11.sp,
                                 fontWeight = FontWeight.Medium,
-                                modifier = Modifier.padding(horizontal = 12.dp, vertical = 6.dp)
+                                modifier = Modifier.padding(horizontal = 10.dp, vertical = 5.dp)
                             )
                         }
                     }
@@ -99,7 +101,7 @@ fun ResponsiveExperimentContainer(
 
                     // Extra space for Android navigation bar / gesture insets
                     Spacer(Modifier.navigationBarsPadding())
-                    Spacer(Modifier.height(12.dp))
+                    Spacer(Modifier.height(10.dp))
                 }
             }
         } else {
@@ -114,7 +116,8 @@ fun ResponsiveExperimentContainer(
                 Box(
                     modifier = Modifier
                         .align(Alignment.TopStart)
-                        .padding(16.dp)
+                        .padding(14.dp)
+                        .widthIn(max = 320.dp)
                 ) {
                     hudContent()
                 }
@@ -122,7 +125,12 @@ fun ResponsiveExperimentContainer(
                 Box(
                     modifier = Modifier
                         .align(Alignment.BottomCenter)
-                        .padding(16.dp)
+                        .padding(horizontal = 16.dp, vertical = 10.dp)
+                        .widthIn(max = 660.dp)
+                        .clip(RoundedCornerShape(14.dp))
+                        .background(ScienceDarkSurface.copy(alpha = 0.85f))
+                        .border(1.dp, ScienceBorder.copy(alpha = 0.5f), RoundedCornerShape(14.dp))
+                        .padding(horizontal = 14.dp, vertical = 8.dp)
                 ) {
                     controlsContent()
                 }

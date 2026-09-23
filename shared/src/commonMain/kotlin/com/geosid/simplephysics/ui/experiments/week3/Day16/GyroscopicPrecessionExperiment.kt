@@ -129,7 +129,7 @@ fun GyroscopicPrecessionExperiment(
             ) {
                 val w = size.width
                 val h = size.height
-                val center = Offset(w * 0.50f, h * 0.52f)
+                val center = Offset(w * 0.50f, h * 0.40f)
 
                 // Effective tilt with nutation ripple
                 val currentTiltDeg = if (showNutation) {
@@ -147,7 +147,7 @@ fun GyroscopicPrecessionExperiment(
 
                 // 3D Oblique Projection Constants
                 val pitch = 0.42f // camera pitch looking down
-                val scalePx = min(w * 0.38f, 160.dp.toPx())
+                val scalePx = min(w * 0.36f, min(h * 0.30f, 145.dp.toPx()))
 
                 // Precession Circular Orbit Guideline (horizontal circle in 3D)
                 drawPrecessionOrbit(
