@@ -1168,6 +1168,118 @@ internal fun DrawScope.drawExperimentIllustration(id: String) {
             drawCircle(Color.White, 3.5f, Offset(cx, cy))
             drawCircle(CyanNeon, 2f, Offset(cx, cy))
         }
+        "gravitational_slingshot" -> {
+            val px = w * 0.52f
+            val py = h * 0.44f
+            val planetR = min(w, h) * 0.18f
+
+            // 1. Gravitational Sphere of Influence (SOI)
+            val soiR = planetR * 2.3f
+            drawCircle(
+                color = CyanNeon.copy(alpha = 0.08f),
+                radius = soiR,
+                center = Offset(px, py)
+            )
+            drawCircle(
+                color = CyanNeon.copy(alpha = 0.35f),
+                radius = soiR,
+                center = Offset(px, py),
+                style = Stroke(width = 1.2f, pathEffect = PathEffect.dashPathEffect(floatArrayOf(4f, 4f)))
+            )
+
+            // 2. Giant Planet (Jupiter) with Corona & Cloud Bands
+            drawCircle(
+                brush = Brush.radialGradient(
+                    colors = listOf(AmberVibrant.copy(alpha = 0.4f), Color(0xFFEF6C00).copy(alpha = 0.15f), Color.Transparent),
+                    center = Offset(px, py),
+                    radius = planetR * 1.7f
+                ),
+                radius = planetR * 1.7f,
+                center = Offset(px, py)
+            )
+            drawCircle(
+                brush = Brush.radialGradient(
+                    colors = listOf(Color(0xFFFFCC80), Color(0xFFEF6C00), Color(0xFF4E342E)),
+                    center = Offset(px - planetR * 0.3f, py - planetR * 0.3f),
+                    radius = planetR * 1.3f
+                ),
+                radius = planetR,
+                center = Offset(px, py)
+            )
+            // Atmospheric cloud bands
+            drawLine(
+                color = Color(0xFFD7CCC8).copy(alpha = 0.6f),
+                start = Offset(px - planetR * 0.85f, py - planetR * 0.28f),
+                end = Offset(px + planetR * 0.85f, py - planetR * 0.28f),
+                strokeWidth = 2f
+            )
+            drawLine(
+                color = Color(0xFFBF360C).copy(alpha = 0.7f),
+                start = Offset(px - planetR * 0.95f, py + planetR * 0.05f),
+                end = Offset(px + planetR * 0.95f, py + planetR * 0.05f),
+                strokeWidth = 2.5f
+            )
+            // Planet velocity vector V_p (AmberVibrant)
+            val vpLen = 22f
+            drawLine(AmberVibrant, Offset(px, py - planetR - 4f), Offset(px + vpLen, py - planetR - 4f), 2f, StrokeCap.Round)
+            val vpHead = Path().apply {
+                moveTo(px + vpLen + 3f, py - planetR - 4f)
+                lineTo(px + vpLen - 2f, py - planetR - 7f)
+                lineTo(px + vpLen - 2f, py - planetR - 1f)
+                close()
+            }
+            drawPath(vpHead, AmberVibrant)
+
+            // 3. Slingshot Hyperbolic Trajectory Path (Trailing pass -> massive boost)
+            val slingPath = Path().apply {
+                moveTo(w * 0.12f, h * 0.82f)
+                cubicTo(
+                    w * 0.36f, h * 0.80f,
+                    px - planetR * 1.1f, py + planetR * 1.2f,
+                    px + planetR * 0.3f, py + planetR * 1.05f
+                )
+                cubicTo(
+                    px + planetR * 1.25f, py + planetR * 0.85f,
+                    w * 0.72f, h * 0.40f,
+                    w * 0.88f, h * 0.18f
+                )
+            }
+            drawPath(slingPath, CoralNeon.copy(alpha = 0.35f), style = Stroke(width = 4.5f, cap = StrokeCap.Round))
+            drawPath(
+                slingPath,
+                brush = Brush.linearGradient(
+                    colors = listOf(CyanNeon, AmberVibrant, CoralNeon),
+                    start = Offset(w * 0.12f, h * 0.82f),
+                    end = Offset(w * 0.88f, h * 0.18f)
+                ),
+                style = Stroke(width = 2.2f, cap = StrokeCap.Round)
+            )
+
+            // 4. Spacecraft Probe & Rocket Flame
+            val probeX = w * 0.72f
+            val probeY = h * 0.38f
+            drawCircle(CoralNeon.copy(alpha = 0.4f), 7f, Offset(probeX, probeY))
+            drawCircle(Color.White, 3f, Offset(probeX, probeY))
+
+            // Rocket flame plume
+            drawLine(CoralNeon, Offset(probeX - 8f, probeY + 7f), Offset(probeX - 16f, probeY + 14f), 2.5f, StrokeCap.Round)
+            drawLine(AmberVibrant, Offset(probeX - 6f, probeY + 5f), Offset(probeX - 12f, probeY + 10f), 1.5f, StrokeCap.Round)
+
+            // Boosted Outward Velocity Vector (CoralNeon)
+            val vOutEndX = probeX + 22f
+            val vOutEndY = probeY - 19f
+            drawLine(CoralNeon, Offset(probeX, probeY), Offset(vOutEndX, vOutEndY), 2.2f, StrokeCap.Round)
+            val vOutHead = Path().apply {
+                moveTo(vOutEndX + 2f, vOutEndY - 2f)
+                lineTo(vOutEndX - 4f, vOutEndY - 1f)
+                lineTo(vOutEndX - 1f, vOutEndY + 4f)
+                close()
+            }
+            drawPath(vOutHead, CoralNeon)
+
+            // Centripetal Gravitational Pull F_g toward Jupiter (PurpleNeon)
+            drawLine(PurpleNeon, Offset(probeX, probeY), Offset(probeX - 14f, probeY + 2f), 1.6f, StrokeCap.Round)
+        }
         "pencil_water_bag" -> {
             // Draw mini water bag with pencil
             val bagW = w * 0.45f
