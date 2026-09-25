@@ -1280,6 +1280,130 @@ internal fun DrawScope.drawExperimentIllustration(id: String) {
             // Centripetal Gravitational Pull F_g toward Jupiter (PurpleNeon)
             drawLine(PurpleNeon, Offset(probeX, probeY), Offset(probeX - 14f, probeY + 2f), 1.6f, StrokeCap.Round)
         }
+        "roche_limit" -> {
+            val px = w * 0.42f
+            val py = h * 0.50f
+            val planetR = min(w, h) * 0.21f
+
+            // 1. Roche Limit Boundary (Dashed Coral Warning Radius)
+            val rocheR = planetR * 2.15f
+            drawCircle(
+                color = CoralNeon.copy(alpha = 0.08f),
+                radius = rocheR,
+                center = Offset(px, py)
+            )
+            drawCircle(
+                color = CoralNeon.copy(alpha = 0.45f),
+                radius = rocheR,
+                center = Offset(px, py),
+                style = Stroke(width = 1.4f, pathEffect = PathEffect.dashPathEffect(floatArrayOf(5f, 4f)))
+            )
+
+            // 2. Back section of Planetary Rings (drawn behind planet)
+            val ringInner = planetR * 1.35f
+            val ringOuter = planetR * 2.30f
+            val ringCenter = Offset(px, py)
+
+            // Ring back arcs (upper half)
+            drawOval(
+                brush = Brush.radialGradient(
+                    colors = listOf(AmberVibrant.copy(alpha = 0.55f), CyanNeon.copy(alpha = 0.35f), Color.Transparent),
+                    center = ringCenter,
+                    radius = ringOuter
+                ),
+                topLeft = Offset(px - ringOuter, py - ringOuter * 0.38f),
+                size = Size(ringOuter * 2f, ringOuter * 0.76f),
+                style = Stroke(width = 6f)
+            )
+
+            // 3. Gas Giant Planet with Corona & Atmospheric Cloud Bands
+            drawCircle(
+                brush = Brush.radialGradient(
+                    colors = listOf(AmberVibrant.copy(alpha = 0.35f), Color(0xFFEF6C00).copy(alpha = 0.12f), Color.Transparent),
+                    center = Offset(px, py),
+                    radius = planetR * 1.6f
+                ),
+                radius = planetR * 1.6f,
+                center = Offset(px, py)
+            )
+            drawCircle(
+                brush = Brush.radialGradient(
+                    colors = listOf(Color(0xFFFFE082), Color(0xFFFFA000), Color(0xFFBF360C), Color(0xFF3E2723)),
+                    center = Offset(px - planetR * 0.3f, py - planetR * 0.3f),
+                    radius = planetR * 1.3f
+                ),
+                radius = planetR,
+                center = Offset(px, py)
+            )
+            // Atmospheric cloud bands
+            drawLine(
+                color = Color(0xFFFFECB3).copy(alpha = 0.5f),
+                start = Offset(px - planetR * 0.85f, py - planetR * 0.25f),
+                end = Offset(px + planetR * 0.85f, py - planetR * 0.25f),
+                strokeWidth = 2.2f,
+                cap = StrokeCap.Round
+            )
+            drawLine(
+                color = Color(0xFFBF360C).copy(alpha = 0.6f),
+                start = Offset(px - planetR * 0.95f, py + planetR * 0.05f),
+                end = Offset(px + planetR * 0.95f, py + planetR * 0.05f),
+                strokeWidth = 2.5f,
+                cap = StrokeCap.Round
+            )
+
+            // 4. Front section of Planetary Rings (drawn in front of planet)
+            drawOval(
+                brush = Brush.linearGradient(
+                    colors = listOf(AmberVibrant.copy(alpha = 0.75f), Color(0xFFFFECB3), CyanNeon.copy(alpha = 0.65f)),
+                    start = Offset(px - ringOuter, py),
+                    end = Offset(px + ringOuter, py)
+                ),
+                topLeft = Offset(px - ringOuter, py - ringOuter * 0.38f),
+                size = Size(ringOuter * 2f, ringOuter * 0.76f),
+                style = Stroke(width = 3.5f)
+            )
+            drawOval(
+                color = Color.White.copy(alpha = 0.45f),
+                topLeft = Offset(px - ringInner, py - ringInner * 0.38f),
+                size = Size(ringInner * 2f, ringInner * 0.76f),
+                style = Stroke(width = 1.2f)
+            )
+
+            // 5. Tidally Disrupted Moon & Particle Debris Stream
+            val moonX = px + planetR * 1.70f
+            val moonY = py + planetR * 0.35f
+            val moonR = planetR * 0.26f
+
+            // Elongated prolate moon body
+            drawOval(
+                brush = Brush.radialGradient(
+                    colors = listOf(Color.White, Color(0xFFB0BEC5), Color(0xFF37474F)),
+                    center = Offset(moonX - 2f, moonY - 2f),
+                    radius = moonR * 1.2f
+                ),
+                topLeft = Offset(moonX - moonR * 1.3f, moonY - moonR * 0.75f),
+                size = Size(moonR * 2.6f, moonR * 1.5f)
+            )
+
+            // Differential tidal vectors on moon
+            drawLine(CoralNeon, Offset(moonX - moonR * 1.3f, moonY), Offset(moonX - moonR * 2.1f, moonY), 1.8f, StrokeCap.Round)
+            drawLine(CoralNeon, Offset(moonX + moonR * 1.3f, moonY), Offset(moonX + moonR * 2.1f, moonY), 1.8f, StrokeCap.Round)
+
+            // Escaping sheared particles forming ring arc
+            val debrisList = listOf(
+                Offset(moonX - 18f, moonY - 7f) to CyanNeon,
+                Offset(moonX - 32f, moonY - 14f) to AmberVibrant,
+                Offset(moonX - 48f, moonY - 20f) to Color.White,
+                Offset(moonX + 16f, moonY + 8f) to CoralNeon,
+                Offset(moonX + 30f, moonY + 14f) to AmberVibrant,
+                Offset(moonX + 44f, moonY + 18f) to CyanNeon,
+                Offset(moonX - 62f, moonY - 24f) to AmberVibrant
+            )
+            debrisList.forEach { (pt, col) ->
+                drawCircle(color = col, radius = 2.2f, center = pt)
+                drawCircle(color = col.copy(alpha = 0.4f), radius = 4.5f, center = pt)
+            }
+        }
         "pencil_water_bag" -> {
             // Draw mini water bag with pencil
             val bagW = w * 0.45f
