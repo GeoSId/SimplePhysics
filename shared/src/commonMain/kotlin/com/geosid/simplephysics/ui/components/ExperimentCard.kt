@@ -1404,6 +1404,124 @@ internal fun DrawScope.drawExperimentIllustration(id: String) {
                 drawCircle(color = col.copy(alpha = 0.4f), radius = 4.5f, center = pt)
             }
         }
+        "lagrange_points" -> {
+            val cx = w * 0.46f
+            val cy = h * 0.50f
+            val scale = min(w, h) * 0.38f
+
+            // 1. Orbital circular path of Secondary around Barycenter
+            val rEarth = scale * 0.62f
+            drawCircle(
+                color = CyanNeon.copy(alpha = 0.22f),
+                radius = rEarth,
+                center = Offset(cx, cy),
+                style = Stroke(width = 1.2f, pathEffect = PathEffect.dashPathEffect(floatArrayOf(5f, 4f)))
+            )
+
+            // Equipotential contour loop around primary and secondary
+            drawCircle(
+                color = ScienceBorder.copy(alpha = 0.35f),
+                radius = scale * 0.90f,
+                center = Offset(cx, cy),
+                style = Stroke(width = 0.8f, pathEffect = PathEffect.dashPathEffect(floatArrayOf(4f, 4f)))
+            )
+
+            // 2. Equilateral triangle connecting Sun, Earth, L4, L5
+            val sunPos = Offset(cx - scale * 0.08f, cy)
+            val earthPos = Offset(cx + scale * 0.62f, cy)
+            val l4Pos = Offset(cx + scale * 0.27f, cy - scale * 0.54f)
+            val l5Pos = Offset(cx + scale * 0.27f, cy + scale * 0.54f)
+
+            val dashBorder = PathEffect.dashPathEffect(floatArrayOf(4f, 4f))
+            drawLine(ScienceBorder.copy(alpha = 0.45f), sunPos, l4Pos, 1f, pathEffect = dashBorder)
+            drawLine(ScienceBorder.copy(alpha = 0.45f), earthPos, l4Pos, 1f, pathEffect = dashBorder)
+            drawLine(ScienceBorder.copy(alpha = 0.45f), sunPos, l5Pos, 1f, pathEffect = dashBorder)
+            drawLine(ScienceBorder.copy(alpha = 0.45f), earthPos, l5Pos, 1f, pathEffect = dashBorder)
+
+            // 3. Primary Body M1 (Sun)
+            drawCircle(
+                brush = Brush.radialGradient(
+                    colors = listOf(AmberVibrant.copy(alpha = 0.35f), Color(0xFFEF6C00).copy(alpha = 0.1f), Color.Transparent),
+                    center = sunPos,
+                    radius = 24f
+                ),
+                radius = 24f,
+                center = sunPos
+            )
+            drawCircle(
+                brush = Brush.radialGradient(
+                    colors = listOf(Color(0xFFFFF9C4), AmberVibrant, Color(0xFFE65100)),
+                    center = Offset(sunPos.x - 3f, sunPos.y - 3f),
+                    radius = 14f
+                ),
+                radius = 12f,
+                center = sunPos
+            )
+
+            // 4. Secondary Body M2 (Earth)
+            drawCircle(
+                brush = Brush.radialGradient(
+                    colors = listOf(Color(0xFF80D8FF), CyanNeon, BlueLaser),
+                    center = Offset(earthPos.x - 2f, earthPos.y - 2f),
+                    radius = 8f
+                ),
+                radius = 6.5f,
+                center = earthPos
+            )
+            // Earth Moon / Hill Sphere
+            drawCircle(
+                color = CyanNeon.copy(alpha = 0.35f),
+                radius = scale * 0.14f,
+                center = earthPos,
+                style = Stroke(width = 0.8f, pathEffect = PathEffect.dashPathEffect(floatArrayOf(2f, 2f)))
+            )
+
+            // 5. The Five Lagrange Points with Halo Glows
+            // L1 (Between Sun and Earth)
+            val l1Pos = Offset(cx + scale * 0.42f, cy)
+            drawCircle(CoralNeon.copy(alpha = 0.25f), 7f, l1Pos)
+            drawCircle(CoralNeon, 2.5f, l1Pos)
+
+            // L2 (Beyond Earth) — JWST Halo Orbit
+            val l2Pos = Offset(cx + scale * 0.80f, cy)
+            drawOval(
+                color = AmberVibrant.copy(alpha = 0.65f),
+                topLeft = Offset(l2Pos.x - 7f, l2Pos.y - 12f),
+                size = Size(14f, 24f),
+                style = Stroke(width = 1.2f)
+            )
+            drawCircle(AmberVibrant.copy(alpha = 0.4f), 8f, l2Pos)
+            drawCircle(AmberVibrant, 3f, l2Pos)
+            // Tiny JWST satellite dot
+            drawCircle(Color.White, 2f, Offset(l2Pos.x + 5f, l2Pos.y - 8f))
+
+            // L3 (Counter-Sun)
+            val l3Pos = Offset(cx - scale * 0.72f, cy)
+            drawCircle(PurpleNeon.copy(alpha = 0.25f), 6f, l3Pos)
+            drawCircle(PurpleNeon, 2.5f, l3Pos)
+
+            // L4 (Leading Trojan Camp +60°)
+            drawCircle(CyanNeon.copy(alpha = 0.35f), 9f, l4Pos)
+            drawCircle(CyanNeon, 3.5f, l4Pos)
+            // Trojan asteroid swarm around L4
+            val trojansL4 = listOf(
+                Offset(l4Pos.x - 6f, l4Pos.y - 4f),
+                Offset(l4Pos.x + 8f, l4Pos.y - 2f),
+                Offset(l4Pos.x - 3f, l4Pos.y + 6f),
+                Offset(l4Pos.x + 5f, l4Pos.y + 5f)
+            )
+            trojansL4.forEach { drawCircle(CyanNeon.copy(alpha = 0.75f), 1.4f, it) }
+
+            // L5 (Trailing Trojan Camp -60°)
+            drawCircle(EmeraldNeon.copy(alpha = 0.35f), 9f, l5Pos)
+            drawCircle(EmeraldNeon, 3.5f, l5Pos)
+            val trojansL5 = listOf(
+                Offset(l5Pos.x - 5f, l5Pos.y + 5f),
+                Offset(l5Pos.x + 7f, l5Pos.y + 3f),
+                Offset(l5Pos.x - 2f, l5Pos.y - 6f)
+            )
+            trojansL5.forEach { drawCircle(EmeraldNeon.copy(alpha = 0.75f), 1.4f, it) }
+        }
         "pencil_water_bag" -> {
             // Draw mini water bag with pencil
             val bagW = w * 0.45f

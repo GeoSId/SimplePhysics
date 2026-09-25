@@ -34,7 +34,6 @@ fun ExperimentHudCard(
             .padding(horizontal = 10.dp, vertical = 6.dp)
     ) {
         Row(
-            modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
@@ -45,18 +44,6 @@ fun ExperimentHudCard(
                 fontWeight = FontWeight.Bold,
                 letterSpacing = 0.8.sp
             )
-            Surface(
-                color = CyanNeon.copy(alpha = 0.12f),
-                shape = RoundedCornerShape(4.dp)
-            ) {
-                Text(
-                    text = stringResource(Res.string.telemetry_live),
-                    color = CyanNeon,
-                    fontSize = 8.sp,
-                    fontWeight = FontWeight.Bold,
-                    modifier = Modifier.padding(horizontal = 5.dp, vertical = 1.5.dp)
-                )
-            }
         }
         Spacer(Modifier.height(4.dp))
         HorizontalDivider(color = ScienceBorder.copy(alpha = 0.35f), thickness = 0.8.dp)
