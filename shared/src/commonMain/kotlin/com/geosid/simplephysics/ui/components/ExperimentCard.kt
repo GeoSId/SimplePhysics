@@ -1522,6 +1522,110 @@ internal fun DrawScope.drawExperimentIllustration(id: String) {
             )
             trojansL5.forEach { drawCircle(EmeraldNeon.copy(alpha = 0.75f), 1.4f, it) }
         }
+        "three_body_problem" -> {
+            val cx = w * 0.50f
+            val cy = h * 0.50f
+            val scaleX = w * 0.38f
+            val scaleY = h * 0.28f
+
+            // 1. Draw glowing Figure-8 lemniscate trajectory
+            val path = Path()
+            val steps = 80
+            for (i in 0..steps) {
+                val t = i.toFloat() / steps * 2f * PI.toFloat()
+                val px = cx + sin(t) * scaleX
+                val py = cy + sin(t) * cos(t) * scaleY * 1.55f
+                if (i == 0) path.moveTo(px, py) else path.lineTo(px, py)
+            }
+            path.close()
+
+            // Outer soft glow of trail
+            drawPath(
+                path = path,
+                color = CyanNeon.copy(alpha = 0.18f),
+                style = Stroke(width = 5.5f, cap = StrokeCap.Round)
+            )
+            // Core luminous trail
+            drawPath(
+                path = path,
+                color = CyanNeon.copy(alpha = 0.65f),
+                style = Stroke(width = 1.8f, pathEffect = PathEffect.dashPathEffect(floatArrayOf(6f, 4f)))
+            )
+
+            // 2. Three Stars along the Figure-8 Choreography
+            val phases = listOf(
+                Triple(0.40f * PI.toFloat(), CyanNeon, "Alpha"),
+                Triple(1.07f * PI.toFloat(), CoralNeon, "Beta"),
+                Triple(1.74f * PI.toFloat(), EmeraldNeon, "Gamma")
+            )
+
+            val starPositions = phases.map { (t, _, _) ->
+                val px = cx + sin(t) * scaleX
+                val py = cy + sin(t) * cos(t) * scaleY * 1.55f
+                Offset(px, py)
+            }
+
+            // 3. Faint mutual gravitational tension lines
+            val dashTension = PathEffect.dashPathEffect(floatArrayOf(3f, 3f))
+            for (i in 0..2) {
+                val next = (i + 1) % 3
+                drawLine(
+                    color = ScienceBorder.copy(alpha = 0.40f),
+                    start = starPositions[i],
+                    end = starPositions[next],
+                    strokeWidth = 1f,
+                    pathEffect = dashTension
+                )
+            }
+
+            // Center of Mass crosshair
+            val crosshair = 8f
+            drawLine(ScienceBorder.copy(alpha = 0.5f), Offset(cx - crosshair, cy), Offset(cx + crosshair, cy), 1f)
+            drawLine(ScienceBorder.copy(alpha = 0.5f), Offset(cx, cy - crosshair), Offset(cx, cy + crosshair), 1f)
+
+            // 4. Render Stars with Radial Glow Coronas & Velocity Vectors
+            phases.forEachIndexed { idx, (t, color, _) ->
+                val pos = starPositions[idx]
+                val r = 7f
+
+                // Outer corona glow
+                drawCircle(
+                    brush = Brush.radialGradient(
+                        colors = listOf(color.copy(alpha = 0.45f), color.copy(alpha = 0.10f), Color.Transparent),
+                        center = pos,
+                        radius = r * 2.8f
+                    ),
+                    radius = r * 2.8f,
+                    center = pos
+                )
+
+                // Luminous star core
+                drawCircle(
+                    brush = Brush.radialGradient(
+                        colors = listOf(Color.White, color, color.copy(alpha = 0.7f)),
+                        center = Offset(pos.x - r * 0.25f, pos.y - r * 0.25f),
+                        radius = r
+                    ),
+                    radius = r,
+                    center = pos
+                )
+
+                // Instantaneous Tangent Velocity Vector
+                val vx = cos(t) * scaleX
+                val vy = (cos(t) * cos(t) - sin(t) * sin(t)) * scaleY * 1.55f
+                val vLen = sqrt(vx * vx + vy * vy).coerceAtLeast(1e-4f)
+                val vNorm = Offset(vx / vLen, vy / vLen) * 16f
+
+                drawLine(
+                    color = color.copy(alpha = 0.85f),
+                    start = pos,
+                    end = pos + vNorm,
+                    strokeWidth = 1.5f,
+                    cap = StrokeCap.Round
+                )
+                drawCircle(Color.White, 1.8f, pos + vNorm)
+            }
+        }
         "pencil_water_bag" -> {
             // Draw mini water bag with pencil
             val bagW = w * 0.45f
