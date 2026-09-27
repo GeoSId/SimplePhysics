@@ -20,6 +20,10 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
+import androidx.compose.ui.draw.clip
+import com.geosid.simplephysics.ui.components.ExperimentHudCard
 import com.geosid.simplephysics.ui.components.PhysicsSliderControl
 import com.geosid.simplephysics.ui.components.ResetIcon
 import com.geosid.simplephysics.ui.components.ResponsiveExperimentContainer
@@ -248,13 +252,13 @@ fun OobleckExperiment(
             ) {
                 val w = size.width
                 val h = size.height
-                val center = Offset(w * 0.5f, h * 0.50f)
+                val center = Offset(w * 0.5f, h * 0.40f)
 
                 // 1. Subtle Scientific Grid
                 drawScientificGrid(w, h)
 
-                // 2. Dish Dimensions
-                val dishRadiusX = min(w * 0.44f, 220.dp.toPx())
+                // 2. Dish Dimensions (Elevated and constrained for clear bottom controls deck)
+                val dishRadiusX = min(w * 0.38f, h * 0.28f)
                 val dishRadiusY = dishRadiusX * 0.72f
 
                 // 3. Drop Shadow under Petri Dish
@@ -327,59 +331,62 @@ fun OobleckExperiment(
             }
         },
         hudContent = {
-            TransparentTelemetryHud(
+            ExperimentHudCard(
                 modifier = Modifier.fillMaxWidth(),
-                title = "Ostwald–de Waele Dilatant Telemetry",
+                backgroundColor = Color.Transparent,
+                title = "Day 6: Non-Newtonian Oobleck",
                 items = listOf(
                     "Shear Rate (γ̇)" to "${round(shearRate * 10f) / 10f} s⁻¹",
                     "Apparent Viscosity (η)" to "${round(apparentViscosity * 100f) / 100f} Pa·s",
                     "Shear Stress (τ)" to "${round(shearStress * 100f) / 100f} kPa",
-                    "Fluid State" to fluidStateText
+                    "Fluid State" to fluidStateText,
+                    "Model" to "τ = K · (du/dy)ⁿ (n ≈ ${round((1.4f + starchConcentration) * 100f) / 100f})"
                 )
             )
         },
         controlsContent = {
             Column(
                 modifier = Modifier.fillMaxWidth(),
-                verticalArrangement = Arrangement.spacedBy(10.dp)
+                verticalArrangement = Arrangement.spacedBy(6.dp)
             ) {
-                // Action Mode Chips
+                // Action Mode Chips (compact row)
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.spacedBy(6.dp),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     OobleckAction.values().forEach { action ->
-                        FilterChip(
-                            selected = selectedAction == action,
-                            onClick = {
-                                selectedAction = action
-                                demoPhase = 0f
-                                ripples.clear()
-                                isRunning = true
-                            },
-                            label = {
-                                Text(
-                                    text = "${action.icon} ${action.title}",
-                                    fontSize = 11.sp,
-                                    fontWeight = if (selectedAction == action) FontWeight.Bold else FontWeight.Normal
+                        val isSelected = selectedAction == action
+                        Box(
+                            modifier = Modifier
+                                .weight(1f)
+                                .height(32.dp)
+                                .clip(RoundedCornerShape(8.dp))
+                                .background(
+                                    if (isSelected) CyanNeon.copy(alpha = 0.22f)
+                                    else ScienceDarkSurface.copy(alpha = 0.6f)
                                 )
-                            },
-                            colors = FilterChipDefaults.filterChipColors(
-                                selectedContainerColor = CyanNeon.copy(alpha = 0.20f),
-                                selectedLabelColor = CyanNeon,
-                                containerColor = ScienceDarkSurfaceVariant.copy(alpha = 0.5f),
-                                labelColor = TextSecondary
-                            ),
-                            border = FilterChipDefaults.filterChipBorder(
-                                enabled = true,
-                                selected = selectedAction == action,
-                                borderColor = ScienceBorder.copy(alpha = 0.4f),
-                                selectedBorderColor = CyanNeon
-                            ),
-                            shape = RoundedCornerShape(8.dp),
-                            modifier = Modifier.weight(1f)
-                        )
+                                .border(
+                                    width = if (isSelected) 1.5.dp else 0.8.dp,
+                                    color = if (isSelected) CyanNeon else ScienceBorder.copy(alpha = 0.3f),
+                                    shape = RoundedCornerShape(8.dp)
+                                )
+                                .clickable {
+                                    selectedAction = action
+                                    demoPhase = 0f
+                                    ripples.clear()
+                                    isRunning = true
+                                },
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Text(
+                                text = "${action.icon} ${action.title}",
+                                color = if (isSelected) CyanNeon else TextSecondary,
+                                fontSize = 9.sp,
+                                fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Normal,
+                                maxLines = 1
+                            )
+                        }
                     }
                 }
 
@@ -398,7 +405,7 @@ fun OobleckExperiment(
                 // Transport Row
                 Row(
                     modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.spacedBy(8.dp),
+                    horizontalArrangement = Arrangement.spacedBy(6.dp),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Button(
@@ -407,8 +414,11 @@ fun OobleckExperiment(
                             containerColor = if (isRunning) AmberVibrant else CyanNeon,
                             contentColor = ScienceDarkBg
                         ),
-                        shape = RoundedCornerShape(10.dp),
-                        modifier = Modifier.weight(1f)
+                        shape = RoundedCornerShape(8.dp),
+                        modifier = Modifier
+                            .weight(1f)
+                            .height(34.dp),
+                        contentPadding = PaddingValues(horizontal = 8.dp, vertical = 2.dp)
                     ) {
                         Text(
                             text = if (isRunning) "⏸ Pause" else "▶ Run",
@@ -428,10 +438,10 @@ fun OobleckExperiment(
                             isRunning = true
                         },
                         modifier = Modifier
-                            .size(42.dp)
-                            .background(ScienceDarkSurfaceVariant, RoundedCornerShape(10.dp))
+                            .size(34.dp)
+                            .background(ScienceDarkSurfaceVariant, RoundedCornerShape(8.dp))
                     ) {
-                        ResetIcon(tint = CyanNeon, modifier = Modifier.size(18.dp))
+                        ResetIcon(tint = CyanNeon, modifier = Modifier.size(16.dp))
                     }
                 }
             }
@@ -759,72 +769,5 @@ private fun DrawScope.drawScientificGrid(w: Float, h: Float) {
             strokeWidth = 0.6f
         )
         y += step
-    }
-}
-
-/**
- * Transparent Telemetry HUD
- */
-@Composable
-private fun TransparentTelemetryHud(
-    modifier: Modifier = Modifier,
-    title: String,
-    items: List<Pair<String, String>>
-) {
-    Column(
-        modifier = modifier
-            .background(Color.Transparent)
-            .padding(horizontal = 4.dp, vertical = 4.dp)
-    ) {
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Text(
-                text = "🥣 $title".uppercase(),
-                color = CyanNeon.copy(alpha = 0.85f),
-                fontSize = 11.sp,
-                fontWeight = FontWeight.Bold,
-                letterSpacing = 1.sp
-            )
-            Surface(
-                color = CyanNeon.copy(alpha = 0.12f),
-                shape = RoundedCornerShape(4.dp)
-            ) {
-                Text(
-                    text = "POWER LAW",
-                    color = CyanNeon,
-                    fontSize = 9.sp,
-                    fontWeight = FontWeight.Bold,
-                    modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.dp)
-                )
-            }
-        }
-        Spacer(Modifier.height(4.dp))
-        HorizontalDivider(color = ScienceBorder.copy(alpha = 0.35f), thickness = 0.8.dp)
-        Spacer(Modifier.height(4.dp))
-        items.forEach { (label, value) ->
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(vertical = 2.dp),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Text(
-                    text = label,
-                    color = TextSecondary.copy(alpha = 0.85f),
-                    fontSize = 12.sp
-                )
-                Text(
-                    text = value,
-                    color = TextPrimary,
-                    fontSize = 12.sp,
-                    fontFamily = FontFamily.Monospace,
-                    fontWeight = FontWeight.Bold
-                )
-            }
-        }
     }
 }
