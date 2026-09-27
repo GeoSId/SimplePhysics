@@ -24,6 +24,9 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
+import com.geosid.simplephysics.ui.components.ExperimentHudCard
 import com.geosid.simplephysics.ui.components.PhysicsSliderControl
 import com.geosid.simplephysics.ui.components.ResetIcon
 import com.geosid.simplephysics.ui.components.ResponsiveExperimentContainer
@@ -46,6 +49,7 @@ fun BernoulliBallExperiment(
     var isRunning by remember { mutableStateOf(true) }
 
     // Ball simulation physics state (relative to screen canvas)
+    var canvasSize by remember { mutableStateOf(Offset.Zero) }
     var ballPos by remember { mutableStateOf<Offset?>(null) }
     var ballVelocity by remember { mutableStateOf(Offset.Zero) }
     var isDraggingBall by remember { mutableStateOf(false) }
@@ -69,7 +73,7 @@ fun BernoulliBallExperiment(
     val cd = 0.47f // Sphere drag coefficient
 
     // Physics Loop
-    LaunchedEffect(isRunning, airSpeed, tiltAngleDeg, ballType) {
+    LaunchedEffect(isRunning, airSpeed, tiltAngleDeg, ballType, canvasSize) {
         if (isRunning) {
             var lastNanos = withFrameNanos { it }
             while (isRunning) {
@@ -83,8 +87,8 @@ fun BernoulliBallExperiment(
                     val streamDir = Offset(sin(rad), -cos(rad))
                     val streamNormal = Offset(cos(rad), sin(rad))
 
-                    // Nozzle anchor is bottom center
-                    val nozzleAnchor = Offset(0f, 0f) // Computed relative to nozzle
+                    // Nozzle anchor positioned at elevated height (62% screen height)
+                    val nozzleAnchor = if (canvasSize.y > 50f) Offset(canvasSize.x * 0.5f, canvasSize.y * 0.62f) else Offset(pos.x, pos.y + 160f)
                     val toBall = pos - nozzleAnchor
                     val distAlongStream = toBall.x * streamDir.x + toBall.y * streamDir.y
                     val distPerpToStream = toBall.x * streamNormal.x + toBall.y * streamNormal.y
@@ -171,11 +175,12 @@ fun BernoulliBallExperiment(
             ) {
                 val w = size.width
                 val h = size.height
-                val nozzlePos = Offset(w * 0.5f, h * 0.82f)
+                canvasSize = Offset(w, h)
+                val nozzlePos = Offset(w * 0.5f, h * 0.62f)
 
                 // Initialize ball position at stable hover height if not set
                 if (ballPos == null) {
-                    val defaultHoverDist = 200f + (airSpeed - 16f) * 8f
+                    val defaultHoverDist = min(h * 0.22f, 160f) + (airSpeed - 16f) * 4f
                     ballPos = nozzlePos + Offset(sin(streamRad) * defaultHoverDist, -cos(streamRad) * defaultHoverDist)
                 }
 
@@ -206,7 +211,8 @@ fun BernoulliBallExperiment(
                 val toBall = currentBallPos - nozzlePos
                 val perpDist = toBall.x * streamNormal.x + toBall.y * streamNormal.y
                 val alongDist = toBall.x * streamDir.x + toBall.y * streamDir.y
-                val inJet = abs(perpDist) < 95f && alongDist > 20f && alongDist < 460f
+                val streamLength = min(h * 0.42f, 320f)
+                val inJet = abs(perpDist) < 95f && alongDist > 20f && alongDist < (streamLength * 1.05f)
 
                 if (inJet) {
                     drawBernoulliPressureArrows(
@@ -234,68 +240,72 @@ fun BernoulliBallExperiment(
             }
         },
         hudContent = {
-            val toBall = (ballPos ?: Offset.Zero) - Offset(0f, 0f)
+            val nPos = if (canvasSize.y > 50f) Offset(canvasSize.x * 0.5f, canvasSize.y * 0.62f) else Offset.Zero
+            val toBall = (ballPos ?: Offset.Zero) - nPos
             val perpDist = toBall.x * streamNormal.x + toBall.y * streamNormal.y
             val isTrapped = abs(perpDist) < 90f
 
-            TransparentTelemetryHud(
+            ExperimentHudCard(
                 modifier = Modifier.fillMaxWidth(),
-                title = "Bernoulli & Coandă Telemetry",
+                backgroundColor = Color.Transparent,
+                title = "Day 7: Bernoulli Levitating Ball",
                 items = listOf(
                     "Airflow Speed (v)" to "${round(airSpeed * 10f) / 10f} m/s",
-                    "Dynamic Pressure (q)" to "${(round(dynamicPressure * 10f) / 10f)} Pa (½ρv²)",
+                    "Dynamic Pressure (q)" to "${round(dynamicPressure * 10f) / 10f} Pa (½ρv²)",
                     "Nozzle Tilt Angle" to "${tiltAngleDeg.toInt()}° (Coandă Lift)",
-                    "Levitation State" to if (isTrapped) "✨ STABLE (TRAPPED IN JET)" else "⚠️ ESCAPED JET (FALLING)"
+                    "Levitation State" to if (isTrapped) "✨ STABLE (TRAPPED IN JET)" else "⚠️ ESCAPED JET (FALLING)",
+                    "Core Law" to "P + ½·ρ·v² + ρ·g·h = const"
                 )
             )
         },
         controlsContent = {
             Column(
                 modifier = Modifier.fillMaxWidth(),
-                verticalArrangement = Arrangement.spacedBy(10.dp)
+                verticalArrangement = Arrangement.spacedBy(6.dp)
             ) {
-                // Ball Type Chips
+                // Ball Type Selection Chips (compact row)
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.spacedBy(6.dp),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     BallType.values().forEach { type ->
-                        FilterChip(
-                            selected = ballType == type,
-                            onClick = {
-                                ballType = type
-                                ballVelocity = Offset.Zero
-                            },
-                            label = {
-                                Text(
-                                    text = "${type.icon} ${type.title}",
-                                    fontSize = 11.sp,
-                                    fontWeight = if (ballType == type) FontWeight.Bold else FontWeight.Normal
+                        val isSelected = ballType == type
+                        Box(
+                            modifier = Modifier
+                                .weight(1f)
+                                .height(32.dp)
+                                .clip(RoundedCornerShape(8.dp))
+                                .background(
+                                    if (isSelected) CyanNeon.copy(alpha = 0.22f)
+                                    else ScienceDarkSurface.copy(alpha = 0.6f)
                                 )
-                            },
-                            colors = FilterChipDefaults.filterChipColors(
-                                selectedContainerColor = CyanNeon.copy(alpha = 0.20f),
-                                selectedLabelColor = CyanNeon,
-                                containerColor = ScienceDarkSurfaceVariant.copy(alpha = 0.5f),
-                                labelColor = TextSecondary
-                            ),
-                            border = FilterChipDefaults.filterChipBorder(
-                                enabled = true,
-                                selected = ballType == type,
-                                borderColor = ScienceBorder.copy(alpha = 0.4f),
-                                selectedBorderColor = CyanNeon
-                            ),
-                            shape = RoundedCornerShape(8.dp),
-                            modifier = Modifier.weight(1f)
-                        )
+                                .border(
+                                    width = if (isSelected) 1.5.dp else 0.8.dp,
+                                    color = if (isSelected) CyanNeon else ScienceBorder.copy(alpha = 0.3f),
+                                    shape = RoundedCornerShape(8.dp)
+                                )
+                                .clickable {
+                                    ballType = type
+                                    ballVelocity = Offset.Zero
+                                },
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Text(
+                                text = "${type.icon} ${type.title}",
+                                color = if (isSelected) CyanNeon else TextSecondary,
+                                fontSize = 9.sp,
+                                fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Normal,
+                                maxLines = 1
+                            )
+                        }
                     }
                 }
 
-                // Sliders: Airflow Velocity & Stream Tilt Angle
+                // Sliders: Airflow Velocity & Stream Tilt Angle (paired side-by-side in Row)
                 Row(
                     modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.spacedBy(10.dp)
+                    horizontalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
                     Box(modifier = Modifier.weight(1f)) {
                         PhysicsSliderControl(
@@ -322,7 +332,7 @@ fun BernoulliBallExperiment(
                 // Transport Row
                 Row(
                     modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.spacedBy(8.dp),
+                    horizontalArrangement = Arrangement.spacedBy(6.dp),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Button(
@@ -331,8 +341,11 @@ fun BernoulliBallExperiment(
                             containerColor = if (isRunning) AmberVibrant else CyanNeon,
                             contentColor = ScienceDarkBg
                         ),
-                        shape = RoundedCornerShape(10.dp),
-                        modifier = Modifier.weight(1f)
+                        shape = RoundedCornerShape(8.dp),
+                        modifier = Modifier
+                            .weight(1f)
+                            .height(34.dp),
+                        contentPadding = PaddingValues(horizontal = 8.dp, vertical = 2.dp)
                     ) {
                         Text(
                             text = if (isRunning) "⏸ Pause" else "▶ Run",
@@ -351,10 +364,10 @@ fun BernoulliBallExperiment(
                             isRunning = true
                         },
                         modifier = Modifier
-                            .size(42.dp)
-                            .background(ScienceDarkSurfaceVariant, RoundedCornerShape(10.dp))
+                            .size(34.dp)
+                            .background(ScienceDarkSurfaceVariant, RoundedCornerShape(8.dp))
                     ) {
-                        ResetIcon(tint = CyanNeon, modifier = Modifier.size(18.dp))
+                        ResetIcon(tint = CyanNeon, modifier = Modifier.size(16.dp))
                     }
                 }
             }
@@ -596,72 +609,5 @@ private fun DrawScope.drawScientificGrid(w: Float, h: Float) {
             strokeWidth = 0.6f
         )
         y += step
-    }
-}
-
-/**
- * Transparent Telemetry HUD
- */
-@Composable
-private fun TransparentTelemetryHud(
-    modifier: Modifier = Modifier,
-    title: String,
-    items: List<Pair<String, String>>
-) {
-    Column(
-        modifier = modifier
-            .background(Color.Transparent)
-            .padding(horizontal = 4.dp, vertical = 4.dp)
-    ) {
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Text(
-                text = "💨 $title".uppercase(),
-                color = CyanNeon.copy(alpha = 0.85f),
-                fontSize = 11.sp,
-                fontWeight = FontWeight.Bold,
-                letterSpacing = 1.sp
-            )
-            Surface(
-                color = CyanNeon.copy(alpha = 0.12f),
-                shape = RoundedCornerShape(4.dp)
-            ) {
-                Text(
-                    text = "BERNOULLI",
-                    color = CyanNeon,
-                    fontSize = 9.sp,
-                    fontWeight = FontWeight.Bold,
-                    modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.dp)
-                )
-            }
-        }
-        Spacer(Modifier.height(4.dp))
-        HorizontalDivider(color = ScienceBorder.copy(alpha = 0.35f), thickness = 0.8.dp)
-        Spacer(Modifier.height(4.dp))
-        items.forEach { (label, value) ->
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(vertical = 2.dp),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Text(
-                    text = label,
-                    color = TextSecondary.copy(alpha = 0.85f),
-                    fontSize = 12.sp
-                )
-                Text(
-                    text = value,
-                    color = TextPrimary,
-                    fontSize = 12.sp,
-                    fontFamily = FontFamily.Monospace,
-                    fontWeight = FontWeight.Bold
-                )
-            }
-        }
     }
 }

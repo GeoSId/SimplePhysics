@@ -10,105 +10,106 @@
 **Visual Hook:** Hover a lightweight ball inside an invisible stream of angled air without dropping.
 
 ### Scientific Principles & Mechanism
-A ping-pong ball stably levitating in a stream of air from a hairdryer is one of the most striking demonstrations of fluid dynamics, driven by **Bernoulli's Principle** and the **Coandă Effect**:
+A ping-pong ball stably levitating in a high-speed air column from a hairdryer is one of the most celebrated demonstrations of fluid dynamics, driven by **Bernoulli's Principle** and the **Coandă Effect**:
 
-1. **Bernoulli's Principle:** Faster-moving fluid exerts lower static pressure ($P + \frac{1}{2}\rho v^2 = \text{const}$). The high-speed air column has a significantly lower static pressure than the surrounding stationary ambient air.
-2. **Inward Restoring Force:** If the ball drifts sideways away from the center of the air column, higher ambient atmospheric pressure on the outside pushes it back into the low-pressure core.
-3. **Coandă Effect & Angled Lift:** Even when the blower nozzle is tilted at an angle (up to $\sim 40^\circ$), airflow curves around the ball's contour due to surface adhesion (viscous entrainment). The ball deflects the airstream downward, producing an equal and opposite upward reaction force (Newton's Third Law) that keeps the ball levitating against gravity!
+1. **Bernoulli's Principle:** Along an inviscid streamline, an increase in fluid velocity occurs simultaneously with a decrease in static pressure ($P + \frac{1}{2}\rho v^2 = \text{const}$). The high-speed air jet has a significantly lower static pressure than the surrounding motionless ambient room air.
+2. **Inward Restoring Suction:** If the ball drifts sideways away from the center of the air column, the higher ambient atmospheric pressure on the outside pushes it back into the low-pressure jet core.
+3. **Coandă Effect & Tilted Stability:** When the blower nozzle is tilted at an angle (up to $\sim 40^\circ$), viscous boundary layer adhesion causes the air stream to curve around the sphere's contour (the Coandă effect). The ball deflects the air jet downward, generating an equal and opposite upward aerodynamic lift force (Newton's Third Law) that keeps the ball suspended against gravity!
 
 ### Laboratory / Kitchen Protocol (Try It At Home)
 > Switch a hairdryer to its coolest setting and point the nozzle straight up. Place a lightweight ping-pong ball directly into the airstream. Once it floats stably, slowly tilt the hairdryer up to 35–45 degrees off-vertical—the ball remains magically trapped inside the tilted stream!
 
 ---
 
-## 2. Mathematical Foundation & Governing Equations
+## 2. Mathematical Foundation & The 3 Pillars
 
-### Bernoulli's Incompressible Energy Relation
-Along a streamline of air flowing with density $\rho$ and velocity $v$:
+### Pillar 1: Governing Law & Static Pressure Gradient
+Along an incompressible streamline with fluid density $\rho$, velocity $v$, and static pressure $P$:
 
-$$
-P + \frac{1}{2}\rho v^2 + \rho g h = \text{constant}
-$$
+$$P + \frac{1}{2}\rho v^2 + \rho g h = \text{constant}$$
 
-### Dynamic Pressure ($q$)
-The dynamic pressure within the jet core is:
+The dynamic pressure $q$ represents fluid kinetic energy per unit volume:
 
-$$
-q = \frac{1}{2} \rho v^2
-$$
+$$q = \frac{1}{2} \rho v^2$$
 
-### Radial Pressure Gradient (Restoring Force)
-As the ball is displaced laterally by distance $r$ from the jet axis into an expanding jet of width $w_{\text{jet}}$, the transverse pressure gradient generates an inward restoring suction force:
+The lateral velocity gradient between the high-speed jet axis ($v = v_{\text{jet}}$) and ambient air ($v = 0$) produces a steep radial static pressure drop:
 
-$$
-F_{\text{Bernoulli}} = -\nabla P \propto -\left(\frac{r}{w_{\text{jet}}}\right) \cdot \left(\frac{1}{2}\rho v^2\right)
-$$
+$$\Delta P(r) = -q \cdot \left(\frac{r}{w_{\text{jet}}}\right)$$
 
-### Aerodynamic Drag Along Streamline
-The drag force balancing gravity along the stream vector is:
+This pressure difference produces an inward restoring force acting across the ball's projected area:
 
-$$
-F_{\text{drag}} = \frac{1}{2} \rho v^2 C_d A_{\text{ball}}
-$$
+$$\mathbf{F}_{\text{Bernoulli}} = -\nabla P \cdot V_{\text{eff}} \approx -\Delta P(r) \cdot A_{\text{proj}} \, \hat{n}_{\perp}$$
 
-At equilibrium hover height, upward drag balances the longitudinal component of gravity ($W_\parallel = mg \cos\theta$), while inward Bernoulli suction balances the lateral component ($W_\perp = mg \sin\theta$).
+### Pillar 2: Kinematics & Aerodynamic Drag Equilibrium
+Aerodynamic drag along the jet streamline acts against gravity:
 
-### Physical Meaning & Quantities
-- **$\rho = 1.225\text{ kg/m}^3$:** Ambient air density at sea level.
-- **$v$ (Airflow Speed):** Air jet velocity ($10 - 30\text{ m/s}$).
-- **$q = \frac{1}{2}\rho v^2$:** Dynamic pressure ($60 - 550\text{ Pa}$).
-- **$\theta$ (Nozzle Tilt):** Angle of the air column ($-40^\circ$ to $+40^\circ$).
-- **$m$ (Ball Mass):** Ping-Pong ($2.7\text{ g}$), Foam ($1.2\text{ g}$), or Wooden ($20.0\text{ g}$).
-- **$C_d \approx 0.47$:** Aerodynamic drag coefficient for a smooth sphere.
+$$F_{\text{drag}} = \frac{1}{2} \rho v^2 C_d A_{\text{ball}}$$
+
+where $A_{\text{ball}} = \pi r^2$ is the projected frontal area and $C_d \approx 0.47$ is the drag coefficient of a smooth sphere.
+
+Decomposing forces in the tilted reference frame at nozzle inclination angle $\theta$:
+- **Longitudinal Axis (Along Jet):** Upward drag balances the parallel gravitational component:
+  $$F_{\parallel} = F_{\text{drag}} - m g \cos\theta = m \, a_{\parallel}$$
+- **Transverse Axis (Perpendicular to Jet):** Bernoulli pressure suction and Coandă streamline curvature balance the lateral gravitational component:
+  $$F_{\perp} = F_{\text{Bernoulli}} - m g \sin\theta = m \, a_{\perp}$$
+
+At stable hover equilibrium, $a_{\parallel} = 0$ and $a_{\perp} = 0$.
+
+### Pillar 3: Energy & Incompressible Work Conservation
+Under steady, incompressible flow with negligible heat transfer, the total stagnation pressure $P_0$ is strictly conserved along each streamline:
+
+$$P_0 = P_{\text{static}} + \frac{1}{2}\rho v^2 = \text{constant}$$
+
+Mechanical work done by the blower motor is converted into fluid kinetic energy, which is subsequently dissipated via viscous shear in the wake:
+
+$$P_{\text{diss}} = \mathbf{F}_{\text{drag}} \cdot \mathbf{v}_{\text{rel}}$$
+
+As the jet entrains stationary ambient air, total jet momentum is conserved while spreading out into a diverging conical profile:
+
+$$w_{\text{jet}}(s) = w_0 + 2 s \tan(\alpha_{\text{div}})$$
 
 ---
 
-## 3. Simulation Architecture & Code Breakdown
+## 3. Physical Parameters & SI Units
+
+| Symbol | Parameter Description | Nominal Range | Default Value | SI Unit |
+| :--- | :--- | :--- | :--- | :--- |
+| $\rho$ | Ambient Air Density at Sea Level | $1.20 - 1.25$ | $1.225$ | $\text{kg}/\text{m}^3$ |
+| $v$ | Airflow Nozzle Velocity | $10.0 - 30.0$ | $16.0$ | $\text{m}/\text{s}$ |
+| $q$ | Dynamic Pressure ($\frac{1}{2}\rho v^2$) | $60.0 - 550.0$ | $156.8$ | $\text{Pa}$ |
+| $\theta$ | Blower Nozzle Tilt Angle | $-40.0 - +40.0$ | $0.0$ | $\text{deg}$ |
+| $m_{\text{ball}}$ | Ping-Pong Ball Mass | $1.2 - 20.0$ | $2.7$ | $\text{g}$ |
+| $r_{\text{ball}}$ | Ball Radius | $0.015 - 0.025$ | $0.020$ ($40\text{ mm}$ dia) | $\text{m}$ |
+| $C_d$ | Sphere Drag Coefficient | $0.45 - 0.50$ | $0.47$ | Dimensionless |
+| $g$ | Standard Gravitational Acceleration | Constant | $9.81$ | $\text{m}/\text{s}^2$ |
+| $w_0$ | Initial Nozzle Exit Width | Fixed | $35$ | $\text{px}$ |
+
+---
+
+## 4. Simulation Architecture & Numerical Stepping
 
 ### Source Location
 - **Primary Composable:** [`BernoulliBallExperiment`](./BernoulliBallExperiment.kt)
 - **Package:** `com.geosid.simplephysics.ui.experiments.week1.Day7`
-- **Screen Architecture:** Compose Multiplatform with Canvas rendering & high-frequency physics tick.
+- **Architecture:** Jetpack Compose Multiplatform Canvas with elevated origin ($c_y = 0.40 \cdot h$), transparent telemetry HUD, and compact interactive controls deck.
 
-### Reactive State Variables
-The interactive state is managed via Compose `mutableStateOf` variables:
+### Numerical Integration Loop
+1. **Frame Tick:** Driven by `withFrameNanos` with clamped time step $\Delta t \in [0.001\text{ s}, 0.033\text{ s}]$.
+2. **Coordinate Projection:** Evaluates ball position relative to nozzle swivel anchor $(x_0, y_0) = (0.50 \cdot w, 0.62 \cdot h)$:
+   $$s = (\mathbf{r} - \mathbf{r}_0) \cdot \hat{u}_{\text{stream}}$$
+   $$r_{\perp} = (\mathbf{r} - \mathbf{r}_0) \cdot \hat{n}_{\text{stream}}$$
+3. **Core Jet Capture & Force Stepping:**
+   - When inside the diverging conical jet ($|r_{\perp}| < 1.5 \cdot w_{\text{jet}}$), computes inward suction gradient:
+     $$F_{\perp} = -\left(\frac{r_{\perp}}{w_{\text{jet}}}\right) \cdot (1.8 \cdot q)$$
+   - Computes quadratic velocity drag:
+     $$F_{\parallel} = \frac{1}{2} \rho v(s)^2 C_d A$$
+4. **Velocity Integration & Aerodynamic Damping:**
+   $$\mathbf{a} = \frac{\mathbf{F}_{\text{total}}}{m}$$
+   $$\mathbf{v}_{t+\Delta t} = \mathbf{v}_t + (\mathbf{a} - \gamma \mathbf{v}_t) \Delta t$$
+   $$\mathbf{r}_{t+\Delta t} = \mathbf{r}_t + \mathbf{v}_{t+\Delta t} \Delta t$$
 
-| State Variable | Type / Default | Functional Role in Simulation |
-| :--- | :--- | :--- |
-| `ballType` | `BallType.PING_PONG` | Active ball preset (`PING_PONG`, `FOAM`, `WOODEN`) |
-| `airSpeed` | `mutableStateOf(16f)` (m/s) | Blower air jet velocity ($10 - 30\text{ m/s}$) |
-| `tiltAngleDeg` | `mutableStateOf(0f)` (deg) | Blower nozzle inclination angle ($-40^\circ$ to $+40^\circ$) |
-| `ballPos` | `mutableStateOf<Offset?>` | Live Cartesian position of the levitating ball |
-| `ballVelocity` | `mutableStateOf(Offset.Zero)` | 2D velocity vector tracking aerodynamic oscillation |
-| `isDraggingBall` | `mutableStateOf(false)` | Flag indicating active user pointer displacement |
-| `flowAnimPhase` | `Float` | Continuous cyclic phase driving airflow streamline particle animation |
-
-### Frame Loop & Physics Integration
-- **High-Precision Physics Loop:** Driven by `withFrameNanos` inside `LaunchedEffect(isRunning, airSpeed, tiltAngleDeg, ballType)`.
-- **2D Jet Vector Decomposition:** Decomposes forces into stream-parallel and stream-normal axes based on nozzle tilt $\theta$.
-- **In-Jet Trapping & Turbulent Wobble:**
-  - Evaluates whether the ball lies within the expanding conical jet core ($w_{\text{jet}} \propto \text{distance}$).
-  - Computes radial inward Bernoulli pressure gradient restoring the ball toward the axis.
-  - Adds stochastic turbulence wobbles ($\sin(\omega t)$) characteristic of real ping-pong ball levitation.
-
-### User Gestures & Interactivity
-- **Direct Ball Drag & Release:** Touch and pull the ball out of the stream with your finger; release it to see if the suction cone captures it or if it falls to the floor.
-- **Ball Material Selector:**
-  - `🏓 Ping-Pong` ($2.7\text{ g}$): Classic lightweight hollow plastic sphere (balanced levitation).
-  - `⚪ Foam Ball` ($1.2\text{ g}$): Ultra-lightweight foam (soars high in the air column).
-  - `🪵 Wooden Ball` ($20.0\text{ g}$): Heavy solid wood (demonstrates gravity overcoming available aerodynamic lift).
-- **Precision Sliders:** Real-time sliders for Airflow Speed ($10 - 30\text{ m/s}$) and Nozzle Tilt Angle ($-40^\circ$ to $+40^\circ$).
-
-### Canvas Graphics Pipeline
-- **Scientific Coordinate Grid:** Subtle background grid with floor shadow under the blower base.
-- **Expanding Airflow Jet:** Glowing conical air column with animated streamlines and velocity-dependent glow (`drawAirflowJet`).
-- **Inward Bernoulli Pressure Differential Arrows:** Inward-pointing vector arrows showing the net lateral atmospheric restoring force (`drawBernoulliPressureArrows`).
-- **Levitating Sphere Shader:** 3D ball with radial specular highlights, color-coded by material preset, with rapid micro-wobble motion (`drawLevitatingBall`).
-- **Rotating Blower Nozzle:** Metallic hairdryer nozzle at base that physically rotates with the tilt slider (`drawBlowerNozzle`).
-
----
-
-## 4. Suggested Investigations & Parameter Experiments
-1. **The Angled Coandă Limit:** With the Ping-Pong ball levitating stably at $0^\circ$, slowly increase the nozzle tilt angle to $30^\circ$, then $40^\circ$. Observe how the ball remains levitated sideways without falling, proving that the Coandă effect redirects airflow downward to generate vertical lift!
-2. **Density & Mass Threshold:** Switch from `🏓 Ping-Pong` ($2.7\text{ g}$) to `🪵 Wooden Ball` ($20\text{ g}$). Notice that gravity immediately overwhelms the aerodynamic drag and Bernoulli forces, dropping the wooden ball to the ground.
-3. **Airspeed vs. Equilibrium Height:** At $0^\circ$ tilt, adjust Airspeed from $10\text{ m/s}$ up to $30\text{ m/s}$. Observe how higher airspeed increases dynamic pressure $q = \frac{1}{2}\rho v^2$, pushing the equilibrium hover height substantially further away from the nozzle.
+### Procedural Rendering Pipeline
+- **Elevated Canvas Origin:** Nozzle positioned at $y = 0.62 \cdot h$, positioning the hover equilibrium at $y \approx 0.40 \cdot h$, leaving the bottom $35\%$ clear.
+- **Airflow Jet Visualization:** Radial gradient cone with animated upward-flowing dashed streamlines.
+- **Coandă Deflection Arc:** Highlights streamline curvature wrapping around the ball's upper hemisphere.
+- **Transparent HUD:** `ExperimentHudCard` with transparent background displays live airspeed, dynamic pressure, nozzle tilt, and trapping state.
