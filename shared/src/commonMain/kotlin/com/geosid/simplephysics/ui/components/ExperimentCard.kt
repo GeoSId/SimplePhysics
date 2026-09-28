@@ -807,22 +807,83 @@ internal fun DrawScope.drawExperimentIllustration(id: String) {
             drawPath(pullHead, EmeraldNeon)
         }
         "plucked_string" -> {
-            val baseY = h * 0.52f
-            // Pegs
-            drawRect(Color(0xFFB0BEC5), Offset(w * 0.12f, baseY - 25f), Size(8f, 50f))
-            drawRect(Color(0xFFB0BEC5), Offset(w * 0.88f - 8f, baseY - 25f), Size(8f, 50f))
+            val baseY = h * 0.50f
+            val leftX = w * 0.10f
+            val rightX = w * 0.90f
+            val stringLen = rightX - leftX
 
-            // Standing harmonic wave (n=2 node in middle)
+            // 1. Soundboard base
+            drawRoundRect(
+                color = Color(0xFF3E2723),
+                topLeft = Offset(leftX - 10f, baseY - 36f),
+                size = Size(stringLen + 20f, 72f),
+                cornerRadius = androidx.compose.ui.geometry.CornerRadius(8f)
+            )
+            drawRoundRect(
+                color = Color(0xFF4E342E),
+                topLeft = Offset(leftX - 8f, baseY - 33f),
+                size = Size(stringLen + 16f, 66f),
+                cornerRadius = androidx.compose.ui.geometry.CornerRadius(7f)
+            )
+
+            // Sound hole
+            drawCircle(
+                color = Color(0xFF1B0000),
+                radius = 24f,
+                center = Offset(w * 0.5f, baseY)
+            )
+            drawCircle(
+                color = AmberVibrant.copy(alpha = 0.7f),
+                radius = 25f,
+                center = Offset(w * 0.5f, baseY),
+                style = Stroke(width = 1.5f)
+            )
+
+            // 2. Fixed End Pegs (Nuts)
+            drawRect(Color(0xFFECEFF1), Offset(leftX - 6f, baseY - 20f), Size(6f, 40f))
+            drawRect(Color(0xFFECEFF1), Offset(rightX, baseY - 20f), Size(6f, 40f))
+
+            // 3. Standing Harmonic Wave (n=2 mode with center node)
             val wavePath = Path().apply {
-                moveTo(w * 0.12f + 8f, baseY)
-                cubicTo(w * 0.25f, baseY - 45f, w * 0.38f, baseY - 45f, w * 0.50f, baseY)
-                cubicTo(w * 0.62f, baseY + 45f, w * 0.75f, baseY + 45f, w * 0.88f - 8f, baseY)
+                moveTo(leftX, baseY)
+                cubicTo(leftX + stringLen * 0.22f, baseY - 32f, leftX + stringLen * 0.28f, baseY - 32f, w * 0.50f, baseY)
+                cubicTo(leftX + stringLen * 0.72f, baseY + 32f, leftX + stringLen * 0.78f, baseY + 32f, rightX, baseY)
             }
-            drawPath(wavePath, CyanNeon.copy(alpha = 0.35f), style = Stroke(width = 8f))
-            drawPath(wavePath, Color.White, style = Stroke(width = 3.5f))
+            // Antiphase envelope (dashed reflection)
+            val envelopePath = Path().apply {
+                moveTo(leftX, baseY)
+                cubicTo(leftX + stringLen * 0.22f, baseY + 32f, leftX + stringLen * 0.28f, baseY + 32f, w * 0.50f, baseY)
+                cubicTo(leftX + stringLen * 0.72f, baseY - 32f, leftX + stringLen * 0.78f, baseY - 32f, rightX, baseY)
+            }
 
-            // Acoustic sound wave arc
-            drawCircle(CyanNeon.copy(alpha = 0.25f), 35f, Offset(w * 0.5f, baseY), style = Stroke(width = 2f, pathEffect = PathEffect.dashPathEffect(floatArrayOf(6f, 6f))))
+            // Antiphase envelope dashed
+            drawPath(
+                path = envelopePath,
+                color = CoralNeon.copy(alpha = 0.45f),
+                style = Stroke(width = 1.8f, pathEffect = PathEffect.dashPathEffect(floatArrayOf(5f, 4f)))
+            )
+
+            // Outer string glow & core
+            drawPath(wavePath, CyanNeon.copy(alpha = 0.45f), style = Stroke(width = 7f, cap = StrokeCap.Round))
+            drawPath(wavePath, Color.White, style = Stroke(width = 2.5f, cap = StrokeCap.Round))
+
+            // Central standing wave stationary node
+            drawCircle(AmberVibrant, 4f, Offset(w * 0.5f, baseY))
+            drawCircle(Color.White, 2f, Offset(w * 0.5f, baseY))
+
+            // Acoustic sound radiation ripples
+            drawCircle(
+                color = CyanNeon.copy(alpha = 0.30f),
+                radius = 35f,
+                center = Offset(w * 0.5f, baseY),
+                style = Stroke(width = 1.5f, pathEffect = PathEffect.dashPathEffect(floatArrayOf(6f, 6f)))
+            )
+            drawCircle(
+                color = CyanNeon.copy(alpha = 0.18f),
+                radius = 48f,
+                center = Offset(w * 0.5f, baseY),
+                style = Stroke(width = 1.2f, pathEffect = PathEffect.dashPathEffect(floatArrayOf(8f, 6f)))
+            )
         }
         "fourier_series" -> {
             val cy = h * 0.52f

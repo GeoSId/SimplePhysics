@@ -29,3 +29,8 @@ scripts/
 # Experiment weeks (choose which to upload when ready)
 shared/src/commonMain/kotlin/com/geosid/simplephysics/ui/experiments/
 shared/src/commonMain/kotlin/com/geosid/simplephysics/ui/expirementsRegistry/ExperimentScreenRegistryBackUp.kt
+
+# Social media secrets & upload logs
+*facebook_config.json
+*upload_log.json
+.env
