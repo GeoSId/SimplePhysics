@@ -277,7 +277,7 @@ fun BouncingBallExperiment(
                                     text = name,
                                     fontSize = 10.sp,
                                     fontWeight = if (isSel) FontWeight.Bold else FontWeight.Normal,
-                                    color = if (isSel) ScienceDarkBg else ScienceTextPrimary
+                                    color = if (isSel) ScienceDarkBg else TextPrimary
                                 )
                             }
                         }
