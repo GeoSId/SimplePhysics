@@ -25,38 +25,71 @@ A single incoming ball of mass $m$ at velocity $v$ **cannot** eject two stationa
 
 ---
 
-## 2. Mathematical Foundation & Governing Equations
+## 2. Mathematical Foundation: The 3 Pillars
 
-### Conservation Laws
-For an ideal $N$-ball elastic collision:
+```
+                     ┌────────────────────────────────────────┐
+                     │          THE 3 PILLARS OF DAY 10       │
+                     └────────────────────────────────────────┘
+                                         │
+         ┌───────────────────────────────┼───────────────────────────────┐
+         ▼                               ▼                               ▼
+┌─────────────────────────┐ ┌─────────────────────────┐ ┌─────────────────────────┐
+│     1. GOVERNING LAW    │ │      2. KINEMATICS      │ │  3. ENERGY CONSERVATION │
+│  Simultaneous Momentum  │ │  1D Restitution Impact  │ │ Mechanical Energy Balance│
+│  & Energy Conservation  │ │ Shockwave Speed & Phase │ │ & Viscous Air Resistance│
+└─────────────────────────┘ └─────────────────────────┘ └─────────────────────────┘
+```
+
+### Pillar 1: Governing Law & Simultaneous Conservation
+For an ideal chain of $N$ identical spherical masses $m$, linear momentum and kinetic energy must be conserved simultaneously across any impact event:
 
 $$
 \sum_{i=1}^{N} m_i u_i = \sum_{i=1}^{N} m_i v_i, \quad \sum_{i=1}^{N} \frac{1}{2} m_i u_i^2 = \sum_{i=1}^{N} \frac{1}{2} m_i v_i^2
 $$
 
-### 1D Impact with Coefficient of Restitution ($e$)
-When sphere $i$ strikes adjacent sphere $i+1$ with approach velocity $(u_1 - u_2) > 0$:
+When $k$ balls of mass $m$ strike the stationary chain at incoming velocity $v_{\text{in}}$, the simultaneous equations have a unique physically admissible solution: exactly $k$ balls must depart from the opposite end with velocity $v_{\text{out}} = v_{\text{in}}$.
+
+### Pillar 2: Kinematics & Hertzian 1D Impact Restitution
+When sphere $i$ collides with adjacent sphere $i+1$ with approach velocity $(u_i - u_{i+1}) > 0$, the post-collision velocities are determined by the coefficient of restitution $e$:
 
 $$
-v_1 = \frac{u_1 + u_2 - e(u_1 - u_2)}{2}, \quad v_2 = \frac{u_1 + u_2 + e(u_1 - u_2)}{2}
+v_i = \frac{u_i + u_{i+1} - e(u_i - u_{i+1})}{2}, \quad v_{i+1} = \frac{u_i + u_{i+1} + e(u_i - u_{i+1})}{2}
 $$
 
-For hardened chrome steel ($e \approx 0.99$), velocity transfer is almost $100\%$ complete ($v_1 \approx u_2, v_2 \approx u_1$).
+For hardened chrome steel ($e \approx 0.99$), velocity transfer is virtually complete ($v_i \approx u_{i+1}, v_{i+1} \approx u_i$). The compressive acoustic shockwave travels through the steel spheres at the speed of sound in steel ($c_{\text{sound}} \approx 5,960\text{ m/s}$), rendering momentum transfer instantaneous on the pendulum's timescale.
 
-### Pendulum Motion & Air Damping
-Each suspended sphere of mass $m$ on string length $L$ oscillates under gravity $g$ with angular acceleration:
+### Pillar 3: Pendulum Restoring Dynamics & Energy Conservation
+Each suspended sphere of mass $m$ on string length $L$ acts as a simple gravitational pendulum. In polar coordinates, the angular equation of motion with aerodynamic drag is:
 
 $$
-\alpha_i = \frac{d^2\theta_i}{dt^2} = -\frac{g}{L} \sin\theta_i - b \, \omega_i
+\frac{d^2\theta_i}{dt^2} = -\frac{g}{L} \sin\theta_i - b \, \frac{d\theta_i}{dt}
 $$
 
-### Physical Meaning & Quantities
-- **$m$ (Ball Mass):** $0.12\text{ kg}$ per steel sphere.
-- **$L$ (Suspension String Length):** $0.38\text{ m}$, setting the natural oscillation period $T \approx 2\pi\sqrt{L/g} \approx 1.24\text{ s}$.
-- **$\theta_i, \omega_i$:** Angular deflection (rad) and angular velocity (rad/s) for sphere $i \in \{0, 1, 2, 3, 4\}$.
-- **$e$ (Restitution / Elasticity):** Ratio of relative separation speed to approach speed ($0.85 - 1.00$).
-- **$b$ (Damping Factor):** Aerodynamic damping coefficient modeling energy dissipation to ambient air.
-- **$P_{\text{total}} = \sum m |v_i|$ & $E_{k,\text{total}} = \sum \frac{1}{2}m v_i^2$:** Total instantaneous momentum and kinetic energy.
+The total mechanical energy of each pendulum is the sum of kinetic and gravitational potential energy:
+
+$$
+\mathcal{E}_i = \frac{1}{2} m (L \omega_i)^2 + m g L (1 - \cos\theta_i)
+$$
+
+In the absence of drag ($b = 0$) and with perfectly elastic impacts ($e = 1$), the total system energy $\sum \mathcal{E}_i$ is strictly constant.
+
+---
+
+## 3. Physical Parameters & SI Units Table
+
+| Symbol | Parameter Description | Nominal Value (App) | Standard SI Units |
+| :--- | :--- | :--- | :--- |
+| $N$ | Number of Spheres | $5$ | count |
+| $m$ | Sphere Mass (Chrome Steel) | $0.12$ | $\text{kg}$ |
+| $r$ | Sphere Radius | $0.018$ | $\text{m}$ ($1.8\text{ cm}$) |
+| $L$ | Suspension String Length | $0.38$ | $\text{m}$ ($38\text{ cm}$) |
+| $g$ | Gravitational Acceleration | $9.81$ | $\text{m/s}^2$ |
+| $T$ | Natural Pendulum Period | $2\pi\sqrt{L/g} \approx 1.24$ | $\text{s}$ |
+| $e$ | Coefficient of Restitution | $0.85 \dots 1.00$ ($0.99$ default) | dimensionless |
+| $b$ | Viscous Air Damping Factor | $0.002$ | $\text{s}^{-1}$ |
+| $P$ | Total Linear Momentum | $\sum m_i \|v_i\|$ | $\text{kg}\cdot\text{m/s}$ |
+| $E_k$ | Total Kinetic Energy | $\sum \frac{1}{2}m_i v_i^2$ | $\text{J}$ |
 
 ---
 

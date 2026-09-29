@@ -3,6 +3,8 @@ package com.geosid.simplephysics.ui.experiments.week2.Day10
 import androidx.compose.animation.core.*
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.detectDragGestures
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.*
@@ -23,6 +25,7 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.geosid.simplephysics.ui.components.ExperimentHudCard
 import com.geosid.simplephysics.ui.components.PhysicsSliderControl
 import com.geosid.simplephysics.ui.components.ResetIcon
 import com.geosid.simplephysics.ui.components.ResponsiveExperimentContainer
@@ -155,9 +158,9 @@ fun NewtonsCradleExperiment(
                             onDragStart = { offset ->
                                 val w = size.width
                                 val h = size.height
-                                val cradleCenter = Offset(w * 0.5f, h * 0.22f)
-                                val ballRadiusPx = min(w, h) * 0.052f
-                                val stringLenPx = min(w, h) * 0.44f
+                                val cradleCenter = Offset(w * 0.5f, h * 0.14f)
+                                val ballRadiusPx = min(w * 0.046f, h * 0.040f)
+                                val stringLenPx = min(w * 0.36f, h * 0.28f)
 
                                 // Find closest ball to touch
                                 var bestDist = Float.MAX_VALUE
@@ -188,8 +191,8 @@ fun NewtonsCradleExperiment(
                                 draggedBallIndex?.let { idx ->
                                     val w = size.width
                                     val h = size.height
-                                    val cradleCenter = Offset(w * 0.5f, h * 0.22f)
-                                    val ballRadiusPx = min(w, h) * 0.052f
+                                    val cradleCenter = Offset(w * 0.5f, h * 0.14f)
+                                    val ballRadiusPx = min(w * 0.046f, h * 0.040f)
                                     val pivotX = cradleCenter.x + (idx - 2) * (ballRadiusPx * 2f)
 
                                     val dx = change.position.x - pivotX
@@ -229,9 +232,9 @@ fun NewtonsCradleExperiment(
                 val w = size.width
                 val h = size.height
 
-                val cradleCenter = Offset(w * 0.5f, h * 0.22f)
-                val ballRadiusPx = min(w, h) * 0.052f
-                val stringLenPx = min(w, h) * 0.44f
+                val cradleCenter = Offset(w * 0.5f, h * 0.14f)
+                val ballRadiusPx = min(w * 0.046f, h * 0.040f)
+                val stringLenPx = min(w * 0.36f, h * 0.28f)
                 val frameHalfWidth = ballRadiusPx * 5.8f
                 val groundY = cradleCenter.y + stringLenPx + ballRadiusPx * 2.2f
 
@@ -354,13 +357,15 @@ fun NewtonsCradleExperiment(
             }
         },
         hudContent = {
-            TransparentTelemetryHud(
+            ExperimentHudCard(
                 modifier = Modifier.fillMaxWidth(),
                 title = "Conservation of Momentum & Energy",
+                backgroundColor = Color.Transparent,
+                borderColor = ScienceBorder.copy(alpha = 0.35f),
                 items = listOf(
                     "Total Momentum (P)" to "${(round(totalMomentum * 1000f) / 1000f)} kg·m/s",
                     "Kinetic Energy (Ek)" to "${(round(totalKineticEnergy * 1000f) / 1000f)} J",
-                    "Elasticity (e)" to "${(round(restitution * 1000f) / 10f)}% (${if (restitution >= 0.98f) "Hardened Steel" else "Inelastic"})",
+                    "Elasticity (e)" to "${(round(restitution * 1000f) / 10f)}% (${if (restitution >= 0.98f) "Steel" else "Inelastic"})",
                     "Impacts Count" to "$collisionCount"
                 )
             )
@@ -368,55 +373,49 @@ fun NewtonsCradleExperiment(
         controlsContent = {
             Column(
                 modifier = Modifier.fillMaxWidth(),
-                verticalArrangement = Arrangement.spacedBy(10.dp)
+                verticalArrangement = Arrangement.spacedBy(6.dp)
             ) {
-                // Preset Chips Row
+                // Preset Chips Row (compact 32.dp height)
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.spacedBy(6.dp),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     CradlePreset.values().forEach { preset ->
-                        FilterChip(
-                            selected = selectedPreset == preset,
-                            onClick = {
-                                selectedPreset = preset
-                                for (i in 0 until NUM_BALLS) {
-                                    angles[i] = preset.angles[i]
-                                    angularVelocities[i] = 0f
-                                    impulseFlashes[i] = 0f
+                        val isSel = selectedPreset == preset
+                        Box(
+                            modifier = Modifier
+                                .weight(1f)
+                                .height(32.dp)
+                                .clip(RoundedCornerShape(8.dp))
+                                .background(if (isSel) CyanNeon.copy(alpha = 0.22f) else ScienceDarkSurfaceVariant)
+                                .border(1.dp, if (isSel) CyanNeon else ScienceBorder.copy(alpha = 0.4f), RoundedCornerShape(8.dp))
+                                .clickable {
+                                    selectedPreset = preset
+                                    for (i in 0 until NUM_BALLS) {
+                                        angles[i] = preset.angles[i]
+                                        angularVelocities[i] = 0f
+                                        impulseFlashes[i] = 0f
+                                    }
+                                    isRunning = true
                                 }
-                                isRunning = true
-                            },
-                            label = {
-                                Text(
-                                    text = "${preset.icon} ${preset.title}",
-                                    fontSize = 11.sp,
-                                    fontWeight = if (selectedPreset == preset) FontWeight.Bold else FontWeight.Normal
-                                )
-                            },
-                            colors = FilterChipDefaults.filterChipColors(
-                                selectedContainerColor = CyanNeon.copy(alpha = 0.20f),
-                                selectedLabelColor = CyanNeon,
-                                containerColor = ScienceDarkSurfaceVariant.copy(alpha = 0.5f),
-                                labelColor = TextSecondary
-                            ),
-                            border = FilterChipDefaults.filterChipBorder(
-                                enabled = true,
-                                selected = selectedPreset == preset,
-                                borderColor = ScienceBorder.copy(alpha = 0.4f),
-                                selectedBorderColor = CyanNeon
-                            ),
-                            shape = RoundedCornerShape(8.dp),
-                            modifier = Modifier.weight(1f)
-                        )
+                                .padding(horizontal = 4.dp, vertical = 2.dp),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Text(
+                                text = "${preset.icon} ${preset.title}",
+                                fontSize = 10.sp,
+                                fontWeight = if (isSel) FontWeight.Bold else FontWeight.Medium,
+                                color = if (isSel) CyanNeon else TextSecondary
+                            )
+                        }
                     }
                 }
 
                 // Sliders Row (Elasticity Restitution & Air Damping)
                 Row(
                     modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.spacedBy(10.dp)
+                    horizontalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
                     Box(modifier = Modifier.weight(1f)) {
                         PhysicsSliderControl(
@@ -456,13 +455,16 @@ fun NewtonsCradleExperiment(
                             containerColor = if (isRunning) AmberVibrant else CyanNeon,
                             contentColor = ScienceDarkBg
                         ),
-                        shape = RoundedCornerShape(10.dp),
-                        modifier = Modifier.weight(1f)
+                        shape = RoundedCornerShape(8.dp),
+                        modifier = Modifier
+                            .weight(1f)
+                            .height(34.dp),
+                        contentPadding = PaddingValues(horizontal = 8.dp, vertical = 2.dp)
                     ) {
                         Text(
                             text = if (isRunning) "⏸ Pause" else "▶ Run",
                             fontWeight = FontWeight.Bold,
-                            fontSize = 12.sp
+                            fontSize = 11.sp
                         )
                     }
 
@@ -480,10 +482,10 @@ fun NewtonsCradleExperiment(
                             isRunning = true
                         },
                         modifier = Modifier
-                            .size(42.dp)
-                            .background(ScienceDarkSurfaceVariant, RoundedCornerShape(10.dp))
+                            .size(34.dp)
+                            .background(ScienceDarkSurfaceVariant, RoundedCornerShape(8.dp))
                     ) {
-                        ResetIcon(tint = CyanNeon, modifier = Modifier.size(18.dp))
+                        ResetIcon(tint = CyanNeon, modifier = Modifier.size(16.dp))
                     }
                 }
             }
@@ -629,69 +631,3 @@ private fun DrawScope.drawScientificGrid(w: Float, h: Float) {
     }
 }
 
-/**
- * Transparent Telemetry HUD
- */
-@Composable
-private fun TransparentTelemetryHud(
-    modifier: Modifier = Modifier,
-    title: String,
-    items: List<Pair<String, String>>
-) {
-    Column(
-        modifier = modifier
-            .background(Color.Transparent)
-            .padding(horizontal = 4.dp, vertical = 4.dp)
-    ) {
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Text(
-                text = "⚡ $title".uppercase(),
-                color = CyanNeon.copy(alpha = 0.85f),
-                fontSize = 11.sp,
-                fontWeight = FontWeight.Bold,
-                letterSpacing = 1.sp
-            )
-            Surface(
-                color = CyanNeon.copy(alpha = 0.12f),
-                shape = RoundedCornerShape(4.dp)
-            ) {
-                Text(
-                    text = "CONSERVED",
-                    color = CyanNeon,
-                    fontSize = 9.sp,
-                    fontWeight = FontWeight.Bold,
-                    modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.dp)
-                )
-            }
-        }
-        Spacer(Modifier.height(4.dp))
-        HorizontalDivider(color = ScienceBorder.copy(alpha = 0.35f), thickness = 0.8.dp)
-        Spacer(Modifier.height(4.dp))
-        items.forEach { (label, value) ->
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(vertical = 2.dp),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Text(
-                    text = label,
-                    color = TextSecondary.copy(alpha = 0.85f),
-                    fontSize = 12.sp
-                )
-                Text(
-                    text = value,
-                    color = TextPrimary,
-                    fontSize = 12.sp,
-                    fontFamily = FontFamily.Monospace,
-                    fontWeight = FontWeight.Bold
-                )
-            }
-        }
-    }
-}

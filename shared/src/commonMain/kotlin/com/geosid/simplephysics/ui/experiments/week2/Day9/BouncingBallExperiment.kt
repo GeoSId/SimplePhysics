@@ -3,6 +3,7 @@ package com.geosid.simplephysics.ui.experiments.week2.Day9
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.detectDragGestures
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -102,8 +103,9 @@ fun BouncingBallExperiment(
                             },
                             onDrag = { change, dragAmount ->
                                 change.consume()
-                                // Convert drag px to meters
-                                val pxPerMeter = size.height * 0.65f / 8.5f
+                                // Convert drag px to meters (synchronized with elevated canvas origin)
+                                val meterSpanPx = size.height * 0.44f
+                                val pxPerMeter = meterSpanPx / 8.5f
                                 ballY = (ballY - dragAmount.y / pxPerMeter).coerceIn(0f, 8.5f)
                                 maxHeightReached = max(maxHeightReached, ballY)
                             },
@@ -116,54 +118,55 @@ fun BouncingBallExperiment(
                 val w = size.width
                 val h = size.height
 
-                val floorY = h * 0.80f
+                // Elevated Canvas Origin: floor at 0.58h so bottom 42% is completely clear for controls
+                val floorY = h * 0.58f
                 val maxMeterHeight = 8.5f
-                val pxPerMeter = (h * 0.62f) / maxMeterHeight
-                val ballCenterX = w * 0.42f
-                val ballRadiusPx = 28f
+                val meterSpanPx = h * 0.44f
+                val pxPerMeter = meterSpanPx / maxMeterHeight
+                val ballCenterX = w * 0.35f
+                val ballRadiusPx = min(w * 0.055f, h * 0.038f).coerceIn(18f, 28f)
 
-                // 1. Draw Floor & Laboratory Wall
+                // 1. Draw Floor & Laboratory Surface
                 drawLine(
                     color = ScienceBorder,
                     start = Offset(0f, floorY),
                     end = Offset(w, floorY),
-                    strokeWidth = 4f
+                    strokeWidth = 3f
                 )
                 drawRect(
-                    color = Color(0x15FFFFFF),
+                    color = Color(0x10FFFFFF),
                     topLeft = Offset(0f, floorY),
                     size = Size(w, h - floorY)
                 )
 
                 // 2. Draw Height Measurement Ruler
-                val rulerX = ballCenterX - 110f
-                drawLine(Color(0x66FFFFFF), Offset(rulerX, floorY), Offset(rulerX, floorY - 8f * pxPerMeter), 2f)
+                val rulerX = ballCenterX - (ballRadiusPx * 2.2f + 16f)
+                drawLine(Color(0x55FFFFFF), Offset(rulerX, floorY), Offset(rulerX, floorY - 8f * pxPerMeter), 1.5f)
                 for (m in 0..8) {
                     val my = floorY - m * pxPerMeter
                     val isMajor = m % 2 == 0
-                    val tickW = if (isMajor) 20f else 12f
+                    val tickW = if (isMajor) 16f else 10f
                     drawLine(
                         color = if (isMajor) CyanNeon else Color(0x88FFFFFF),
                         start = Offset(rulerX - tickW, my),
                         end = Offset(rulerX, my),
-                        strokeWidth = if (isMajor) 2.5f else 1.5f
+                        strokeWidth = if (isMajor) 2f else 1.2f
                     )
                 }
 
                 // 3. Draw Floor Contact Shadow (Expands and darkens as ball nears the floor)
-                val shadowAlpha = (1f - (ballY / 4f)).coerceIn(0.1f, 0.75f)
-                val shadowWidth = (ballRadiusPx * 2.2f * (1f + ballY * 0.2f)).coerceAtMost(120f)
+                val shadowAlpha = (1f - (ballY / 4f)).coerceIn(0.08f, 0.70f)
+                val shadowWidth = (ballRadiusPx * 2.2f * (1f + ballY * 0.15f)).coerceAtMost(w * 0.25f)
                 drawOval(
                     color = Color.Black.copy(alpha = shadowAlpha),
-                    topLeft = Offset(ballCenterX - shadowWidth / 2f, floorY - 6f),
-                    size = Size(shadowWidth, 12f)
+                    topLeft = Offset(ballCenterX - shadowWidth / 2f, floorY - 4f),
+                    size = Size(shadowWidth, 8f)
                 )
 
                 // 4. Ball Squash & Stretch Deformation
-                // During impact at floorY with speed, squash vertically and expand horizontally
                 val isImpact = ballY <= 0.05f && abs(ballVelocityY) > 0.5f
                 val squashFactor = if (isImpact) {
-                    (abs(ballVelocityY) / 12f).coerceIn(0.1f, 0.45f)
+                    (abs(ballVelocityY) / 14f).coerceIn(0.1f, 0.40f)
                 } else {
                     0f
                 }
@@ -173,11 +176,21 @@ fun BouncingBallExperiment(
 
                 val ballCenterY = floorY - (ballY * pxPerMeter) - currentRadiusY
 
+                // Impact Shockwave Ring on hard contact
+                if (isImpact) {
+                    drawCircle(
+                        color = AmberVibrant.copy(alpha = 0.65f),
+                        radius = ballRadiusPx * 1.5f,
+                        center = Offset(ballCenterX, floorY),
+                        style = Stroke(width = 2f)
+                    )
+                }
+
                 // Draw Ball with high-specular 3D shader
                 drawOval(
                     brush = Brush.radialGradient(
                         colors = listOf(Color.White, AmberVibrant, Color(0xFFE65100), Color(0xFF3E2723)),
-                        center = Offset(ballCenterX - 8f, ballCenterY - 8f),
+                        center = Offset(ballCenterX - 6f, ballCenterY - 6f),
                         radius = currentRadiusX * 1.2f
                     ),
                     topLeft = Offset(ballCenterX - currentRadiusX, ballCenterY - currentRadiusY),
@@ -189,20 +202,22 @@ fun BouncingBallExperiment(
                     val ghostY = floorY - maxHeightReached * pxPerMeter - ballRadiusPx
                     drawLine(
                         color = CyanNeon.copy(alpha = 0.5f),
-                        start = Offset(ballCenterX - 40f, ghostY),
-                        end = Offset(ballCenterX + 40f, ghostY),
-                        strokeWidth = 2f,
-                        pathEffect = PathEffect.dashPathEffect(floatArrayOf(6f, 6f))
+                        start = Offset(ballCenterX - 35f, ghostY),
+                        end = Offset(ballCenterX + 35f, ghostY),
+                        strokeWidth = 1.5f,
+                        pathEffect = PathEffect.dashPathEffect(floatArrayOf(5f, 5f))
                     )
                 }
 
-                // 5. Draw Mechanical Energy Split Bar on Right (PE vs KE)
+                // 5. Draw Mechanical Energy Split Bar on Right (PE vs KE vs Total)
+                val energyBarH = min(130f, h * 0.22f)
                 drawEnergyBars(
-                    x = w * 0.72f,
-                    y = floorY - 240f,
+                    x = w * 0.68f,
+                    y = floorY - energyBarH - 25f,
                     kinetic = kineticEnergy,
                     potential = potentialEnergy,
-                    total = totalEnergy
+                    total = totalEnergy,
+                    maxHeightPx = energyBarH
                 )
             }
         },
@@ -216,7 +231,9 @@ fun BouncingBallExperiment(
                     "Bounces" to "$bounceCount",
                     "Total Energy" to "${round(totalEnergy * 10) / 10f} J",
                     "Energy Loss / Bounce" to "${((1f - restitution * restitution) * 100).toInt()}%"
-                )
+                ),
+                backgroundColor = Color.Transparent,
+                borderColor = ScienceBorder.copy(alpha = 0.35f)
             )
         },
         controlsContent = {
@@ -226,12 +243,13 @@ fun BouncingBallExperiment(
                 border = androidx.compose.foundation.BorderStroke(1.dp, ScienceBorder),
                 modifier = Modifier.fillMaxWidth()
             ) {
-                Column(modifier = Modifier.padding(12.dp)) {
-                    // Preset Chips
+                Column(
+                    modifier = Modifier.padding(10.dp),
+                    verticalArrangement = Arrangement.spacedBy(6.dp)
+                ) {
+                    // Compact Preset Chips (32.dp height)
                     Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(bottom = 6.dp),
+                        modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.spacedBy(6.dp)
                     ) {
                         listOf(
@@ -241,22 +259,34 @@ fun BouncingBallExperiment(
                             "Putty" to 0.15f
                         ).forEach { (name, eVal) ->
                             val isSel = abs(restitution - eVal) < 0.02f
-                            FilterChip(
-                                selected = isSel,
-                                onClick = { restitution = eVal },
-                                label = { Text(name, fontSize = 10.sp) },
-                                modifier = Modifier.weight(1f),
-                                colors = FilterChipDefaults.filterChipColors(
-                                    selectedContainerColor = AmberVibrant,
-                                    selectedLabelColor = ScienceDarkBg
+                            Box(
+                                modifier = Modifier
+                                    .weight(1f)
+                                    .height(32.dp)
+                                    .clip(RoundedCornerShape(8.dp))
+                                    .background(if (isSel) AmberVibrant else ScienceDarkSurface)
+                                    .border(
+                                        1.dp,
+                                        if (isSel) AmberVibrant else ScienceBorder.copy(alpha = 0.5f),
+                                        RoundedCornerShape(8.dp)
+                                    )
+                                    .clickable { restitution = eVal },
+                                contentAlignment = Alignment.Center
+                            ) {
+                                Text(
+                                    text = name,
+                                    fontSize = 10.sp,
+                                    fontWeight = if (isSel) FontWeight.Bold else FontWeight.Normal,
+                                    color = if (isSel) ScienceDarkBg else ScienceTextPrimary
                                 )
-                            )
+                            }
                         }
                     }
 
+                    // Paired Sliders side-by-side
                     Row(
                         modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.spacedBy(12.dp)
+                        horizontalArrangement = Arrangement.spacedBy(8.dp)
                     ) {
                         PhysicsSliderControl(
                             modifier = Modifier.weight(1f),
@@ -279,8 +309,7 @@ fun BouncingBallExperiment(
                         )
                     }
 
-                    Spacer(Modifier.height(6.dp))
-
+                    // Compact Action Row
                     Row(
                         modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.SpaceBetween,
@@ -292,10 +321,12 @@ fun BouncingBallExperiment(
                                 ballVelocityY = 0f
                                 bounceCount = 0
                             },
+                            modifier = Modifier.height(34.dp),
+                            contentPadding = PaddingValues(horizontal = 12.dp, vertical = 2.dp),
                             colors = ButtonDefaults.buttonColors(containerColor = AmberVibrant, contentColor = ScienceDarkBg),
-                            shape = RoundedCornerShape(10.dp)
+                            shape = RoundedCornerShape(8.dp)
                         ) {
-                            Text("🏀 Drop Ball (7m)", fontWeight = FontWeight.Bold)
+                            Text("🏀 Drop Ball (7m)", fontSize = 11.sp, fontWeight = FontWeight.Bold)
                         }
 
                         IconButton(
@@ -307,10 +338,11 @@ fun BouncingBallExperiment(
                                 airDragK = 0.04f
                             },
                             modifier = Modifier
-                                .size(40.dp)
+                                .size(34.dp)
                                 .background(ScienceDarkSurface, RoundedCornerShape(8.dp))
+                                .border(1.dp, ScienceBorder.copy(alpha = 0.5f), RoundedCornerShape(8.dp))
                         ) {
-                            ResetIcon(tint = CyanNeon, modifier = Modifier.size(20.dp))
+                            ResetIcon(tint = CyanNeon, modifier = Modifier.size(16.dp))
                         }
                     }
                 }
@@ -325,51 +357,55 @@ private fun DrawScope.drawEnergyBars(
     y: Float,
     kinetic: Float,
     potential: Float,
-    total: Float
+    total: Float,
+    maxHeightPx: Float = 120f
 ) {
-    val barW = 34f
-    val maxBarH = 160f
+    val barW = 20f
+    val gap = 8f
+    val cardW = barW * 3 + gap * 2 + 24f
+    val cardH = maxHeightPx + 36f
     val maxEnergy = 45f // Scale factor
 
     // Background Card
     drawRoundRect(
-        color = ScienceDarkSurface.copy(alpha = 0.9f),
-        topLeft = Offset(x - 20f, y - 25f),
-        size = Size(barW * 3 + 70f, maxBarH + 60f),
-        cornerRadius = androidx.compose.ui.geometry.CornerRadius(12f)
+        color = ScienceDarkSurface.copy(alpha = 0.85f),
+        topLeft = Offset(x - 12f, y - 12f),
+        size = Size(cardW, cardH),
+        cornerRadius = androidx.compose.ui.geometry.CornerRadius(8f)
     )
     drawRoundRect(
-        color = ScienceBorder,
-        topLeft = Offset(x - 20f, y - 25f),
-        size = Size(barW * 3 + 70f, maxBarH + 60f),
-        cornerRadius = androidx.compose.ui.geometry.CornerRadius(12f),
-        style = Stroke(width = 1.5f)
+        color = ScienceBorder.copy(alpha = 0.45f),
+        topLeft = Offset(x - 12f, y - 12f),
+        size = Size(cardW, cardH),
+        cornerRadius = androidx.compose.ui.geometry.CornerRadius(8f),
+        style = Stroke(width = 1f)
     )
 
     // Bar 1: Potential Energy (Cyan)
-    val epH = (potential / maxEnergy * maxBarH).coerceIn(0f, maxBarH)
+    val epH = (potential / maxEnergy * maxHeightPx).coerceIn(0f, maxHeightPx)
     drawRoundRect(
         color = CyanNeon,
-        topLeft = Offset(x, y + maxBarH - epH),
+        topLeft = Offset(x, y + maxHeightPx - epH),
         size = Size(barW, epH),
-        cornerRadius = androidx.compose.ui.geometry.CornerRadius(4f)
+        cornerRadius = androidx.compose.ui.geometry.CornerRadius(3f)
     )
 
     // Bar 2: Kinetic Energy (Emerald)
-    val ekH = (kinetic / maxEnergy * maxBarH).coerceIn(0f, maxBarH)
+    val ekH = (kinetic / maxEnergy * maxHeightPx).coerceIn(0f, maxHeightPx)
     drawRoundRect(
         color = EmeraldNeon,
-        topLeft = Offset(x + barW + 12f, y + maxBarH - ekH),
+        topLeft = Offset(x + barW + gap, y + maxHeightPx - ekH),
         size = Size(barW, ekH),
-        cornerRadius = androidx.compose.ui.geometry.CornerRadius(4f)
+        cornerRadius = androidx.compose.ui.geometry.CornerRadius(3f)
     )
 
     // Bar 3: Total Energy (Amber)
-    val etotH = (total / maxEnergy * maxBarH).coerceIn(0f, maxBarH)
+    val etotH = (total / maxEnergy * maxHeightPx).coerceIn(0f, maxHeightPx)
     drawRoundRect(
         color = AmberVibrant,
-        topLeft = Offset(x + (barW + 12f) * 2f, y + maxBarH - etotH),
+        topLeft = Offset(x + (barW + gap) * 2f, y + maxHeightPx - etotH),
         size = Size(barW, etotH),
-        cornerRadius = androidx.compose.ui.geometry.CornerRadius(4f)
+        cornerRadius = androidx.compose.ui.geometry.CornerRadius(3f)
     )
 }
+

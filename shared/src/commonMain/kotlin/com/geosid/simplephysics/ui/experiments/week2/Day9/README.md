@@ -29,39 +29,74 @@ $$
 
 ---
 
-## 2. Mathematical Foundation & Governing Equations
+## 2. Mathematical Foundation: The 3 Pillars
 
-### Restitution & Energy Decay
-For a bounce with rebound coefficient $e \in (0, 1)$:
-
-$$
-v_+ = -e \cdot v_-, \quad E_{k+} = e^2 E_{k-}, \quad \Delta E_{\text{lost}} = (1 - e^2) E_{k-}
-$$
-
-### Flight Dynamics with Quadratic Air Resistance
-Between bounces, the ball falls under gravity $g$ and quadratic aerodynamic drag:
+### Pillar 1: Governing Law & Force
+During impact with a rigid horizontal boundary, the normal velocity component is reversed and scaled by the **Coefficient of Restitution** $e$:
 
 $$
-F_{\text{drag}} = -k \, v \, |v| \implies a(t) = -g - \frac{k}{m} v |v|
+v_+ = -e \cdot v_-, \quad e = \frac{|v_+|}{|v_-|} \in [0, 1]
 $$
 
-### Mechanical Energy Transformation
-At any height $y$ and vertical velocity $v$:
+During vertical airborne flight between collisions, the ball experiences downward gravitational acceleration $g$ opposed by quadratic aerodynamic drag:
 
 $$
-E_p = m g y, \quad E_k = \frac{1}{2} m v^2, \quad E_{\text{total}} = E_p + E_k
+F_{\text{net}} = -m g - k v |v| \implies a(t) = \frac{dv}{dt} = -g - \frac{k}{m} v |v|
 $$
 
-As the ball falls, potential energy $E_p$ continuously converts into kinetic energy $E_k$, reaching maximum $E_k$ just prior to impact.
+where $k = \frac{1}{2} C_d \rho A$ combines fluid density $\rho$, projected frontal area $A$, and drag coefficient $C_d$.
 
-### Physical Meaning & Quantities
-- **$m$ (Ball Mass):** $0.5\text{ kg}$.
-- **$g$ (Gravitational Acceleration):** $9.81\text{ m/s}^2$.
-- **$y$ (Height):** Instantaneous altitude above the floor ($0.0 - 8.5\text{ m}$).
-- **$v$ (Velocity):** Instantaneous vertical velocity (m/s). Negative downward, positive upward.
-- **$e$ (Coefficient of Restitution):** Material elasticity factor ($0.05 - 0.98$).
-- **$k$ (Air Drag Coefficient):** Viscous resistance factor ($0.00 - 0.15$).
-- **$h_n$ (Apex Height):** Peak altitude achieved on the $n$-th bounce cycle.
+### Pillar 2: Kinematics & Geometric Motion Constraints
+In the absence of air drag, the peak apex height $h_n$ after the $n$-th floor impact follows a strict geometric progression:
+
+$$
+h_n = e^{2n} h_0, \quad v_{n, \text{apex}} = 0, \quad v_{n, \text{impact}} = \sqrt{2 g h_{n-1}}
+$$
+
+The duration of the $n$-th flight bounce cycle is:
+
+$$
+T_n = 2 \frac{v_{n,+}}{g} = 2 e^n \sqrt{\frac{2 h_0}{g}}
+$$
+
+Summing all infinite bounce flight times yields a finite convergent geometric series — resolving the classical **bouncing ball paradox (Zeno's settling time)**:
+
+$$
+T_{\text{total}} = t_0 + \sum_{n=1}^{\infty} T_n = \sqrt{\frac{2 h_0}{g}} \left( 1 + 2 \sum_{n=1}^\infty e^n \right) = \sqrt{\frac{2 h_0}{g}} \left( \frac{1 + e}{1 - e} \right) < \infty
+$$
+
+### Pillar 3: Energy & Work Conservation
+Total instantaneous mechanical energy $\mathcal{E}$ is the sum of gravitational potential and translational kinetic energy:
+
+$$
+\mathcal{E}(t) = E_p(t) + E_k(t) = m g y(t) + \frac{1}{2} m v(t)^2
+$$
+
+During each floor contact, mechanical energy is non-conserved due to inelastic micro-structural hysteresis:
+
+$$
+E_{k,+} = \frac{1}{2} m v_+^2 = \frac{1}{2} m (-e v_-)^2 = e^2 E_{k,-}
+$$
+
+The dissipated thermal and acoustic energy lost per bounce is:
+
+$$
+\Delta \mathcal{E}_{\text{lost}} = (1 - e^2) E_{k,-} = (1 - e^2) m g h_{n-1}
+$$
+
+### Physical Quantities & SI Parameter Table
+
+| Symbol | Parameter | Value / Range in App | SI Units | Physical Role |
+| :--- | :--- | :--- | :--- | :--- |
+| $m$ | Ball Mass | $0.50$ | $\text{kg}$ | Inertial mass for force and energy calculation |
+| $g$ | Gravity | $9.81$ | $\text{m/s}^2$ | Downward gravitational field acceleration |
+| $e$ | Restitution | $0.05 - 0.98$ (Default $0.82$) | dimensionless | Velocity retention ratio across impact |
+| $k$ | Viscous Drag | $0.00 - 0.15$ (Default $0.04$) | $\text{kg/m}$ | Quadratic aerodynamic drag coefficient |
+| $y$ | Live Altitude | $0.00 - 8.50$ | $\text{m}$ | Instantaneous elevation above lab floor |
+| $v$ | Live Velocity | $-15.0 - +15.0$ | $\text{m/s}$ | Instantaneous vertical speed ($+$ up, $-$ down) |
+| $E_p$ | Potential Energy | $0.0 - 41.7$ | $\text{J}$ | Gravitational stored energy ($m g y$) |
+| $E_k$ | Kinetic Energy | $0.0 - 45.0$ | $\text{J}$ | Dynamic motion energy ($\frac{1}{2} m v^2$) |
+| $\mathcal{E}$ | Total Energy | $0.0 - 45.0$ | $\text{J}$ | Live mechanical energy sum ($E_p + E_k$) |
 
 ---
 

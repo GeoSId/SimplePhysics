@@ -208,32 +208,87 @@ internal fun DrawScope.drawExperimentIllustration(id: String) {
             drawPath(flagPath, EmeraldNeon)
         }
         "bouncing_ball" -> {
-            val groundY = h * 0.82f
-            drawLine(ScienceBorder, Offset(0f, groundY), Offset(w, groundY), 3f)
-
-            // Bouncing height decay curves (e=0.8)
-            val bouncePath = Path().apply {
-                moveTo(w * 0.15f, groundY)
-                // Bounce 1
-                cubicTo(w * 0.20f, groundY - 95f, w * 0.32f, groundY - 95f, w * 0.38f, groundY)
-                // Bounce 2
-                cubicTo(w * 0.43f, groundY - 60f, w * 0.53f, groundY - 60f, w * 0.58f, groundY)
-                // Bounce 3
-                cubicTo(w * 0.62f, groundY - 35f, w * 0.70f, groundY - 35f, w * 0.74f, groundY)
-                // Bounce 4
-                cubicTo(w * 0.77f, groundY - 18f, w * 0.83f, groundY - 18f, w * 0.86f, groundY)
-            }
-            drawPath(bouncePath, AmberVibrant, style = Stroke(width = 2.5f, pathEffect = PathEffect.dashPathEffect(floatArrayOf(6f, 6f))))
-
-            // Ball at apex of bounce 1
-            drawCircle(
-                brush = Brush.radialGradient(listOf(Color.White, AmberVibrant, Color(0xFFE65100))),
-                radius = 12f,
-                center = Offset(w * 0.26f, groundY - 95f)
+            val groundY = h * 0.76f
+            // Lab floor line & subtle floor fill
+            drawLine(ScienceBorder, Offset(0f, groundY), Offset(w, groundY), 2.5f)
+            drawRect(
+                color = Color(0x12FFFFFF),
+                topLeft = Offset(0f, groundY),
+                size = Size(w, h - groundY)
             )
 
-            // Floor shadow
-            drawOval(Color.Black.copy(alpha = 0.4f), Offset(w * 0.26f - 16f, groundY - 4f), Size(32f, 8f))
+            // Geometric bouncing trajectory curves
+            val h1 = h * 0.44f
+            val h2 = h * 0.28f
+            val h3 = h * 0.16f
+            val h4 = h * 0.08f
+
+            val bouncePath = Path().apply {
+                moveTo(w * 0.12f, groundY)
+                // Bounce 1
+                cubicTo(w * 0.16f, groundY - h1, w * 0.30f, groundY - h1, w * 0.36f, groundY)
+                // Bounce 2
+                cubicTo(w * 0.41f, groundY - h2, w * 0.53f, groundY - h2, w * 0.58f, groundY)
+                // Bounce 3
+                cubicTo(w * 0.62f, groundY - h3, w * 0.72f, groundY - h3, w * 0.76f, groundY)
+                // Bounce 4
+                cubicTo(w * 0.79f, groundY - h4, w * 0.87f, groundY - h4, w * 0.90f, groundY)
+            }
+            drawPath(
+                bouncePath,
+                AmberVibrant.copy(alpha = 0.85f),
+                style = Stroke(width = 2f, pathEffect = PathEffect.dashPathEffect(floatArrayOf(5f, 5f)))
+            )
+
+            // Impact shockwave ring at contact point 1
+            val impactX = w * 0.36f
+            drawCircle(
+                color = CoralNeon.copy(alpha = 0.7f),
+                radius = 10f,
+                center = Offset(impactX, groundY),
+                style = Stroke(width = 1.5f)
+            )
+            // Impact spark lines
+            drawLine(CoralNeon, Offset(impactX - 12f, groundY - 6f), Offset(impactX - 6f, groundY - 2f), 1.5f)
+            drawLine(CoralNeon, Offset(impactX + 12f, groundY - 6f), Offset(impactX + 6f, groundY - 2f), 1.5f)
+
+            // Apex 1: Primary 3D Ball
+            val apex1X = w * 0.24f
+            val apex1Y = groundY - h1
+            drawOval(
+                color = Color.Black.copy(alpha = 0.3f),
+                topLeft = Offset(apex1X - 14f, groundY - 3f),
+                size = Size(28f, 6f)
+            )
+            drawCircle(
+                brush = Brush.radialGradient(
+                    colors = listOf(Color.White, AmberVibrant, Color(0xFFE65100), Color(0xFF261208)),
+                    center = Offset(apex1X - 3f, apex1Y - 3f),
+                    radius = 14f
+                ),
+                radius = 11f,
+                center = Offset(apex1X, apex1Y)
+            )
+
+            // Apex 2: Ghost Ball (Cyan)
+            val apex2X = w * 0.48f
+            val apex2Y = groundY - h2
+            drawOval(
+                color = Color.Black.copy(alpha = 0.25f),
+                topLeft = Offset(apex2X - 11f, groundY - 3f),
+                size = Size(22f, 5f)
+            )
+            drawCircle(
+                color = CyanNeon.copy(alpha = 0.65f),
+                radius = 8.5f,
+                center = Offset(apex2X, apex2Y),
+                style = Stroke(width = 1.8f)
+            )
+            drawCircle(
+                color = CyanNeon.copy(alpha = 0.2f),
+                radius = 8.5f,
+                center = Offset(apex2X, apex2Y)
+            )
         }
         "newtons_cradle" -> {
             val cx = w * 0.5f
@@ -886,37 +941,179 @@ internal fun DrawScope.drawExperimentIllustration(id: String) {
             )
         }
         "fourier_series" -> {
-            val cy = h * 0.52f
-            val cx = w * 0.25f
+            val cy = h * 0.46f
+            val cx = w * 0.22f
 
-            // Circle 1
-            drawCircle(CyanNeon.copy(alpha = 0.4f), 32f, Offset(cx, cy), style = Stroke(width = 2f))
-            // Vector 1 (at ~45 deg)
-            val v1End = Offset(cx + 22f, cy - 22f)
+            // Epicycle 1 (Fundamental n=1)
+            val r1 = 30f
+            drawCircle(CyanNeon.copy(alpha = 0.35f), r1, Offset(cx, cy), style = Stroke(width = 1.8f))
+            val v1End = Offset(cx + 21f, cy - 21f)
             drawLine(CyanNeon, Offset(cx, cy), v1End, 2.5f, StrokeCap.Round)
+            drawCircle(CyanNeon, 3f, Offset(cx, cy))
 
-            // Circle 2 (attached at tip of 1)
-            drawCircle(AmberVibrant.copy(alpha = 0.5f), 12f, v1End, style = Stroke(width = 1.5f))
-            val v2End = Offset(v1End.x + 9f, v1End.y + 8f)
+            // Epicycle 2 (Harmonic n=3)
+            val r2 = 11f
+            drawCircle(AmberVibrant.copy(alpha = 0.45f), r2, v1End, style = Stroke(width = 1.4f))
+            val v2End = Offset(v1End.x + 8f, v1End.y + 7f)
             drawLine(AmberVibrant, v1End, v2End, 2f, StrokeCap.Round)
+            drawCircle(AmberVibrant, 2.5f, v1End)
 
-            // Laser projection line to wave
-            val waveStartX = w * 0.48f
-            drawLine(CoralNeon.copy(alpha = 0.7f), v2End, Offset(waveStartX, v2End.y), 2f, pathEffect = PathEffect.dashPathEffect(floatArrayOf(4f, 4f)))
+            // Epicycle 3 (Harmonic n=5)
+            val r3 = 6f
+            drawCircle(PurpleNeon.copy(alpha = 0.5f), r3, v2End, style = Stroke(width = 1.2f))
+            val v3End = Offset(v2End.x + 4f, v2End.y - 4f)
+            drawLine(PurpleNeon, v2End, v3End, 1.5f, StrokeCap.Round)
+            drawCircle(Color.White, 3f, v3End)
 
-            // Synthesized Square/Stepped Wave on the right
+            // Laser projection line to synthesized wave
+            val waveStartX = w * 0.44f
+            val waveEndX = w * 0.92f
+            drawLine(
+                color = CoralNeon.copy(alpha = 0.85f),
+                start = v3End,
+                end = Offset(waveStartX, v3End.y),
+                strokeWidth = 1.5f,
+                pathEffect = PathEffect.dashPathEffect(floatArrayOf(4f, 4f))
+            )
+            drawCircle(CoralNeon, 4f, Offset(waveStartX, v3End.y))
+
+            // Horizontal baseline
+            drawLine(ScienceBorder.copy(alpha = 0.5f), Offset(waveStartX, cy), Offset(waveEndX, cy), 1f)
+
+            // Synthesized Square Wave with Gibbs Phenomenon overshoot ripples
             val wavePath = Path().apply {
-                moveTo(waveStartX, v2End.y)
-                val sqTop = cy - 26f
-                val sqBot = cy + 26f
-                lineTo(waveStartX + 15f, sqTop)
-                lineTo(waveStartX + 45f, sqTop)
-                lineTo(waveStartX + 50f, sqBot)
-                lineTo(waveStartX + 80f, sqBot)
-                lineTo(waveStartX + 85f, sqTop)
-                lineTo(waveStartX + 105f, sqTop)
+                moveTo(waveStartX, cy - 25f)
+                // Gibbs ripple top
+                cubicTo(waveStartX + 6f, cy - 32f, waveStartX + 12f, cy - 22f, waveStartX + 18f, cy - 25f)
+                lineTo(waveStartX + 38f, cy - 25f)
+                // Fall
+                lineTo(waveStartX + 42f, cy + 25f)
+                // Gibbs ripple bottom
+                cubicTo(waveStartX + 48f, cy + 32f, waveStartX + 54f, cy + 22f, waveStartX + 60f, cy + 25f)
+                lineTo(waveStartX + 80f, cy + 25f)
+                // Rise
+                lineTo(waveStartX + 84f, cy - 25f)
+                cubicTo(waveStartX + 90f, cy - 32f, waveStartX + 96f, cy - 22f, waveStartX + 102f, cy - 25f)
+                lineTo(waveEndX, cy - 25f)
             }
-            drawPath(wavePath, CyanNeon, style = Stroke(width = 3f, cap = StrokeCap.Round, join = StrokeJoin.Round))
+            drawPath(wavePath, CyanNeon.copy(alpha = 0.4f), style = Stroke(width = 6f, cap = StrokeCap.Round, join = StrokeJoin.Round))
+            drawPath(wavePath, CyanNeon, style = Stroke(width = 2.5f, cap = StrokeCap.Round, join = StrokeJoin.Round))
+
+            // Mini FFT Harmonic Bars on bottom
+            val fftStartX = waveStartX + 20f
+            val fftBaseY = h * 0.82f
+            drawLine(Color.White.copy(alpha = 0.3f), Offset(fftStartX - 5f, fftBaseY), Offset(waveEndX, fftBaseY), 1f)
+            val barHeights = listOf(22f, 0f, 13f, 0f, 8f, 0f, 5f)
+            val barW = 6f
+            for (idx in barHeights.indices) {
+                val bh = barHeights[idx]
+                if (bh > 0f) {
+                    val bx = fftStartX + idx * (barW + 4f)
+                    drawRoundRect(
+                        color = if (idx == 0) CyanNeon else AmberVibrant,
+                        topLeft = Offset(bx, fftBaseY - bh),
+                        size = Size(barW, bh),
+                        cornerRadius = androidx.compose.ui.geometry.CornerRadius(2f)
+                    )
+                }
+            }
+        }
+        "chladni_plates" -> {
+            val cx = w * 0.5f
+            val cy = h * 0.5f
+            val plateSize = min(w * 0.74f, h * 0.76f)
+            val hp = plateSize * 0.5f
+            val pLeft = cx - hp
+            val pTop = cy - hp
+
+            // 1. Plate outer shadow & metal body
+            drawRoundRect(
+                color = CyanNeon.copy(alpha = 0.12f),
+                topLeft = Offset(pLeft - 4f, pTop - 4f),
+                size = Size(plateSize + 8f, plateSize + 8f),
+                cornerRadius = androidx.compose.ui.geometry.CornerRadius(10f)
+            )
+            drawRoundRect(
+                color = Color(0xFF141923),
+                topLeft = Offset(pLeft, pTop),
+                size = Size(plateSize, plateSize),
+                cornerRadius = androidx.compose.ui.geometry.CornerRadius(6f)
+            )
+            drawRoundRect(
+                color = ScienceBorder.copy(alpha = 0.85f),
+                topLeft = Offset(pLeft, pTop),
+                size = Size(plateSize, plateSize),
+                cornerRadius = androidx.compose.ui.geometry.CornerRadius(6f),
+                style = Stroke(width = 2f)
+            )
+
+            // Corner bolts
+            val bOff = 6f
+            val bRad = 2.5f
+            val bolts = listOf(
+                Offset(pLeft + bOff, pTop + bOff),
+                Offset(pLeft + plateSize - bOff, pTop + bOff),
+                Offset(pLeft + bOff, pTop + plateSize - bOff),
+                Offset(pLeft + plateSize - bOff, pTop + plateSize - bOff)
+            )
+            for (b in bolts) {
+                drawCircle(Color(0xFF90A4AE), bRad, b)
+            }
+
+            // 2. Vibration Antinode Patches (Purple glow)
+            val patchR = hp * 0.40f
+            drawCircle(PurpleNeon.copy(alpha = 0.22f), patchR, Offset(cx - hp * 0.5f, cy - hp * 0.5f))
+            drawCircle(PurpleNeon.copy(alpha = 0.22f), patchR, Offset(cx + hp * 0.5f, cy - hp * 0.5f))
+            drawCircle(PurpleNeon.copy(alpha = 0.22f), patchR, Offset(cx - hp * 0.5f, cy + hp * 0.5f))
+            drawCircle(PurpleNeon.copy(alpha = 0.22f), patchR, Offset(cx + hp * 0.5f, cy + hp * 0.5f))
+
+            // 3. Chladni Nodal Lines (Geometric Curves)
+            val ringPath = Path().apply {
+                addOval(androidx.compose.ui.geometry.Rect(cx - hp * 0.45f, cy - hp * 0.45f, cx + hp * 0.45f, cy + hp * 0.45f))
+            }
+            drawPath(ringPath, CyanNeon.copy(alpha = 0.45f), style = Stroke(width = 1.5f))
+
+            // Hyperbolic nodal lines connecting to edges
+            val hyperPath = Path().apply {
+                moveTo(pLeft + 8f, cy)
+                cubicTo(cx - hp * 0.45f, cy - hp * 0.2f, cx - hp * 0.2f, pTop + hp * 0.45f, cx, pTop + 8f)
+                moveTo(cx + hp * 0.45f, cy - hp * 0.2f, )
+                cubicTo(cx + hp * 0.45f, cy - hp * 0.2f, cx + hp * 0.2f, pTop + hp * 0.45f, cx, pTop + 8f)
+                moveTo(pLeft + 8f, cy)
+                cubicTo(cx - hp * 0.45f, cy + hp * 0.2f, cx - hp * 0.2f, cy + hp * 0.45f, cx, pTop + plateSize - 8f)
+                moveTo(pLeft + plateSize - 8f, cy)
+                cubicTo(cx + hp * 0.45f, cy + hp * 0.2f, cx + hp * 0.2f, cy + hp * 0.45f, cx, pTop + plateSize - 8f)
+                moveTo(pLeft + plateSize - 8f, cy)
+                cubicTo(cx + hp * 0.45f, cy - hp * 0.2f, cx + hp * 0.2f, pTop + hp * 0.45f, cx, pTop + 8f)
+            }
+            drawPath(hyperPath, CyanNeon.copy(alpha = 0.5f), style = Stroke(width = 1.5f))
+
+            // 4. Clustered Sand Grains (AmberVibrant points along nodal lines)
+            val sandCoords = listOf(
+                // Ring particles
+                0.0f to 0.45f, 0.32f to 0.32f, 0.45f to 0.0f, 0.32f to -0.32f,
+                0.0f to -0.45f, -0.32f to -0.32f, -0.45f to 0.0f, -0.32f to 0.32f,
+                0.15f to 0.42f, 0.42f to 0.15f, 0.42f to -0.15f, 0.15f to -0.42f,
+                -0.15f to -0.42f, -0.42f to -0.15f, -0.42f to 0.15f, -0.15f to 0.42f,
+                // Hyperbolic branch particles
+                -0.65f to 0.12f, -0.65f to -0.12f, 0.65f to 0.12f, 0.65f to -0.12f,
+                0.12f to -0.65f, -0.12f to -0.65f, 0.12f to 0.65f, -0.12f to 0.65f,
+                -0.80f to 0.05f, -0.80f to -0.05f, 0.80f to 0.05f, 0.80f to -0.05f,
+                0.05f to -0.80f, -0.05f to -0.80f, 0.05f to 0.80f, -0.05f to 0.80f,
+                // Scatter near nodes
+                -0.38f to 0.25f, 0.38f to 0.25f, -0.38f to -0.25f, 0.38f to -0.25f
+            )
+            for ((nx, ny) in sandCoords) {
+                val sx = cx + nx * hp
+                val sy = cy + ny * hp
+                drawCircle(AmberVibrant, 1.8f, Offset(sx, sy))
+                drawCircle(Color.White.copy(alpha = 0.7f), 0.8f, Offset(sx, sy))
+            }
+
+            // 5. Central Vibration Exciter Post
+            drawCircle(Color(0xFF263238), 9f, Offset(cx, cy))
+            drawCircle(CyanNeon, 6f, Offset(cx, cy), style = Stroke(width = 1.5f))
+            drawCircle(AmberVibrant, 2.5f, Offset(cx, cy))
         }
         "ideal_gas_piston" -> {
             val cyW = w * 0.45f
