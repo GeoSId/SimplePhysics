@@ -1077,7 +1077,7 @@ internal fun DrawScope.drawExperimentIllustration(id: String) {
             val hyperPath = Path().apply {
                 moveTo(pLeft + 8f, cy)
                 cubicTo(cx - hp * 0.45f, cy - hp * 0.2f, cx - hp * 0.2f, pTop + hp * 0.45f, cx, pTop + 8f)
-                moveTo(cx + hp * 0.45f, cy - hp * 0.2f, )
+                moveTo(cx + hp * 0.45f, cy - hp * 0.2f)
                 cubicTo(cx + hp * 0.45f, cy - hp * 0.2f, cx + hp * 0.2f, pTop + hp * 0.45f, cx, pTop + 8f)
                 moveTo(pLeft + 8f, cy)
                 cubicTo(cx - hp * 0.45f, cy + hp * 0.2f, cx - hp * 0.2f, cy + hp * 0.45f, cx, pTop + plateSize - 8f)
