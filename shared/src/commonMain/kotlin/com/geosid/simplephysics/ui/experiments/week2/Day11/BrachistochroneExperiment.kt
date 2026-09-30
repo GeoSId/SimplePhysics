@@ -2,6 +2,8 @@ package com.geosid.simplephysics.ui.experiments.week2.Day11
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -9,6 +11,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.*
 import androidx.compose.ui.graphics.drawscope.DrawScope
@@ -18,6 +21,7 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.geosid.simplephysics.ui.components.ExperimentHudCard
 import com.geosid.simplephysics.ui.components.PhysicsSliderControl
 import com.geosid.simplephysics.ui.components.ResetIcon
 import com.geosid.simplephysics.ui.components.ResponsiveExperimentContainer
@@ -191,11 +195,11 @@ fun BrachistochroneExperiment(
                 val w = size.width
                 val h = size.height
 
-                // Track Boundary Anchor Points (A = top-left start, B = bottom-right finish)
-                val startX = w * 0.12f
-                val startY = h * 0.22f
-                val endX = w * 0.88f
-                val endY = h * 0.78f
+                // Elevated Canvas Origin: Start at 0.14h, finish at 0.58h (leaving bottom 42% clear for controls)
+                val startX = w * 0.10f
+                val startY = h * 0.14f
+                val endX = w * 0.90f
+                val endY = h * 0.58f
                 val trackW = endX - startX
                 val trackH = endY - startY
 
@@ -275,9 +279,11 @@ fun BrachistochroneExperiment(
                 "Calculating..."
             }
 
-            TransparentTelemetryHud(
+            ExperimentHudCard(
                 modifier = Modifier.fillMaxWidth(),
-                title = if (mode == BrachistochroneMode.RACE) "Day 11: Brachistochrone Descent Race" else "Day 11: Tautochrone Isochrone Property",
+                title = if (mode == BrachistochroneMode.RACE) "Brachistochrone Descent Race" else "Tautochrone Isochrone Property",
+                backgroundColor = Color.Transparent,
+                borderColor = ScienceBorder.copy(alpha = 0.35f),
                 items = if (mode == BrachistochroneMode.RACE) {
                     listOf(
                         "Governing Principle" to "t = ∫ ds / √(2gy) ⇒ Cycloid Minimum",
@@ -302,86 +308,90 @@ fun BrachistochroneExperiment(
         controlsContent = {
             Column(
                 modifier = Modifier.fillMaxWidth(),
-                verticalArrangement = Arrangement.spacedBy(12.dp)
+                verticalArrangement = Arrangement.spacedBy(6.dp)
             ) {
-                // 1. Mode Selector (Clean FilterChips)
+                // 1. Mode Selector (Compact 32.dp buttons)
                 Row(
                     modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.spacedBy(8.dp),
+                    horizontalArrangement = Arrangement.spacedBy(6.dp),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     BrachistochroneMode.entries.forEach { m ->
                         val isSelected = mode == m
-                        FilterChip(
-                            selected = isSelected,
-                            onClick = {
-                                mode = m
-                                isRacing = false
-                                progCycloid = 0f
-                                progStraight = 0f
-                                progArc = 0f
-                                speedCycloid = 0f
-                                speedStraight = 0f
-                                speedArc = 0f
-                                finishTimeCycloid = null
-                                finishTimeStraight = null
-                                finishTimeArc = null
-                                progTauto1 = 0.70f
-                                progTauto2 = 0.35f
-                                progTauto3 = 0.00f
-                                tautoArrivalConfirmed = false
-                                raceTime = 0f
-                            },
-                            label = {
-                                Text(
-                                    text = "${m.icon} ${m.title}",
-                                    fontSize = 11.sp,
-                                    fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Normal
+                        Box(
+                            modifier = Modifier
+                                .weight(1f)
+                                .height(32.dp)
+                                .clip(RoundedCornerShape(8.dp))
+                                .background(if (isSelected) CyanNeon.copy(alpha = 0.25f) else ScienceDarkSurface)
+                                .border(
+                                    1.dp,
+                                    if (isSelected) CyanNeon else ScienceBorder.copy(alpha = 0.5f),
+                                    RoundedCornerShape(8.dp)
                                 )
-                            },
-                            colors = FilterChipDefaults.filterChipColors(
-                                selectedContainerColor = CyanNeon.copy(alpha = 0.25f),
-                                selectedLabelColor = CyanNeon,
-                                containerColor = ScienceDarkSurface,
-                                labelColor = TextSecondary
-                            ),
-                            shape = RoundedCornerShape(8.dp),
-                            modifier = Modifier.weight(1f)
-                        )
+                                .clickable {
+                                    mode = m
+                                    isRacing = false
+                                    progCycloid = 0f
+                                    progStraight = 0f
+                                    progArc = 0f
+                                    speedCycloid = 0f
+                                    speedStraight = 0f
+                                    speedArc = 0f
+                                    finishTimeCycloid = null
+                                    finishTimeStraight = null
+                                    finishTimeArc = null
+                                    progTauto1 = 0.70f
+                                    progTauto2 = 0.35f
+                                    progTauto3 = 0.00f
+                                    tautoArrivalConfirmed = false
+                                    raceTime = 0f
+                                },
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Text(
+                                text = "${m.icon} ${m.title}",
+                                fontSize = 10.sp,
+                                fontWeight = if (isSelected) FontWeight.Bold else FontWeight.Medium,
+                                color = if (isSelected) CyanNeon else TextPrimary
+                            )
+                        }
                     }
                 }
 
-                // 2. Gravity Environment Presets
+                // 2. Gravity Environment Presets (Compact 32.dp buttons)
                 Row(
                     modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.spacedBy(8.dp),
+                    horizontalArrangement = Arrangement.spacedBy(6.dp),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     listOf(
-                        "Earth (9.8 m/s²)" to 9.81f,
-                        "Moon (1.6 m/s²)" to 1.62f,
-                        "Mars (3.7 m/s²)" to 3.71f
+                        "Earth (9.8)" to 9.81f,
+                        "Moon (1.6)" to 1.62f,
+                        "Mars (3.7)" to 3.71f
                     ).forEach { (name, gVal) ->
                         val isSel = abs(gravity - gVal) < 0.1f
-                        FilterChip(
-                            selected = isSel,
-                            onClick = { gravity = gVal },
-                            label = {
-                                Text(
-                                    text = name,
-                                    fontSize = 11.sp,
-                                    fontWeight = if (isSel) FontWeight.Bold else FontWeight.Normal
+                        Box(
+                            modifier = Modifier
+                                .weight(1f)
+                                .height(32.dp)
+                                .clip(RoundedCornerShape(8.dp))
+                                .background(if (isSel) AmberVibrant.copy(alpha = 0.25f) else ScienceDarkSurface)
+                                .border(
+                                    1.dp,
+                                    if (isSel) AmberVibrant else ScienceBorder.copy(alpha = 0.5f),
+                                    RoundedCornerShape(8.dp)
                                 )
-                            },
-                            colors = FilterChipDefaults.filterChipColors(
-                                selectedContainerColor = AmberVibrant.copy(alpha = 0.25f),
-                                selectedLabelColor = AmberVibrant,
-                                containerColor = ScienceDarkSurface,
-                                labelColor = TextSecondary
-                            ),
-                            shape = RoundedCornerShape(8.dp),
-                            modifier = Modifier.weight(1f)
-                        )
+                                .clickable { gravity = gVal },
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Text(
+                                text = name,
+                                fontSize = 10.sp,
+                                fontWeight = if (isSel) FontWeight.Bold else FontWeight.Normal,
+                                color = if (isSel) AmberVibrant else TextPrimary
+                            )
+                        }
                     }
                 }
 
@@ -395,10 +405,10 @@ fun BrachistochroneExperiment(
                     onValueChange = { gravity = it }
                 )
 
-                // 4. Action Buttons Row
+                // 4. Action Buttons Row: Release & Race, Pause/Resume, Reset
                 Row(
                     modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.spacedBy(10.dp),
+                    horizontalArrangement = Arrangement.spacedBy(8.dp),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Button(
@@ -426,13 +436,16 @@ fun BrachistochroneExperiment(
                             containerColor = CyanNeon,
                             contentColor = ScienceDarkBg
                         ),
-                        shape = RoundedCornerShape(10.dp),
-                        modifier = Modifier.weight(1.4f)
+                        shape = RoundedCornerShape(8.dp),
+                        modifier = Modifier
+                            .weight(1.3f)
+                            .height(34.dp),
+                        contentPadding = PaddingValues(horizontal = 8.dp, vertical = 2.dp)
                     ) {
                         Text(
                             text = if (isRacing) "🏁 Racing..." else "🏁 Release & Race",
                             fontWeight = FontWeight.Bold,
-                            fontSize = 12.sp
+                            fontSize = 11.sp
                         )
                     }
 
@@ -442,13 +455,16 @@ fun BrachistochroneExperiment(
                             containerColor = if (isPaused) EmeraldNeon else AmberVibrant,
                             contentColor = ScienceDarkBg
                         ),
-                        shape = RoundedCornerShape(10.dp),
-                        modifier = Modifier.weight(1.1f)
+                        shape = RoundedCornerShape(8.dp),
+                        modifier = Modifier
+                            .weight(1.1f)
+                            .height(34.dp),
+                        contentPadding = PaddingValues(horizontal = 8.dp, vertical = 2.dp)
                     ) {
                         Text(
                             text = if (isPaused) "▶ Resume" else "⏸ Pause",
                             fontWeight = FontWeight.Bold,
-                            fontSize = 12.sp
+                            fontSize = 11.sp
                         )
                     }
 
@@ -473,83 +489,15 @@ fun BrachistochroneExperiment(
                             gravity = 9.81f
                         },
                         modifier = Modifier
-                            .size(42.dp)
-                            .background(ScienceDarkSurfaceVariant, RoundedCornerShape(10.dp))
+                            .size(34.dp)
+                            .background(ScienceDarkSurfaceVariant, RoundedCornerShape(8.dp))
                     ) {
-                        ResetIcon(tint = CyanNeon, modifier = Modifier.size(18.dp))
+                        ResetIcon(tint = CyanNeon, modifier = Modifier.size(16.dp))
                     }
                 }
             }
         }
     )
-}
-
-/**
- * Completely transparent HUD card displaying live physics metrics
- * so the user stays 100% focused on the experiment.
- */
-@Composable
-private fun TransparentTelemetryHud(
-    modifier: Modifier = Modifier,
-    title: String,
-    items: List<Pair<String, String>>
-) {
-    Column(
-        modifier = modifier
-            .background(Color.Transparent)
-            .padding(horizontal = 4.dp, vertical = 4.dp)
-    ) {
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Text(
-                text = "📊 $title".uppercase(),
-                color = CyanNeon.copy(alpha = 0.85f),
-                fontSize = 11.sp,
-                fontWeight = FontWeight.Bold,
-                letterSpacing = 1.sp
-            )
-            Surface(
-                color = CyanNeon.copy(alpha = 0.12f),
-                shape = RoundedCornerShape(4.dp)
-            ) {
-                Text(
-                    text = "LIVE",
-                    color = CyanNeon,
-                    fontSize = 9.sp,
-                    fontWeight = FontWeight.Bold,
-                    modifier = Modifier.padding(horizontal = 6.dp, vertical = 2.dp)
-                )
-            }
-        }
-        Spacer(Modifier.height(4.dp))
-        HorizontalDivider(color = ScienceBorder.copy(alpha = 0.35f), thickness = 0.8.dp)
-        Spacer(Modifier.height(4.dp))
-        items.forEach { (label, value) ->
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(vertical = 2.dp),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Text(
-                    text = label,
-                    color = TextSecondary.copy(alpha = 0.85f),
-                    fontSize = 12.sp
-                )
-                Text(
-                    text = value,
-                    color = TextPrimary,
-                    fontSize = 12.sp,
-                    fontFamily = FontFamily.Monospace,
-                    fontWeight = FontWeight.Bold
-                )
-            }
-        }
-    }
 }
 
 // ---------------------------------------------------------------------------
