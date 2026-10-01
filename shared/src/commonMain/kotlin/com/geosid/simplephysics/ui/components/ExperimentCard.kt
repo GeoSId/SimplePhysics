@@ -1115,6 +1115,123 @@ internal fun DrawScope.drawExperimentIllustration(id: String) {
             drawCircle(CyanNeon, 6f, Offset(cx, cy), style = Stroke(width = 1.5f))
             drawCircle(AmberVibrant, 2.5f, Offset(cx, cy))
         }
+        "acoustic_resonance_shatter" -> {
+            val cx = w * 0.62f
+            val cy = h * 0.36f
+            val glassR = min(w * 0.22f, h * 0.20f)
+            val stemLen = glassR * 1.35f
+            val footW = glassR * 1.1f
+            val bowlH = glassR * 1.15f
+            val footY = cy + bowlH + stemLen
+
+            // 1. Acoustic Speaker Transducer on Left
+            val spkX = w * 0.16f
+            val spkY = cy + bowlH * 0.2f
+            val spkH = h * 0.38f
+            val spkW = w * 0.10f
+
+            // Cabinet & Horn
+            drawRoundRect(
+                color = Color(0xFF1E2638),
+                topLeft = Offset(spkX - spkW, spkY - spkH * 0.5f),
+                size = Size(spkW, spkH),
+                cornerRadius = androidx.compose.ui.geometry.CornerRadius(3f)
+            )
+            val horn = Path().apply {
+                moveTo(spkX, spkY - spkH * 0.16f)
+                lineTo(spkX + spkW * 0.9f, spkY - spkH * 0.42f)
+                lineTo(spkX + spkW * 0.9f, spkY + spkH * 0.42f)
+                lineTo(spkX, spkY + spkH * 0.16f)
+                close()
+            }
+            drawPath(horn, color = Color(0xFF2A364F))
+            drawPath(horn, color = CyanNeon.copy(alpha = 0.8f), style = Stroke(width = 1.5f))
+            drawCircle(CoralNeon, 5f, Offset(spkX + spkW * 0.3f, spkY))
+
+            // 2. Sound Waves Expanding Toward Glass
+            for (i in 1..4) {
+                val waveX = spkX + spkW * 0.9f + i * (w * 0.08f)
+                val waveH = spkH * (0.3f + i * 0.2f)
+                val arcPath = Path().apply {
+                    moveTo(waveX, spkY - waveH * 0.5f)
+                    quadraticTo(waveX + 8f, spkY, waveX, spkY + waveH * 0.5f)
+                }
+                val alpha = (1f - i * 0.18f).coerceIn(0.2f, 0.9f)
+                drawPath(arcPath, color = if (i % 2 == 0) CoralNeon.copy(alpha = alpha) else AmberVibrant.copy(alpha = alpha), style = Stroke(width = 2f, cap = StrokeCap.Round))
+            }
+
+            // 3. Crystal Wine Glass (Foot, Stem, Bowl)
+            // Foot
+            drawLine(
+                color = Color.White.copy(alpha = 0.7f),
+                start = Offset(cx - footW * 0.5f, footY),
+                end = Offset(cx + footW * 0.5f, footY),
+                strokeWidth = 3f,
+                cap = StrokeCap.Round
+            )
+            drawLine(
+                color = CyanNeon,
+                start = Offset(cx - footW * 0.5f, footY),
+                end = Offset(cx + footW * 0.5f, footY),
+                strokeWidth = 1.2f,
+                cap = StrokeCap.Round
+            )
+            // Stem
+            drawLine(
+                color = Color.White.copy(alpha = 0.8f),
+                start = Offset(cx, cy + bowlH),
+                end = Offset(cx, footY),
+                strokeWidth = 2.5f,
+                cap = StrokeCap.Round
+            )
+            // Bowl
+            val bowlPath = Path().apply {
+                moveTo(cx - glassR, cy)
+                cubicTo(
+                    cx - glassR * 1.05f, cy + bowlH * 0.7f,
+                    cx - glassR * 0.3f, cy + bowlH,
+                    cx, cy + bowlH
+                )
+                cubicTo(
+                    cx + glassR * 0.3f, cy + bowlH,
+                    cx + glassR * 1.05f, cy + bowlH * 0.7f,
+                    cx + glassR, cy
+                )
+            }
+            drawPath(bowlPath, color = CyanNeon.copy(alpha = 0.12f))
+            drawPath(bowlPath, color = Color.White.copy(alpha = 0.6f), style = Stroke(width = 1.8f))
+
+            // 4. Quadrupole Elliptical Deformed Rim
+            val rimPath = Path()
+            val steps = 60
+            val deflection = glassR * 0.28f
+            for (i in 0..steps) {
+                val theta = (i.toFloat() / steps) * 2f * PI.toFloat()
+                val deltaR = deflection * cos(2f * theta)
+                val r = glassR + deltaR
+                val px = cx + r * cos(theta)
+                val py = cy + (r * sin(theta)) * 0.35f
+                if (i == 0) rimPath.moveTo(px, py) else rimPath.lineTo(px, py)
+            }
+            rimPath.close()
+
+            // Glowing rim & fracture stress
+            drawPath(rimPath, color = CoralNeon.copy(alpha = 0.35f), style = Stroke(width = 5f))
+            drawPath(rimPath, color = Color.White, style = Stroke(width = 2f))
+            drawPath(rimPath, color = CoralNeon, style = Stroke(width = 1f))
+
+            // Micro-cracks along maximum tensile stress point
+            val crackX = cx + glassR + deflection
+            val crackY = cy
+            drawLine(CoralNeon, Offset(crackX, crackY - 6f), Offset(crackX - 4f, crackY + 12f), strokeWidth = 1.8f)
+            drawLine(Color.White, Offset(crackX - 4f, crackY + 4f), Offset(crackX + 5f, crackY + 16f), strokeWidth = 1.2f)
+
+            // Nodal & Antinodal Markers
+            drawCircle(EmeraldNeon, 2.5f, Offset(cx + glassR * 0.707f, cy + (glassR * 0.707f) * 0.35f))
+            drawCircle(EmeraldNeon, 2.5f, Offset(cx - glassR * 0.707f, cy + (glassR * 0.707f) * 0.35f))
+            drawCircle(CoralNeon, 3f, Offset(cx + (glassR + deflection), cy))
+            drawCircle(CoralNeon, 3f, Offset(cx - (glassR + deflection), cy))
+        }
         "ideal_gas_piston" -> {
             val cyW = w * 0.45f
             val cyH = h * 0.72f
