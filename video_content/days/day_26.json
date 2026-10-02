@@ -1,0 +1,115 @@
+{
+  "day": 26,
+  "curiosity": "Why does a supersonic jet fly in absolute silence before the sonic boom strikes?",
+  "titles": {
+    "desktop": "The Shocking Physics Behind Sonic Booms: Why You Never Hear Supersonic Jets Coming",
+    "shorts": "The Shocking Secret of the Sonic Boom #Shorts"
+  },
+  "desktop_mission": {
+    "mission_title": "Day 26: Doppler Effect & Sonic Boom",
+    "mission_sub": "Wavefront Compression, Mach Cones & Shockwave Overpressure",
+    "voice_mission": "Today we're simulating the Doppler effect, Mach shock cones, and sonic booms in Kotlin.",
+    "math_cards": [
+      [
+        "DOPPLER PITCH SHIFT",
+        "f' = f0 / (1 - M·cos θ)",
+        "Pitch scales with line-of-sight relative velocity"
+      ],
+      [
+        "MACH CONE HALF-ANGLE",
+        "sin μ = 1 / M = c / vs",
+        "Tangential shock envelope formed when source exceeds sound speed"
+      ],
+      [
+        "SONIC BOOM OVERPRESSURE",
+        "ΔP ∝ (M² - 1)^(1/8) / h^(3/4)",
+        "Wavefront pile-up releases sudden explosive N-wave jump"
+      ]
+    ],
+    "voice_math": "The mathematical foundation: Doppler pitch shift, Mach cone half-angle, and sonic boom shock overpressure."
+  },
+  "fact_cards": [
+    [
+      "Doppler Shift",
+      "f' = f0 / (1 - M·cos θ)"
+    ],
+    [
+      "Mach Angle",
+      "sin μ = 1 / M"
+    ],
+    [
+      "Sonic Boom",
+      "ΔP / P0 ∝ sqrt(M² - 1)"
+    ]
+  ],
+  "math_steps": [
+    {
+      "step_num": 1,
+      "badge": "EQUATION 1 OF 3 • DOPPLER FREQUENCY SHIFT",
+      "formula": "f'_{ahead} = f_0 / (1 - M),   f'_{behind} = f_0 / (1 + M)",
+      "note": "Pitch compresses ahead and stretches behind as the source moves",
+      "color": [
+        0,
+        220,
+        255
+      ],
+      "code": "// 1. Classical acoustic Doppler frequency shifts\nval fAheadRatio = if (machNumber < 1.0f) 1.0f / (1.0f - machNumber) else Float.POSITIVE_INFINITY\nval fBehindRatio = 1.0f / (1.0f + machNumber)\n",
+      "sub_icon": "📢",
+      "sub_tag": "STEP 1 • DOPPLER SHIFT",
+      "sub_title": "Acoustic Frequency Compression",
+      "sub_desc": "Calculates apparent pitch ahead and behind the moving source."
+    },
+    {
+      "step_num": 2,
+      "badge": "EQUATION 2 OF 3 • MACH CONE ANGLE",
+      "formula": "sin μ = 1 / M = c / vs",
+      "note": "At supersonic speed, emitted spherical waves form a tangent cone",
+      "color": [
+        255,
+        215,
+        65
+      ],
+      "code": "// 2. Mach cone half-opening angle\nval machAngleDeg = if (machNumber >= 1.0f) {\n    asin((1.0f / machNumber).coerceIn(0f, 1f)) * (180f / PI.toFloat())\n} else 0f\n",
+      "sub_icon": "📐",
+      "sub_tag": "STEP 2 • MACH CONE",
+      "sub_title": "Supersonic Shock Geometry",
+      "sub_desc": "Determines the half-opening angle of the conical shockwave envelope."
+    },
+    {
+      "step_num": 3,
+      "badge": "EQUATION 3 OF 3 • SONIC BOOM IMPACT",
+      "formula": "Shock: |y_obs - ys| <= (xs - x_obs) · tan μ",
+      "note": "The observer hears nothing until the shock cone surface sweeps past",
+      "color": [
+        255,
+        110,
+        110
+      ],
+      "code": "// 3. Observer shock boundary intersection and sonic boom\nval obsDx = jetX - observerPos.x\nval obsDy = abs(observerPos.y - flightY)\nval tanMu = 1.0f / sqrt(machNumber * machNumber - 1f)\nval isInsideCone = if (obsDx <= 0f) false else obsDy <= obsDx * tanMu\n",
+      "sub_icon": "💥",
+      "sub_tag": "STEP 3 • SONIC BOOM",
+      "sub_title": "Observer Shockwave Crossing",
+      "sub_desc": "Triggers explosive overpressure pulse when the Mach envelope hits."
+    }
+  ],
+  "mystery": {
+    "en": "Why do you NEVER hear a supersonic jet before it passes?"
+  },
+  "phenomenon": {
+    "en": {
+      "tag": "★ SUPERSONIC ACOUSTICS",
+      "title": "Doppler Shift & Mach Shock Cones",
+      "teaser": "When an aircraft breaks Mach 1, spherical wavefronts fuse into a conical sonic boom shockwave."
+    }
+  },
+  "narration": {
+    "en": {
+      "hook": "Why does a supersonic jet fly in dead silence until a thunderous double boom strikes the ground?",
+      "math": "As flight speed passes Mach 1, sound waves pile up into a conical shock envelope with half-angle arcsin of 1 over Mach, creating a zone of total silence ahead and a violent pressure step at the boundary.",
+      "question": "Can we simulate supersonic Doppler shock cones in Kotlin Multiplatform?",
+      "code_intro": "Written in Kotlin Multiplatform.",
+      "code_tip": "We integrate moving acoustic wavefronts, calculate the Mach cone angle, and detect ground shock impacts live on Canvas.",
+      "payoff": "Doppler frequency compression and supersonic Mach cones running live in Kotlin."
+    }
+  }
+}

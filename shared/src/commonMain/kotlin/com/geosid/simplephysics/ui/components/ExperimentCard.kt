@@ -1232,6 +1232,108 @@ internal fun DrawScope.drawExperimentIllustration(id: String) {
             drawCircle(CoralNeon, 3f, Offset(cx + (glassR + deflection), cy))
             drawCircle(CoralNeon, 3f, Offset(cx - (glassR + deflection), cy))
         }
+        "doppler_mach_cones" -> {
+            val cy = h * 0.42f
+            val jetX = w * 0.70f
+            val mach = 1.45f
+            val muRad = asin(1f / mach) // ~43.6 deg
+
+            // 1. Shaded Mach Shock Wave Cone
+            val coneLen = w * 0.85f
+            val backDx = coneLen * cos(muRad)
+            val halfDy = coneLen * sin(muRad)
+
+            val conePath = Path().apply {
+                moveTo(jetX, cy)
+                lineTo(jetX - backDx, cy - halfDy)
+                lineTo(jetX - backDx, cy + halfDy)
+                close()
+            }
+            drawPath(
+                path = conePath,
+                brush = Brush.horizontalGradient(
+                    colors = listOf(AmberVibrant.copy(alpha = 0.22f), CoralNeon.copy(alpha = 0.06f), Color.Transparent),
+                    startX = jetX,
+                    endX = jetX - backDx
+                )
+            )
+
+            // 2. Tangent Shock Front Boundary Lines (Glowing Amber)
+            drawLine(
+                color = AmberVibrant,
+                start = Offset(jetX, cy),
+                end = Offset(jetX - backDx, cy - halfDy),
+                strokeWidth = 2.2f,
+                cap = StrokeCap.Round
+            )
+            drawLine(
+                color = AmberVibrant,
+                start = Offset(jetX, cy),
+                end = Offset(jetX - backDx, cy + halfDy),
+                strokeWidth = 2.2f,
+                cap = StrokeCap.Round
+            )
+
+            // 3. Emitted Circular Acoustic Wavefronts Tangent to Cone
+            val numWaves = 4
+            for (i in 1..numWaves) {
+                val pastDist = i * (w * 0.13f)
+                val emitX = jetX - pastDist
+                val waveRadius = pastDist / mach
+                val alpha = (1f - i * 0.20f).coerceIn(0.25f, 0.9f)
+                drawCircle(
+                    color = CyanNeon.copy(alpha = alpha * 0.75f),
+                    radius = waveRadius,
+                    center = Offset(emitX, cy),
+                    style = Stroke(width = 1.5f)
+                )
+                // Past emission point markers
+                drawCircle(Color.White.copy(alpha = 0.5f), 1.5f, Offset(emitX, cy))
+            }
+
+            // 4. Ground Plane & Observer Station
+            val groundY = h * 0.82f
+            drawLine(
+                color = EmeraldNeon.copy(alpha = 0.45f),
+                start = Offset(0f, groundY),
+                end = Offset(w, groundY),
+                strokeWidth = 1.5f
+            )
+            val obsX = w * 0.32f
+            // Observer radar post
+            drawLine(ScienceBorder, Offset(obsX, groundY - 14f), Offset(obsX, groundY), 1.8f)
+            drawCircle(EmeraldNeon, 4.5f, Offset(obsX, groundY - 14f))
+            drawCircle(CoralNeon.copy(alpha = 0.7f), 9f, Offset(obsX, groundY - 14f), style = Stroke(width = 1.2f))
+
+            // 5. Supersonic Jet Vector
+            val jetLen = 28f
+            val jetSpan = 16f
+            // Afterburner Flame
+            val flamePath = Path().apply {
+                moveTo(jetX - jetLen * 0.45f, cy - 2f)
+                lineTo(jetX - jetLen * 0.85f, cy)
+                lineTo(jetX - jetLen * 0.45f, cy + 2f)
+                close()
+            }
+            drawPath(flamePath, CoralNeon)
+
+            // Aircraft Fuselage & Delta Wings
+            val jetPath = Path().apply {
+                moveTo(jetX + jetLen * 0.5f, cy) // Needle nose
+                lineTo(jetX + jetLen * 0.1f, cy - 2.5f)
+                lineTo(jetX - jetLen * 0.25f, cy - jetSpan * 0.5f) // Wing tip left
+                lineTo(jetX - jetLen * 0.2f, cy - 2f)
+                lineTo(jetX - jetLen * 0.45f, cy - 2f)
+                lineTo(jetX - jetLen * 0.45f, cy + 2f)
+                lineTo(jetX - jetLen * 0.2f, cy + 2f)
+                lineTo(jetX - jetLen * 0.25f, cy + jetSpan * 0.5f) // Wing tip right
+                lineTo(jetX + jetLen * 0.1f, cy + 2.5f)
+                close()
+            }
+            drawPath(jetPath, ScienceDarkSurfaceVariant)
+            drawPath(jetPath, AmberVibrant, style = Stroke(width = 1.5f))
+            drawCircle(Color.White, 1.2f, Offset(jetX + jetLen * 0.15f, cy))
+        }
         "ideal_gas_piston" -> {
             val cyW = w * 0.45f
             val cyH = h * 0.72f
