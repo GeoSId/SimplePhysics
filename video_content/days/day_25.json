@@ -1,0 +1,115 @@
+{
+  "day": 25,
+  "curiosity": "Can a pure human vocal note actually shatter a crystal wine glass?",
+  "titles": {
+    "desktop": "Why Pure Sound Can Shatter Solid Glass: The Hidden Physics of Acoustic Resonance",
+    "shorts": "The Secret Frequency That Can Shatter Glass #Shorts"
+  },
+  "desktop_mission": {
+    "mission_title": "Day 25: Acoustic Glass Shatter",
+    "mission_sub": "Q-Factor, Driven Rim Amplitude & Silica Fracture Threshold",
+    "voice_mission": "Today we're simulating acoustic resonance and wine-glass fracture in Kotlin.",
+    "math_cards": [
+      [
+        "QUALITY FACTOR",
+        "Q = f0 / Δf",
+        "Sharpness of the glass eigenfrequency peak"
+      ],
+      [
+        "DRIVEN RIM AMPLITUDE",
+        "A(f) = (F0/m) / sqrt((f0^2 - f^2)^2 + (γ f)^2)",
+        "Steady flex of the quadrupolar rim mode"
+      ],
+      [
+        "FRACTURE THRESHOLD",
+        "σ / σ_silica = A·f0^2 / ((F0/m)·Q_fracture)",
+        "Hoop stress releases stored modal energy as shards"
+      ]
+    ],
+    "voice_math": "The mathematical foundation: quality factor, driven rim amplitude, and the silica fracture threshold."
+  },
+  "fact_cards": [
+    [
+      "Quality Factor",
+      "Q = f0 / Δf"
+    ],
+    [
+      "Rim Amplitude",
+      "A(f) = (F/m) / sqrt((f0²-f²)²+(γf)²)"
+    ],
+    [
+      "Fracture Stress",
+      "σ ≥ σ_silica  when Q is high"
+    ]
+  ],
+  "math_steps": [
+    {
+      "step_num": 1,
+      "badge": "EQUATION 1 OF 3 • QUALITY FACTOR",
+      "formula": "Q = f0 / Δf,   γ = Δf",
+      "note": "A higher Q stores more energy per cycle and narrows the peak",
+      "color": [
+        0,
+        220,
+        255
+      ],
+      "code": "// 1. Quality factor sets the resonance bandwidth\nval deltaF = f0 / q\nval gamma = deltaF\n",
+      "sub_icon": "🔔",
+      "sub_tag": "STEP 1 • RESONANCE WIDTH",
+      "sub_title": "Quality Factor Bandwidth",
+      "sub_desc": "Sets how sharply the glass responds around its eigenfrequency."
+    },
+    {
+      "step_num": 2,
+      "badge": "EQUATION 2 OF 3 • DRIVEN RIM AMPLITUDE",
+      "formula": "A(f) = (F0/m) / sqrt((f0^2 - f^2)^2 + (γ f)^2)",
+      "note": "Steady flex of the rim peaks when the tone matches f0",
+      "color": [
+        255,
+        215,
+        65
+      ],
+      "code": "\n// 2. Driven-oscillator steady-state rim amplitude\nval detune = f0 * f0 - driveFreq * driveFreq\nval denom = sqrt(detune * detune + (gamma * driveFreq) * (gamma * driveFreq))\nval aSteady = if (resonator.shattered) 0f else driveForce / denom.coerceAtLeast(1e-4f)\n",
+      "sub_icon": "〰️",
+      "sub_tag": "STEP 2 • RIM AMPLITUDE",
+      "sub_title": "Driven Oscillator Response",
+      "sub_desc": "Computes how far the quadrupolar rim flexes at the current tone."
+    },
+    {
+      "step_num": 3,
+      "badge": "EQUATION 3 OF 3 • FRACTURE THRESHOLD",
+      "formula": "σ / σ_silica = A·f0^2 / ((F0/m)·Q_fracture)",
+      "note": "On resonance with unit drive, the glass fractures when Q reaches 100",
+      "color": [
+        80,
+        225,
+        160
+      ],
+      "code": "\n// 3. Hoop stress versus the silica fracture limit\nval scale = (forceOverMass * qFracture).coerceAtLeast(1e-4f)\nreturn (amplitude * f0 * f0) / scale\nval stress = hoopStressRatio(resonator.amplitude, f0, driveForce)\nif (!resonator.shattered && stress >= 1f) {\n",
+      "sub_icon": "💥",
+      "sub_tag": "STEP 3 • FRACTURE",
+      "sub_title": "Silica Hoop-Stress Limit",
+      "sub_desc": "Releases the stored modal energy once hoop stress crosses the glass limit."
+    }
+  ],
+  "mystery": {
+    "en": "Why does one exact note SHATTER a wine glass?"
+  },
+  "phenomenon": {
+    "en": {
+      "tag": "★ ACOUSTIC RESONANCE",
+      "title": "Q-Factor and Wine-Glass Fracture",
+      "teaser": "A tone locked to the rim eigenfrequency stores energy until hoop stress snaps the glass."
+    }
+  },
+  "narration": {
+    "en": {
+      "hook": "Can one pure musical note store enough energy to shatter solid crystal?",
+      "math": "At resonance the drive matches the glass eigenfrequency, and a high Q-factor stacks energy every cycle until hoop stress exceeds the strength of silica.",
+      "question": "Can we simulate acoustic glass resonance in Kotlin Multiplatform?",
+      "code_intro": "Written in Kotlin Multiplatform.",
+      "code_tip": "We integrate the driven-oscillator amplitude with Q-factor bandwidth and a silica fracture threshold.",
+      "payoff": "Resonant ring-up and wine-glass fracture running live in Kotlin."
+    }
+  }
+}
