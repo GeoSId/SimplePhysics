@@ -1,0 +1,115 @@
+{
+  "day": 27,
+  "curiosity": "Why does a 2 Hz frequency difference sound like a pleasant thrum, but a 15 Hz difference sounds harsh and dissonant?",
+  "titles": {
+    "desktop": "The Secret Math Behind Acoustic Beats: Why Out-of-Tune Notes Wobble",
+    "shorts": "The Shocking Secret of Acoustic Beats #Shorts"
+  },
+  "desktop_mission": {
+    "mission_title": "Day 27: Acoustic Beats & Interference",
+    "mission_sub": "Wave Superposition, Envelope Modulation & Sensory Roughness",
+    "voice_mission": "Today we're simulating acoustic beats, wave superposition, and envelope pulsing in Kotlin.",
+    "math_cards": [
+      [
+        "SUPERPOSITION PRINCIPLE",
+        "y(t) = y1(t) + y2(t) = 2A·cos(π·Δf·t)·sin(2π·fc·t)",
+        "Linear addition of pure tones creates carrier modulated by envelope"
+      ],
+      [
+        "ACOUSTIC BEAT FREQUENCY",
+        "f_beat = |f1 - f2|,   T_beat = 1 / f_beat",
+        "Volume pulses at difference frequency between the two sound sources"
+      ],
+      [
+        "ACOUSTIC INTENSITY PULSING",
+        "I(t) ∝ A_env(t)² = 2A²·(1 + cos(2π·f_beat·t))",
+        "Energy redistributes from destructive nodes to constructive peaks"
+      ]
+    ],
+    "voice_math": "The mathematical foundation: wave superposition, acoustic beat frequency, and intensity modulation."
+  },
+  "fact_cards": [
+    [
+      "Superposition",
+      "y(t) = y1(t) + y2(t)"
+    ],
+    [
+      "Beat Frequency",
+      "f_beat = |f1 - f2|"
+    ],
+    [
+      "Sound Intensity",
+      "I(t) ∝ 1 + cos(2π·f_beat·t)"
+    ]
+  ],
+  "math_steps": [
+    {
+      "step_num": 1,
+      "badge": "EQUATION 1 OF 3 • BEAT FREQUENCY & CARRIER",
+      "formula": "f_{beat} = |f_1 - f_2|,   f_c = (f_1 + f_2) / 2",
+      "note": "Pulsing volume rate is the difference between the two acoustic frequencies",
+      "color": [
+        0,
+        220,
+        255
+      ],
+      "code": "// 1. Classical acoustic beat frequency and carrier pitch\nval beatFreq = abs(f1 - f2)\nval carrierFreq = (f1 + f2) / 2f\nval beatPeriodSec = if (beatFreq > 0.05f) 1.0f / beatFreq else Float.POSITIVE_INFINITY\n",
+      "sub_icon": "🎵",
+      "sub_tag": "STEP 1 • BEAT FREQUENCY",
+      "sub_title": "Difference Frequency Calculation",
+      "sub_desc": "Computes apparent carrier pitch and rhythmic volume thrum period."
+    },
+    {
+      "step_num": 2,
+      "badge": "EQUATION 2 OF 3 • AMPLITUDE ENVELOPE",
+      "formula": "A_{env}(t) = 2A |cos(π·(f_1 - f_2)·t)|",
+      "note": "Trigonometric product identity reveals a slowly breathing amplitude envelope",
+      "color": [
+        255,
+        215,
+        65
+      ],
+      "code": "// 2. Wave superposition and modulated envelope\nval envelopeAmp = 2f * amp1 * abs(cos(PI.toFloat() * (f1 - f2) * simTime))\nval carrierOsc = sin(2 * PI.toFloat() * carrierFreq * simTime)\nval yCombined = envelopeAmp * carrierOsc\n",
+      "sub_icon": "🌊",
+      "sub_tag": "STEP 2 • ENVELOPE MODULATION",
+      "sub_title": "Superposition Envelope",
+      "sub_desc": "Combines pure sinusoids into a pulsating envelope waveform."
+    },
+    {
+      "step_num": 3,
+      "badge": "EQUATION 3 OF 3 • ACOUSTIC INTENSITY PULSE",
+      "formula": "I(t) / I_{max} = (A_{env}(t) / 2A)^2",
+      "note": "Sound intensity quadruples at constructive crests and drops to silence at nodes",
+      "color": [
+        255,
+        110,
+        110
+      ],
+      "code": "// 3. Acoustic intensity and sound power modulation\nval intensityNorm = ((yCombined / (amp1 + amp2))).pow(2)\nval peakPowerRatio = ((amp1 + amp2) / (amp1.coerceAtLeast(0.1f))).pow(2)\n",
+      "sub_icon": "💥",
+      "sub_tag": "STEP 3 • SOUND INTENSITY",
+      "sub_title": "Acoustic Power Dynamics",
+      "sub_desc": "Determines instantaneous audio loudness and peak-to-trough power ratio."
+    }
+  ],
+  "mystery": {
+    "en": "Why do two slightly out-of-tune notes produce a pulsating rhythm?"
+  },
+  "phenomenon": {
+    "en": {
+      "tag": "★ ACOUSTIC INTERFERENCE",
+      "title": "Acoustic Beats & Wave Interference",
+      "teaser": "When two close sound waves overlap, constructive and destructive interference create rhythmic volume beats."
+    }
+  },
+  "narration": {
+    "en": {
+      "hook": "Why does playing two notes just two hertz apart make the sound wobble with a rhythmic pulsing beat?",
+      "math": "By trigonometric superposition, two nearby frequencies fuse into a carrier tone modulated by a slow amplitude envelope oscillating at the difference frequency f1 minus f2.",
+      "question": "Can we simulate acoustic beats and interference envelopes live in Kotlin Multiplatform?",
+      "code_intro": "Written in Kotlin Multiplatform.",
+      "code_tip": "We calculate the exact beat period, synthesize dual audio waveforms, and render real-time phasor interference on Canvas.",
+      "payoff": "Acoustic beat interference and envelope modulation running live in Kotlin."
+    }
+  }
+}

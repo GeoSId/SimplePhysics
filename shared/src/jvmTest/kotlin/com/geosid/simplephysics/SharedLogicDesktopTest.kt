@@ -101,4 +101,43 @@ class SharedLogicDesktopTest {
             assertTrue(rateAtPerihelion >= rateAtAphelion)
         }
     }
+
+    @Test
+    fun testDay27Registry() {
+        assertTrue(ExperimentScreenRegistry.isReleased("acoustic_beats"))
+        assertNotNull(ExperimentScreenRegistry.getScreen("acoustic_beats"))
+    }
+
+    @Test
+    fun testDay27AcousticBeatsPhysics() {
+        val f1 = 440.0f
+        val f2 = 442.0f
+        val amp1 = 1.0f
+        val amp2 = 1.0f
+
+        val beatFreq = kotlin.math.abs(f1 - f2)
+        val carrierFreq = (f1 + f2) / 2f
+        val beatPeriod = 1.0f / beatFreq
+
+        assertEquals(2.0f, beatFreq, 0.001f)
+        assertEquals(441.0f, carrierFreq, 0.001f)
+        assertEquals(0.500f, beatPeriod, 0.001f)
+
+        // Constructive interference amplitude: A1 + A2
+        val maxAmp = amp1 + amp2
+        assertEquals(2.0f, maxAmp, 0.001f)
+
+        // Destructive interference amplitude: |A1 - A2|
+        val minAmp = kotlin.math.abs(amp1 - amp2)
+        assertEquals(0.0f, minAmp, 0.001f)
+
+        // Acoustic intensity scales quadratically: I_max = (A1 + A2)^2 = 4 * A^2
+        val maxIntensity = maxAmp * maxAmp
+        assertEquals(4.0f, maxIntensity, 0.001f)
+
+        // Unequal amplitude test (residual volume at destructive node)
+        val unequalAmp2 = 0.6f
+        val minUnequalAmp = kotlin.math.abs(amp1 - unequalAmp2)
+        assertEquals(0.4f, minUnequalAmp, 0.001f)
+    }
 }

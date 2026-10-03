@@ -1334,6 +1334,119 @@ internal fun DrawScope.drawExperimentIllustration(id: String) {
             drawPath(jetPath, AmberVibrant, style = Stroke(width = 1.5f))
             drawCircle(Color.White, 1.2f, Offset(jetX + jetLen * 0.15f, cy))
         }
+        "acoustic_beats" -> {
+            val cy = h * 0.48f
+            val leftX = w * 0.18f
+            val rightX = w * 0.94f
+            val waveSpan = rightX - leftX
+
+            // 1. Dual Tuning Forks on left
+            val forkX = w * 0.10f
+            val handleLen = w * 0.05f
+            val tineLen = w * 0.07f
+            val tineGap = h * 0.12f
+
+            // Fork 1 (Cyan)
+            val yFork1 = cy - h * 0.22f
+            drawLine(ScienceBorder, Offset(forkX - handleLen, yFork1), Offset(forkX, yFork1), strokeWidth = 2.5f, cap = StrokeCap.Round)
+            val forkPath1 = Path().apply {
+                moveTo(forkX + tineLen, yFork1 - tineGap * 0.5f)
+                lineTo(forkX, yFork1 - tineGap * 0.5f)
+                quadraticTo(forkX - 3f, yFork1, forkX, yFork1 + tineGap * 0.5f)
+                lineTo(forkX + tineLen, yFork1 + tineGap * 0.5f)
+            }
+            drawPath(forkPath1, CyanNeon, style = Stroke(width = 2f, cap = StrokeCap.Round))
+            drawArc(
+                color = CyanNeon.copy(alpha = 0.5f),
+                startAngle = -45f,
+                sweepAngle = 90f,
+                useCenter = false,
+                topLeft = Offset(forkX + tineLen - 8f, yFork1 - 10f),
+                size = Size(20f, 20f),
+                style = Stroke(width = 1.2f)
+            )
+
+            // Fork 2 (Coral)
+            val yFork2 = cy + h * 0.22f
+            drawLine(ScienceBorder, Offset(forkX - handleLen, yFork2), Offset(forkX, yFork2), strokeWidth = 2.5f, cap = StrokeCap.Round)
+            val forkPath2 = Path().apply {
+                moveTo(forkX + tineLen, yFork2 - tineGap * 0.5f)
+                lineTo(forkX, yFork2 - tineGap * 0.5f)
+                quadraticTo(forkX - 3f, yFork2, forkX, yFork2 + tineGap * 0.5f)
+                lineTo(forkX + tineLen, yFork2 + tineGap * 0.5f)
+            }
+            drawPath(forkPath2, CoralNeon, style = Stroke(width = 2f, cap = StrokeCap.Round))
+            drawArc(
+                color = CoralNeon.copy(alpha = 0.5f),
+                startAngle = -45f,
+                sweepAngle = 90f,
+                useCenter = false,
+                topLeft = Offset(forkX + tineLen - 8f, yFork2 - 10f),
+                size = Size(20f, 20f),
+                style = Stroke(width = 1.2f)
+            )
+
+            // 2. Center Equilibrium Axis
+            drawLine(
+                color = ScienceBorder.copy(alpha = 0.45f),
+                start = Offset(leftX, cy),
+                end = Offset(rightX, cy),
+                strokeWidth = 1f,
+                pathEffect = PathEffect.dashPathEffect(floatArrayOf(4f, 4f))
+            )
+
+            // 3. Modulated Beat Waveform & Envelope
+            val amp = h * 0.28f
+            val numPts = 120
+            val pathSum = Path()
+            val pathEnvUpper = Path()
+            val pathEnvLower = Path()
+
+            for (i in 0..numPts) {
+                val frac = i / numPts.toFloat()
+                val x = leftX + frac * waveSpan
+                val env = abs(cos(frac * 2.0f * PI.toFloat()))
+                val carrier = sin(frac * 16.0f * PI.toFloat())
+                val ySum = cy + env * carrier * amp
+                val yEnvUp = cy - env * amp
+                val yEnvDown = cy + env * amp
+
+                if (i == 0) {
+                    pathSum.moveTo(x, ySum)
+                    pathEnvUpper.moveTo(x, yEnvUp)
+                    pathEnvLower.moveTo(x, yEnvDown)
+                } else {
+                    pathSum.lineTo(x, ySum)
+                    pathEnvUpper.lineTo(x, yEnvUp)
+                    pathEnvLower.lineTo(x, yEnvDown)
+                }
+            }
+
+            // Draw Dashed Envelope
+            val envDash = PathEffect.dashPathEffect(floatArrayOf(5f, 4f))
+            drawPath(pathEnvUpper, EmeraldNeon.copy(alpha = 0.75f), style = Stroke(width = 1.4f, pathEffect = envDash))
+            drawPath(pathEnvLower, EmeraldNeon.copy(alpha = 0.75f), style = Stroke(width = 1.4f, pathEffect = envDash))
+
+            // Draw Combined Beat Waveform with glow
+            drawPath(pathSum, AmberVibrant.copy(alpha = 0.25f), style = Stroke(width = 4f, cap = StrokeCap.Round))
+            drawPath(pathSum, AmberVibrant, style = Stroke(width = 1.8f, cap = StrokeCap.Round))
+
+            // 4. Constructive Antinode & Destructive Node Highlights
+            drawCircle(AmberVibrant.copy(alpha = 0.35f), 6f, Offset(leftX, cy))
+            drawCircle(AmberVibrant, 2.5f, Offset(leftX, cy))
+            val midX = leftX + 0.5f * waveSpan
+            drawCircle(AmberVibrant.copy(alpha = 0.35f), 6f, Offset(midX, cy))
+            drawCircle(AmberVibrant, 2.5f, Offset(midX, cy))
+            drawCircle(AmberVibrant.copy(alpha = 0.35f), 6f, Offset(rightX, cy))
+            drawCircle(AmberVibrant, 2.5f, Offset(rightX, cy))
+
+            val node1X = leftX + 0.25f * waveSpan
+            drawCircle(CoralNeon, 2.5f, Offset(node1X, cy))
+            drawCircle(CoralNeon.copy(alpha = 0.3f), 5f, Offset(node1X, cy), style = Stroke(width = 1f))
+            val node2X = leftX + 0.75f * waveSpan
+            drawCircle(CoralNeon, 2.5f, Offset(node2X, cy))
+            drawCircle(CoralNeon.copy(alpha = 0.3f), 5f, Offset(node2X, cy), style = Stroke(width = 1f))
+        }
         "ideal_gas_piston" -> {
             val cyW = w * 0.45f
             val cyH = h * 0.72f
