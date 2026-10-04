@@ -1,0 +1,115 @@
+{
+  "day": 28,
+  "curiosity": "Why did a steady 42 mph wind destroy the Tacoma bridge when violent 60 mph gusts couldn't?",
+  "titles": {
+    "desktop": "The Shocking Engineering Mistake That Tore a Bridge in Half: The Real Physics of Flutter",
+    "shorts": "The Shocking Secret of the Tacoma Bridge Collapse #Shorts"
+  },
+  "desktop_mission": {
+    "mission_title": "Day 28: Tacoma Narrows Aeroelastic Flutter",
+    "mission_sub": "Self-Excited Torsional Instability & Dynamic Stall",
+    "voice_mission": "Today we're simulating the Tacoma Narrows bridge collapse and aeroelastic flutter in Kotlin.",
+    "math_cards": [
+      [
+        "TORSIONAL EQUATION OF MOTION",
+        "I_θ·θ'' + c_θ·θ' + k_θ·θ = M_aero(U, θ, θ')",
+        "Rotational dynamics driven by self-excited aerodynamic twisting moment"
+      ],
+      [
+        "NEGATIVE AERODYNAMIC DAMPING",
+        "c_net = c_θ - 0.5·ρ·U²·B²·C_flutter < 0",
+        "At critical wind speed, damping turns negative and vibrations amplify"
+      ],
+      [
+        "CABLE TENSION & COLLAPSE",
+        "T = T0 ± 0.5·k_cable·B·sin(θ) >= T_yield",
+        "Energy pumped by wind overstrains suspension cables to failure"
+      ]
+    ],
+    "voice_math": "The mathematical foundation: torsional equation of motion, negative aerodynamic damping, and cable tension failure."
+  },
+  "fact_cards": [
+    [
+      "Equation of Motion",
+      "I_θ·θ'' + c_θ·θ' + k_θ·θ = M_aero"
+    ],
+    [
+      "Critical Flutter Speed",
+      "c_net = c_θ - 0.5·ρ·U²·B²·C_flutter"
+    ],
+    [
+      "Cable Tension Limit",
+      "T = T0 ± 0.5·k_cable·B·sin(θ)"
+    ]
+  ],
+  "math_steps": [
+    {
+      "step_num": 1,
+      "badge": "EQUATION 1 OF 3 • TORSIONAL MOTION & AERO TORQUE",
+      "formula": "I_\\theta \\ddot{\\theta} + c_\\theta \\dot{\\theta} + k_\\theta \\theta = M_{aero}",
+      "note": "Wind flow separation generates self-excited aerodynamic torque on the bridge deck",
+      "color": [
+        0,
+        220,
+        255
+      ],
+      "code": "// 1. Torsional equation of motion and self-excited aerodynamic torque\nval aeroTorque = 0.5f * airDensity * windSpeed * windSpeed * deckWidth * deckWidth * (flutterCoeff * thetaDot + stallCoeff * sin(theta))\nval angularAccel = (aeroTorque - dampingCoeff * thetaDot - stiffnessCoeff * theta) / momentOfInertia\n",
+      "sub_icon": "🌪️",
+      "sub_tag": "STEP 1 • AERO TORQUE",
+      "sub_title": "Torsional Motion Equation",
+      "sub_desc": "Evaluates aerodynamic pitch moment and net rotational acceleration."
+    },
+    {
+      "step_num": 2,
+      "badge": "EQUATION 2 OF 3 • NEGATIVE AERODYNAMIC DAMPING",
+      "formula": "c_{net} = c_\\theta - \\frac{1}{2}\\rho U^2 B^2 C_{flutter} < 0",
+      "note": "When wind exceeds 35 mph, net damping turns negative and oscillations explode",
+      "color": [
+        255,
+        215,
+        65
+      ],
+      "code": "// 2. Net damping and critical aeroelastic flutter threshold\nval netDamping = dampingCoeff - 0.5f * airDensity * windSpeed * windSpeed * deckWidth * deckWidth * flutterCoeff\nval isFluttering = windSpeed >= criticalWindSpeed && netDamping < 0f && !isTrussRetrofit\n",
+      "sub_icon": "⚠️",
+      "sub_tag": "STEP 2 • CRITICAL FLUTTER",
+      "sub_title": "Negative Damping Threshold",
+      "sub_desc": "Detects runaway self-excited aeroelastic instability boundary."
+    },
+    {
+      "step_num": 3,
+      "badge": "EQUATION 3 OF 3 • CABLE TENSION & COLLAPSE",
+      "formula": "T_{cable} = T_0 \\pm \\frac{1}{2} k_{cable} B \\sin\\theta",
+      "note": "Asymmetric twisting loads stretch suspension cables beyond yield rupture limit",
+      "color": [
+        255,
+        110,
+        110
+      ],
+      "code": "// 3. Suspension cable tension and structural collapse threshold\nval cableTensionLeft = nominalTension + 0.5f * cableStiffness * deckWidth * sin(theta)\nval cableTensionRight = nominalTension - 0.5f * cableStiffness * deckWidth * sin(theta)\nval maxCurrentTension = max(cableTensionLeft, cableTensionRight)\n",
+      "sub_icon": "💥",
+      "sub_tag": "STEP 3 • CABLE TENSION",
+      "sub_title": "Structural Failure Limit",
+      "sub_desc": "Computes dynamic cable loads and checks for catastrophic yield collapse."
+    }
+  ],
+  "mystery": {
+    "en": "Why did a steady 42 mph crosswind tear a 5,000-ton steel bridge to pieces?"
+  },
+  "phenomenon": {
+    "en": {
+      "tag": "★ AEROELASTIC FLUTTER",
+      "title": "Tacoma Narrows Flutter Collapse",
+      "teaser": "When steady wind turns structural damping negative, bridges twist until total collapse."
+    }
+  },
+  "narration": {
+    "en": {
+      "hook": "Why did the Tacoma Narrows Bridge tear itself apart in a steady 42 mile per hour breeze?",
+      "math": "Contrary to myth, it was not simple forced resonance, but aeroelastic flutter where wind vortices pump mechanical energy into torsional twisting until net damping turns negative.",
+      "question": "Can we simulate aerodynamic flutter and bridge collapse live in Kotlin Multiplatform?",
+      "code_intro": "Written in Kotlin Multiplatform.",
+      "code_tip": "We model self-excited aerodynamic torque, calculate dynamic cable tension, and trigger structural collapse on Canvas.",
+      "payoff": "Tacoma Narrows aeroelastic flutter simulated live in Kotlin."
+    }
+  }
+}

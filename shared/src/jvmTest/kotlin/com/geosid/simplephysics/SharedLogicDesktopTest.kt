@@ -8,6 +8,7 @@ import kotlin.math.PI
 import kotlin.math.sqrt
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertFalse
 import kotlin.test.assertNotNull
 import kotlin.test.assertTrue
 
@@ -139,5 +140,52 @@ class SharedLogicDesktopTest {
         val unequalAmp2 = 0.6f
         val minUnequalAmp = kotlin.math.abs(amp1 - unequalAmp2)
         assertEquals(0.4f, minUnequalAmp, 0.001f)
+    }
+
+    @Test
+    fun testDay28Registry() {
+        assertTrue(ExperimentScreenRegistry.isReleased("tacoma_flutter"))
+        assertNotNull(ExperimentScreenRegistry.getScreen("tacoma_flutter"))
+    }
+
+    @Test
+    fun testDay28TacomaFlutterPhysics() {
+        val airDensity = 1.225f
+        val deckWidth = 11.9f
+        val dampingCoeff = 850f
+        val criticalWindSpeed = 15.5f
+        val flutterCoeffH = 0.048f
+        val flutterCoeffTruss = -0.015f
+        val nominalTension = 140000f
+        val cableStiffness = 32000f
+        val maxCableTension = 310000f
+        val failureAngleRad = 35f * (kotlin.math.PI.toFloat() / 180f)
+
+        // 1. Sub-critical wind speed (10 m/s ~ 22 mph) on solid H-girder
+        val subCritWind = 10.0f
+        val subCritDamping = dampingCoeff - 0.5f * airDensity * subCritWind * subCritWind * deckWidth * deckWidth * flutterCoeffH
+        assertTrue(subCritDamping > 0f, "Sub-critical wind must have positive net damping")
+        assertFalse(subCritWind >= criticalWindSpeed && subCritDamping < 0f)
+
+        // 2. Super-critical wind speed (18.8 m/s ~ 42 mph) on solid H-girder (Tacoma Gale)
+        val galeWind = 18.8f
+        val galeDamping = dampingCoeff - 0.5f * airDensity * galeWind * galeWind * deckWidth * deckWidth * flutterCoeffH
+        assertTrue(galeDamping < 0f, "Gale wind on solid H-girder must produce negative aerodynamic damping")
+        val isFluttering = galeWind >= criticalWindSpeed && galeDamping < 0f
+        assertTrue(isFluttering, "Bridge must enter self-excited aeroelastic flutter")
+
+        // 3. Modern aerodynamic open truss retrofit (flutterCoeff < 0)
+        val trussDamping = dampingCoeff - 0.5f * airDensity * galeWind * galeWind * deckWidth * deckWidth * flutterCoeffTruss
+        assertTrue(trussDamping > dampingCoeff, "Truss retrofit must increase positive aerodynamic damping")
+
+        // 4. Cable tension asymmetry and failure threshold
+        val safeTheta = 0.08f
+        val safeCableTension = nominalTension + 0.5f * cableStiffness * deckWidth * kotlin.math.abs(kotlin.math.sin(safeTheta))
+        assertTrue(safeCableTension < maxCableTension, "Safe angle must not exceed cable tension yield limit")
+        assertFalse(safeTheta >= failureAngleRad || safeCableTension >= maxCableTension)
+
+        val collapseTheta = 36f * (kotlin.math.PI.toFloat() / 180f)
+        val collapseTension = nominalTension + 0.5f * cableStiffness * deckWidth * kotlin.math.abs(kotlin.math.sin(collapseTheta))
+        assertTrue(collapseTheta >= failureAngleRad || collapseTension >= maxCableTension, "Extreme tilt must trigger structural collapse")
     }
 }

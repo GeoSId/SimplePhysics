@@ -1447,6 +1447,118 @@ internal fun DrawScope.drawExperimentIllustration(id: String) {
             drawCircle(CoralNeon, 2.5f, Offset(node2X, cy))
             drawCircle(CoralNeon.copy(alpha = 0.3f), 5f, Offset(node2X, cy), style = Stroke(width = 1f))
         }
+        "tacoma_flutter" -> {
+            val cx = w * 0.50f
+            val cy = h * 0.52f
+            val deckSpan = w * 0.65f
+            val halfSpan = deckSpan * 0.5f
+            val towerTopY = h * 0.16f
+            val tiltDeg = 24f
+            val tiltRad = tiltDeg * (PI.toFloat() / 180f)
+
+            // 1. Water surface below
+            val waterY = h * 0.84f
+            drawRect(
+                brush = Brush.verticalGradient(
+                    colors = listOf(ScienceDarkBg, Color(0xFF0A1C2A)),
+                    startY = waterY,
+                    endY = h
+                ),
+                topLeft = Offset(0f, waterY),
+                size = Size(w, h - waterY)
+            )
+            drawLine(WaterDeep.copy(alpha = 0.5f), Offset(0f, waterY), Offset(w, waterY), 1.2f)
+
+            // 2. Wind streamlines blowing across
+            val windY1 = cy - 22f
+            val windY2 = cy + 18f
+            drawLine(CyanNeon.copy(alpha = 0.45f), Offset(w * 0.08f, windY1), Offset(cx - halfSpan * 0.7f, windY1), 1.5f, cap = StrokeCap.Round)
+            drawLine(CyanNeon.copy(alpha = 0.35f), Offset(w * 0.05f, windY2), Offset(cx - halfSpan * 0.8f, windY2), 1.5f, cap = StrokeCap.Round)
+
+            // Vortex swirls shedding off trailing edge
+            drawArc(
+                color = CoralNeon.copy(alpha = 0.7f),
+                startAngle = 40f,
+                sweepAngle = 240f,
+                useCenter = false,
+                topLeft = Offset(cx + halfSpan * 0.75f, cy - 25f),
+                size = Size(18f, 18f),
+                style = Stroke(width = 1.4f)
+            )
+            drawArc(
+                color = AmberVibrant.copy(alpha = 0.65f),
+                startAngle = 180f,
+                sweepAngle = 240f,
+                useCenter = false,
+                topLeft = Offset(cx + halfSpan * 0.9f, cy + 8f),
+                size = Size(16f, 16f),
+                style = Stroke(width = 1.4f)
+            )
+
+            // 3. Overhead Suspension Towers & Main Cable
+            val towerLeftX = cx - halfSpan * 1.05f
+            val towerRightX = cx + halfSpan * 1.05f
+            drawLine(ScienceBorder.copy(alpha = 0.75f), Offset(towerLeftX, towerTopY), Offset(towerLeftX, waterY), 2.8f, cap = StrokeCap.Round)
+            drawLine(ScienceBorder.copy(alpha = 0.75f), Offset(towerRightX, towerTopY), Offset(towerRightX, waterY), 2.8f, cap = StrokeCap.Round)
+
+            // Main Overhead Catenary Cable
+            val cablePath = Path().apply {
+                moveTo(towerLeftX, towerTopY)
+                quadraticTo(cx, towerTopY + 28f, towerRightX, towerTopY)
+            }
+            drawPath(cablePath, CyanNeon.copy(alpha = 0.85f), style = Stroke(width = 2f, cap = StrokeCap.Round))
+
+            // 4. Dynamic Suspender Hangers
+            val deckLeftPt = Offset(cx - halfSpan * cos(tiltRad), cy - halfSpan * sin(tiltRad))
+            val deckRightPt = Offset(cx + halfSpan * cos(tiltRad), cy + halfSpan * sin(tiltRad))
+            val hangerLeftTop = Offset(cx - halfSpan * 0.82f, towerTopY + 20f)
+            val hangerRightTop = Offset(cx + halfSpan * 0.82f, towerTopY + 20f)
+
+            // Left cable (under high tension, glowing Coral/Amber)
+            drawLine(CoralNeon, hangerLeftTop, deckLeftPt, strokeWidth = 2.4f, cap = StrokeCap.Round)
+            // Right cable (slack, loose curved path)
+            val slackPath = Path().apply {
+                moveTo(hangerRightTop.x, hangerRightTop.y)
+                quadraticTo(hangerRightTop.x + 8f, (hangerRightTop.y + deckRightPt.y) * 0.5f, deckRightPt.x, deckRightPt.y)
+            }
+            drawPath(slackPath, CyanNeon.copy(alpha = 0.5f), style = Stroke(width = 1.4f, cap = StrokeCap.Round))
+
+            // 5. Tilted Torsional Deck (H-Girder Section)
+            rotate(degrees = tiltDeg, pivot = Offset(cx, cy)) {
+                val girderH = 16f
+                // Road plate
+                drawRect(
+                    color = ScienceDarkSurfaceVariant,
+                    topLeft = Offset(cx - halfSpan, cy - 2f),
+                    size = Size(deckSpan, 4f)
+                )
+                // Center road dash
+                drawLine(
+                    color = AmberVibrant,
+                    start = Offset(cx - halfSpan + 10f, cy),
+                    end = Offset(cx + halfSpan - 10f, cy),
+                    strokeWidth = 1f,
+                    pathEffect = PathEffect.dashPathEffect(floatArrayOf(6f, 4f))
+                )
+                // Left I-Girder vertical flange
+                drawRect(CoralNeon, Offset(cx - halfSpan, cy - girderH * 0.5f), Size(4.5f, girderH))
+                // Right I-Girder vertical flange
+                drawRect(CyanNeon, Offset(cx + halfSpan - 4.5f, cy - girderH * 0.5f), Size(4.5f, girderH))
+                // Center pivot pin
+                drawCircle(Color.White, 2f, Offset(cx, cy))
+            }
+
+            // 6. Torsional Angle Indicator Arc
+            drawArc(
+                color = AmberVibrant.copy(alpha = 0.85f),
+                startAngle = 0f,
+                sweepAngle = tiltDeg,
+                useCenter = false,
+                topLeft = Offset(cx - 25f, cy - 25f),
+                size = Size(50f, 50f),
+                style = Stroke(width = 1.6f)
+            )
+        }
         "ideal_gas_piston" -> {
             val cyW = w * 0.45f
             val cyH = h * 0.72f
