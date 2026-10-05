@@ -502,7 +502,7 @@ object ExperimentRegistry {
             magicPhenomenonRes = Res.string.exp_acoustic_beats_magic,
             sciencePrincipleRes = Res.string.exp_acoustic_beats_principle,
             formulaTitleRes = Res.string.exp_acoustic_beats_formula_title,
-            formula = "y(t) = 2 A \\cos\\left(2\\pi \\frac{f_1 - f_2}{2} t\\right) \\sin\\left(2\\pi \\frac{f_1 + f_2}{2} t\\right), \\quad f_{beat} = |f_1 - f_2|",
+            formula = "y(t) = 2A·cos(π·Δf·t)·sin(2π·f_c·t),  f_beat = |f1 - f2|",
             howToTryAtHomeRes = Res.string.exp_acoustic_beats_how_to
         ),
         PhysicsExperiment(
@@ -517,7 +517,7 @@ object ExperimentRegistry {
             magicPhenomenonRes = Res.string.exp_tacoma_flutter_magic,
             sciencePrincipleRes = Res.string.exp_tacoma_flutter_principle,
             formulaTitleRes = Res.string.exp_tacoma_flutter_formula_title,
-            formula = "I_\\theta \\ddot{\\theta} + c_\\theta \\dot{\\theta} + k_\\theta \\theta = M_{aero}(v, \\theta, \\dot{\\theta})",
+            formula = "I·θ'' + c·θ' + k·θ = M_aero(v, θ, θ')",
             howToTryAtHomeRes = Res.string.exp_tacoma_flutter_how_to
         ),
         // ==========================================
@@ -535,7 +535,7 @@ object ExperimentRegistry {
             magicPhenomenonRes = Res.string.exp_laser_light_fountain_magic,
             sciencePrincipleRes = Res.string.exp_laser_light_fountain_principle,
             formulaTitleRes = Res.string.exp_laser_light_fountain_formula_title,
-            formula = "\\sin\\theta_c = \\frac{n_2}{n_1} \\implies \\text{TIR when } \\theta > \\theta_c",
+            formula = "sin(θ_c) = n_air / n_liquid  (TIR when θ ≥ θ_c)",
             howToTryAtHomeRes = Res.string.exp_laser_light_fountain_how_to
         ),
         PhysicsExperiment(

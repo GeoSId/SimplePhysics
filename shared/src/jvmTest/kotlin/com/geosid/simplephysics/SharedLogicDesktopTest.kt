@@ -188,4 +188,45 @@ class SharedLogicDesktopTest {
         val collapseTension = nominalTension + 0.5f * cableStiffness * deckWidth * kotlin.math.abs(kotlin.math.sin(collapseTheta))
         assertTrue(collapseTheta >= failureAngleRad || collapseTension >= maxCableTension, "Extreme tilt must trigger structural collapse")
     }
+
+    @Test
+    fun testDay29Registry() {
+        assertTrue(ExperimentScreenRegistry.isReleased("laser_light_fountain"))
+        assertNotNull(ExperimentScreenRegistry.getScreen("laser_light_fountain"))
+    }
+
+    @Test
+    fun testDay29LaserFountainPhysics() {
+        val nAir = 1.000f
+        val nWater = 1.333f
+        val nGlycerol = 1.473f
+        val gravity = 9.81f
+
+        // 1. Critical angle calculation for water-air interface
+        val criticalAngleWaterRad = kotlin.math.asin(nAir / nWater)
+        val criticalAngleWaterDeg = criticalAngleWaterRad * (180f / kotlin.math.PI.toFloat())
+        assertEquals(48.61f, criticalAngleWaterDeg, 0.15f)
+
+        // 2. Critical angle for denser glycerol
+        val criticalAngleGlycerolRad = kotlin.math.asin(nAir / nGlycerol)
+        val criticalAngleGlycerolDeg = criticalAngleGlycerolRad * (180f / kotlin.math.PI.toFloat())
+        assertEquals(42.76f, criticalAngleGlycerolDeg, 0.15f)
+        assertTrue(criticalAngleGlycerolRad < criticalAngleWaterRad, "Denser liquid must have smaller critical angle")
+
+        // 3. Total Internal Reflection condition
+        val grazingIncidence = 60f * (kotlin.math.PI.toFloat() / 180f)
+        val isTIRGrazing = grazingIncidence >= criticalAngleWaterRad
+        assertTrue(isTIRGrazing, "Incidence angle above critical must undergo TIR")
+
+        val steepIncidence = 30f * (kotlin.math.PI.toFloat() / 180f)
+        val isTIRSteep = steepIncidence >= criticalAngleWaterRad
+        assertFalse(isTIRSteep, "Incidence angle below critical must not undergo TIR")
+
+        // 4. Parabolic stream trajectory curvature
+        val fastSpeed = 4.5f
+        val slowSpeed = 2.5f
+        val fastCurvature = gravity / (fastSpeed * fastSpeed)
+        val slowCurvature = gravity / (slowSpeed * slowSpeed)
+        assertTrue(fastCurvature < slowCurvature, "Higher velocity must yield gentler curvature")
+    }
 }

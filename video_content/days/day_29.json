@@ -1,0 +1,115 @@
+{
+  "day": 29,
+  "curiosity": "Why can a simple stream of water trap a laser beam around corners when light is supposed to travel in straight lines?",
+  "titles": {
+    "desktop": "How Light Bends Inside Water: The Shocking Physics of Total Internal Reflection",
+    "shorts": "Can You Bend a Laser Beam With Water? #Shorts"
+  },
+  "desktop_mission": {
+    "mission_title": "Day 29: Total Internal Reflection (Laser Fountain)",
+    "mission_sub": "Critical Angle, Optical Waveguides & Parabolic Light Guidance",
+    "voice_mission": "Today we're simulating the laser light fountain and total internal reflection in Kotlin.",
+    "math_cards": [
+      [
+        "SNELL'S LAW & CRITICAL ANGLE",
+        "sin(θ_c) = n_air / n_liquid",
+        "Light reflects completely when the angle of incidence exceeds critical angle"
+      ],
+      [
+        "PARABOLIC WATER ARC",
+        "y(x) = y0 + 0.5·g·(x - x0)² / v0²",
+        "Gravity bends the fluid stream into a parabolic optical waveguide"
+      ],
+      [
+        "OPTICAL POWER GUIDANCE",
+        "R = 1.0 (TIR) vs R < 1.0 (Fresnel Leakage)",
+        "100% of optical energy stays trapped inside water above critical angle"
+      ]
+    ],
+    "voice_math": "The mathematical foundation: Snell's critical angle, parabolic stream trajectory, and total internal reflection guidance."
+  },
+  "fact_cards": [
+    [
+      "Critical Angle",
+      "sin(θ_c) = n_air / n_liquid"
+    ],
+    [
+      "Parabolic Stream",
+      "y(x) = y0 + 0.5·g·(x - x0)² / v0²"
+    ],
+    [
+      "TIR Guidance",
+      "θ_i >= θ_c => R = 1.0"
+    ]
+  ],
+  "math_steps": [
+    {
+      "step_num": 1,
+      "badge": "EQUATION 1 OF 3 • CRITICAL ANGLE & SNELL'S LAW",
+      "formula": "sin(θ_c) = n_air / n_liquid  (TIR when θ ≥ θ_c)",
+      "note": "When incidence angle exceeds 48.8 degrees in water, zero light escapes into air",
+      "color": [
+        0,
+        220,
+        255
+      ],
+      "code": "// 1. Snell's law critical angle for total internal reflection\nval criticalAngleRad = asin((nAir / nLiquid).coerceIn(0f, 1f))\nval isTIR = incidenceAngleRad >= criticalAngleRad\n",
+      "sub_icon": "💡",
+      "sub_tag": "STEP 1 • CRITICAL ANGLE",
+      "sub_title": "Total Internal Reflection Limit",
+      "sub_desc": "Evaluates the critical angle threshold between optical media."
+    },
+    {
+      "step_num": 2,
+      "badge": "EQUATION 2 OF 3 • PARABOLIC STREAM TRAJECTORY",
+      "formula": "y(x) = y_0 + 0.5·g·(x - x_0)² / v_0²",
+      "note": "Gravitational projectile flow shapes the water into a curved light pipe",
+      "color": [
+        255,
+        215,
+        65
+      ],
+      "code": "// 2. Parabolic water jet trajectory and boundary normal\nval jetY = sampleNozzleY + 0.5f * gravity * (sampleJetX - sampleNozzleX).pow(2) / (streamSpeed * streamSpeed)\nval streamSlope = gravity * (sampleJetX - sampleNozzleX) / (streamSpeed * streamSpeed)\n",
+      "sub_icon": "🌊",
+      "sub_tag": "STEP 2 • STREAM CURVATURE",
+      "sub_title": "Parabolic Water Jet Path",
+      "sub_desc": "Calculates local trajectory coordinates and surface normal slopes."
+    },
+    {
+      "step_num": 3,
+      "badge": "EQUATION 3 OF 3 • OPTICAL POWER & TRANSMISSION",
+      "formula": "R = 1.0 (TIR: θ ≥ θ_c)  vs  R < 1.0 (Leakage)",
+      "note": "Below the critical angle or under sharp curvature, optical leakage escapes into air",
+      "color": [
+        255,
+        110,
+        110
+      ],
+      "code": "// 3. Optical power transmission and critical angle boundary\nval reflectionCoeff = if (isTIR) 1.0f else (sin(incidenceAngleRad - refractedAngleRad) / sin(incidenceAngleRad + refractedAngleRad)).pow(2)\nval isLightTrapped = isTIR && streamCurvature <= maxGuidanceCurvature\n",
+      "sub_icon": "✨",
+      "sub_tag": "STEP 3 • OPTICAL GUIDANCE",
+      "sub_title": "Power Transmission & Leakage",
+      "sub_desc": "Determines reflection power coefficient and waveguide trapping status."
+    }
+  ],
+  "mystery": {
+    "en": "Why does light bend around a curve when traveling inside a stream of water?"
+  },
+  "phenomenon": {
+    "en": {
+      "tag": "★ TOTAL INTERNAL REFLECTION",
+      "title": "Laser Light Fountain & Optical Guides",
+      "teaser": "When light strikes the water-air interface above 48.8 degrees, 100% of light bounces inside the stream."
+    }
+  },
+  "narration": {
+    "en": {
+      "hook": "Can you bend a beam of light with a simple stream of water?",
+      "math": "When a laser enters water at an angle greater than the critical angle of 48.8 degrees, total internal reflection traps 100% of the light inside the curved stream.",
+      "question": "Can we simulate total internal reflection and the laser light fountain live in Kotlin Multiplatform?",
+      "code_intro": "Written in Kotlin Multiplatform.",
+      "code_tip": "We trace parabolic fluid streamlines, calculate Fresnel reflection boundaries, and render internal optical bounces on Canvas.",
+      "payoff": "Total internal reflection in a laser water fountain running live in Kotlin."
+    }
+  }
+}

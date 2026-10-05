@@ -1559,6 +1559,132 @@ internal fun DrawScope.drawExperimentIllustration(id: String) {
                 style = Stroke(width = 1.6f)
             )
         }
+        "laser_light_fountain" -> {
+            // 1. Water Tank on Upper Left
+            val tankLeft = w * 0.08f
+            val tankTop = h * 0.16f
+            val tankWidth = w * 0.16f
+            val tankHeight = h * 0.45f
+            drawRoundRect(
+                color = ScienceDarkSurfaceVariant.copy(alpha = 0.85f),
+                topLeft = Offset(tankLeft, tankTop),
+                size = Size(tankWidth, tankHeight),
+                cornerRadius = androidx.compose.ui.geometry.CornerRadius(4f)
+            )
+            drawRoundRect(
+                color = CyanNeon.copy(alpha = 0.4f),
+                topLeft = Offset(tankLeft, tankTop),
+                size = Size(tankWidth, tankHeight),
+                style = Stroke(width = 1.5f),
+                cornerRadius = androidx.compose.ui.geometry.CornerRadius(4f)
+            )
+            // Liquid volume inside reservoir
+            drawRect(
+                color = CyanNeon.copy(alpha = 0.22f),
+                topLeft = Offset(tankLeft + 2f, tankTop + tankHeight * 0.25f),
+                size = Size(tankWidth - 4f, tankHeight * 0.75f - 2f)
+            )
+
+            // 2. Brass/Steel Horizontal Nozzle
+            val nozzleX = tankLeft + tankWidth
+            val nozzleY = tankTop + tankHeight * 0.65f
+            val nozzleH = 12f
+            drawRect(
+                color = Color(0xFF455A64),
+                topLeft = Offset(nozzleX, nozzleY - nozzleH * 0.5f),
+                size = Size(10f, nozzleH)
+            )
+            drawRect(
+                color = AmberVibrant.copy(alpha = 0.8f),
+                topLeft = Offset(nozzleX, nozzleY - nozzleH * 0.5f),
+                size = Size(10f, nozzleH),
+                style = Stroke(width = 1f)
+            )
+
+            // 3. Arcing Parabolic Water Stream
+            val startJetX = nozzleX + 10f
+            val streamPath = Path().apply {
+                moveTo(startJetX, nozzleY - 5f)
+                cubicTo(
+                    startJetX + w * 0.25f, nozzleY - 3f,
+                    startJetX + w * 0.52f, nozzleY + h * 0.22f,
+                    startJetX + w * 0.68f, h * 0.78f
+                )
+                lineTo(startJetX + w * 0.68f + 8f, h * 0.80f)
+                cubicTo(
+                    startJetX + w * 0.52f + 8f, nozzleY + h * 0.25f,
+                    startJetX + w * 0.25f, nozzleY + 7f,
+                    startJetX, nozzleY + 5f
+                )
+                close()
+            }
+            drawPath(streamPath, CyanNeon.copy(alpha = 0.22f))
+            drawPath(streamPath, CyanNeon.copy(alpha = 0.65f), style = Stroke(width = 1.5f))
+
+            // 4. Laser Emitter Diode (Left of Tank)
+            drawLine(
+                color = Color(0xFFB0BEC5),
+                start = Offset(tankLeft - 14f, nozzleY),
+                end = Offset(tankLeft - 2f, nozzleY),
+                strokeWidth = 6f,
+                cap = StrokeCap.Round
+            )
+            drawCircle(CoralNeon, 3.5f, Offset(tankLeft - 14f, nozzleY))
+
+            // 5. Total Internal Reflection Laser Path (Bouncing Inside Stream)
+            val p0 = Offset(startJetX - 6f, nozzleY)
+            val p1 = Offset(startJetX + w * 0.16f, nozzleY + 2f)
+            val p2 = Offset(startJetX + w * 0.32f, nozzleY + h * 0.08f)
+            val p3 = Offset(startJetX + w * 0.46f, nozzleY + h * 0.25f)
+            val p4 = Offset(startJetX + w * 0.58f, nozzleY + h * 0.45f)
+            val p5 = Offset(startJetX + w * 0.68f, h * 0.78f)
+
+            val laserBounces = listOf(p0, p1, p2, p3, p4, p5)
+            for (i in 0 until laserBounces.size - 1) {
+                // Outer glow
+                drawLine(
+                    color = CoralNeon.copy(alpha = 0.35f),
+                    start = laserBounces[i],
+                    end = laserBounces[i + 1],
+                    strokeWidth = 4.5f,
+                    cap = StrokeCap.Round
+                )
+                // Intense core beam
+                drawLine(
+                    color = CoralNeon,
+                    start = laserBounces[i],
+                    end = laserBounces[i + 1],
+                    strokeWidth = 1.8f,
+                    cap = StrokeCap.Round
+                )
+            }
+
+            // TIR Reflection Sparks & Normal Ticks
+            listOf(p1, p2, p3, p4).forEach { pt ->
+                drawCircle(Color.White, 2f, pt)
+                drawCircle(CoralNeon.copy(alpha = 0.6f), 4.5f, pt)
+            }
+
+            // 6. Catch Basin at Bottom Right
+            val basinX = startJetX + w * 0.62f
+            val basinY = h * 0.77f
+            drawRoundRect(
+                color = ScienceDarkSurfaceVariant,
+                topLeft = Offset(basinX, basinY),
+                size = Size(w * 0.18f, h * 0.14f),
+                cornerRadius = androidx.compose.ui.geometry.CornerRadius(4f)
+            )
+            drawRoundRect(
+                color = ScienceBorder.copy(alpha = 0.5f),
+                topLeft = Offset(basinX, basinY),
+                size = Size(w * 0.18f, h * 0.14f),
+                style = Stroke(width = 1.2f),
+                cornerRadius = androidx.compose.ui.geometry.CornerRadius(4f)
+            )
+            // Glowing pool of collected light
+            drawCircle(CoralNeon.copy(alpha = 0.6f), 6f, Offset(basinX + w * 0.08f, basinY + 6f))
+            drawCircle(Color.White.copy(alpha = 0.85f), 2.5f, Offset(basinX + w * 0.08f, basinY + 6f))
+        }
         "ideal_gas_piston" -> {
             val cyW = w * 0.45f
             val cyH = h * 0.72f

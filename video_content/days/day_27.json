@@ -46,7 +46,7 @@
     {
       "step_num": 1,
       "badge": "EQUATION 1 OF 3 • BEAT FREQUENCY & CARRIER",
-      "formula": "f_{beat} = |f_1 - f_2|,   f_c = (f_1 + f_2) / 2",
+      "formula": "f_beat = |f1 - f2|,  f_c = (f1 + f2) / 2",
       "note": "Pulsing volume rate is the difference between the two acoustic frequencies",
       "color": [
         0,
@@ -62,7 +62,7 @@
     {
       "step_num": 2,
       "badge": "EQUATION 2 OF 3 • AMPLITUDE ENVELOPE",
-      "formula": "A_{env}(t) = 2A |cos(π·(f_1 - f_2)·t)|",
+      "formula": "A_env(t) = 2A·|cos(π·(f1 - f2)·t)|",
       "note": "Trigonometric product identity reveals a slowly breathing amplitude envelope",
       "color": [
         255,
@@ -78,7 +78,7 @@
     {
       "step_num": 3,
       "badge": "EQUATION 3 OF 3 • ACOUSTIC INTENSITY PULSE",
-      "formula": "I(t) / I_{max} = (A_{env}(t) / 2A)^2",
+      "formula": "I(t) / I_max = (A_env(t) / 2A)²",
       "note": "Sound intensity quadruples at constructive crests and drops to silence at nodes",
       "color": [
         255,

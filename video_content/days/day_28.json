@@ -46,7 +46,7 @@
     {
       "step_num": 1,
       "badge": "EQUATION 1 OF 3 • TORSIONAL MOTION & AERO TORQUE",
-      "formula": "I_\\theta \\ddot{\\theta} + c_\\theta \\dot{\\theta} + k_\\theta \\theta = M_{aero}",
+      "formula": "I·θ'' + c·θ' + k·θ = M_aero",
       "note": "Wind flow separation generates self-excited aerodynamic torque on the bridge deck",
       "color": [
         0,
@@ -62,7 +62,7 @@
     {
       "step_num": 2,
       "badge": "EQUATION 2 OF 3 • NEGATIVE AERODYNAMIC DAMPING",
-      "formula": "c_{net} = c_\\theta - \\frac{1}{2}\\rho U^2 B^2 C_{flutter} < 0",
+      "formula": "c_net = c - 0.5·ρ·U²·B²·C_flutter < 0",
       "note": "When wind exceeds 35 mph, net damping turns negative and oscillations explode",
       "color": [
         255,
@@ -78,7 +78,7 @@
     {
       "step_num": 3,
       "badge": "EQUATION 3 OF 3 • CABLE TENSION & COLLAPSE",
-      "formula": "T_{cable} = T_0 \\pm \\frac{1}{2} k_{cable} B \\sin\\theta",
+      "formula": "T_cable = T0 ± 0.5·k_cable·B·sin(θ) ≥ T_yield",
       "note": "Asymmetric twisting loads stretch suspension cables beyond yield rupture limit",
       "color": [
         255,
