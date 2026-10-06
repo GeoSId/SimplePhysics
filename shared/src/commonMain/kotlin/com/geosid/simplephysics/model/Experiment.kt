@@ -550,7 +550,7 @@ object ExperimentRegistry {
             magicPhenomenonRes = Res.string.exp_thin_film_interference_magic,
             sciencePrincipleRes = Res.string.exp_thin_film_interference_principle,
             formulaTitleRes = Res.string.exp_thin_film_interference_formula_title,
-            formula = "2 n d \\cos\\theta = \\left(m + \\frac{1}{2}\\right)\\lambda",
+            formula = "2·n·d·cos(θ_t) = (m + 1/2)·λ",
             howToTryAtHomeRes = Res.string.exp_thin_film_interference_how_to
         ),
         PhysicsExperiment(

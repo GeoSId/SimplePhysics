@@ -1685,6 +1685,128 @@ internal fun DrawScope.drawExperimentIllustration(id: String) {
             drawCircle(CoralNeon.copy(alpha = 0.6f), 6f, Offset(basinX + w * 0.08f, basinY + 6f))
             drawCircle(Color.White.copy(alpha = 0.85f), 2.5f, Offset(basinX + w * 0.08f, basinY + 6f))
         }
+        "thin_film_interference" -> {
+            // 1. Wire Frame Loop (Rectangular Oval)
+            val loopW = w * 0.46f
+            val loopH = h * 0.68f
+            val loopLeft = w * 0.16f
+            val loopTop = h * 0.12f
+
+            // Frame handle
+            drawLine(
+                color = Color(0xFF78909C),
+                start = Offset(loopLeft + loopW * 0.5f, loopTop + loopH),
+                end = Offset(loopLeft + loopW * 0.5f, loopTop + loopH + h * 0.16f),
+                strokeWidth = 3.5f,
+                cap = StrokeCap.Round
+            )
+            drawLine(
+                color = AmberVibrant.copy(alpha = 0.7f),
+                start = Offset(loopLeft + loopW * 0.5f, loopTop + loopH),
+                end = Offset(loopLeft + loopW * 0.5f, loopTop + loopH + h * 0.16f),
+                strokeWidth = 1.2f,
+                cap = StrokeCap.Round
+            )
+
+            // Film interior clip path
+            val filmRect = Size(loopW, loopH)
+            val filmTopLeft = Offset(loopLeft, loopTop)
+
+            // 2. Gravitational Thinning Iridescent Color Bands
+            val bands = listOf(
+                Color(0xFF11141A) to 0.10f, // Top: Newton's Black Film (destructive for all λ)
+                Color(0xFFE2E8F0) to 0.08f, // Silver-White fringe
+                AmberVibrant to 0.12f,      // First-order Gold / Yellow
+                PurpleNeon to 0.12f,        // Magenta / Violet band
+                CyanNeon to 0.14f,          // Cyan / Sky Blue fringe
+                EmeraldNeon to 0.14f,       // Emerald Green fringe
+                CoralNeon to 0.15f,         // Coral Red band
+                CyanNeon.copy(alpha = 0.75f) to 0.15f // Higher-order pastel
+            )
+
+            var currY = loopTop + 2f
+            for ((bandColor, relHeight) in bands) {
+                val bHeight = loopH * relHeight
+                drawRect(
+                    brush = Brush.verticalGradient(
+                        colors = listOf(bandColor.copy(alpha = 0.85f), bandColor.copy(alpha = 0.60f)),
+                        startY = currY,
+                        endY = currY + bHeight
+                    ),
+                    topLeft = Offset(loopLeft + 2f, currY),
+                    size = Size(loopW - 4f, bHeight)
+                )
+                currY += bHeight
+            }
+
+            // Shimmering surface sheen
+            drawRoundRect(
+                brush = Brush.verticalGradient(
+                    colors = listOf(Color.White.copy(alpha = 0.25f), Color.Transparent, Color.White.copy(alpha = 0.15f)),
+                    startY = loopTop,
+                    endY = loopTop + loopH
+                ),
+                topLeft = filmTopLeft,
+                size = filmRect,
+                cornerRadius = androidx.compose.ui.geometry.CornerRadius(10f)
+            )
+
+            // Wire Frame Rim
+            drawRoundRect(
+                color = ScienceDarkSurfaceVariant,
+                topLeft = filmTopLeft,
+                size = filmRect,
+                cornerRadius = androidx.compose.ui.geometry.CornerRadius(10f),
+                style = Stroke(width = 3.5f)
+            )
+            drawRoundRect(
+                color = CyanNeon.copy(alpha = 0.75f),
+                topLeft = filmTopLeft,
+                size = filmRect,
+                cornerRadius = androidx.compose.ui.geometry.CornerRadius(10f),
+                style = Stroke(width = 1.4f)
+            )
+
+            // 3. Ray Tracing Inset & Reflection Geometry on Right
+            val rayStartX = w * 0.94f
+            val rayStartY = h * 0.14f
+            val hitX = loopLeft + loopW * 0.70f
+            val hitY = loopTop + loopH * 0.38f
+
+            // Incident white ray
+            drawLine(
+                color = Color.White.copy(alpha = 0.9f),
+                start = Offset(rayStartX, rayStartY),
+                end = Offset(hitX, hitY),
+                strokeWidth = 2.0f,
+                cap = StrokeCap.Round
+            )
+
+            // Reflected interfering rays
+            val r1End = Offset(w * 0.96f, hitY - h * 0.15f)
+            val r2End = Offset(w * 0.94f, hitY - h * 0.05f)
+
+            drawLine(
+                color = CoralNeon.copy(alpha = 0.85f),
+                start = Offset(hitX, hitY),
+                end = r1End,
+                strokeWidth = 1.8f,
+                cap = StrokeCap.Round
+            )
+            drawLine(
+                color = EmeraldNeon.copy(alpha = 0.85f),
+                start = Offset(hitX + 5f, hitY + 3f),
+                end = r2End,
+                strokeWidth = 1.8f,
+                cap = StrokeCap.Round
+            )
+
+            // Interference Superposition Sparkle
+            drawCircle(Color.White, 2.5f, Offset(hitX, hitY))
+            drawCircle(CyanNeon.copy(alpha = 0.6f), 5.5f, Offset(hitX, hitY))
+            drawCircle(AmberVibrant, 2f, r1End)
+            drawCircle(CyanNeon, 2f, r2End)
+        }
         "ideal_gas_piston" -> {
             val cyW = w * 0.45f
             val cyH = h * 0.72f

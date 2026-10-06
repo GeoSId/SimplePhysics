@@ -5,6 +5,7 @@ import com.geosid.simplephysics.ui.experiments.week2.Day14.PulleyConfig
 import com.geosid.simplephysics.ui.expirementsRegistry.ExperimentScreenRegistry
 import com.geosid.simplephysics.ui.experiments.week3.Day15.PlanetPreset
 import kotlin.math.PI
+import kotlin.math.pow
 import kotlin.math.sqrt
 import kotlin.test.Test
 import kotlin.test.assertEquals
@@ -228,5 +229,48 @@ class SharedLogicDesktopTest {
         val fastCurvature = gravity / (fastSpeed * fastSpeed)
         val slowCurvature = gravity / (slowSpeed * slowSpeed)
         assertTrue(fastCurvature < slowCurvature, "Higher velocity must yield gentler curvature")
+    }
+
+    @Test
+    fun testDay30Registry() {
+        assertTrue(ExperimentScreenRegistry.isReleased("thin_film_interference"))
+        assertNotNull(ExperimentScreenRegistry.getScreen("thin_film_interference"))
+    }
+
+    @Test
+    fun testDay30ThinFilmPhysics() {
+        val nAir = 1.000f
+        val nSoap = 1.333f
+        val lambdaSodiumNm = 589.0f
+
+        // 1. Snell's law refraction inside soap film
+        val thetaIncDeg = 30.0f
+        val thetaIncRad = thetaIncDeg * (kotlin.math.PI.toFloat() / 180f)
+        val sinThetaT = kotlin.math.sin(thetaIncRad) / nSoap
+        val thetaTRad = kotlin.math.asin(sinThetaT)
+        val thetaTDeg = thetaTRad * (180f / kotlin.math.PI.toFloat())
+        assertEquals(22.08f, thetaTDeg, 0.15f)
+
+        // 2. Optical path difference at normal incidence (cos(0) = 1)
+        val dFirstMax = (0.5f * lambdaSodiumNm) / (2f * nSoap) // m = 0 constructive
+        val opdFirstMax = 2f * nSoap * dFirstMax * kotlin.math.cos(0f)
+        val phaseShiftConstructive = (2f * kotlin.math.PI.toFloat() * opdFirstMax / lambdaSodiumNm) + kotlin.math.PI.toFloat()
+        val intensityConstructive = kotlin.math.cos(phaseShiftConstructive * 0.5f).pow(2)
+        assertEquals(1.0f, intensityConstructive, 0.02f)
+
+        // 3. Destructive interference condition (m = 1 dark fringe)
+        val dFirstMin = (1.0f * lambdaSodiumNm) / (2f * nSoap) // m = 1 destructive
+        val opdFirstMin = 2f * nSoap * dFirstMin * kotlin.math.cos(0f)
+        val phaseShiftDestructive = (2f * kotlin.math.PI.toFloat() * opdFirstMin / lambdaSodiumNm) + kotlin.math.PI.toFloat()
+        val intensityDestructive = kotlin.math.cos(phaseShiftDestructive * 0.5f).pow(2)
+        assertEquals(0.0f, intensityDestructive, 0.02f)
+
+        // 4. Newton's zero-order black film limit (d < 30nm -> I -> 0)
+        val dBlackFilm = 12.0f // nanometers
+        val lambdaVisibleNm = 550.0f
+        val opdBlack = 2f * nSoap * dBlackFilm * kotlin.math.cos(0f)
+        val phaseBlack = (2f * kotlin.math.PI.toFloat() * opdBlack / lambdaVisibleNm) + kotlin.math.PI.toFloat()
+        val intensityBlack = kotlin.math.cos(phaseBlack * 0.5f).pow(2)
+        assertTrue(intensityBlack < 0.05f, "Sub-30nm film must have near-zero reflectance (black film)")
     }
 }

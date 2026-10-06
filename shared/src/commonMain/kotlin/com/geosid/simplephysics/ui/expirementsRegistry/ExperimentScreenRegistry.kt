@@ -30,6 +30,7 @@ import com.geosid.simplephysics.ui.experiments.week4.Day26.DopplerMachConesExper
 import com.geosid.simplephysics.ui.experiments.week4.Day27.AcousticBeatsExperiment
 import com.geosid.simplephysics.ui.experiments.week4.Day28.TacomaFlutterExperiment
 import com.geosid.simplephysics.ui.experiments.week5.Day29.LaserFountainExperiment
+import com.geosid.simplephysics.ui.experiments.week5.Day30.ThinFilmInterferenceExperiment
 
 object ExperimentScreenRegistry {
     val screens: Map<String, @Composable () -> Unit> = mapOf(
@@ -66,6 +67,7 @@ object ExperimentScreenRegistry {
         "tacoma_flutter" to { TacomaFlutterExperiment() }, //DAY 28
         //week 5
         "laser_light_fountain" to { LaserFountainExperiment() }, //DAY 29
+        "thin_film_interference" to { ThinFilmInterferenceExperiment() }, //DAY 30
     )
 
     fun isReleased(id: String): Boolean = screens.containsKey(id)

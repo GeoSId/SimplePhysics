@@ -1,0 +1,115 @@
+{
+  "day": 30,
+  "curiosity": "Why does a soap bubble turn completely pitch black and invisible just a fraction of a second before popping?",
+  "titles": {
+    "desktop": "The Secret Physics of Soap Bubbles: Why Thin Films Make Rainbows",
+    "shorts": "Why Soap Bubbles Have Rainbows #Shorts"
+  },
+  "desktop_mission": {
+    "mission_title": "Day 30: Soap Bubble Thin-Film Interference",
+    "mission_sub": "Phase Inversion, Optical Path Interference & Spectral Iridescence",
+    "voice_mission": "Today we're simulating thin-film interference and soap bubble iridescence in Kotlin.",
+    "math_cards": [
+      [
+        "CONSTRUCTIVE INTERFERENCE",
+        "2·n·d·cos(θ_t) = (m + 1/2)·λ",
+        "Reflected waves align in phase with a half-wave shift at the outer surface"
+      ],
+      [
+        "OPTICAL PATH DIFFERENCE",
+        "OPD = 2·n·d·cos(θ_t)",
+        "Extra optical distance traveled by the refracted beam inside the liquid film"
+      ],
+      [
+        "SPECTRAL INTENSITY & BLACK FILM",
+        "I(λ) = I_0 · sin²(π·OPD / λ)",
+        "When thickness approaches zero, all visible wavelengths cancel out destructively"
+      ]
+    ],
+    "voice_math": "The core physics: optical path difference, half-wave phase inversion, and spectral interference intensity."
+  },
+  "fact_cards": [
+    [
+      "Thin Film Condition",
+      "2·n·d·cos(θ_t) = (m + 1/2)·λ"
+    ],
+    [
+      "Optical Path Diff",
+      "OPD = 2·n·d·cos(θ_t)"
+    ],
+    [
+      "Black Film Limit",
+      "d < 30 nm -> I(λ) ≈ 0"
+    ]
+  ],
+  "math_steps": [
+    {
+      "step_num": 1,
+      "badge": "EQUATION 1 OF 3 • OPTICAL PATH & PHASE SHIFT",
+      "formula": "2·n·d·cos(θ_t) = (m + 1/2)·λ  (Phase shift π at outer boundary)",
+      "note": "Light reflecting off the denser soap film flips phase by 180 degrees",
+      "color": [
+        0,
+        220,
+        255
+      ],
+      "code": "// 1. Optical path difference with reflection phase inversion\nval optPathDiff = 2f * filmIndex * filmThicknessNm * cos(refractedAngleRad)\nval isConstructive = abs((optPathDiff / wavelengthNm) - (orderM + 0.5f)) < 0.15f\n",
+      "sub_icon": "🫧",
+      "sub_tag": "STEP 1 • PATH DIFFERENCE",
+      "sub_title": "Optical Path Difference",
+      "sub_desc": "Calculates geometric extra distance and reflection phase inversion."
+    },
+    {
+      "step_num": 2,
+      "badge": "EQUATION 2 OF 3 • SPECTRAL INTENSITY & REFLECTANCE",
+      "formula": "I(λ) = I_0 · cos²(Δφ / 2) = I_0 · sin²(π·OPD / λ)",
+      "note": "Each wavelength constructive peak creates distinct iridescent rainbow fringes",
+      "color": [
+        255,
+        215,
+        65
+      ],
+      "code": "// 2. Multi-wavelength spectral reflectance and interference intensity\nval phaseShiftRad = (2f * PI.toFloat() * optPathDiff / wavelengthNm) + PI.toFloat()\nval reflectedIntensity = cos(phaseShiftRad * 0.5f).pow(2)\n",
+      "sub_icon": "🌈",
+      "sub_tag": "STEP 2 • SPECTRAL REFLECTANCE",
+      "sub_title": "Multi-Wavelength Synthesis",
+      "sub_desc": "Computes wavelength-dependent reflectance and interference intensity."
+    },
+    {
+      "step_num": 3,
+      "badge": "EQUATION 3 OF 3 • GRAVITATIONAL DRAINAGE & BLACK FILM",
+      "formula": "d(y) = d_min + k·y  (d < 30 nm -> I ≈ 0, Black Film)",
+      "note": "Gravity thins the top until destructive interference turns the film pitch black",
+      "color": [
+        255,
+        110,
+        110
+      ],
+      "code": "// 3. Gravitational drainage wedge thickness and zero-order black film\nval localThicknessNm = minThicknessNm + drainageRate * (coordY / filmHeightPx) * maxThicknessNm\nval isBlackFilm = localThicknessNm < 30f && reflectedIntensity < 0.05f\n",
+      "sub_icon": "✨",
+      "sub_tag": "STEP 3 • DRAINAGE WEDGE",
+      "sub_title": "Newton's Black Film Limit",
+      "sub_desc": "Tracks vertical thinning gradient and zero-order destructive cancellation."
+    }
+  ],
+  "mystery": {
+    "en": "Why does a soap bubble turn completely pitch black right before it pops?"
+  },
+  "phenomenon": {
+    "en": {
+      "tag": "★ THIN-FILM INTERFERENCE",
+      "title": "Soap Bubble Iridescence & Black Films",
+      "teaser": "Light waves reflecting from the outer and inner surfaces superpose to create swirling rainbow bands."
+    }
+  },
+  "narration": {
+    "en": {
+      "hook": "Why does a soap bubble display vivid swirling rainbows with zero artificial coloring?",
+      "math": "Light reflecting from the front and back surfaces of the nanometer film interferes, boosting specific colors while canceling others based on thickness.",
+      "question": "Can we simulate thin-film interference and Newton's black film live in Kotlin Multiplatform?",
+      "code_intro": "Written in Kotlin Multiplatform.",
+      "code_tip": "We calculate optical path differences, evaluate multi-wavelength phase shifts, and render spectral interference fringes on Canvas.",
+      "payoff": "Soap bubble thin-film interference and iridescent fringes running live in Kotlin."
+    }
+  }
+}
