@@ -565,7 +565,7 @@ object ExperimentRegistry {
             magicPhenomenonRes = Res.string.exp_youngs_double_slit_magic,
             sciencePrincipleRes = Res.string.exp_youngs_double_slit_principle,
             formulaTitleRes = Res.string.exp_youngs_double_slit_formula_title,
-            formula = "d \\sin\\theta = m \\lambda, \\quad y_m = \\frac{m \\lambda L}{d}",
+            formula = "d·sin(θ) = m·λ,  y_m = (m·λ·L) / d",
             howToTryAtHomeRes = Res.string.exp_youngs_double_slit_how_to
         ),
         PhysicsExperiment(

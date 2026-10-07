@@ -273,4 +273,59 @@ class SharedLogicDesktopTest {
         val intensityBlack = kotlin.math.cos(phaseBlack * 0.5f).pow(2)
         assertTrue(intensityBlack < 0.05f, "Sub-30nm film must have near-zero reflectance (black film)")
     }
+
+    @Test
+    fun testDay31Registry() {
+        assertTrue(ExperimentScreenRegistry.isReleased("youngs_double_slit"))
+        assertNotNull(ExperimentScreenRegistry.getScreen("youngs_double_slit"))
+    }
+
+    @Test
+    fun testDay31YoungsDoubleSlitPhysics() {
+        val wavelengthNm = 532.0f
+        val wavelengthM = wavelengthNm * 1e-9f
+        val slitSeparationUm = 50.0f
+        val slitSeparationM = slitSeparationUm * 1e-6f
+        val slitWidthUm = 10.0f
+        val slitWidthM = slitWidthUm * 1e-6f
+        val screenDistanceM = 1.0f
+
+        // 1. Theoretical Fringe Spacing Δy = (λ · L) / d
+        val fringeSpacingM = (wavelengthM * screenDistanceM) / slitSeparationM
+        val fringeSpacingMm = fringeSpacingM * 1000f
+        assertEquals(10.64f, fringeSpacingMm, 0.05f)
+
+        // 2. Position of m-th bright fringe (m = 1)
+        val m1PosY = 1 * fringeSpacingMm
+        assertEquals(10.64f, m1PosY, 0.05f)
+
+        // 3. Position of first dark minimum (m = 0 destructive, Δr = λ / 2)
+        val dark1PosY = 0.5f * fringeSpacingMm
+        assertEquals(5.32f, dark1PosY, 0.05f)
+
+        // 4. Intensity at central maximum (y = 0 -> β = 0, α = 0 -> I = 1.0)
+        val thetaZero = 0f
+        val betaZero = (kotlin.math.PI.toFloat() * slitSeparationM * kotlin.math.sin(thetaZero)) / wavelengthM
+        val alphaZero = (kotlin.math.PI.toFloat() * slitWidthM * kotlin.math.sin(thetaZero)) / wavelengthM
+        val sincAlphaZero = if (kotlin.math.abs(alphaZero) < 1e-4f) 1f else (kotlin.math.sin(alphaZero) / alphaZero)
+        val intensityCenter = kotlin.math.cos(betaZero).pow(2) * sincAlphaZero.pow(2)
+        assertEquals(1.0f, intensityCenter, 0.01f)
+
+        // 5. Intensity at first dark minimum (β = π/2 -> cos(β) = 0 -> I = 0.0)
+        val thetaDark1 = kotlin.math.atan2(dark1PosY * 1e-3f, screenDistanceM)
+        val betaDark1 = (kotlin.math.PI.toFloat() * slitSeparationM * kotlin.math.sin(thetaDark1)) / wavelengthM
+        val intensityDark = kotlin.math.cos(betaDark1).pow(2)
+        assertEquals(0.0f, intensityDark, 0.02f)
+
+        // 6. Diffraction envelope first minimum (sin θ = λ / a -> α = π -> sinc = 0)
+        val thetaDiffMin = kotlin.math.asin(wavelengthM / slitWidthM)
+        val alphaDiffMin = (kotlin.math.PI.toFloat() * slitWidthM * kotlin.math.sin(thetaDiffMin)) / wavelengthM
+        val sincAlphaDiffMin = kotlin.math.sin(alphaDiffMin) / alphaDiffMin
+        assertEquals(0.0f, sincAlphaDiffMin, 0.01f)
+
+        // 7. Inverse scaling: doubling slit separation cuts fringe spacing in half
+        val doubleSeparationM = slitSeparationM * 2f
+        val halfFringeSpacingM = (wavelengthM * screenDistanceM) / doubleSeparationM
+        assertEquals(fringeSpacingM * 0.5f, halfFringeSpacingM, 0.001f)
+    }
 }

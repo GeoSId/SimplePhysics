@@ -1559,254 +1559,9 @@ internal fun DrawScope.drawExperimentIllustration(id: String) {
                 style = Stroke(width = 1.6f)
             )
         }
-        "laser_light_fountain" -> {
-            // 1. Water Tank on Upper Left
-            val tankLeft = w * 0.08f
-            val tankTop = h * 0.16f
-            val tankWidth = w * 0.16f
-            val tankHeight = h * 0.45f
-            drawRoundRect(
-                color = ScienceDarkSurfaceVariant.copy(alpha = 0.85f),
-                topLeft = Offset(tankLeft, tankTop),
-                size = Size(tankWidth, tankHeight),
-                cornerRadius = androidx.compose.ui.geometry.CornerRadius(4f)
-            )
-            drawRoundRect(
-                color = CyanNeon.copy(alpha = 0.4f),
-                topLeft = Offset(tankLeft, tankTop),
-                size = Size(tankWidth, tankHeight),
-                style = Stroke(width = 1.5f),
-                cornerRadius = androidx.compose.ui.geometry.CornerRadius(4f)
-            )
-            // Liquid volume inside reservoir
-            drawRect(
-                color = CyanNeon.copy(alpha = 0.22f),
-                topLeft = Offset(tankLeft + 2f, tankTop + tankHeight * 0.25f),
-                size = Size(tankWidth - 4f, tankHeight * 0.75f - 2f)
-            )
-
-            // 2. Brass/Steel Horizontal Nozzle
-            val nozzleX = tankLeft + tankWidth
-            val nozzleY = tankTop + tankHeight * 0.65f
-            val nozzleH = 12f
-            drawRect(
-                color = Color(0xFF455A64),
-                topLeft = Offset(nozzleX, nozzleY - nozzleH * 0.5f),
-                size = Size(10f, nozzleH)
-            )
-            drawRect(
-                color = AmberVibrant.copy(alpha = 0.8f),
-                topLeft = Offset(nozzleX, nozzleY - nozzleH * 0.5f),
-                size = Size(10f, nozzleH),
-                style = Stroke(width = 1f)
-            )
-
-            // 3. Arcing Parabolic Water Stream
-            val startJetX = nozzleX + 10f
-            val streamPath = Path().apply {
-                moveTo(startJetX, nozzleY - 5f)
-                cubicTo(
-                    startJetX + w * 0.25f, nozzleY - 3f,
-                    startJetX + w * 0.52f, nozzleY + h * 0.22f,
-                    startJetX + w * 0.68f, h * 0.78f
-                )
-                lineTo(startJetX + w * 0.68f + 8f, h * 0.80f)
-                cubicTo(
-                    startJetX + w * 0.52f + 8f, nozzleY + h * 0.25f,
-                    startJetX + w * 0.25f, nozzleY + 7f,
-                    startJetX, nozzleY + 5f
-                )
-                close()
-            }
-            drawPath(streamPath, CyanNeon.copy(alpha = 0.22f))
-            drawPath(streamPath, CyanNeon.copy(alpha = 0.65f), style = Stroke(width = 1.5f))
-
-            // 4. Laser Emitter Diode (Left of Tank)
-            drawLine(
-                color = Color(0xFFB0BEC5),
-                start = Offset(tankLeft - 14f, nozzleY),
-                end = Offset(tankLeft - 2f, nozzleY),
-                strokeWidth = 6f,
-                cap = StrokeCap.Round
-            )
-            drawCircle(CoralNeon, 3.5f, Offset(tankLeft - 14f, nozzleY))
-
-            // 5. Total Internal Reflection Laser Path (Bouncing Inside Stream)
-            val p0 = Offset(startJetX - 6f, nozzleY)
-            val p1 = Offset(startJetX + w * 0.16f, nozzleY + 2f)
-            val p2 = Offset(startJetX + w * 0.32f, nozzleY + h * 0.08f)
-            val p3 = Offset(startJetX + w * 0.46f, nozzleY + h * 0.25f)
-            val p4 = Offset(startJetX + w * 0.58f, nozzleY + h * 0.45f)
-            val p5 = Offset(startJetX + w * 0.68f, h * 0.78f)
-
-            val laserBounces = listOf(p0, p1, p2, p3, p4, p5)
-            for (i in 0 until laserBounces.size - 1) {
-                // Outer glow
-                drawLine(
-                    color = CoralNeon.copy(alpha = 0.35f),
-                    start = laserBounces[i],
-                    end = laserBounces[i + 1],
-                    strokeWidth = 4.5f,
-                    cap = StrokeCap.Round
-                )
-                // Intense core beam
-                drawLine(
-                    color = CoralNeon,
-                    start = laserBounces[i],
-                    end = laserBounces[i + 1],
-                    strokeWidth = 1.8f,
-                    cap = StrokeCap.Round
-                )
-            }
-
-            // TIR Reflection Sparks & Normal Ticks
-            listOf(p1, p2, p3, p4).forEach { pt ->
-                drawCircle(Color.White, 2f, pt)
-                drawCircle(CoralNeon.copy(alpha = 0.6f), 4.5f, pt)
-            }
-
-            // 6. Catch Basin at Bottom Right
-            val basinX = startJetX + w * 0.62f
-            val basinY = h * 0.77f
-            drawRoundRect(
-                color = ScienceDarkSurfaceVariant,
-                topLeft = Offset(basinX, basinY),
-                size = Size(w * 0.18f, h * 0.14f),
-                cornerRadius = androidx.compose.ui.geometry.CornerRadius(4f)
-            )
-            drawRoundRect(
-                color = ScienceBorder.copy(alpha = 0.5f),
-                topLeft = Offset(basinX, basinY),
-                size = Size(w * 0.18f, h * 0.14f),
-                style = Stroke(width = 1.2f),
-                cornerRadius = androidx.compose.ui.geometry.CornerRadius(4f)
-            )
-            // Glowing pool of collected light
-            drawCircle(CoralNeon.copy(alpha = 0.6f), 6f, Offset(basinX + w * 0.08f, basinY + 6f))
-            drawCircle(Color.White.copy(alpha = 0.85f), 2.5f, Offset(basinX + w * 0.08f, basinY + 6f))
-        }
-        "thin_film_interference" -> {
-            // 1. Wire Frame Loop (Rectangular Oval)
-            val loopW = w * 0.46f
-            val loopH = h * 0.68f
-            val loopLeft = w * 0.16f
-            val loopTop = h * 0.12f
-
-            // Frame handle
-            drawLine(
-                color = Color(0xFF78909C),
-                start = Offset(loopLeft + loopW * 0.5f, loopTop + loopH),
-                end = Offset(loopLeft + loopW * 0.5f, loopTop + loopH + h * 0.16f),
-                strokeWidth = 3.5f,
-                cap = StrokeCap.Round
-            )
-            drawLine(
-                color = AmberVibrant.copy(alpha = 0.7f),
-                start = Offset(loopLeft + loopW * 0.5f, loopTop + loopH),
-                end = Offset(loopLeft + loopW * 0.5f, loopTop + loopH + h * 0.16f),
-                strokeWidth = 1.2f,
-                cap = StrokeCap.Round
-            )
-
-            // Film interior clip path
-            val filmRect = Size(loopW, loopH)
-            val filmTopLeft = Offset(loopLeft, loopTop)
-
-            // 2. Gravitational Thinning Iridescent Color Bands
-            val bands = listOf(
-                Color(0xFF11141A) to 0.10f, // Top: Newton's Black Film (destructive for all λ)
-                Color(0xFFE2E8F0) to 0.08f, // Silver-White fringe
-                AmberVibrant to 0.12f,      // First-order Gold / Yellow
-                PurpleNeon to 0.12f,        // Magenta / Violet band
-                CyanNeon to 0.14f,          // Cyan / Sky Blue fringe
-                EmeraldNeon to 0.14f,       // Emerald Green fringe
-                CoralNeon to 0.15f,         // Coral Red band
-                CyanNeon.copy(alpha = 0.75f) to 0.15f // Higher-order pastel
-            )
-
-            var currY = loopTop + 2f
-            for ((bandColor, relHeight) in bands) {
-                val bHeight = loopH * relHeight
-                drawRect(
-                    brush = Brush.verticalGradient(
-                        colors = listOf(bandColor.copy(alpha = 0.85f), bandColor.copy(alpha = 0.60f)),
-                        startY = currY,
-                        endY = currY + bHeight
-                    ),
-                    topLeft = Offset(loopLeft + 2f, currY),
-                    size = Size(loopW - 4f, bHeight)
-                )
-                currY += bHeight
-            }
-
-            // Shimmering surface sheen
-            drawRoundRect(
-                brush = Brush.verticalGradient(
-                    colors = listOf(Color.White.copy(alpha = 0.25f), Color.Transparent, Color.White.copy(alpha = 0.15f)),
-                    startY = loopTop,
-                    endY = loopTop + loopH
-                ),
-                topLeft = filmTopLeft,
-                size = filmRect,
-                cornerRadius = androidx.compose.ui.geometry.CornerRadius(10f)
-            )
-
-            // Wire Frame Rim
-            drawRoundRect(
-                color = ScienceDarkSurfaceVariant,
-                topLeft = filmTopLeft,
-                size = filmRect,
-                cornerRadius = androidx.compose.ui.geometry.CornerRadius(10f),
-                style = Stroke(width = 3.5f)
-            )
-            drawRoundRect(
-                color = CyanNeon.copy(alpha = 0.75f),
-                topLeft = filmTopLeft,
-                size = filmRect,
-                cornerRadius = androidx.compose.ui.geometry.CornerRadius(10f),
-                style = Stroke(width = 1.4f)
-            )
-
-            // 3. Ray Tracing Inset & Reflection Geometry on Right
-            val rayStartX = w * 0.94f
-            val rayStartY = h * 0.14f
-            val hitX = loopLeft + loopW * 0.70f
-            val hitY = loopTop + loopH * 0.38f
-
-            // Incident white ray
-            drawLine(
-                color = Color.White.copy(alpha = 0.9f),
-                start = Offset(rayStartX, rayStartY),
-                end = Offset(hitX, hitY),
-                strokeWidth = 2.0f,
-                cap = StrokeCap.Round
-            )
-
-            // Reflected interfering rays
-            val r1End = Offset(w * 0.96f, hitY - h * 0.15f)
-            val r2End = Offset(w * 0.94f, hitY - h * 0.05f)
-
-            drawLine(
-                color = CoralNeon.copy(alpha = 0.85f),
-                start = Offset(hitX, hitY),
-                end = r1End,
-                strokeWidth = 1.8f,
-                cap = StrokeCap.Round
-            )
-            drawLine(
-                color = EmeraldNeon.copy(alpha = 0.85f),
-                start = Offset(hitX + 5f, hitY + 3f),
-                end = r2End,
-                strokeWidth = 1.8f,
-                cap = StrokeCap.Round
-            )
-
-            // Interference Superposition Sparkle
-            drawCircle(Color.White, 2.5f, Offset(hitX, hitY))
-            drawCircle(CyanNeon.copy(alpha = 0.6f), 5.5f, Offset(hitX, hitY))
-            drawCircle(AmberVibrant, 2f, r1End)
-            drawCircle(CyanNeon, 2f, r2End)
-        }
+        "laser_light_fountain" -> drawLaserFountainIllustration(w, h)
+        "thin_film_interference" -> drawThinFilmIllustration(w, h)
+        "youngs_double_slit" -> drawYoungsDoubleSlitIllustration(w, h)
         "ideal_gas_piston" -> {
             val cyW = w * 0.45f
             val cyH = h * 0.72f
@@ -2981,6 +2736,376 @@ internal fun DrawScope.drawExperimentIllustration(id: String) {
             // Core spark
             drawCircle(AmberVibrant, 6f, Offset(cx, cy))
             drawCircle(Color.White, 2.5f, Offset(cx, cy))
+        }
+    }
+}
+
+private fun DrawScope.drawLaserFountainIllustration(w: Float, h: Float) {
+    // 1. Water Tank on Upper Left
+    val tankLeft = w * 0.08f
+    val tankTop = h * 0.16f
+    val tankWidth = w * 0.16f
+    val tankHeight = h * 0.45f
+    drawRoundRect(
+        color = ScienceDarkSurfaceVariant.copy(alpha = 0.85f),
+        topLeft = Offset(tankLeft, tankTop),
+        size = Size(tankWidth, tankHeight),
+        cornerRadius = androidx.compose.ui.geometry.CornerRadius(4f)
+    )
+    drawRoundRect(
+        color = CyanNeon.copy(alpha = 0.4f),
+        topLeft = Offset(tankLeft, tankTop),
+        size = Size(tankWidth, tankHeight),
+        style = Stroke(width = 1.5f),
+        cornerRadius = androidx.compose.ui.geometry.CornerRadius(4f)
+    )
+    // Liquid volume inside reservoir
+    drawRect(
+        color = CyanNeon.copy(alpha = 0.22f),
+        topLeft = Offset(tankLeft + 2f, tankTop + tankHeight * 0.25f),
+        size = Size(tankWidth - 4f, tankHeight * 0.75f - 2f)
+    )
+
+    // 2. Brass/Steel Horizontal Nozzle
+    val nozzleX = tankLeft + tankWidth
+    val nozzleY = tankTop + tankHeight * 0.65f
+    val nozzleH = 12f
+    drawRect(
+        color = Color(0xFF455A64),
+        topLeft = Offset(nozzleX, nozzleY - nozzleH * 0.5f),
+        size = Size(10f, nozzleH)
+    )
+    drawRect(
+        color = AmberVibrant.copy(alpha = 0.8f),
+        topLeft = Offset(nozzleX, nozzleY - nozzleH * 0.5f),
+        size = Size(10f, nozzleH),
+        style = Stroke(width = 1f)
+    )
+
+    // 3. Arcing Parabolic Water Stream
+    val startJetX = nozzleX + 10f
+    val streamPath = Path().apply {
+        moveTo(startJetX, nozzleY - 5f)
+        cubicTo(
+            startJetX + w * 0.25f, nozzleY - 3f,
+            startJetX + w * 0.52f, nozzleY + h * 0.22f,
+            startJetX + w * 0.68f, h * 0.78f
+        )
+        lineTo(startJetX + w * 0.68f + 8f, h * 0.80f)
+        cubicTo(
+            startJetX + w * 0.52f + 8f, nozzleY + h * 0.25f,
+            startJetX + w * 0.25f, nozzleY + 7f,
+            startJetX, nozzleY + 5f
+        )
+        close()
+    }
+    drawPath(streamPath, CyanNeon.copy(alpha = 0.22f))
+    drawPath(streamPath, CyanNeon.copy(alpha = 0.65f), style = Stroke(width = 1.5f))
+
+    // 4. Laser Emitter Diode (Left of Tank)
+    drawLine(
+        color = Color(0xFFB0BEC5),
+        start = Offset(tankLeft - 14f, nozzleY),
+        end = Offset(tankLeft - 2f, nozzleY),
+        strokeWidth = 6f,
+        cap = StrokeCap.Round
+    )
+    drawCircle(CoralNeon, 3.5f, Offset(tankLeft - 14f, nozzleY))
+
+    // 5. Total Internal Reflection Laser Path (Bouncing Inside Stream)
+    val p0 = Offset(startJetX - 6f, nozzleY)
+    val p1 = Offset(startJetX + w * 0.16f, nozzleY + 2f)
+    val p2 = Offset(startJetX + w * 0.32f, nozzleY + h * 0.08f)
+    val p3 = Offset(startJetX + w * 0.46f, nozzleY + h * 0.25f)
+    val p4 = Offset(startJetX + w * 0.58f, nozzleY + h * 0.45f)
+    val p5 = Offset(startJetX + w * 0.68f, h * 0.78f)
+
+    val laserBounces = listOf(p0, p1, p2, p3, p4, p5)
+    for (i in 0 until laserBounces.size - 1) {
+        drawLine(
+            color = CoralNeon.copy(alpha = 0.35f),
+            start = laserBounces[i],
+            end = laserBounces[i + 1],
+            strokeWidth = 4.5f,
+            cap = StrokeCap.Round
+        )
+        drawLine(
+            color = CoralNeon,
+            start = laserBounces[i],
+            end = laserBounces[i + 1],
+            strokeWidth = 1.8f,
+            cap = StrokeCap.Round
+        )
+    }
+
+    // TIR Reflection Sparks & Normal Ticks
+    listOf(p1, p2, p3, p4).forEach { pt ->
+        drawCircle(Color.White, 2f, pt)
+        drawCircle(CoralNeon.copy(alpha = 0.6f), 4.5f, pt)
+    }
+
+    // 6. Catch Basin at Bottom Right
+    val basinX = startJetX + w * 0.62f
+    val basinY = h * 0.77f
+    drawRoundRect(
+        color = ScienceDarkSurfaceVariant,
+        topLeft = Offset(basinX, basinY),
+        size = Size(w * 0.18f, h * 0.14f),
+        cornerRadius = androidx.compose.ui.geometry.CornerRadius(4f)
+    )
+    drawRoundRect(
+        color = ScienceBorder.copy(alpha = 0.5f),
+        topLeft = Offset(basinX, basinY),
+        size = Size(w * 0.18f, h * 0.14f),
+        style = Stroke(width = 1.2f),
+        cornerRadius = androidx.compose.ui.geometry.CornerRadius(4f)
+    )
+    drawCircle(CoralNeon.copy(alpha = 0.6f), 6f, Offset(basinX + w * 0.08f, basinY + 6f))
+    drawCircle(Color.White.copy(alpha = 0.85f), 2.5f, Offset(basinX + w * 0.08f, basinY + 6f))
+}
+
+private fun DrawScope.drawThinFilmIllustration(w: Float, h: Float) {
+    // 1. Wire Frame Loop (Rectangular Oval)
+    val loopW = w * 0.46f
+    val loopH = h * 0.68f
+    val loopLeft = w * 0.16f
+    val loopTop = h * 0.12f
+
+    // Frame handle
+    drawLine(
+        color = Color(0xFF78909C),
+        start = Offset(loopLeft + loopW * 0.5f, loopTop + loopH),
+        end = Offset(loopLeft + loopW * 0.5f, loopTop + loopH + h * 0.16f),
+        strokeWidth = 3.5f,
+        cap = StrokeCap.Round
+    )
+    drawLine(
+        color = AmberVibrant.copy(alpha = 0.7f),
+        start = Offset(loopLeft + loopW * 0.5f, loopTop + loopH),
+        end = Offset(loopLeft + loopW * 0.5f, loopTop + loopH + h * 0.16f),
+        strokeWidth = 1.2f,
+        cap = StrokeCap.Round
+    )
+
+    // Film interior clip path
+    val filmRect = Size(loopW, loopH)
+    val filmTopLeft = Offset(loopLeft, loopTop)
+
+    // 2. Gravitational Thinning Iridescent Color Bands
+    val bands = listOf(
+        Color(0xFF11141A) to 0.10f, // Top: Newton's Black Film (destructive for all λ)
+        Color(0xFFE2E8F0) to 0.08f, // Silver-White fringe
+        AmberVibrant to 0.12f,      // First-order Gold / Yellow
+        PurpleNeon to 0.12f,        // Magenta / Violet band
+        CyanNeon to 0.14f,          // Cyan / Sky Blue fringe
+        EmeraldNeon to 0.14f,       // Emerald Green fringe
+        CoralNeon to 0.15f,         // Coral Red band
+        CyanNeon.copy(alpha = 0.75f) to 0.15f
+    )
+
+    var currY = loopTop + 2f
+    for ((bandColor, relHeight) in bands) {
+        val bHeight = loopH * relHeight
+        drawRect(
+            brush = Brush.verticalGradient(
+                colors = listOf(bandColor.copy(alpha = 0.85f), bandColor.copy(alpha = 0.60f)),
+                startY = currY,
+                endY = currY + bHeight
+            ),
+            topLeft = Offset(loopLeft + 2f, currY),
+            size = Size(loopW - 4f, bHeight)
+        )
+        currY += bHeight
+    }
+
+    // Shimmering surface sheen
+    drawRoundRect(
+        brush = Brush.verticalGradient(
+            colors = listOf(Color.White.copy(alpha = 0.25f), Color.Transparent, Color.White.copy(alpha = 0.15f)),
+            startY = loopTop,
+            endY = loopTop + loopH
+        ),
+        topLeft = filmTopLeft,
+        size = filmRect,
+        cornerRadius = androidx.compose.ui.geometry.CornerRadius(10f)
+    )
+
+    // Wire Frame Rim
+    drawRoundRect(
+        color = ScienceDarkSurfaceVariant,
+        topLeft = filmTopLeft,
+        size = filmRect,
+        cornerRadius = androidx.compose.ui.geometry.CornerRadius(10f),
+        style = Stroke(width = 3.5f)
+    )
+    drawRoundRect(
+        color = CyanNeon.copy(alpha = 0.75f),
+        topLeft = filmTopLeft,
+        size = filmRect,
+        cornerRadius = androidx.compose.ui.geometry.CornerRadius(10f),
+        style = Stroke(width = 1.4f)
+    )
+
+    // 3. Ray Tracing Inset & Reflection Geometry on Right
+    val rayStartX = w * 0.94f
+    val rayStartY = h * 0.14f
+    val hitX = loopLeft + loopW * 0.70f
+    val hitY = loopTop + loopH * 0.38f
+
+    drawLine(
+        color = Color.White.copy(alpha = 0.9f),
+        start = Offset(rayStartX, rayStartY),
+        end = Offset(hitX, hitY),
+        strokeWidth = 2.0f,
+        cap = StrokeCap.Round
+    )
+
+    val r1End = Offset(w * 0.96f, hitY - h * 0.15f)
+    val r2End = Offset(w * 0.94f, hitY - h * 0.05f)
+
+    drawLine(
+        color = CoralNeon.copy(alpha = 0.85f),
+        start = Offset(hitX, hitY),
+        end = r1End,
+        strokeWidth = 1.8f,
+        cap = StrokeCap.Round
+    )
+    drawLine(
+        color = EmeraldNeon.copy(alpha = 0.85f),
+        start = Offset(hitX + 5f, hitY + 3f),
+        end = r2End,
+        strokeWidth = 1.8f,
+        cap = StrokeCap.Round
+    )
+
+    drawCircle(Color.White, 2.5f, Offset(hitX, hitY))
+    drawCircle(CyanNeon.copy(alpha = 0.6f), 5.5f, Offset(hitX, hitY))
+    drawCircle(AmberVibrant, 2f, r1End)
+    drawCircle(CyanNeon, 2f, r2End)
+}
+
+private fun DrawScope.drawYoungsDoubleSlitIllustration(w: Float, h: Float) {
+    val slitBarrierX = w * 0.28f
+    val screenX = w * 0.88f
+    val slit1Y = h * 0.40f
+    val slit2Y = h * 0.60f
+    val barrierTop = h * 0.15f
+    val barrierBottom = h * 0.85f
+
+    // 1. Incoming Coherent Laser Waves (Planar wavefronts from left)
+    val laserColor = EmeraldNeon // 532nm Green Laser
+    for (i in 0..3) {
+        val waveX = w * 0.06f + i * (slitBarrierX - w * 0.08f) / 3f
+        drawLine(
+            color = laserColor.copy(alpha = 0.45f),
+            start = Offset(waveX, barrierTop + 4f),
+            end = Offset(waveX, barrierBottom - 4f),
+            strokeWidth = 1.5f
+        )
+    }
+
+    // Laser source beam line
+    drawLine(
+        brush = Brush.horizontalGradient(
+            colors = listOf(laserColor.copy(alpha = 0.2f), laserColor.copy(alpha = 0.85f)),
+            startX = 0f,
+            endX = slitBarrierX
+        ),
+        start = Offset(0f, h * 0.5f),
+        end = Offset(slitBarrierX, h * 0.5f),
+        strokeWidth = 3f
+    )
+
+    // 2. Slit Barrier Wall (Dark metal barrier with two apertures)
+    val wallColor = ScienceDarkSurfaceVariant
+    val wallBorder = Color(0xFF78909C)
+    drawRect(wallColor, Offset(slitBarrierX - 3f, barrierTop), Size(6f, slit1Y - barrierTop - 3f))
+    drawRect(wallBorder, Offset(slitBarrierX - 1f, barrierTop), Size(2f, slit1Y - barrierTop - 3f))
+    drawRect(wallColor, Offset(slitBarrierX - 3f, slit1Y + 3f), Size(6f, slit2Y - slit1Y - 6f))
+    drawRect(wallBorder, Offset(slitBarrierX - 1f, slit1Y + 3f), Size(2f, slit2Y - slit1Y - 6f))
+    drawRect(wallColor, Offset(slitBarrierX - 3f, slit2Y + 3f), Size(6f, barrierBottom - slit2Y - 3f))
+    drawRect(wallBorder, Offset(slitBarrierX - 1f, slit2Y + 3f), Size(2f, barrierBottom - slit2Y - 3f))
+
+    // Glowing Slit Apertures
+    drawCircle(laserColor, 2.5f, Offset(slitBarrierX, slit1Y))
+    drawCircle(Color.White, 1.2f, Offset(slitBarrierX, slit1Y))
+    drawCircle(laserColor, 2.5f, Offset(slitBarrierX, slit2Y))
+    drawCircle(Color.White, 1.2f, Offset(slitBarrierX, slit2Y))
+
+    // 3. Expanding Huygens Circular Wavefronts from Twin Slits
+    val maxRadius = screenX - slitBarrierX
+    for (ring in 1..4) {
+        val r = ring * (maxRadius / 4.5f)
+        val alpha = (1f - (r / maxRadius)).coerceIn(0.2f, 0.75f)
+        drawArc(
+            color = laserColor.copy(alpha = alpha),
+            startAngle = -75f,
+            sweepAngle = 150f,
+            useCenter = false,
+            topLeft = Offset(slitBarrierX - r, slit1Y - r),
+            size = Size(r * 2f, r * 2f),
+            style = Stroke(width = 1.4f)
+        )
+        drawArc(
+            color = CyanNeon.copy(alpha = alpha),
+            startAngle = -75f,
+            sweepAngle = 150f,
+            useCenter = false,
+            topLeft = Offset(slitBarrierX - r, slit2Y - r),
+            size = Size(r * 2f, r * 2f),
+            style = Stroke(width = 1.4f)
+        )
+    }
+
+    // 4. Detection Screen on the Right (Phosphor plate)
+    drawRect(
+        color = ScienceDarkSurface,
+        topLeft = Offset(screenX, barrierTop),
+        size = Size(w * 0.08f, barrierBottom - barrierTop)
+    )
+    drawRect(
+        color = CyanGlow,
+        topLeft = Offset(screenX, barrierTop),
+        size = Size(w * 0.08f, barrierBottom - barrierTop),
+        style = Stroke(width = 1f)
+    )
+
+    // 5. Interference Fringes on the Screen (Central maximum + side orders)
+    val centerY = h * 0.5f
+    val fringeOrders = listOf(
+        0 to 1.0f,
+        -1 to 0.75f, 1 to 0.75f,
+        -2 to 0.45f, 2 to 0.45f,
+        -3 to 0.20f, 3 to 0.20f
+    )
+    val fringeSpacing = (slit2Y - slit1Y) * 0.55f
+
+    for ((m, intensity) in fringeOrders) {
+        val fY = centerY + m * fringeSpacing
+        if (fY in (barrierTop + 2f)..(barrierBottom - 2f)) {
+            drawRect(
+                brush = Brush.horizontalGradient(
+                    colors = listOf(
+                        Color.Transparent,
+                        laserColor.copy(alpha = intensity * 0.9f),
+                        Color.White.copy(alpha = intensity * 0.95f),
+                        laserColor.copy(alpha = intensity * 0.9f),
+                        Color.Transparent
+                    ),
+                    startX = screenX,
+                    endX = screenX + w * 0.08f
+                ),
+                topLeft = Offset(screenX, fY - 3f),
+                size = Size(w * 0.08f, 6f)
+            )
+            if (abs(m) <= 1) {
+                drawLine(
+                    color = laserColor.copy(alpha = 0.22f * intensity),
+                    start = Offset(slitBarrierX, centerY),
+                    end = Offset(screenX, fY),
+                    strokeWidth = 1f
+                )
+            }
         }
     }
 }

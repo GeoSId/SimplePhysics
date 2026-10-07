@@ -1,0 +1,115 @@
+{
+  "day": 31,
+  "curiosity": "How can shining light through two openings create stripes of pitch darkness where light should be?",
+  "titles": {
+    "desktop": "The Quantum Mystery of Light: Young's Double-Slit Experiment in Code",
+    "shorts": "The Mystery of Young's Double-Slit Experiment #Shorts"
+  },
+  "desktop_mission": {
+    "mission_title": "Day 31: Young's Double-Slit Experiment",
+    "mission_sub": "Wave Superposition, Diffraction Envelopes & Quantum Fringes",
+    "voice_mission": "Today we're simulating Young's double-slit experiment and wave-particle duality in Kotlin.",
+    "math_cards": [
+      [
+        "CONSTRUCTIVE INTERFERENCE",
+        "d·sin(θ) = m·λ",
+        "Wave crests from twin slits arrive in phase to produce bright intensity maxima"
+      ],
+      [
+        "FRINGE SPACING ON SCREEN",
+        "Δy = (λ·L) / d",
+        "Separation between consecutive bright fringes on a screen at distance L"
+      ],
+      [
+        "COMBINED INTENSITY PATTERN",
+        "I(θ) = I_0 · cos²(β) · sinc²(α)",
+        "Double-slit interference fringes modulated by single-slit diffraction envelope"
+      ]
+    ],
+    "voice_math": "The core physics: optical path difference, screen fringe spacing, and diffraction envelope intensity."
+  },
+  "fact_cards": [
+    [
+      "Bright Fringe Rule",
+      "d·sin(θ) = m·λ"
+    ],
+    [
+      "Fringe Separation",
+      "Δy = (λ·L) / d"
+    ],
+    [
+      "Combined Intensity",
+      "I(θ) = I_0 · cos²(β) · sinc²(α)"
+    ]
+  ],
+  "math_steps": [
+    {
+      "step_num": 1,
+      "badge": "EQUATION 1 OF 3 • OPTICAL PATH DIFFERENCE",
+      "formula": "d·sin(θ) = m·λ  (Constructive: m = 0, ±1, ±2)",
+      "note": "Twin coherent wavelets constructively reinforce whenever path lengths differ by integer wavelengths",
+      "color": [
+        0,
+        220,
+        255
+      ],
+      "code": "// 1. Geometric path difference and constructive fringe condition\nval pathDiffM = slitSeparationM * sin(thetaRad)\nval isBrightFringe = abs((pathDiffM / wavelengthM) - orderM.toFloat()) < 0.08f\n",
+      "sub_icon": "🔬",
+      "sub_tag": "STEP 1 • PATH DIFFERENCE",
+      "sub_title": "Optical Path Difference",
+      "sub_desc": "Evaluates slit path delta and integer wavelength phase reinforcement."
+    },
+    {
+      "step_num": 2,
+      "badge": "EQUATION 2 OF 3 • SCREEN FRINGE SPACING",
+      "formula": "Δy = (λ·L) / d  (Screen position: y_m = m·λ·L / d)",
+      "note": "Fringe spacing scales directly with distance L and inversely with slit separation d",
+      "color": [
+        255,
+        215,
+        65
+      ],
+      "code": "// 2. Screen fringe spacing and linear position of m-th bright fringe\nval fringeSpacingM = (wavelengthM * screenDistanceM) / slitSeparationM\nval fringePosY = orderM * fringeSpacingM\n",
+      "sub_icon": "📏",
+      "sub_tag": "STEP 2 • FRINGE SPACING",
+      "sub_title": "Screen Fringe Geometry",
+      "sub_desc": "Computes linear spacing between bright maxima on detection plane."
+    },
+    {
+      "step_num": 3,
+      "badge": "EQUATION 3 OF 3 • INTENSITY & DIFFRACTION ENVELOPE",
+      "formula": "I(θ) = I_0 · cos²(β) · sinc²(α)  (β = π·d·sin(θ)/λ, α = π·a·sin(θ)/λ)",
+      "note": "Double-slit interference oscillations are constrained under the single-slit diffraction envelope",
+      "color": [
+        255,
+        110,
+        110
+      ],
+      "code": "// 3. Total intensity combining double-slit interference and single-slit diffraction\nval beta = (PI.toFloat() * slitSeparationM * sin(thetaRad)) / wavelengthM\nval alpha = (PI.toFloat() * slitWidthM * sin(thetaRad)) / wavelengthM\nval intensity = cos(beta).pow(2) * (if (abs(alpha) < 1e-4f) 1f else (sin(alpha) / alpha).pow(2))\n",
+      "sub_icon": "💡",
+      "sub_tag": "STEP 3 • INTENSITY PROFILE",
+      "sub_title": "Diffraction-Interference Profile",
+      "sub_desc": "Multiplies interference cosine fringes with single-slit diffraction sinc envelope."
+    }
+  ],
+  "mystery": {
+    "en": "Why does shining light through two narrow slits produce dark bands where you expect brightness?"
+  },
+  "phenomenon": {
+    "en": {
+      "tag": "★ DOUBLE-SLIT INTERFERENCE",
+      "title": "Young's Double-Slit & Wave Fringes",
+      "teaser": "Coherent laser light diffracted through twin slits forms a brilliant array of alternating bright and dark fringes."
+    }
+  },
+  "narration": {
+    "en": {
+      "hook": "How can shooting light through two slits create alternating bands of darkness where light should be?",
+      "math": "Wave crests and troughs from twin slits superpose, constructively boosting intensity where paths align, and canceling into complete darkness where they differ by half a wavelength.",
+      "question": "Can we simulate Young's double-slit interference and diffraction live in Kotlin Multiplatform?",
+      "code_intro": "Written in Kotlin Multiplatform.",
+      "code_tip": "We compute wavefront phase delays, apply the single-slit sinc envelope, and render interference fringes on Canvas.",
+      "payoff": "Young's double-slit wave interference and intensity fringes running live in Kotlin."
+    }
+  }
+}
