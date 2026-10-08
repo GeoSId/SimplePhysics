@@ -580,7 +580,7 @@ object ExperimentRegistry {
             magicPhenomenonRes = Res.string.exp_prism_dispersion_magic,
             sciencePrincipleRes = Res.string.exp_prism_dispersion_principle,
             formulaTitleRes = Res.string.exp_prism_dispersion_formula_title,
-            formula = "n(\\lambda) = A + \\frac{B}{\\lambda^2} + \\frac{C}{\\lambda^4}",
+            formula = "n(λ) = A + B / λ² + C / λ⁴",
             howToTryAtHomeRes = Res.string.exp_prism_dispersion_how_to
         ),
         PhysicsExperiment(

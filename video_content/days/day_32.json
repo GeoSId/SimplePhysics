@@ -1,0 +1,115 @@
+{
+  "day": 32,
+  "curiosity": "Why does a clear piece of glass split pure white sunlight into seven distinct rainbow colors?",
+  "titles": {
+    "desktop": "The Secret Physics Behind Newton's Rainbow: Prism Dispersion in Code",
+    "shorts": "The Shocking Secret Behind Newton's Rainbow #Shorts"
+  },
+  "desktop_mission": {
+    "mission_title": "Day 32: Prism Dispersion & Newton's Rainbow",
+    "mission_sub": "Chromatic Dispersion, Cauchy's Equation & Total Internal Reflection",
+    "voice_mission": "Today we're simulating prism dispersion and Newton's rainbow in Kotlin Multiplatform.",
+    "math_cards": [
+      [
+        "CAUCHY DISPERSION EQUATION",
+        "n(λ) = A + B / λ² + C / λ⁴",
+        "Wavelength-dependent dielectric polarization slows violet light more than red"
+      ],
+      [
+        "DUAL-INTERFACE SNELL REFRACTION",
+        "sin(θ_i1) = n·sin(θ_r1),  θ_i2 = α - θ_r1",
+        "Angular refraction at entrance face and internal apex geometry constraint"
+      ],
+      [
+        "TOTAL CHROMATIC DEVIATION & TIR",
+        "δ(λ) = θ_i1 + θ_r2 - α  (TIR if sin(θ_i2) ≥ 1/n)",
+        "Exit refraction into air creates rainbow fan until critical angle threshold"
+      ]
+    ],
+    "voice_math": "The core physics: Cauchy's dispersion equation, dual-interface Snell refraction, and angular deviation with total internal reflection."
+  },
+  "fact_cards": [
+    [
+      "Cauchy Dispersion",
+      "n(λ) = A + B / λ² + C / λ⁴"
+    ],
+    [
+      "Dual-Face Refraction",
+      "sin(θ_i1) = n·sin(θ_r1),  θ_i2 = α - θ_r1"
+    ],
+    [
+      "Net Rainbow Spread",
+      "δ(λ) = θ_i1 + θ_r2 - α"
+    ]
+  ],
+  "math_steps": [
+    {
+      "step_num": 1,
+      "badge": "EQUATION 1 OF 3 • CAUCHY DISPERSION",
+      "formula": "n(λ) = A + B / λ² + C / λ⁴  (Violet: n ≈ 1.53, Red: n ≈ 1.51)",
+      "note": "Optical glass slows high-frequency violet light more than low-frequency red light",
+      "color": [
+        0,
+        220,
+        255
+      ],
+      "code": "// 1. Cauchy's dispersion equation: wavelength-dependent refractive index\nval lambdaUm = laserWavelengthNm / 1000f\nval nLambda = cauchyA + (cauchyB / (lambdaUm * lambdaUm)) + (cauchyC / (lambdaUm.pow(4)))\n",
+      "sub_icon": "🌈",
+      "sub_tag": "STEP 1 • DISPERSION",
+      "sub_title": "Cauchy Dispersion Equation",
+      "sub_desc": "Computes wavelength-dependent refractive index across visible spectrum."
+    },
+    {
+      "step_num": 2,
+      "badge": "EQUATION 2 OF 3 • DUAL-FACE REFRACTION",
+      "formula": "sin(θ_i1) = n·sin(θ_r1),  θ_i2 = α - θ_r1",
+      "note": "Entry refraction bends light toward normal; internal path meets exit face at angle θ_i2",
+      "color": [
+        255,
+        215,
+        65
+      ],
+      "code": "// 2. Dual-interface refraction: entry angle and internal prism apex constraint\nval sinThetaR1 = sin(thetaI1Rad) / nLambda\nval thetaR1Rad = asin(sinThetaR1.coerceIn(-1f, 1f))\nval thetaI2Rad = apexAngleRad - thetaR1Rad\n",
+      "sub_icon": "📐",
+      "sub_tag": "STEP 2 • SNELL GEOMETRY",
+      "sub_title": "Dual-Interface Refraction",
+      "sub_desc": "Applies Snell's law at first boundary and enforces internal prism apex constraint."
+    },
+    {
+      "step_num": 3,
+      "badge": "EQUATION 3 OF 3 • CHROMATIC DEVIATION & TIR",
+      "formula": "δ(λ) = θ_i1 + θ_r2 - α  (TIR if sin(θ_i2) ≥ 1 / n)",
+      "note": "Second refraction amplifies angular spread; steep rays undergo Total Internal Reflection",
+      "color": [
+        255,
+        110,
+        110
+      ],
+      "code": "// 3. Exit angle, total chromatic deviation and critical angle TIR check\nval sinThetaR2 = nLambda * sin(thetaI2Rad)\nval isTIR = sinThetaR2 >= 1f\nval thetaR2Rad = if (!isTIR) asin(sinThetaR2.coerceIn(-1f, 1f)) else 0f\nval deviationAngleRad = thetaI1Rad + thetaR2Rad - apexAngleRad\n",
+      "sub_icon": "⚡",
+      "sub_tag": "STEP 3 • EXIT DEVIATION",
+      "sub_title": "Angular Spread & Critical Angle",
+      "sub_desc": "Calculates exit refraction, total angular deviation, and internal reflection threshold."
+    }
+  ],
+  "mystery": {
+    "en": "Why does a clear triangular glass prism split pure white light into seven vibrant rainbow colors?"
+  },
+  "phenomenon": {
+    "en": {
+      "tag": "★ PRISM DISPERSION",
+      "title": "Prism Dispersion & Newton's Rainbow",
+      "teaser": "Passing white light through a triangular glass prism separates each wavelength into a stunning rainbow spectrum."
+    }
+  },
+  "narration": {
+    "en": {
+      "hook": "Why does shining plain white light through clear glass create a full rainbow spectrum?",
+      "math": "Inside glass, high-frequency violet light travels slower than red light, giving it a higher refractive index and bending it more sharply at both prism faces.",
+      "question": "Can we simulate Cauchy chromatic dispersion and Newton's rainbow live in Kotlin Multiplatform?",
+      "code_intro": "Written in Kotlin Multiplatform.",
+      "code_tip": "We apply Cauchy's dispersion equation, trace dual-interface Snell refraction, and project the rainbow fan on Canvas.",
+      "payoff": "Newton's prism dispersion rainbow running live in Kotlin."
+    }
+  }
+}

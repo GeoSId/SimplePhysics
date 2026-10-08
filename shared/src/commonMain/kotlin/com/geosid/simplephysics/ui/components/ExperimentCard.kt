@@ -1562,6 +1562,7 @@ internal fun DrawScope.drawExperimentIllustration(id: String) {
         "laser_light_fountain" -> drawLaserFountainIllustration(w, h)
         "thin_film_interference" -> drawThinFilmIllustration(w, h)
         "youngs_double_slit" -> drawYoungsDoubleSlitIllustration(w, h)
+        "prism_dispersion" -> drawPrismDispersionIllustration(w, h)
         "ideal_gas_piston" -> {
             val cyW = w * 0.45f
             val cyH = h * 0.72f
@@ -3109,3 +3110,156 @@ private fun DrawScope.drawYoungsDoubleSlitIllustration(w: Float, h: Float) {
         }
     }
 }
+
+private fun DrawScope.drawPrismDispersionIllustration(w: Float, h: Float) {
+    val cx = w * 0.44f
+    val cy = h * 0.48f
+    val prismSide = min(w * 0.38f, h * 0.65f)
+    val prismH = prismSide * 0.866f // cos(30 deg)
+    val halfBase = prismSide * 0.5f
+
+    // 1. Equilateral Prism Vertices
+    val v0 = Offset(cx, cy - prismH * 0.55f) // Apex
+    val v1 = Offset(cx - halfBase, cy + prismH * 0.45f) // Left Base
+    val v2 = Offset(cx + halfBase, cy + prismH * 0.45f) // Right Base
+
+    val screenX = w * 0.88f
+    val screenTop = h * 0.15f
+    val screenBottom = h * 0.85f
+    val screenWidth = w * 0.06f
+
+    // 2. Incident White Light Beam (Left Source -> Face 1)
+    val entryPt = Offset(v1.x + (v0.x - v1.x) * 0.48f, v1.y + (v0.y - v1.y) * 0.48f)
+    val sourcePt = Offset(w * 0.06f, entryPt.y + h * 0.16f)
+
+    // Collimated White Beam
+    drawLine(
+        color = Color.White.copy(alpha = 0.22f),
+        start = sourcePt,
+        end = entryPt,
+        strokeWidth = 6f
+    )
+    drawLine(
+        color = Color.White.copy(alpha = 0.95f),
+        start = sourcePt,
+        end = entryPt,
+        strokeWidth = 2.4f,
+        cap = StrokeCap.Round
+    )
+
+    // Emitter housing on left
+    drawCircle(ScienceDarkSurfaceVariant, 5f, sourcePt)
+    drawCircle(Color.White, 2.5f, sourcePt)
+
+    // 3. Glass Prism Body with Glass Highlights
+    val prismPath = Path().apply {
+        moveTo(v0.x, v0.y)
+        lineTo(v2.x, v2.y)
+        lineTo(v1.x, v1.y)
+        close()
+    }
+
+    drawPath(
+        path = prismPath,
+        brush = Brush.linearGradient(
+            colors = listOf(
+                Color(0x2200E5FF),
+                Color(0x0C141C2E),
+                Color(0x2E00E5FF)
+            ),
+            start = v0,
+            end = Offset(cx, cy + prismH * 0.5f)
+        )
+    )
+    drawPath(
+        path = prismPath,
+        color = ScienceBorder.copy(alpha = 0.75f),
+        style = Stroke(width = 1.8f)
+    )
+    drawLine(
+        color = GlassHighlight.copy(alpha = 0.45f),
+        start = v1,
+        end = v0,
+        strokeWidth = 2.2f
+    )
+    drawLine(
+        color = GlassHighlight.copy(alpha = 0.35f),
+        start = v0,
+        end = v2,
+        strokeWidth = 2.2f
+    )
+
+    // 4. Seven Spectral Colors: Red to Violet
+    val spectralRays = listOf(
+        Color(0xFFFF3333) to 0.46f, // Red (bends least)
+        Color(0xFFFF8A00) to 0.50f, // Orange
+        Color(0xFFFFD600) to 0.54f, // Yellow
+        Color(0xFF00E676) to 0.58f, // Green
+        Color(0xFF00E5FF) to 0.62f, // Cyan
+        Color(0xFF2979FF) to 0.67f, // Blue
+        Color(0xFFB388FF) to 0.72f  // Violet (bends most)
+    )
+
+    val f2Vec = v2 - v0
+    val firstScreenY = screenTop + (screenBottom - screenTop) * 0.26f
+    val lastScreenY = screenTop + (screenBottom - screenTop) * 0.76f
+
+    // Internal rays & Emergent rainbow fan
+    spectralRays.forEachIndexed { idx, (color, face2Frac) ->
+        val t = idx / (spectralRays.size - 1).toFloat()
+        val hitFace2 = Offset(v0.x + f2Vec.x * face2Frac, v0.y + f2Vec.y * face2Frac)
+        val hitScreen = Offset(screenX, firstScreenY + (lastScreenY - firstScreenY) * t)
+
+        // Internal ray inside glass
+        drawLine(
+            color = color.copy(alpha = 0.85f),
+            start = entryPt,
+            end = hitFace2,
+            strokeWidth = 1.6f,
+            cap = StrokeCap.Round
+        )
+
+        // Emergent ray from Face 2 to screen
+        drawLine(
+            color = color.copy(alpha = 0.90f),
+            start = hitFace2,
+            end = hitScreen,
+            strokeWidth = 1.8f,
+            cap = StrokeCap.Round
+        )
+    }
+
+    // 5. Detection Phosphor Screen on Right
+    drawRect(
+        color = ScienceDarkSurface,
+        topLeft = Offset(screenX, screenTop),
+        size = Size(screenWidth, screenBottom - screenTop)
+    )
+    drawRect(
+        color = ScienceBorder.copy(alpha = 0.6f),
+        topLeft = Offset(screenX, screenTop),
+        size = Size(screenWidth, screenBottom - screenTop),
+        style = Stroke(width = 1f)
+    )
+
+    // Continuous Spectral Gradient on Screen
+    val rainbowStops = listOf(
+        0.0f to Color(0xFFFF2A2A),
+        0.18f to Color(0xFFFF9100),
+        0.36f to Color(0xFFFFEA00),
+        0.54f to Color(0xFF00E676),
+        0.72f to Color(0xFF00E5FF),
+        0.88f to Color(0xFF2979FF),
+        1.0f to Color(0xFFB388FF)
+    )
+    drawRect(
+        brush = Brush.verticalGradient(
+            colorStops = rainbowStops.toTypedArray(),
+            startY = firstScreenY - 4f,
+            endY = lastScreenY + 4f
+        ),
+        topLeft = Offset(screenX + 1.5f, firstScreenY - 4f),
+        size = Size(screenWidth - 3f, (lastScreenY - firstScreenY) + 8f)
+    )
+}
+
