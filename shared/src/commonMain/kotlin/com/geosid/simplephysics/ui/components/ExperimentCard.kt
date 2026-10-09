@@ -1563,6 +1563,7 @@ internal fun DrawScope.drawExperimentIllustration(id: String) {
         "thin_film_interference" -> drawThinFilmIllustration(w, h)
         "youngs_double_slit" -> drawYoungsDoubleSlitIllustration(w, h)
         "prism_dispersion" -> drawPrismDispersionIllustration(w, h)
+        "polarization_3_filter" -> drawPolarization3FilterIllustration(w, h)
         "ideal_gas_piston" -> {
             val cyW = w * 0.45f
             val cyH = h * 0.72f
@@ -3262,4 +3263,177 @@ private fun DrawScope.drawPrismDispersionIllustration(w: Float, h: Float) {
         size = Size(screenWidth - 3f, (lastScreenY - firstScreenY) + 8f)
     )
 }
+
+private fun DrawScope.drawPolarization3FilterIllustration(w: Float, h: Float) {
+    val cy = h * 0.50f
+    val railY = cy + h * 0.32f
+
+    // 1. Optical Bench Rail along bottom
+    drawLine(
+        color = ScienceBorder.copy(alpha = 0.6f),
+        start = Offset(w * 0.05f, railY),
+        end = Offset(w * 0.95f, railY),
+        strokeWidth = 2.5f,
+        cap = StrokeCap.Round
+    )
+
+    val srcX = w * 0.10f
+    val f1X = w * 0.30f
+    val f2X = w * 0.52f
+    val f3X = w * 0.74f
+    val detX = w * 0.90f
+    val filterR = min(w * 0.08f, h * 0.28f)
+
+    // 2. Unpolarized Light Emitter (Left)
+    drawCircle(ScienceDarkSurfaceVariant, 12f, Offset(srcX, cy))
+    drawCircle(Color.White, 7f, Offset(srcX, cy))
+    drawCircle(AmberVibrant, 12f, Offset(srcX, cy), style = Stroke(1.5f))
+
+    // Multi-angle radiating unpolarized rays
+    for (i in 0..7) {
+        val angle = i * (PI.toFloat() / 4f)
+        drawLine(
+            color = AmberVibrant.copy(alpha = 0.6f),
+            start = Offset(srcX, cy),
+            end = Offset(srcX + cos(angle) * 18f, cy + sin(angle) * 18f),
+            strokeWidth = 1.2f
+        )
+    }
+
+    // Unpolarized beam to Filter 1
+    drawLine(
+        color = AmberVibrant.copy(alpha = 0.25f),
+        start = Offset(srcX + 12f, cy),
+        end = Offset(f1X - filterR, cy),
+        strokeWidth = 6f
+    )
+    drawLine(
+        color = AmberVibrant.copy(alpha = 0.85f),
+        start = Offset(srcX + 12f, cy),
+        end = Offset(f1X - filterR, cy),
+        strokeWidth = 2f,
+        cap = StrokeCap.Round
+    )
+
+    // 3. Polarized Wave Sections
+    // Between F1 and F2: Vertically polarized (Cyan)
+    drawLine(
+        color = CyanNeon.copy(alpha = 0.20f),
+        start = Offset(f1X + filterR, cy),
+        end = Offset(f2X - filterR, cy),
+        strokeWidth = 6f
+    )
+    val wavePath1 = Path()
+    val steps1 = 20
+    for (i in 0..steps1) {
+        val t = i / steps1.toFloat()
+        val px = (f1X + filterR) + (f2X - f1X - 2 * filterR) * t
+        val py = cy - 14f * sin(t * 3 * PI.toFloat())
+        if (i == 0) wavePath1.moveTo(px, py) else wavePath1.lineTo(px, py)
+    }
+    drawPath(wavePath1, CyanNeon.copy(alpha = 0.9f), style = Stroke(1.6f))
+
+    // Between F2 and F3: Diagonally polarized at 45 deg (Purple)
+    drawLine(
+        color = PurpleNeon.copy(alpha = 0.20f),
+        start = Offset(f2X + filterR, cy),
+        end = Offset(f3X - filterR, cy),
+        strokeWidth = 5f
+    )
+    val wavePath2 = Path()
+    val steps2 = 20
+    for (i in 0..steps2) {
+        val t = i / steps2.toFloat()
+        val px = (f2X + filterR) + (f3X - f2X - 2 * filterR) * t
+        val py = cy - 10f * sin(t * 3 * PI.toFloat())
+        if (i == 0) wavePath2.moveTo(px, py) else wavePath2.lineTo(px, py)
+    }
+    drawPath(wavePath2, PurpleNeon.copy(alpha = 0.9f), style = Stroke(1.5f))
+
+    // Between F3 and Detector: Restored horizontally polarized beam (Emerald Neon)
+    drawLine(
+        color = EmeraldNeon.copy(alpha = 0.35f),
+        start = Offset(f3X + filterR, cy),
+        end = Offset(detX, cy),
+        strokeWidth = 5f
+    )
+    drawLine(
+        color = EmeraldNeon,
+        start = Offset(f3X + filterR, cy),
+        end = Offset(detX, cy),
+        strokeWidth = 2f,
+        cap = StrokeCap.Round
+    )
+    drawLine(
+        color = Color.White.copy(alpha = 0.8f),
+        start = Offset(f3X + filterR, cy),
+        end = Offset(detX, cy),
+        strokeWidth = 1f
+    )
+
+    // 4. Polarizer Disks Helper
+    fun drawFilterDisk(centerX: Float, angleDeg: Float, col: Color) {
+        val center = Offset(centerX, cy)
+        // Stand post to rail
+        drawLine(
+            color = ScienceBorder,
+            start = Offset(centerX, cy + filterR),
+            end = Offset(centerX, railY),
+            strokeWidth = 2f
+        )
+        // Outer ring
+        drawCircle(ScienceDarkSurface, filterR, center)
+        drawCircle(col.copy(alpha = 0.15f), filterR, center)
+        drawCircle(col, filterR, center, style = Stroke(1.6f))
+
+        // Slits
+        val angleRad = angleDeg * PI.toFloat() / 180f
+        val ux = -sin(angleRad)
+        val uy = cos(angleRad)
+        for (step in -2..2) {
+            val dist = step * (filterR * 0.32f)
+            val px = cos(angleRad) * dist
+            val py = sin(angleRad) * dist
+            val chord = sqrt((filterR * filterR - dist * dist).coerceAtLeast(0f)) * 0.82f
+            drawLine(
+                color = col.copy(alpha = 0.55f),
+                start = Offset(center.x + px - ux * chord, center.y + py - uy * chord),
+                end = Offset(center.x + px + ux * chord, center.y + py + uy * chord),
+                strokeWidth = 1.2f
+            )
+        }
+        // Needle
+        drawLine(
+            color = Color.White.copy(alpha = 0.9f),
+            start = Offset(center.x - ux * (filterR * 0.85f), center.y - uy * (filterR * 0.85f)),
+            end = Offset(center.x + ux * (filterR * 0.85f), center.y + uy * (filterR * 0.85f)),
+            strokeWidth = 1.8f,
+            cap = StrokeCap.Round
+        )
+    }
+
+    // Draw 3 Filter Disks
+    drawFilterDisk(f1X, 0f, CyanNeon)        // 0° Vertical
+    drawFilterDisk(f2X, 45f, PurpleNeon)     // 45° Paradox
+    drawFilterDisk(f3X, 90f, AmberVibrant)   // 90° Horizontal
+
+    // 5. Output Detector Plate (Far Right)
+    val detW = 8f
+    val detH = 46f
+    drawRect(
+        color = ScienceDarkSurfaceVariant,
+        topLeft = Offset(detX, cy - detH * 0.5f),
+        size = Size(detW, detH)
+    )
+    drawRect(
+        color = ScienceBorder,
+        topLeft = Offset(detX, cy - detH * 0.5f),
+        size = Size(detW, detH),
+        style = Stroke(1.2f)
+    )
+    // Illuminated spot (12.5% transmission)
+    drawCircle(EmeraldNeon.copy(alpha = 0.6f), 7f, Offset(detX + detW * 0.5f, cy))
+    drawCircle(Color.White, 3f, Offset(detX + detW * 0.5f, cy))
+}
+
 

@@ -595,7 +595,7 @@ object ExperimentRegistry {
             magicPhenomenonRes = Res.string.exp_polarization_3_filter_magic,
             sciencePrincipleRes = Res.string.exp_polarization_3_filter_principle,
             formulaTitleRes = Res.string.exp_polarization_3_filter_formula_title,
-            formula = "I = I_0 \\cos^2\\theta_1 \\cos^2\\theta_2",
+            formula = "I = I_0 · cos²(θ_1) · cos²(θ_2)",
             howToTryAtHomeRes = Res.string.exp_polarization_3_filter_how_to
         ),
         PhysicsExperiment(

@@ -1,0 +1,115 @@
+{
+  "day": 33,
+  "curiosity": "How can adding an extra dark filter between two crossed polarizers make light suddenly reappear?",
+  "titles": {
+    "desktop": "The Quantum Mystery of Light: The 3-Filter Polarization Paradox",
+    "shorts": "The Shocking 3-Filter Polarization Paradox #Shorts"
+  },
+  "desktop_mission": {
+    "mission_title": "Day 33: Polarization & The 3-Filter Paradox",
+    "mission_sub": "Malus's Law, Vector Field Projections & Quantum Measurement",
+    "voice_mission": "Today we're simulating Malus's law and the three-filter polarization paradox in Kotlin.",
+    "math_cards": [
+      [
+        "MALUS'S LAW",
+        "I = I_in · cos²(Δθ)",
+        "Transmitted light intensity drops with the square of the angle between polarization axes"
+      ],
+      [
+        "SEQUENTIAL E-FIELD PROJECTIONS",
+        "E_2 = E_1 · cos(θ_2 - θ_1),  E_3 = E_2 · cos(θ_3 - θ_2)",
+        "Electric field vectors project along each filter transmission axis in sequence"
+      ],
+      [
+        "THE 3-FILTER PARADOX",
+        "I_3 = 0.125 · I_0  (at θ_1 = 0°, θ_2 = 45°, θ_3 = 90°)",
+        "Adding a 45° diagonal filter restores 12.5% light from complete crossed darkness"
+      ]
+    ],
+    "voice_math": "The core physics: Malus's law, sequential electric field vector projection, and quantum state rotation."
+  },
+  "fact_cards": [
+    [
+      "Malus's Law",
+      "I = I_in · cos²(Δθ)"
+    ],
+    [
+      "Crossed Blackout",
+      "I_3 = 0  (at 90° separation)"
+    ],
+    [
+      "3-Filter Peak",
+      "I_3 = 0.125 · I_0  (at 45°)"
+    ]
+  ],
+  "math_steps": [
+    {
+      "step_num": 1,
+      "badge": "EQUATION 1 OF 3 • FIRST FILTER PROJECTION",
+      "formula": "I_1 = 0.5 · I_0,  I_2 = I_1 · cos²(θ_2 - θ_1)",
+      "note": "Unpolarized light loses half its power; second filter projects the surviving electric field",
+      "color": [
+        0,
+        220,
+        255
+      ],
+      "code": "// 1. Initial polarization and first interface Malus transmission\nval i1 = 0.5f * inputIntensity\nval deltaTheta12Rad = (theta2Deg - theta1Deg) * PI.toFloat() / 180f\nval i2 = if (filter2Active) i1 * cos(deltaTheta12Rad).pow(2) else i1\n",
+      "sub_icon": "🔬",
+      "sub_tag": "STEP 1 • MALUS PROJECTION",
+      "sub_title": "First Filter Projection",
+      "sub_desc": "Computes initial unpolarized transmission and middle filter electric field projection."
+    },
+    {
+      "step_num": 2,
+      "badge": "EQUATION 2 OF 3 • SEQUENTIAL ANALYZER PROJECTION",
+      "formula": "I_3 = I_2 · cos²(θ_3 - θ_2) = I_1 · cos²(θ_2 - θ_1) · cos²(θ_3 - θ_2)",
+      "note": "Light emerging from filter 2 is rotated to θ_2, giving it a non-zero projection onto filter 3",
+      "color": [
+        255,
+        215,
+        65
+      ],
+      "code": "// 2. Sequential Malus projection through analyzer filter 3\nval deltaThetaExitRad = if (filter2Active) {\n    (theta3Deg - theta2Deg) * PI.toFloat() / 180f\n} else {\n    (theta3Deg - theta1Deg) * PI.toFloat() / 180f\n}\nval i3 = i2 * cos(deltaThetaExitRad).pow(2)\n",
+      "sub_icon": "📐",
+      "sub_tag": "STEP 2 • ANALYZER TRANSMISSION",
+      "sub_title": "Sequential Malus Projection",
+      "sub_desc": "Applies final projection through horizontal analyzer filter."
+    },
+    {
+      "step_num": 3,
+      "badge": "EQUATION 3 OF 3 • PARADOX TRANSMISSION PEAK",
+      "formula": "I_max = 0.125 · I_0  (at θ_1 = 0°, θ_2 = 45°, θ_3 = 90°)",
+      "note": "Adding the middle 45° filter paradoxically increases total transmitted light from 0% to 12.5%",
+      "color": [
+        0,
+        230,
+        118
+      ],
+      "code": "// 3. Peak 3-filter paradox transmission at 45 degree angle\nval transmittedFraction = i3 / inputIntensity\nval isParadoxActive = filter2Active && abs(theta3Deg - theta1Deg - 90f) < 2f && transmittedFraction > 0.001f\nval eFieldAmp = sqrt(transmittedFraction)\n",
+      "sub_icon": "✨",
+      "sub_tag": "STEP 3 • PARADOX RESTORATION",
+      "sub_title": "Peak Transmission & Quantum State",
+      "sub_desc": "Evaluates paradox state condition and transmitted electric field amplitude."
+    }
+  ],
+  "mystery": {
+    "en": "Why does adding a third dark polarizing filter between two crossed filters cause light to reappear?"
+  },
+  "phenomenon": {
+    "en": {
+      "tag": "★ 3-FILTER PARADOX",
+      "title": "Polarization & The 3-Filter Paradox",
+      "teaser": "Two crossed 90° polarizing sheets block 100% of light; inserting a 45° filter between them restores 12.5% transmission."
+    }
+  },
+  "narration": {
+    "en": {
+      "hook": "How can adding another dark sunglasses filter between two crossed lenses make light suddenly reappear?",
+      "math": "The middle filter rotates the light's electric field vector to 45 degrees, giving it a non-zero projection onto the final horizontal analyzer.",
+      "question": "Can we simulate Malus's law and the 3-filter paradox live in Kotlin Multiplatform?",
+      "code_intro": "Written in Kotlin Multiplatform.",
+      "code_tip": "We project electric field amplitudes through each filter interface and evaluate transmitted Poynting flux on Canvas.",
+      "payoff": "The 3-filter polarization paradox running live in Kotlin."
+    }
+  }
+}
