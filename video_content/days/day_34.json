@@ -1,0 +1,115 @@
+{
+  "day": 34,
+  "curiosity": "How can a glass slide with thousands of micro-grooves reveal the secret quantum fingerprint of atoms?",
+  "titles": {
+    "desktop": "The Secret Physics of Atomic Fingerprints: Diffraction Grating in Code",
+    "shorts": "The Quantum Secret Behind Atomic Fingerprints #Shorts"
+  },
+  "desktop_mission": {
+    "mission_title": "Day 34: Diffraction Grating Spectrometer",
+    "mission_sub": "Multi-Slit Angular Dispersion, Atomic Emission Lines & Resolving Power",
+    "voice_mission": "Today we're simulating a diffraction grating spectrometer and atomic emission lines in Kotlin.",
+    "math_cards": [
+      [
+        "THE GRATING EQUATION",
+        "d · sin(θ_m) = m · λ",
+        "Constructive interference across thousands of periodic slits produces sharp angular peaks"
+      ],
+      [
+        "ANGULAR DISPERSION RATE",
+        "D = dθ / dλ = m / (d · cos(θ_m))",
+        "Angular separation between adjacent spectral lines scales directly with ruling density"
+      ],
+      [
+        "CHROMATIC RESOLVING POWER",
+        "R = λ / Δλ = m · N_total",
+        "Rayleigh criterion resolution limit scales with harmonic order and total illuminated grooves"
+      ]
+    ],
+    "voice_math": "The core physics: the grating diffraction equation, angular dispersion rate, and chromatic resolving power."
+  },
+  "fact_cards": [
+    [
+      "Grating Equation",
+      "d · sin(θ_m) = m · λ"
+    ],
+    [
+      "Angular Dispersion",
+      "D = m / (d · cos(θ_m))"
+    ],
+    [
+      "Resolving Power",
+      "R = m · N_total"
+    ]
+  ],
+  "math_steps": [
+    {
+      "step_num": 1,
+      "badge": "EQUATION 1 OF 3 • THE GRATING EQUATION",
+      "formula": "d · sin(θ_m) = m · λ  (θ_m = asin(m · λ / d))",
+      "note": "Constructive interference occurs when path lengths between adjacent slits differ by integer wavelengths",
+      "color": [
+        0,
+        220,
+        255
+      ],
+      "code": "// 1. Grating equation: angular deflection for m-th diffraction order\nval grooveSpacingNm = 1_000_000f / linesPerMm\nval sinTheta = (orderM * wavelengthNm) / grooveSpacingNm\nval isDiffracted = abs(sinTheta) <= 1.0f\nval thetaRad = if (isDiffracted) asin(sinTheta) else 0f\n",
+      "sub_icon": "🔬",
+      "sub_tag": "STEP 1 • GRATING DEFLECTION",
+      "sub_title": "The Grating Equation",
+      "sub_desc": "Computes angular deflection angle for each spectral order."
+    },
+    {
+      "step_num": 2,
+      "badge": "EQUATION 2 OF 3 • ANGULAR DISPERSION",
+      "formula": "y_m = L · tan(θ_m),  D = dθ / dλ = m / (d · cos(θ_m))",
+      "note": "Higher ruling densities and orders spread spectral lines further apart across the detector screen",
+      "color": [
+        255,
+        215,
+        65
+      ],
+      "code": "// 2. Linear screen displacement and angular dispersion rate\nval screenPosY = screenDistanceMm * tan(thetaRad)\nval angularDispersion = if (cos(thetaRad) > 1e-4f) orderM / (grooveSpacingNm * 1e-6f * cos(thetaRad)) else 0f\n",
+      "sub_icon": "📏",
+      "sub_tag": "STEP 2 • LINEAR DISPERSION",
+      "sub_title": "Screen Displacement & Dispersion",
+      "sub_desc": "Calculates screen focal spot position and wavelength separation gradient."
+    },
+    {
+      "step_num": 3,
+      "badge": "EQUATION 3 OF 3 • RESOLVING POWER & INTENSITY",
+      "formula": "R = λ / Δλ = m · N_total,  I(θ) = I_0 · [sin(N·β) / sin(β)]²",
+      "note": "Thousands of coherent micro-slits narrow broad interference fringes into razor-sharp atomic peaks",
+      "color": [
+        0,
+        230,
+        118
+      ],
+      "code": "// 3. Multi-slit chromatic resolving power and peak interference intensity\nval resolvingPower = orderM * totalGrooveCount\nval beta = (PI.toFloat() * grooveSpacingNm * sin(thetaRad)) / wavelengthNm\nval intensityFactor = if (abs(sin(beta)) < 1e-3f) 1f else (sin(numSlitsActive * beta) / (numSlitsActive * sin(beta))).pow(2)\n",
+      "sub_icon": "✨",
+      "sub_tag": "STEP 3 • SPECTRAL RESOLUTION",
+      "sub_title": "Chromatic Resolving Power",
+      "sub_desc": "Evaluates Rayleigh resolution limit and multi-slit intensity sharpness."
+    }
+  ],
+  "mystery": {
+    "en": "Why does shining light through thousands of microscopic lines split it into razor-sharp atomic colors?"
+  },
+  "phenomenon": {
+    "en": {
+      "tag": "★ DIFFRACTION GRATING",
+      "title": "Diffraction Grating Spectrometer",
+      "teaser": "Passing elemental gas discharge light through thousands of grating slits reveals unique quantum atomic emission lines."
+    }
+  },
+  "narration": {
+    "en": {
+      "hook": "How can a glass slide with thousands of micro-slits reveal the hidden quantum fingerprint of an atom?",
+      "math": "Constructive interference across thousands of periodic grooves produces razor-sharp angular peaks for each distinct atomic wavelength.",
+      "question": "Can we simulate a diffraction grating spectrometer and atomic emission lines live in Kotlin Multiplatform?",
+      "code_intro": "Written in Kotlin Multiplatform.",
+      "code_tip": "We apply the multi-slit grating equation, calculate angular dispersion, and project atomic emission peaks on Canvas.",
+      "payoff": "Atomic emission spectra and diffraction grating orders running live in Kotlin."
+    }
+  }
+}

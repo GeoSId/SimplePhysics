@@ -1564,6 +1564,7 @@ internal fun DrawScope.drawExperimentIllustration(id: String) {
         "youngs_double_slit" -> drawYoungsDoubleSlitIllustration(w, h)
         "prism_dispersion" -> drawPrismDispersionIllustration(w, h)
         "polarization_3_filter" -> drawPolarization3FilterIllustration(w, h)
+        "diffraction_grating" -> drawDiffractionGratingIllustration(w, h)
         "ideal_gas_piston" -> {
             val cyW = w * 0.45f
             val cyH = h * 0.72f
@@ -3435,5 +3436,157 @@ private fun DrawScope.drawPolarization3FilterIllustration(w: Float, h: Float) {
     drawCircle(EmeraldNeon.copy(alpha = 0.6f), 7f, Offset(detX + detW * 0.5f, cy))
     drawCircle(Color.White, 3f, Offset(detX + detW * 0.5f, cy))
 }
+
+private fun DrawScope.drawDiffractionGratingIllustration(w: Float, h: Float) {
+    val cy = h * 0.50f
+    val srcX = w * 0.10f
+    val gratingX = w * 0.38f
+    val screenX = w * 0.88f
+    val screenW = w * 0.05f
+    val screenTop = h * 0.12f
+    val screenBottom = h * 0.88f
+
+    // 1. Central Optical Axis Reference Line
+    drawLine(
+        color = TextMuted.copy(alpha = 0.35f),
+        start = Offset(srcX, cy),
+        end = Offset(screenX + screenW, cy),
+        strokeWidth = 1f,
+        pathEffect = PathEffect.dashPathEffect(floatArrayOf(5f, 5f), 0f)
+    )
+
+    // 2. Collimated Elemental Source Emitter (Left)
+    drawCircle(ScienceDarkSurfaceVariant, 12f, Offset(srcX, cy))
+    drawCircle(Color.White, 6f, Offset(srcX, cy))
+    drawCircle(CyanNeon, 12f, Offset(srcX, cy), style = Stroke(1.5f))
+
+    // Collimated composite incident beam (White / Multi-spectral core)
+    drawLine(
+        color = Color.White.copy(alpha = 0.25f),
+        start = Offset(srcX + 12f, cy),
+        end = Offset(gratingX - 4f, cy),
+        strokeWidth = 6f
+    )
+    drawLine(
+        color = Color.White.copy(alpha = 0.95f),
+        start = Offset(srcX + 12f, cy),
+        end = Offset(gratingX - 4f, cy),
+        strokeWidth = 2.2f,
+        cap = StrokeCap.Round
+    )
+
+    // 3. Diffraction Grating Mount & Micro-Ruling Lines
+    val gratingH = h * 0.58f
+    val gratingW = 7f
+    drawRect(
+        color = ScienceDarkSurface,
+        topLeft = Offset(gratingX - gratingW * 0.5f, cy - gratingH * 0.5f),
+        size = Size(gratingW, gratingH)
+    )
+    drawRect(
+        color = AmberVibrant,
+        topLeft = Offset(gratingX - gratingW * 0.5f, cy - gratingH * 0.5f),
+        size = Size(gratingW, gratingH),
+        style = Stroke(1.6f)
+    )
+
+    // Periodic ruling lines
+    val rulingCount = 12
+    val rulingSpacing = gratingH / rulingCount.toFloat()
+    for (r in 0..rulingCount) {
+        val ry = cy - gratingH * 0.5f + r * rulingSpacing
+        drawLine(
+            color = AmberVibrant.copy(alpha = 0.75f),
+            start = Offset(gratingX - gratingW * 0.5f + 1f, ry),
+            end = Offset(gratingX + gratingW * 0.5f - 1f, ry),
+            strokeWidth = 1f
+        )
+    }
+
+    // 4. Zero-Order Undeviated Beam (m = 0)
+    drawLine(
+        color = Color.White.copy(alpha = 0.85f),
+        start = Offset(gratingX + gratingW * 0.5f, cy),
+        end = Offset(screenX, cy),
+        strokeWidth = 2.2f,
+        cap = StrokeCap.Round
+    )
+
+    // 5. First-Order Diffracted Spectral Rays (m = ±1)
+    // Hydrogen Balmer Spectral Lines: Red (656nm), Cyan (486nm), Violet (434nm)
+    val spectralLines = listOf(
+        Color(0xFFFF3333) to 0.72f, // H-alpha Red (deflects most)
+        Color(0xFF00E5FF) to 0.48f, // H-beta Cyan
+        Color(0xFFB388FF) to 0.32f  // H-gamma Violet (deflects least)
+    )
+
+    val maxSpreadY = (screenBottom - screenTop) * 0.46f
+
+    // Draw m = +1 (downward) and m = -1 (upward)
+    for ((color, relAngle) in spectralLines) {
+        val dy = maxSpreadY * relAngle
+
+        // Upper branch (m = -1)
+        drawLine(
+            color = color.copy(alpha = 0.85f),
+            start = Offset(gratingX + gratingW * 0.5f, cy),
+            end = Offset(screenX, cy - dy),
+            strokeWidth = 1.8f,
+            cap = StrokeCap.Round
+        )
+        // Upper spectral line on screen
+        drawRect(
+            color = color,
+            topLeft = Offset(screenX + 1f, cy - dy - 1.5f),
+            size = Size(screenW - 2f, 3f)
+        )
+        drawRect(
+            color = Color.White,
+            topLeft = Offset(screenX + 2f, cy - dy - 0.7f),
+            size = Size(screenW - 4f, 1.4f)
+        )
+
+        // Lower branch (m = +1)
+        drawLine(
+            color = color.copy(alpha = 0.85f),
+            start = Offset(gratingX + gratingW * 0.5f, cy),
+            end = Offset(screenX, cy + dy),
+            strokeWidth = 1.8f,
+            cap = StrokeCap.Round
+        )
+        // Lower spectral line on screen
+        drawRect(
+            color = color,
+            topLeft = Offset(screenX + 1f, cy + dy - 1.5f),
+            size = Size(screenW - 2f, 3f)
+        )
+        drawRect(
+            color = Color.White,
+            topLeft = Offset(screenX + 2f, cy + dy - 0.7f),
+            size = Size(screenW - 4f, 1.4f)
+        )
+    }
+
+    // 6. Phosphor Detection Screen Plate (Right)
+    drawRect(
+        color = Color(0xFF0F172A),
+        topLeft = Offset(screenX, screenTop),
+        size = Size(screenW, screenBottom - screenTop)
+    )
+    drawRect(
+        color = ScienceBorder.copy(alpha = 0.7f),
+        topLeft = Offset(screenX, screenTop),
+        size = Size(screenW, screenBottom - screenTop),
+        style = Stroke(1.2f)
+    )
+
+    // Central m = 0 spot on screen
+    drawRect(
+        color = Color.White,
+        topLeft = Offset(screenX + 1.5f, cy - 2f),
+        size = Size(screenW - 3f, 4f)
+    )
+}
+
 
 

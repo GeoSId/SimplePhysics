@@ -610,7 +610,7 @@ object ExperimentRegistry {
             magicPhenomenonRes = Res.string.exp_diffraction_grating_magic,
             sciencePrincipleRes = Res.string.exp_diffraction_grating_principle,
             formulaTitleRes = Res.string.exp_diffraction_grating_formula_title,
-            formula = "d \\sin\\theta_m = m \\lambda",
+            formula = "d · sin(θ_m) = m · λ",
             howToTryAtHomeRes = Res.string.exp_diffraction_grating_how_to
         ),
         PhysicsExperiment(
