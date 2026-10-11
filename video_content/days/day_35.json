@@ -1,0 +1,115 @@
+{
+  "day": 35,
+  "curiosity": "Why does scorching highway asphalt look like a shimmering reflective puddle of water even though it's bone dry?",
+  "titles": {
+    "desktop": "The Secret Physics of Desert Mirages: Curved Light Rays in Code",
+    "shorts": "The Shocking Physics Behind Desert Highway Mirages #Shorts"
+  },
+  "desktop_mission": {
+    "mission_title": "Day 35: Atmospheric Mirage & Curved Rays",
+    "mission_sub": "Continuous Refractive Index Gradients, Fermat's Principle & Ray Bending",
+    "voice_mission": "Today we're simulating atmospheric mirages and curved light rays in Kotlin.",
+    "math_cards": [
+      [
+        "FERMAT'S PRINCIPLE & SNELL INVARIANT",
+        "n(y) · cos(θ) = const",
+        "Light follows stationary optical paths through continuously stratified atmospheric layers"
+      ],
+      [
+        "RAY CURVATURE EQUATION",
+        "d²y/dx² = (1/n) · (dn/dy)",
+        "Local ray path curvature is driven by the vertical atmospheric refractive index gradient"
+      ],
+      [
+        "GLADSTONE-DALE RELATION",
+        "n(y) - 1 = k · ρ(y) ∝ P / T(y)",
+        "Intense surface heating decreases air density, bending downward light rays upward into observer eyes"
+      ]
+    ],
+    "voice_math": "The core physics: Fermat's principle of least time, the continuous Snell invariant, and ray curvature in heated air."
+  },
+  "fact_cards": [
+    [
+      "Snell Invariant",
+      "n(y) · cos(θ) = const"
+    ],
+    [
+      "Ray Curvature ODE",
+      "d²y/dx² = (1/n) · (dn/dy)"
+    ],
+    [
+      "Gladstone-Dale Law",
+      "n(y) - 1 = k · ρ(y)"
+    ]
+  ],
+  "math_steps": [
+    {
+      "step_num": 1,
+      "badge": "EQUATION 1 OF 3 • THE SNELL INVARIANT",
+      "formula": "n(y) · cos(θ) = n_0 · cos(θ_0) = invariant",
+      "note": "In horizontally stratified media, the horizontal optical momentum component remains strictly conserved",
+      "color": [
+        0,
+        220,
+        255
+      ],
+      "code": "// 1. Continuous Snell invariant along vertically stratified index strata\nval snellInvariant = nLocal * cos(thetaRad)\nval dThetaDs = (1.0f / nLocal) * dnDyLocal * cos(thetaRad)\nthetaRad += dThetaDs * ds\n",
+      "sub_icon": "📐",
+      "sub_tag": "STEP 1 • SNELL INVARIANT",
+      "sub_title": "Continuous Snell's Law",
+      "sub_desc": "Evaluates optical invariant and ray angle deflection step."
+    },
+    {
+      "step_num": 2,
+      "badge": "EQUATION 2 OF 3 • RAY TRAJECTORY CURVATURE",
+      "formula": "d²y/dx² = (1/n) · (dn/dy),  κ = |dn/dy| / n",
+      "note": "Rays bend toward regions of higher refractive index, turning around at the critical grazing boundary",
+      "color": [
+        255,
+        215,
+        65
+      ],
+      "code": "// 2. Trajectory differential displacement and turning point detection\nval dx = cos(thetaRad) * ds\nval dy = -sin(thetaRad) * ds\nif (prevDy * dy <= 0f) { turningPoint = Offset(x, y) }\n",
+      "sub_icon": "➰",
+      "sub_tag": "STEP 2 • RAY CURVATURE",
+      "sub_title": "Ray Path Integration",
+      "sub_desc": "Steps optical trajectory and registers Fermat turning point."
+    },
+    {
+      "step_num": 3,
+      "badge": "EQUATION 3 OF 3 • GLADSTONE-DALE LAW",
+      "formula": "n(y) = 1 + (n_0 - 1) · (T_0 / T(y)),  dn/dy = (dn/dT)·(dT/dy)",
+      "note": "Air refractivity scales inversely with absolute temperature, producing steep gradients over hot asphalt",
+      "color": [
+        0,
+        230,
+        118
+      ],
+      "code": "// 3. Gladstone-Dale atmospheric refractivity and thermal index gradient\nval localTempK = tAirK + (tGroundK - tAirK) * exp(-altitudePx / boundaryPx)\nval nLocal = 1.0f + (n0 - 1.0f) * (t0K / localTempK)\nval dnDy = dnDt * dtDy\n",
+      "sub_icon": "🌡️",
+      "sub_tag": "STEP 3 • THERMAL GRADIENT",
+      "sub_title": "Gladstone-Dale Index Profile",
+      "sub_desc": "Computes altitude-dependent refractive index and gradient."
+    }
+  ],
+  "mystery": {
+    "en": "Why does bone-dry desert highway asphalt appear covered in shimmering pools of water?"
+  },
+  "phenomenon": {
+    "en": {
+      "tag": "★ ATMOSPHERIC MIRAGE",
+      "title": "Atmospheric Mirage & Curved Rays",
+      "teaser": "Intensely heated air directly above road asphalt bends light upward into your eyes, mimicking a water reflection."
+    }
+  },
+  "narration": {
+    "en": {
+      "hook": "Why does scorching highway asphalt appear covered in shimmering pools of water when it's bone dry?",
+      "math": "Intensely heated air near the road expands and lowers its refractive index, curving light rays upward via Fermat's principle.",
+      "question": "Can we simulate continuous refractive index gradients and curved ray mirages live in Kotlin Multiplatform?",
+      "code_intro": "Written in Kotlin Multiplatform.",
+      "code_tip": "We integrate the ray curvature differential equation, compute Gladstone-Dale thermal refractivity, and render mirage rays on Canvas.",
+      "payoff": "Atmospheric mirages and curved light rays running live in Kotlin."
+    }
+  }
+}

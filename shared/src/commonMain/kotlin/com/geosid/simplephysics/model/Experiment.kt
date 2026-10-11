@@ -625,7 +625,7 @@ object ExperimentRegistry {
             magicPhenomenonRes = Res.string.exp_atmospheric_mirage_magic,
             sciencePrincipleRes = Res.string.exp_atmospheric_mirage_principle,
             formulaTitleRes = Res.string.exp_atmospheric_mirage_formula_title,
-            formula = "\\delta \\int n(y) ds = 0 \\implies \\frac{d^2 y}{dx^2} = \\frac{1}{n}\\frac{dn}{dy}",
+            formula = "d²y/dx² = (1/n) · (dn/dy),  n(y)·cos(θ) = const",
             howToTryAtHomeRes = Res.string.exp_atmospheric_mirage_how_to
         ),
         // ==========================================

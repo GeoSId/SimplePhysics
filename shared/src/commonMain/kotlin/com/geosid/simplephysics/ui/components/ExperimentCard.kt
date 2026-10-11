@@ -1565,6 +1565,7 @@ internal fun DrawScope.drawExperimentIllustration(id: String) {
         "prism_dispersion" -> drawPrismDispersionIllustration(w, h)
         "polarization_3_filter" -> drawPolarization3FilterIllustration(w, h)
         "diffraction_grating" -> drawDiffractionGratingIllustration(w, h)
+        "atmospheric_mirage" -> drawAtmosphericMirageIllustration(w, h)
         "ideal_gas_piston" -> {
             val cyW = w * 0.45f
             val cyH = h * 0.72f
@@ -3587,6 +3588,156 @@ private fun DrawScope.drawDiffractionGratingIllustration(w: Float, h: Float) {
         size = Size(screenW - 3f, 4f)
     )
 }
+
+private fun DrawScope.drawAtmosphericMirageIllustration(w: Float, h: Float) {
+    val groundY = h * 0.62f
+    val skyH = groundY
+    val groundH = h - groundY
+
+    // 1. Blazing Desert Sky Gradient
+    drawRect(
+        brush = Brush.verticalGradient(
+            colors = listOf(Color(0xFF0B2545), Color(0xFF134074), Color(0xFF8DA9C4)),
+            startY = 0f,
+            endY = skyH
+        ),
+        topLeft = Offset.Zero,
+        size = Size(w, skyH)
+    )
+
+    // Sun with radiant halo
+    val sunCenter = Offset(w * 0.20f, skyH * 0.24f)
+    drawCircle(
+        brush = Brush.radialGradient(
+            colors = listOf(AmberVibrant.copy(alpha = 0.85f), AmberVibrant.copy(alpha = 0.15f), Color.Transparent),
+            center = sunCenter,
+            radius = 28f
+        ),
+        radius = 28f,
+        center = sunCenter
+    )
+    drawCircle(Color(0xFFFFEEAA), 9f, sunCenter)
+
+    // 2. Scorching Asphalt Highway
+    drawRect(
+        brush = Brush.verticalGradient(
+            colors = listOf(Color(0xFF2B2D42), Color(0xFF15161E)),
+            startY = groundY,
+            endY = h
+        ),
+        topLeft = Offset(0f, groundY),
+        size = Size(w, groundH)
+    )
+
+    // Thermal rim along asphalt horizon
+    drawLine(
+        color = CoralNeon.copy(alpha = 0.7f),
+        start = Offset(0f, groundY),
+        end = Offset(w, groundY),
+        strokeWidth = 2f
+    )
+
+    // Reflective shimmering water puddle illusion on road
+    val puddleW = w * 0.40f
+    val puddleX = w * 0.42f
+    drawOval(
+        brush = Brush.radialGradient(
+            colors = listOf(CyanNeon.copy(alpha = 0.45f), Color(0x338DA9C4), Color.Transparent),
+            center = Offset(puddleX + puddleW * 0.5f, groundY + 2f),
+            radius = puddleW * 0.5f
+        ),
+        topLeft = Offset(puddleX, groundY - 3f),
+        size = Size(puddleW, 10f)
+    )
+
+    // 3. Distant Palm Tree (Left)
+    val treeX = w * 0.15f
+    val treeTopY = groundY - 36f
+    // Trunk
+    val trunkPath = Path().apply {
+        moveTo(treeX - 2f, groundY)
+        cubicTo(treeX - 4f, groundY - 14f, treeX + 3f, groundY - 26f, treeX, treeTopY)
+        lineTo(treeX + 3f, treeTopY)
+        cubicTo(treeX + 5f, groundY - 26f, treeX + 1f, groundY - 14f, treeX + 2f, groundY)
+        close()
+    }
+    drawPath(trunkPath, Color(0xFF8B5A2B))
+    // Fronds
+    val frondAngles = listOf(-55f, -25f, 0f, 25f, 55f)
+    for (ang in frondAngles) {
+        val rad = ang * (kotlin.math.PI.toFloat() / 180f)
+        val fx = treeX + kotlin.math.sin(rad) * 16f
+        val fy = treeTopY - kotlin.math.cos(rad) * 8f + kotlin.math.abs(kotlin.math.sin(rad)) * 5f
+        drawLine(
+            color = EmeraldNeon,
+            start = Offset(treeX, treeTopY),
+            end = Offset(fx, fy),
+            strokeWidth = 2f,
+            cap = StrokeCap.Round
+        )
+    }
+
+    // 4. Inverted Mirage Tree Reflection beneath ground
+    val invTopY = groundY + 22f
+    val invTrunkPath = Path().apply {
+        moveTo(treeX - 1.5f, groundY)
+        lineTo(treeX - 2f, invTopY)
+        lineTo(treeX + 2f, invTopY)
+        lineTo(treeX + 1.5f, groundY)
+        close()
+    }
+    drawPath(invTrunkPath, Color(0x558B5A2B))
+    for (ang in frondAngles) {
+        val rad = ang * (kotlin.math.PI.toFloat() / 180f)
+        val fx = treeX + kotlin.math.sin(rad) * 12f
+        val fy = invTopY + kotlin.math.cos(rad) * 6f
+        drawLine(
+            color = EmeraldNeon.copy(alpha = 0.45f),
+            start = Offset(treeX, invTopY),
+            end = Offset(fx, fy),
+            strokeWidth = 1.4f,
+            cap = StrokeCap.Round
+        )
+    }
+
+    // 5. Observer Station (Right)
+    val obsX = w * 0.86f
+    val obsEyeY = groundY - 22f
+    drawCircle(ScienceDarkSurfaceVariant, 7f, Offset(obsX, obsEyeY))
+    drawCircle(CyanNeon, 7f, Offset(obsX, obsEyeY), style = Stroke(1.2f))
+    drawCircle(Color.White, 3f, Offset(obsX, obsEyeY))
+    drawLine(ScienceBorder, Offset(obsX, groundY), Offset(obsX, obsEyeY + 7f), 1.8f)
+
+    // 6. Real Curved Light Ray Path (Fermat Bending)
+    // Starts from palm fronds, bends downward toward hot road, turns grazing ground, enters eye
+    val rayPath = Path().apply {
+        moveTo(treeX, treeTopY)
+        cubicTo(
+            w * 0.35f, groundY - 6f,
+            w * 0.58f, groundY - 4f,
+            obsX, obsEyeY
+        )
+    }
+    // Glow
+    drawPath(rayPath, CyanNeon.copy(alpha = 0.30f), style = Stroke(4f, cap = StrokeCap.Round))
+    // Core ray
+    drawPath(rayPath, CyanNeon, style = Stroke(1.8f, cap = StrokeCap.Round))
+
+    // Turning point grazing highlight
+    drawCircle(Color.White, 3f, Offset(w * 0.46f, groundY - 4f))
+    drawCircle(CyanNeon, 6f, Offset(w * 0.46f, groundY - 4f), style = Stroke(1.2f))
+
+    // 7. Virtual Ray Projection (Straight Line Extension from Eye into Inverted Image)
+    drawLine(
+        color = AmberVibrant.copy(alpha = 0.85f),
+        start = Offset(obsX, obsEyeY),
+        end = Offset(treeX, invTopY),
+        strokeWidth = 1.4f,
+        pathEffect = PathEffect.dashPathEffect(floatArrayOf(4f, 4f), 0f)
+    )
+    drawCircle(AmberVibrant, 3f, Offset(treeX, invTopY))
+}
+
 
 
 
