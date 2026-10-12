@@ -643,7 +643,7 @@ object ExperimentRegistry {
             magicPhenomenonRes = Res.string.exp_magnus_effect_magic,
             sciencePrincipleRes = Res.string.exp_magnus_effect_principle,
             formulaTitleRes = Res.string.exp_magnus_effect_formula_title,
-            formula = "F_M = \\rho \\Gamma v, \\quad \\Gamma = 2\\pi R^2 \\omega",
+            formula = "F_M = ρ · Γ · v,  Γ = 2π · R² · ω",
             howToTryAtHomeRes = Res.string.exp_magnus_effect_how_to
         ),
         PhysicsExperiment(

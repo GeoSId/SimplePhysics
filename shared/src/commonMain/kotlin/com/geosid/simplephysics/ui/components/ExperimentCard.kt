@@ -1566,6 +1566,7 @@ internal fun DrawScope.drawExperimentIllustration(id: String) {
         "polarization_3_filter" -> drawPolarization3FilterIllustration(w, h)
         "diffraction_grating" -> drawDiffractionGratingIllustration(w, h)
         "atmospheric_mirage" -> drawAtmosphericMirageIllustration(w, h)
+        "magnus_effect" -> drawMagnusEffectIllustration(w, h)
         "ideal_gas_piston" -> {
             val cyW = w * 0.45f
             val cyH = h * 0.72f
@@ -3737,6 +3738,126 @@ private fun DrawScope.drawAtmosphericMirageIllustration(w: Float, h: Float) {
     )
     drawCircle(AmberVibrant, 3f, Offset(treeX, invTopY))
 }
+
+private fun DrawScope.drawMagnusEffectIllustration(w: Float, h: Float) {
+    val cx = w * 0.42f
+    val cy = h * 0.48f
+    val ballR = min(w, h) * 0.16f
+
+    // 1. Aerodynamic Airflow Streamlines (Asymmetric Deflection)
+    val streamlineCount = 6
+    for (i in 0 until streamlineCount) {
+        val yBase = h * (0.20f + i * 0.11f)
+        val dy = yBase - cy
+        val path = Path()
+
+        // Asymmetric downward deflection behind spinning cylinder
+        val deflection = if (i >= 3) 14f else -8f
+
+        path.moveTo(w * 0.05f, yBase)
+        path.cubicTo(
+            cx - ballR * 1.5f, yBase,
+            cx, yBase + (if (abs(dy) < ballR * 1.2f) sign(dy) * 10f else 0f),
+            cx + ballR * 1.5f, yBase + deflection
+        )
+        path.lineTo(w * 0.95f, yBase + deflection * 1.6f)
+
+        val streamCol = if (dy < 0) {
+            CyanNeon.copy(alpha = 0.55f) // High speed / low pressure on top
+        } else {
+            CoralNeon.copy(alpha = 0.45f) // Low speed / high pressure on bottom
+        }
+
+        drawPath(
+            path = path,
+            color = streamCol,
+            style = Stroke(width = 1.4f)
+        )
+    }
+
+    // 2. Curving Flight Trajectory Trail (Banana curve)
+    val curvePath = Path().apply {
+        moveTo(w * 0.08f, h * 0.78f)
+        cubicTo(
+            w * 0.28f, h * 0.65f,
+            cx, cy,
+            w * 0.88f, h * 0.24f
+        )
+    }
+    drawPath(
+        path = curvePath,
+        color = CyanNeon.copy(alpha = 0.30f),
+        style = Stroke(width = 4.5f, cap = StrokeCap.Round)
+    )
+    drawPath(
+        path = curvePath,
+        color = CyanNeon,
+        style = Stroke(
+            width = 1.8f,
+            pathEffect = PathEffect.dashPathEffect(floatArrayOf(5f, 5f), 0f)
+        )
+    )
+
+    // 3. Goal Post Target (Top-right)
+    val goalX = w * 0.88f
+    val goalTop = h * 0.16f
+    val goalBottom = h * 0.36f
+    drawLine(Color.White, Offset(goalX, goalBottom), Offset(goalX, goalTop), 2f)
+    drawLine(Color.White, Offset(goalX, goalTop), Offset(goalX + 16f, goalTop), 2f)
+    drawLine(Color.White.copy(alpha = 0.4f), Offset(goalX + 16f, goalTop), Offset(goalX + 16f, goalBottom), 1.5f)
+
+    // 4. Rotating Ball / Cylinder
+    drawCircle(
+        brush = Brush.radialGradient(
+            colors = listOf(Color.White, Color(0xFFE2E8F0), Color(0xFF94A3B8)),
+            center = Offset(cx - ballR * 0.2f, cy - ballR * 0.2f),
+            radius = ballR
+        ),
+        radius = ballR,
+        center = Offset(cx, cy)
+    )
+    drawCircle(
+        color = CyanNeon,
+        radius = ballR,
+        center = Offset(cx, cy),
+        style = Stroke(1.8f)
+    )
+
+    // Seams on ball
+    drawCircle(ScienceDarkBg, 3.5f, Offset(cx, cy))
+    drawLine(ScienceDarkBg, Offset(cx, cy), Offset(cx + ballR * 0.6f, cy - ballR * 0.4f), 2f)
+    drawLine(ScienceDarkBg, Offset(cx, cy), Offset(cx - ballR * 0.6f, cy - ballR * 0.4f), 2f)
+    drawLine(ScienceDarkBg, Offset(cx, cy), Offset(cx, cy + ballR * 0.7f), 2f)
+
+    // 5. Spin Direction Arc & Arrow (Counter-Clockwise)
+    drawArc(
+        color = AmberVibrant,
+        startAngle = 40f,
+        sweepAngle = 260f,
+        useCenter = false,
+        topLeft = Offset(cx - ballR * 1.35f, cy - ballR * 1.35f),
+        size = Size(ballR * 2.7f, ballR * 2.7f),
+        style = Stroke(width = 1.8f, pathEffect = PathEffect.dashPathEffect(floatArrayOf(6f, 4f), 0f))
+    )
+
+    // 6. Upward Magnus Lift Force Vector (F_M)
+    val liftLen = 32f
+    drawLine(
+        color = CyanNeon,
+        start = Offset(cx, cy),
+        end = Offset(cx, cy - liftLen),
+        strokeWidth = 2.8f,
+        cap = StrokeCap.Round
+    )
+    val liftHead = Path().apply {
+        moveTo(cx, cy - liftLen - 4f)
+        lineTo(cx - 4.5f, cy - liftLen + 3f)
+        lineTo(cx + 4.5f, cy - liftLen + 3f)
+        close()
+    }
+    drawPath(liftHead, CyanNeon)
+}
+
 
 
 
