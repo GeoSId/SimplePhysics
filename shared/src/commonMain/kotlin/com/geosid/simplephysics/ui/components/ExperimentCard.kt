@@ -1567,6 +1567,7 @@ internal fun DrawScope.drawExperimentIllustration(id: String) {
         "diffraction_grating" -> drawDiffractionGratingIllustration(w, h)
         "atmospheric_mirage" -> drawAtmosphericMirageIllustration(w, h)
         "magnus_effect" -> drawMagnusEffectIllustration(w, h)
+        "vortex_rings" -> drawVortexRingsIllustration(w, h)
         "ideal_gas_piston" -> {
             val cyW = w * 0.45f
             val cyH = h * 0.72f
@@ -3857,6 +3858,146 @@ private fun DrawScope.drawMagnusEffectIllustration(w: Float, h: Float) {
     }
     drawPath(liftHead, CyanNeon)
 }
+
+private fun DrawScope.drawVortexRingsIllustration(w: Float, h: Float) {
+    val cy = h * 0.50f
+    val cannonX = w * 0.14f
+    val ringX = w * 0.50f
+    val targetX = w * 0.86f
+    val ringR = h * 0.26f
+    val coreR = 7.5f
+
+    // 1. Vortex Cannon Nozzle (Left)
+    drawRect(
+        brush = Brush.horizontalGradient(
+            colors = listOf(Color(0xFF1E293B), Color(0xFF334155)),
+            startX = cannonX - 22f,
+            endX = cannonX
+        ),
+        topLeft = Offset(cannonX - 22f, cy - ringR * 0.9f),
+        size = Size(22f, ringR * 1.8f)
+    )
+    drawRect(
+        color = ScienceBorder,
+        topLeft = Offset(cannonX - 22f, cy - ringR * 0.9f),
+        size = Size(22f, ringR * 1.8f),
+        style = Stroke(1.5f)
+    )
+    // Nozzle lips
+    drawRoundRect(CyanNeon, Offset(cannonX - 3f, cy - ringR * 0.95f), Size(6f, 8f), androidx.compose.ui.geometry.CornerRadius(1.5f))
+    drawRoundRect(CyanNeon, Offset(cannonX - 3f, cy + ringR * 0.95f - 8f), Size(6f, 8f), androidx.compose.ui.geometry.CornerRadius(1.5f))
+
+    // 2. Central Propagating Jet Stream
+    drawLine(
+        color = CyanNeon.copy(alpha = 0.5f),
+        start = Offset(cannonX + 4f, cy),
+        end = Offset(ringX + 24f, cy),
+        strokeWidth = 2.0f,
+        cap = StrokeCap.Round
+    )
+    // Secondary jet lines
+    drawLine(CyanNeon.copy(alpha = 0.3f), Offset(ringX - 18f, cy - ringR * 0.35f), Offset(ringX + 22f, cy - ringR * 0.35f), 1.2f)
+    drawLine(CyanNeon.copy(alpha = 0.3f), Offset(ringX - 18f, cy + ringR * 0.35f), Offset(ringX + 22f, cy + ringR * 0.35f), 1.2f)
+
+    // Central Jet Arrow
+    val arrowHead = Path().apply {
+        moveTo(ringX + 26f, cy)
+        lineTo(ringX + 18f, cy - 4f)
+        lineTo(ringX + 18f, cy + 4f)
+        close()
+    }
+    drawPath(arrowHead, CyanNeon)
+
+    // 3. Toroidal Smoke Ring Envelope (Connecting Ellipse)
+    val envelopePath = Path().apply {
+        moveTo(ringX - coreR * 1.4f, cy - ringR)
+        cubicTo(
+            ringX, cy - ringR * 1.2f,
+            ringX + coreR * 1.4f, cy - ringR * 1.1f,
+            ringX + coreR * 1.4f, cy - ringR
+        )
+        lineTo(ringX + coreR * 1.4f, cy + ringR)
+        cubicTo(
+            ringX, cy + ringR * 1.2f,
+            ringX - coreR * 1.4f, cy + ringR * 1.1f,
+            ringX - coreR * 1.4f, cy + ringR
+        )
+        close()
+    }
+    drawPath(
+        path = envelopePath,
+        brush = Brush.horizontalGradient(
+            colors = listOf(CyanNeon.copy(alpha = 0.12f), PurpleNeon.copy(alpha = 0.22f), CyanNeon.copy(alpha = 0.12f)),
+            startX = ringX - coreR * 2f,
+            endX = ringX + coreR * 2f
+        )
+    )
+
+    // 4. Counter-Rotating Toroidal Vortex Cores (Upper & Lower)
+    val upperCore = Offset(ringX, cy - ringR)
+    val lowerCore = Offset(ringX, cy + ringR)
+
+    // Upper Core (Cyan/Purple counter-clockwise)
+    drawCircle(CyanNeon.copy(alpha = 0.35f), coreR * 2.2f, upperCore)
+    drawCircle(CyanNeon, coreR, upperCore)
+    drawCircle(Color.White, coreR * 0.35f, upperCore)
+    // Upper circulation arc
+    drawArc(
+        color = Color.White.copy(alpha = 0.85f),
+        startAngle = 30f,
+        sweepAngle = 240f,
+        useCenter = false,
+        topLeft = Offset(upperCore.x - coreR * 1.5f, upperCore.y - coreR * 1.5f),
+        size = Size(coreR * 3f, coreR * 3f),
+        style = Stroke(width = 1.4f, pathEffect = PathEffect.dashPathEffect(floatArrayOf(4f, 4f), 0f))
+    )
+
+    // Lower Core (Purple/Cyan clockwise)
+    drawCircle(PurpleNeon.copy(alpha = 0.35f), coreR * 2.2f, lowerCore)
+    drawCircle(PurpleNeon, coreR, lowerCore)
+    drawCircle(Color.White, coreR * 0.35f, lowerCore)
+    // Lower circulation arc
+    drawArc(
+        color = Color.White.copy(alpha = 0.85f),
+        startAngle = -30f,
+        sweepAngle = -240f,
+        useCenter = false,
+        topLeft = Offset(lowerCore.x - coreR * 1.5f, lowerCore.y - coreR * 1.5f),
+        size = Size(coreR * 3f, coreR * 3f),
+        style = Stroke(width = 1.4f, pathEffect = PathEffect.dashPathEffect(floatArrayOf(4f, 4f), 0f))
+    )
+
+    // 5. Target Candle (Right)
+    val candleTop = cy + 4f
+    val candleH = 26f
+    drawRoundRect(
+        color = Color(0xFFCBD5E1),
+        topLeft = Offset(targetX - 5f, candleTop),
+        size = Size(10f, candleH),
+        cornerRadius = androidx.compose.ui.geometry.CornerRadius(2f)
+    )
+    // Wick
+    drawLine(Color(0xFF1E293B), Offset(targetX, candleTop), Offset(targetX, candleTop - 6f), 1.5f)
+
+    // Flickering Flame being blown back
+    val flamePath = Path().apply {
+        moveTo(targetX, candleTop - 6f)
+        cubicTo(
+            targetX + 8f, candleTop - 12f,
+            targetX + 12f, candleTop - 16f,
+            targetX + 14f, candleTop - 14f
+        )
+        cubicTo(
+            targetX + 8f, candleTop - 10f,
+            targetX + 4f, candleTop - 8f,
+            targetX, candleTop - 6f
+        )
+        close()
+    }
+    drawPath(flamePath, AmberVibrant)
+    drawCircle(Color.White, 2.5f, Offset(targetX + 4f, candleTop - 9f))
+}
+
 
 
 

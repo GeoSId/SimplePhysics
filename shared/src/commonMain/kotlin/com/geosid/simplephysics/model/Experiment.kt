@@ -658,7 +658,7 @@ object ExperimentRegistry {
             magicPhenomenonRes = Res.string.exp_vortex_rings_magic,
             sciencePrincipleRes = Res.string.exp_vortex_rings_principle,
             formulaTitleRes = Res.string.exp_vortex_rings_formula_title,
-            formula = "\\frac{D\\Gamma}{Dt} = 0, \\quad \\Gamma = \\oint \\mathbf{v} \\cdot d\\mathbf{r}",
+            formula = "DΓ/Dt = 0,  Γ = ∮ v · dr,  U = (Γ / 4πR) · [ln(8R/a) - 1/4]",
             howToTryAtHomeRes = Res.string.exp_vortex_rings_how_to
         ),
         PhysicsExperiment(

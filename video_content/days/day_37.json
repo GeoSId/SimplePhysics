@@ -1,0 +1,115 @@
+{
+  "day": 37,
+  "curiosity": "Why does pushing a puff of air through a round hole form a spinning donut ring that travels meters like a solid bullet?",
+  "titles": {
+    "desktop": "The Secret Physics of Toroidal Vortex Rings: Fluid Smoke Bullets in Code",
+    "shorts": "The Shocking Physics of Fluid Vortex Rings #Shorts"
+  },
+  "desktop_mission": {
+    "mission_title": "Day 37: Toroidal Vortex Rings",
+    "mission_sub": "Kelvin's Circulation Theorem, Self-Induced Translation & Leapfrogging",
+    "voice_mission": "Today we're simulating toroidal vortex rings and fluid smoke bullets in Kotlin.",
+    "math_cards": [
+      [
+        "KELVIN'S CIRCULATION THEOREM",
+        "DΓ/Dt = 0,  Γ = ∮ v · dr",
+        "In inviscid barotropic flow, circulation along any closed fluid contour remains strictly conserved"
+      ],
+      [
+        "KELVIN-HICKS TRANSLATION SPEED",
+        "U = (Γ / 4πR) · [ln(8R/a) - 1/4]",
+        "Biot-Savart velocity induction propels the torus forward along its symmetry axis without dispersing"
+      ],
+      [
+        "HYDRODYNAMIC IMPULSE & MOMENTUM",
+        "P = π · ρ · Γ · R²",
+        "The ring carries finite fluid impulse and kinetic energy across meters like an invisible solid projectile"
+      ]
+    ],
+    "voice_math": "The core physics: Kelvin's circulation conservation, self-induced translation velocity, and hydrodynamic impulse."
+  },
+  "fact_cards": [
+    [
+      "Kelvin's Theorem",
+      "DΓ/Dt = 0"
+    ],
+    [
+      "Translation Speed",
+      "U = (Γ / 4πR) · [ln(8R/a) - 1/4]"
+    ],
+    [
+      "Hydrodynamic Impulse",
+      "P = π · ρ · Γ · R²"
+    ]
+  ],
+  "math_steps": [
+    {
+      "step_num": 1,
+      "badge": "EQUATION 1 OF 3 • KELVIN'S CIRCULATION THEOREM",
+      "formula": "DΓ/Dt = 0,  Γ = 2π · R_0 · v_jet,  P = π·ρ·Γ·R²",
+      "note": "Perimeter shear rolls the emerging fluid jet into a torus with perfectly conserved bound circulation",
+      "color": [
+        0,
+        220,
+        255
+      ],
+      "code": "// 1. Kelvin's circulation theorem: circulation remains strictly conserved\nval circulationGamma = 2f * PI.toFloat() * orificeRadiusM * jetVelocityMs\nval coreRadiusM = 0.22f * ringRadiusM\nval hydrodynamicImpulse = PI.toFloat() * airDensity * circulationGamma * ringRadiusM * ringRadiusM\n",
+      "sub_icon": "🍩",
+      "sub_tag": "STEP 1 • CIRCULATION INVARIANT",
+      "sub_title": "Circulation & Impulse",
+      "sub_desc": "Evaluates bound circulation and hydrodynamic impulse."
+    },
+    {
+      "step_num": 2,
+      "badge": "EQUATION 2 OF 3 • KELVIN-HICKS PROPAGATION SPEED",
+      "formula": "U = (Γ / 4πR) · [ln(8R/a) - 1/4]",
+      "note": "Biot-Savart velocity induction between opposing sides of the ring propels it autonomously through still air",
+      "color": [
+        255,
+        215,
+        65
+      ],
+      "code": "// 2. Self-induced propagation velocity of toroidal vortex ring\nval logRatio = ln((8f * ringRadiusM) / max(coreRadiusM, 1e-4f)) - 0.25f\nval translationSpeedMs = (circulationGamma / (4f * PI.toFloat() * ringRadiusM)) * logRatio\nval energyJoules = 0.5f * airDensity * circulationGamma * circulationGamma * ringRadiusM * (logRatio - 1.5f)\n",
+      "sub_icon": "💨",
+      "sub_tag": "STEP 2 • RING TRANSLATION",
+      "sub_title": "Self-Induced Velocity",
+      "sub_desc": "Computes forward translation speed and kinetic energy."
+    },
+    {
+      "step_num": 3,
+      "badge": "EQUATION 3 OF 3 • HELMHOLTZ LEAPFROGGING DYNAMICS",
+      "formula": "v_ind = (Γ / 2π) · [1 / sqrt(r² + z²)],  r_1(t) = R_0 · [1 + A·sin(ωt)]",
+      "note": "Mutual downwash induction contracts the rear ring, accelerating it through the expanding leading ring",
+      "color": [
+        0,
+        230,
+        118
+      ],
+      "code": "// 3. Biot-Savart induced velocity field and mutual leapfrogging dynamics\nval cycle = ring1Progress * 4f * PI.toFloat()\nval r1 = baseRadiusPx * (1.0f + 0.35f * sin(cycle))\nval x1 = cannonX + 10f + travelDist * ring1Progress + 15f * cos(cycle)\n",
+      "sub_icon": "🔄",
+      "sub_tag": "STEP 3 • LEAPFROGGING",
+      "sub_title": "Vortex Leapfrogging Dance",
+      "sub_desc": "Simulates coaxial ring interactions and periodic pass-through."
+    }
+  ],
+  "mystery": {
+    "en": "Why does puffing air through a round hole form a spinning donut that flies like a solid bullet?"
+  },
+  "phenomenon": {
+    "en": {
+      "tag": "★ TOROIDAL VORTEX RINGS",
+      "title": "Toroidal Vortex Rings",
+      "teaser": "Frictional drag at an orifice rolls emerging fluid into a stable circulating torus that travels meters without dispersing."
+    }
+  },
+  "narration": {
+    "en": {
+      "hook": "Why does puffing air through a round hole form a spinning donut that flies across a room like a solid bullet?",
+      "math": "Perimeter shear rolls the emerging jet into a torus, where Kelvin's circulation theorem traps vorticity in a self-propelling ring.",
+      "question": "Can we simulate toroidal vortex rings and Helmholtz leapfrogging live in Kotlin Multiplatform?",
+      "code_intro": "Written in Kotlin Multiplatform.",
+      "code_tip": "We compute Kelvin-Hicks self-induced translation, integrate Biot-Savart circulation cores, and render leapfrogging vortices on Canvas.",
+      "payoff": "Toroidal vortex rings and fluid smoke bullets running live in Kotlin."
+    }
+  }
+}

@@ -37,6 +37,7 @@ import com.geosid.simplephysics.ui.experiments.week5.Day33.Polarization3FilterEx
 import com.geosid.simplephysics.ui.experiments.week5.Day34.DiffractionGratingExperiment
 import com.geosid.simplephysics.ui.experiments.week5.Day35.AtmosphericMirageExperiment
 import com.geosid.simplephysics.ui.experiments.week6.Day36.MagnusEffectExperiment
+import com.geosid.simplephysics.ui.experiments.week6.Day37.VortexRingsExperiment
 
 object ExperimentScreenRegistry {
     val screens: Map<String, @Composable () -> Unit> = mapOf(
@@ -81,6 +82,7 @@ object ExperimentScreenRegistry {
         "atmospheric_mirage" to { AtmosphericMirageExperiment() }, //DAY 35
         //week 6
         "magnus_effect" to { MagnusEffectExperiment() }, //DAY 36
+        "vortex_rings" to { VortexRingsExperiment() }, //DAY 37
     )
 
     fun isReleased(id: String): Boolean = screens.containsKey(id)
