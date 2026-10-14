@@ -1568,6 +1568,7 @@ internal fun DrawScope.drawExperimentIllustration(id: String) {
         "atmospheric_mirage" -> drawAtmosphericMirageIllustration(w, h)
         "magnus_effect" -> drawMagnusEffectIllustration(w, h)
         "vortex_rings" -> drawVortexRingsIllustration(w, h)
+        "marangoni_propulsion" -> drawMarangoniPropulsionIllustration(w, h)
         "ideal_gas_piston" -> {
             val cyW = w * 0.45f
             val cyH = h * 0.72f
@@ -3997,6 +3998,174 @@ private fun DrawScope.drawVortexRingsIllustration(w: Float, h: Float) {
     drawPath(flamePath, AmberVibrant)
     drawCircle(Color.White, 2.5f, Offset(targetX + 4f, candleTop - 9f))
 }
+
+private fun DrawScope.drawMarangoniPropulsionIllustration(w: Float, h: Float) {
+    val cy = h * 0.50f
+    val cx = w * 0.50f
+
+    // 1. Water Basin Surface Ambient Background & Grid/Meniscus
+    val waterLevelY = h * 0.28f
+    val waterBottomY = h * 0.82f
+    drawRect(
+        brush = Brush.verticalGradient(
+            colors = listOf(Color(0xFF0F172A).copy(alpha = 0.5f), Color(0xFF0284C7).copy(alpha = 0.15f), Color(0xFF0369A1).copy(alpha = 0.25f)),
+            startY = waterLevelY,
+            endY = waterBottomY
+        ),
+        topLeft = Offset(w * 0.08f, waterLevelY),
+        size = Size(w * 0.84f, waterBottomY - waterLevelY)
+    )
+    // Water basin border
+    drawRoundRect(
+        color = ScienceBorder.copy(alpha = 0.4f),
+        topLeft = Offset(w * 0.08f, waterLevelY),
+        size = Size(w * 0.84f, waterBottomY - waterLevelY),
+        cornerRadius = androidx.compose.ui.geometry.CornerRadius(6f, 6f),
+        style = Stroke(width = 1.2f)
+    )
+
+    // 2. Surfactant Wake / Expanding Marangoni Monolayer (Spreading from rear notch)
+    val boatX = cx + 8f
+    val boatY = cy
+    val boatLen = 64f
+    val boatW = 32f
+    val rearNotchX = boatX - boatLen * 0.5f + 14f
+
+    // Expanding low-surface-tension wake ripples (Rearward spreading)
+    val wakeRipples = listOf(14f, 26f, 42f, 60f)
+    wakeRipples.forEachIndexed { idx, radius ->
+        val alpha = (0.55f - idx * 0.12f).coerceAtLeast(0.12f)
+        drawArc(
+            color = AmberVibrant.copy(alpha = alpha),
+            startAngle = 120f,
+            sweepAngle = 120f,
+            useCenter = false,
+            topLeft = Offset(rearNotchX - radius, boatY - radius * 0.75f),
+            size = Size(radius * 2f, radius * 1.5f),
+            style = Stroke(
+                width = 1.4f,
+                pathEffect = PathEffect.dashPathEffect(floatArrayOf(4f, 4f), 0f)
+            )
+        )
+    }
+
+    // Sheared surfactant streamlines streaming out of the notch
+    val streamColor = CoralNeon.copy(alpha = 0.65f)
+    drawLine(streamColor, Offset(rearNotchX, boatY), Offset(rearNotchX - 44f, boatY - 14f), 1.5f, StrokeCap.Round)
+    drawLine(streamColor, Offset(rearNotchX, boatY), Offset(rearNotchX - 52f, boatY), 1.8f, StrokeCap.Round)
+    drawLine(streamColor, Offset(rearNotchX, boatY), Offset(rearNotchX - 44f, boatY + 14f), 1.5f, StrokeCap.Round)
+
+    // 3. Paper / Cardboard Boat Geometry (Flat Hydrodynamic Hull with Rear Notch)
+    val bowX = boatX + boatLen * 0.5f
+    val sternX = boatX - boatLen * 0.5f
+    val halfW = boatW * 0.5f
+
+    val boatPath = Path().apply {
+        // Start at bow tip
+        moveTo(bowX, boatY)
+        // Upper edge towards stern
+        lineTo(boatX - boatLen * 0.2f, boatY - halfW)
+        lineTo(sternX, boatY - halfW)
+        // Rear Marangoni notch
+        lineTo(sternX, boatY - halfW * 0.45f)
+        lineTo(rearNotchX, boatY)
+        lineTo(sternX, boatY + halfW * 0.45f)
+        // Lower edge back to bow
+        lineTo(sternX, boatY + halfW)
+        lineTo(boatX - boatLen * 0.2f, boatY + halfW)
+        close()
+    }
+
+    // Fill boat with clean pearlescent paper gradient
+    drawPath(
+        path = boatPath,
+        brush = Brush.horizontalGradient(
+            colors = listOf(Color(0xFFE2E8F0), Color(0xFFF8FAFC), Color(0xFFCBD5E1)),
+            startX = sternX,
+            endX = bowX
+        )
+    )
+    // Boat structural outline
+    drawPath(
+        path = boatPath,
+        color = Color(0xFF475569),
+        style = Stroke(width = 1.8f, cap = StrokeCap.Round, join = StrokeJoin.Round)
+    )
+
+    // Center crease line on paper boat
+    drawLine(
+        color = Color(0xFF94A3B8),
+        start = Offset(rearNotchX, boatY),
+        end = Offset(bowX, boatY),
+        strokeWidth = 1.2f,
+        cap = StrokeCap.Round
+    )
+
+    // 4. Surfactant Reservoir & Soap Droplet in Rear Notch
+    drawCircle(
+        color = AmberVibrant.copy(alpha = 0.35f),
+        radius = 7f,
+        center = Offset(rearNotchX, boatY)
+    )
+    drawCircle(
+        brush = Brush.radialGradient(
+            colors = listOf(Color.White, AmberVibrant, Color(0xFFD97706)),
+            center = Offset(rearNotchX - 1.5f, boatY - 1.5f),
+            radius = 5f
+        ),
+        radius = 4f,
+        center = Offset(rearNotchX, boatY)
+    )
+
+    // 5. High-Tension Water Ahead (Cyan Pulling Vectors at Bow)
+    val bowPullLen = 28f
+    drawLine(
+        color = CyanNeon,
+        start = Offset(bowX + 2f, boatY),
+        end = Offset(bowX + bowPullLen, boatY),
+        strokeWidth = 2.6f,
+        cap = StrokeCap.Round
+    )
+    val pullArrow = Path().apply {
+        moveTo(bowX + bowPullLen + 4f, boatY)
+        lineTo(bowX + bowPullLen - 3f, boatY - 3.5f)
+        lineTo(bowX + bowPullLen - 3f, boatY + 3.5f)
+        close()
+    }
+    drawPath(pullArrow, CyanNeon)
+
+    // Secondary tension line ahead
+    drawLine(
+        color = CyanNeon.copy(alpha = 0.5f),
+        start = Offset(bowX + 4f, boatY - 9f),
+        end = Offset(bowX + 20f, boatY - 9f),
+        strokeWidth = 1.4f,
+        cap = StrokeCap.Round
+    )
+    drawLine(
+        color = CyanNeon.copy(alpha = 0.5f),
+        start = Offset(bowX + 4f, boatY + 9f),
+        end = Offset(bowX + 20f, boatY + 9f),
+        strokeWidth = 1.4f,
+        cap = StrokeCap.Round
+    )
+
+    // 6. Forward Motion Speed Chevrons ahead of bow
+    for (i in 0..1) {
+        val chevX = bowX + bowPullLen + 14f + i * 10f
+        val chevPath = Path().apply {
+            moveTo(chevX, boatY - 7f)
+            lineTo(chevX + 5f, boatY)
+            lineTo(chevX, boatY + 7f)
+        }
+        drawPath(
+            path = chevPath,
+            color = CyanNeon.copy(alpha = 0.7f - i * 0.3f),
+            style = Stroke(width = 1.6f, cap = StrokeCap.Round)
+        )
+    }
+}
+
 
 
 

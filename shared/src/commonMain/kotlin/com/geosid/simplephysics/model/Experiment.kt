@@ -673,7 +673,7 @@ object ExperimentRegistry {
             magicPhenomenonRes = Res.string.exp_marangoni_propulsion_magic,
             sciencePrincipleRes = Res.string.exp_marangoni_propulsion_principle,
             formulaTitleRes = Res.string.exp_marangoni_propulsion_formula_title,
-            formula = "\\tau = \\frac{d\\gamma}{dx}",
+            formula = "τ = dγ/dx,  F_net = Δγ · w,  v_term ≈ sqrt(Δγ·w / (0.5·C_d·ρ·A))",
             howToTryAtHomeRes = Res.string.exp_marangoni_propulsion_how_to
         ),
         PhysicsExperiment(

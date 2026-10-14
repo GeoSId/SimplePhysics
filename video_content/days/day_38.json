@@ -1,0 +1,115 @@
+{
+  "day": 38,
+  "curiosity": "Why does a single drop of dish soap behind a tiny paper boat propel it forward across water like a miniature rocket engine?",
+  "titles": {
+    "desktop": "The Secret Physics of the Soap Boat: Marangoni Propulsion in Code",
+    "shorts": "The Soap Boat That Breaks Physics #Shorts"
+  },
+  "desktop_mission": {
+    "mission_title": "Day 38: Marangoni Surface Tension Boat",
+    "mission_sub": "Surface Tension Gradients, Capillary Thrust & Monolayer Spreading",
+    "voice_mission": "Today we're simulating Marangoni propulsion and surfactant surface tension gradients in Kotlin.",
+    "math_cards": [
+      [
+        "MARANGONI CAPILLARY FORCE",
+        "F_net = Δγ · w,  Δγ = γ_water - γ_soap",
+        "A surface tension differential creates a net pulling force toward the higher surface tension clean water"
+      ],
+      [
+        "HYDRODYNAMIC DRAG BALANCE",
+        "v_term ≈ sqrt(Δγ · w / (0.5 · C_d · ρ · A))",
+        "Forward capillary thrust balances turbulent form drag and boundary-layer viscous shear at terminal speed"
+      ],
+      [
+        "MARANGONI INTERFACIAL STRESS",
+        "τ = dγ/dx = (dγ/dc) · (dc/dx)",
+        "Concentration gradients generate shear stress at the air-water interface that pumps momentum backward"
+      ]
+    ],
+    "voice_math": "The core physics: Marangoni capillary force, hydrodynamic drag equilibrium, and interfacial shear stress."
+  },
+  "fact_cards": [
+    [
+      "Marangoni Force",
+      "F_net = Δγ · w"
+    ],
+    [
+      "Terminal Speed",
+      "v_term ≈ sqrt(Δγ·w / (0.5·C_d·ρ·A))"
+    ],
+    [
+      "Interfacial Shear",
+      "τ = dγ/dx"
+    ]
+  ],
+  "math_steps": [
+    {
+      "step_num": 1,
+      "badge": "EQUATION 1 OF 3 • MARANGONI CAPILLARY FORCE",
+      "formula": "F_net = Δγ · w,  Δγ = γ_water - γ_soap",
+      "note": "Surfactant molecules drastically lower rear surface tension, allowing undisturbed water ahead to pull the boat forward",
+      "color": [
+        0,
+        220,
+        255
+      ],
+      "code": "// 1. Marangoni capillary thrust from surface tension gradient\nval deltaGamma = (waterTensionMNm - surfactantTensionMNm).coerceAtLeast(0f) * 1e-3f // N/m\nval rawCapillaryForce = deltaGamma * boatWidthM\nval activeCapillaryForce = rawCapillaryForce * saturationFactor\n",
+      "sub_icon": "⛵",
+      "sub_tag": "STEP 1 • CAPILLARY FORCE",
+      "sub_title": "Surface Tension Gradient",
+      "sub_desc": "Evaluates net forward pulling force from surface energy differential."
+    },
+    {
+      "step_num": 2,
+      "badge": "EQUATION 2 OF 3 • HYDRODYNAMIC DRAG EQUILIBRIUM",
+      "formula": "F_drag = 0.5·ρ·C_d·A·v² + μ_visc·v,  a = (F_net - F_drag) / m",
+      "note": "The boat accelerates until capillary thrust is perfectly countered by turbulent and viscous water resistance",
+      "color": [
+        255,
+        215,
+        65
+      ],
+      "code": "// 2. Hydrodynamic form drag and terminal glide velocity\nval dragForce = 0.5f * waterDensity * dragCoeff * submergedAreaM2 * boatSpeedMs * boatSpeedMs +\n        viscousShearCoeff * boatSpeedMs\nval acceleration = (activeCapillaryForce - dragForce) / boatMassKg\nval estimatedTerminalVelocity = sqrt(rawCapillaryForce / max(0.5f * waterDensity * dragCoeff * submergedAreaM2, 1e-6f))\n",
+      "sub_icon": "🌊",
+      "sub_tag": "STEP 2 • HYDRODYNAMIC DRAG",
+      "sub_title": "Form Drag & Terminal Glide",
+      "sub_desc": "Balances surface tension thrust against turbulent fluid resistance."
+    },
+    {
+      "step_num": 3,
+      "badge": "EQUATION 3 OF 3 • SURFACTANT MONOLAYER DISPERSION",
+      "formula": "r(t) = r_0 + v_spread · t,  τ = dγ/dx,  S = 1 - r/R_pool",
+      "note": "Surfactant spreads as an insoluble monolayer across the pool, exhausting propulsion when surface saturation reaches unity",
+      "color": [
+        0,
+        230,
+        118
+      ],
+      "code": "// 3. Surfactant monolayer radial spreading and pool saturation\nsurfactantSpreadRadiusPx += 65f * dt\nval saturationFactor = (1.0f - (surfactantSpreadRadiusPx / 350f)).coerceIn(0.05f, 1.0f)\nval dxNorm = (boatSpeedMs * dt * 0.45f)\nboatPosNormX = (boatPosNormX + dxNorm).coerceIn(0.05f, 0.90f)\n",
+      "sub_icon": "🫧",
+      "sub_tag": "STEP 3 • MONOLAYER SPREADING",
+      "sub_title": "Surfactant Dispersion & Saturation",
+      "sub_desc": "Simulates monolayer propagation and exhaustion of surface gradient."
+    }
+  ],
+  "mystery": {
+    "en": "Why does a single drop of soap behind a tiny paper boat launch it forward like a rocket?"
+  },
+  "phenomenon": {
+    "en": {
+      "tag": "★ MARANGONI SURFACE TENSION ENGINE",
+      "title": "Marangoni Propulsion",
+      "teaser": "Soap molecules weaken the rear water membrane, allowing the uncompromised surface tension ahead to yank the boat forward."
+    }
+  },
+  "narration": {
+    "en": {
+      "hook": "Why does a single drop of dish soap behind a tiny paper boat launch it across water like a miniature rocket?",
+      "math": "Soap molecules slash rear surface tension, creating an unyielding capillary gradient that pulls clean water ahead.",
+      "question": "Can we simulate Marangoni propulsion and surfactant monolayer dynamics live in Kotlin Multiplatform?",
+      "code_intro": "Written in Kotlin Multiplatform.",
+      "code_tip": "We integrate Marangoni capillary thrust, balance turbulent hydrodynamic drag, and render expanding surfactant monolayers on Canvas.",
+      "payoff": "Marangoni surface tension propulsion running live in Kotlin."
+    }
+  }
+}
