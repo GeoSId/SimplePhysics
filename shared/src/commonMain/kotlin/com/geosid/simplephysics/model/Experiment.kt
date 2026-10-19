@@ -688,7 +688,7 @@ object ExperimentRegistry {
             magicPhenomenonRes = Res.string.exp_venturi_tube_magic,
             sciencePrincipleRes = Res.string.exp_venturi_tube_principle,
             formulaTitleRes = Res.string.exp_venturi_tube_formula_title,
-            formula = "P_1 - P_2 = \\frac{1}{2}\\rho v_1^2 \\left[\\left(\\frac{A_1}{A_2}\\right)^2 - 1\\right]",
+            formula = "A_1 · v_1 = A_2 · v_2,  ΔP = 0.5 · ρ · (v_2² - v_1²),  Δh = ΔP / (ρ · g)",
             howToTryAtHomeRes = Res.string.exp_venturi_tube_how_to
         ),
         PhysicsExperiment(

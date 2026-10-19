@@ -1569,6 +1569,7 @@ internal fun DrawScope.drawExperimentIllustration(id: String) {
         "magnus_effect" -> drawMagnusEffectIllustration(w, h)
         "vortex_rings" -> drawVortexRingsIllustration(w, h)
         "marangoni_propulsion" -> drawMarangoniPropulsionIllustration(w, h)
+        "venturi_tube" -> drawVenturiTubeIllustration(w, h)
         "ideal_gas_piston" -> {
             val cyW = w * 0.45f
             val cyH = h * 0.72f
@@ -4165,6 +4166,207 @@ private fun DrawScope.drawMarangoniPropulsionIllustration(w: Float, h: Float) {
         )
     }
 }
+
+private fun DrawScope.drawVenturiTubeIllustration(w: Float, h: Float) {
+    val cy = h * 0.54f
+    val startX = w * 0.08f
+    val endX = w * 0.92f
+    val pipeLen = endX - startX
+
+    val r1 = min(h * 0.22f, 32f)
+    val r2 = r1 * 0.40f
+
+    val xInlet = startX + pipeLen * 0.22f
+    val xThroat = startX + pipeLen * 0.50f
+    val xOutlet = startX + pipeLen * 0.78f
+
+    val convStart = startX + pipeLen * 0.28f
+    val convEnd = xThroat - pipeLen * 0.08f
+    val diffStart = xThroat + pipeLen * 0.08f
+    val diffEnd = startX + pipeLen * 0.72f
+
+    fun getRadius(x: Float): Float {
+        return when {
+            x <= convStart -> r1
+            x in convStart..convEnd -> {
+                val t = (x - convStart) / (convEnd - convStart)
+                val s = (1f - cos(t * PI.toFloat())) * 0.5f
+                r1 + (r2 - r1) * s
+            }
+            x in convEnd..diffStart -> r2
+            x in diffStart..diffEnd -> {
+                val t = (x - diffStart) / (diffEnd - diffStart)
+                val s = (1f - cos(t * PI.toFloat())) * 0.5f
+                r2 + (r1 - r2) * s
+            }
+            else -> r1
+        }
+    }
+
+    // 1. Fluid Body Fill with Velocity/Pressure Color Gradient
+    val numPts = 60
+    val fluidPath = Path()
+    for (i in 0..numPts) {
+        val t = i / numPts.toFloat()
+        val x = startX + t * pipeLen
+        val r = getRadius(x)
+        if (i == 0) fluidPath.moveTo(x, cy - r) else fluidPath.lineTo(x, cy - r)
+    }
+    for (i in numPts downTo 0) {
+        val t = i / numPts.toFloat()
+        val x = startX + t * pipeLen
+        val r = getRadius(x)
+        fluidPath.lineTo(x, cy + r)
+    }
+    fluidPolyClose@ fluidPath.close()
+
+    drawPath(
+        path = fluidPath,
+        brush = Brush.horizontalGradient(
+            colors = listOf(
+                Color(0xFF0284C7).copy(alpha = 0.35f),
+                Color(0xFF6366F1).copy(alpha = 0.45f),
+                PurpleNeon.copy(alpha = 0.65f), // Throat: Ultra-low pressure, maximum kinetic speed
+                Color(0xFF6366F1).copy(alpha = 0.45f),
+                Color(0xFF0284C7).copy(alpha = 0.35f)
+            ),
+            startX = startX,
+            endX = endX
+        )
+    )
+
+    // 2. Crowded Flow Streamlines
+    val streamlines = listOf(-0.65f, -0.32f, 0f, 0.32f, 0.65f)
+    streamlines.forEach { normY ->
+        val sPath = Path()
+        for (i in 0..numPts) {
+            val t = i / numPts.toFloat()
+            val x = startX + t * pipeLen
+            val r = getRadius(x)
+            val y = cy + normY * r
+            if (i == 0) sPath.moveTo(x, y) else sPath.lineTo(x, y)
+        }
+        val sColor = if (normY == 0f) AmberVibrant else CyanNeon
+        drawPath(
+            path = sPath,
+            color = sColor.copy(alpha = 0.50f),
+            style = Stroke(
+                width = 1.3f,
+                pathEffect = PathEffect.dashPathEffect(floatArrayOf(5f, 5f), 0f)
+            )
+        )
+    }
+
+    // 3. Vertical Manometer Piezometer Columns (P1, P2, P3)
+    val manoW = 10f
+    val manoMaxH = h * 0.34f
+    val manoTopY = cy - r1 - manoMaxH
+
+    // Height levels: P1 tall, P2 dropped, P3 recovered
+    val manoData = listOf(
+        Triple(xInlet, 0.85f, CyanNeon),
+        Triple(xThroat, 0.28f, AmberVibrant),
+        Triple(xOutlet, 0.78f, CyanNeon)
+    )
+
+    manoData.forEach { (mx, hFrac, color) ->
+        val tubeBottom = cy - getRadius(mx)
+        val liquidH = (tubeBottom - manoTopY) * hFrac
+        val liquidTop = tubeBottom - liquidH
+
+        // Glass column outline
+        drawRect(
+            color = Color.White.copy(alpha = 0.5f),
+            topLeft = Offset(mx - manoW * 0.5f, manoTopY),
+            size = Size(manoW, tubeBottom - manoTopY),
+            style = Stroke(1.2f)
+        )
+
+        // Liquid fill
+        drawRect(
+            brush = Brush.verticalGradient(
+                colors = listOf(color, color.copy(alpha = 0.4f)),
+                startY = liquidTop,
+                endY = tubeBottom
+            ),
+            topLeft = Offset(mx - manoW * 0.5f + 1f, liquidTop),
+            size = Size(manoW - 2f, liquidH)
+        )
+        // Meniscus surface
+        drawOval(
+            color = Color.White,
+            topLeft = Offset(mx - manoW * 0.5f + 1.5f, liquidTop - 1.5f),
+            size = Size(manoW - 3f, 3f)
+        )
+    }
+
+    // Delta h line between inlet and throat manometers
+    val h1Top = (cy - r1) - (cy - r1 - manoTopY) * 0.85f
+    val h2Top = (cy - r2) - (cy - r2 - manoTopY) * 0.28f
+    val deltaX = xThroat + 16f
+    val dashDiff = PathEffect.dashPathEffect(floatArrayOf(3f, 3f), 0f)
+
+    drawLine(CoralNeon.copy(alpha = 0.75f), Offset(xInlet, h1Top), Offset(deltaX + 6f, h1Top), 1f, pathEffect = dashDiff)
+    drawLine(CoralNeon.copy(alpha = 0.75f), Offset(xThroat, h2Top), Offset(deltaX + 6f, h2Top), 1f, pathEffect = dashDiff)
+    drawLine(CoralNeon, Offset(deltaX, h1Top), Offset(deltaX, h2Top), 1.6f)
+    drawCircle(CoralNeon, 2f, Offset(deltaX, h1Top))
+    drawCircle(CoralNeon, 2f, Offset(deltaX, h2Top))
+
+    // 4. Venturi Glass / Metallic Outer Wall Outlines
+    val topWall = Path()
+    val bottomWall = Path()
+    for (i in 0..numPts) {
+        val t = i / numPts.toFloat()
+        val x = startX + t * pipeLen
+        val r = getRadius(x)
+        if (i == 0) {
+            topWall.moveTo(x, cy - r)
+            bottomWall.moveTo(x, cy + r)
+        } else {
+            topWall.lineTo(x, cy - r)
+            bottomWall.lineTo(x, cy + r)
+        }
+    }
+    drawPath(topWall, Color.White.copy(alpha = 0.85f), style = Stroke(width = 2f, cap = StrokeCap.Round))
+    drawPath(bottomWall, Color.White.copy(alpha = 0.85f), style = Stroke(width = 2f, cap = StrokeCap.Round))
+
+    // End Flanges
+    val flH = r1 * 2.2f
+    drawRoundRect(
+        color = Color(0xFF64748B),
+        topLeft = Offset(startX - 4f, cy - flH * 0.5f),
+        size = Size(6f, flH),
+        cornerRadius = androidx.compose.ui.geometry.CornerRadius(2f, 2f)
+    )
+    drawRoundRect(
+        color = Color(0xFF64748B),
+        topLeft = Offset(endX - 2f, cy - flH * 0.5f),
+        size = Size(6f, flH),
+        cornerRadius = androidx.compose.ui.geometry.CornerRadius(2f, 2f)
+    )
+
+    // 5. Velocity Vectors (Short at inlet, very long at throat)
+    val v1Len = 18f
+    drawLine(CyanNeon, Offset(xInlet - v1Len * 0.5f, cy), Offset(xInlet + v1Len * 0.5f, cy), 2f, StrokeCap.Round)
+    val arr1 = Path().apply {
+        moveTo(xInlet + v1Len * 0.5f + 2f, cy)
+        lineTo(xInlet + v1Len * 0.5f - 3f, cy - 2.5f)
+        lineTo(xInlet + v1Len * 0.5f - 3f, cy + 2.5f)
+        close()
+    }
+    drawPath(arr1, CyanNeon)
+
+    val v2Len = 48f
+    drawLine(AmberVibrant, Offset(xThroat - v2Len * 0.5f, cy), Offset(xThroat + v2Len * 0.5f, cy), 2.4f, StrokeCap.Round)
+    val arr2 = Path().apply {
+        moveTo(xThroat + v2Len * 0.5f + 3f, cy)
+        lineTo(xThroat + v2Len * 0.5f - 4f, cy - 3.2f)
+        lineTo(xThroat + v2Len * 0.5f - 4f, cy + 3.2f)
+        close()
+    }
+    drawPath(arr2, AmberVibrant)
+}
+
 
 
 

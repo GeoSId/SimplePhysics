@@ -1,0 +1,115 @@
+{
+  "day": 39,
+  "curiosity": "Why does squeezing a high-speed fluid into a narrow constriction cause its pressure to violently drop instead of building up?",
+  "titles": {
+    "desktop": "The Secret Physics of the Venturi Effect: Fluid Pressure Drop in Code",
+    "shorts": "The Venturi Paradox That Breaks Intuition #Shorts"
+  },
+  "desktop_mission": {
+    "mission_title": "Day 39: Venturi Tube & Pressure Drop",
+    "mission_sub": "Incompressible Continuity, Bernoulli Suction & Dynamic Head Loss",
+    "voice_mission": "Today we're simulating the Venturi effect and Bernoulli pressure drops in Kotlin.",
+    "math_cards": [
+      [
+        "INCOMPRESSIBLE MASS CONTINUITY",
+        "A_1 · v_1 = A_2 · v_2,  v_2 = v_1 · (D_1/D_2)²",
+        "Fluid must accelerate rapidly through the constriction to transport constant volume flow rate"
+      ],
+      [
+        "BERNOULLI PRESSURE DROP",
+        "ΔP = P_1 - P_2 = 0.5 · ρ · (v_2² - v_1²)",
+        "Kinetic energy density surge in the throat forces static pressure to plummet to conserve total mechanical energy"
+      ],
+      [
+        "HYDROSTATIC MANOMETER HEIGHT",
+        "Δh = h_1 - h_2 = ΔP / (ρ · g) = (v_2² - v_1²) / (2g)",
+        "Vertical piezometer tubes reveal the local static pressure deficit through differential liquid column depression"
+      ]
+    ],
+    "voice_math": "The core physics: mass continuity acceleration, Bernoulli pressure deficit, and hydrostatic manometer elevation."
+  },
+  "fact_cards": [
+    [
+      "Continuity Equation",
+      "A_1 · v_1 = A_2 · v_2"
+    ],
+    [
+      "Bernoulli Pressure Drop",
+      "ΔP = 0.5 · ρ · (v_2² - v_1²)"
+    ],
+    [
+      "Manometer Head Loss",
+      "Δh = ΔP / (ρ · g)"
+    ]
+  ],
+  "math_steps": [
+    {
+      "step_num": 1,
+      "badge": "EQUATION 1 OF 3 • INCOMPRESSIBLE CONTINUITY EQUATION",
+      "formula": "A_1 · v_1 = A_2 · v_2,  v_throat = v_1 · (A_1 / A_2)",
+      "note": "Constricting pipe diameter forces the fluid stream to accelerate to preserve constant mass throughput",
+      "color": [
+        0,
+        220,
+        255
+      ],
+      "code": "// 1. Incompressible mass conservation: Q = A1 * v1 = A2 * v2\nval areaRatio = area1M2 / max(area2M2, 1e-7f)\nval volumeFlowRateM3S = area1M2 * inletVelocityMs\nval throatVelocityMs = inletVelocityMs * areaRatio\n",
+      "sub_icon": "🚰",
+      "sub_tag": "STEP 1 • MASS CONTINUITY",
+      "sub_title": "Velocity Acceleration",
+      "sub_desc": "Evaluates fluid velocity surge through pipe constriction."
+    },
+    {
+      "step_num": 2,
+      "badge": "EQUATION 2 OF 3 • BERNOULLI STATIC PRESSURE DROP",
+      "formula": "ΔP = 0.5 · ρ · (v_2² - v_1²),  P_2 = P_1 - ΔP",
+      "note": "Surging kinetic energy in the narrow throat drives an equal and opposite collapse in static fluid pressure",
+      "color": [
+        255,
+        215,
+        65
+      ],
+      "code": "// 2. Bernoulli's principle: exchange between kinetic and static pressure\nval dynamicPressure1Pa = 0.5f * fluidDensityKgM3 * inletVelocityMs * inletVelocityMs\nval dynamicPressure2Pa = 0.5f * fluidDensityKgM3 * throatVelocityMs * throatVelocityMs\nval deltaPPa = dynamicPressure2Pa - dynamicPressure1Pa\nval throatPressurePa = max(0f, p1Pa - deltaPPa)\n",
+      "sub_icon": "📉",
+      "sub_tag": "STEP 2 • BERNOULLI SUCTION",
+      "sub_title": "Throat Vacuum Deficit",
+      "sub_desc": "Calculates local static pressure collapse and suction potential."
+    },
+    {
+      "step_num": 3,
+      "badge": "EQUATION 3 OF 3 • HYDROSTATIC MANOMETER ELEVATION",
+      "formula": "Δh = (P_1 - P_2) / (ρ · g) = (v_2² - v_1²) / (2g)",
+      "note": "Differential liquid column height directly measures the Bernoulli pressure deficit across the throat",
+      "color": [
+        0,
+        230,
+        118
+      ],
+      "code": "// 3. Hydrostatic column height difference in vertical piezometers\nval h1M = (p1Pa - atmPa) / (fluidDensityKgM3 * g)\nval h2M = (throatPressurePa - atmPa) / (fluidDensityKgM3 * g)\nval deltaHM = (h1M - h2M).coerceAtLeast(0f)\n",
+      "sub_icon": "🧪",
+      "sub_tag": "STEP 3 • MANOMETER HEAD",
+      "sub_title": "Hydrostatic Column Drop",
+      "sub_desc": "Computes piezometer column depression and discharge coefficient."
+    }
+  ],
+  "mystery": {
+    "en": "Why does squeezing water into a narrow pipe cause its pressure to violently drop instead of rising?"
+  },
+  "phenomenon": {
+    "en": {
+      "tag": "★ THE VENTURI EFFECT",
+      "title": "Venturi Tube & Pressure Drop",
+      "teaser": "Accelerating fluid through a constriction converts static pressure into kinetic energy, generating powerful suction."
+    }
+  },
+  "narration": {
+    "en": {
+      "hook": "Why does squeezing water into a narrow pipe cause its pressure to violently drop instead of skyrocketing?",
+      "math": "Mass continuity forces the fluid to accelerate, trading static pressure for kinetic energy by Bernoulli's principle.",
+      "question": "Can we simulate the Venturi effect, manometer columns, and cavitation live in Kotlin Multiplatform?",
+      "code_intro": "Written in Kotlin Multiplatform.",
+      "code_tip": "We integrate incompressible continuity, track dynamic pressure gradients, and render piezometer columns on Canvas.",
+      "payoff": "The Venturi effect and Bernoulli pressure drops running live in Kotlin."
+    }
+  }
+}
