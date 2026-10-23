@@ -1570,6 +1570,8 @@ internal fun DrawScope.drawExperimentIllustration(id: String) {
         "vortex_rings" -> drawVortexRingsIllustration(w, h)
         "marangoni_propulsion" -> drawMarangoniPropulsionIllustration(w, h)
         "venturi_tube" -> drawVenturiTubeIllustration(w, h)
+        "hydraulic_press" -> drawHydraulicPressIllustration(w, h)
+        "capillary_action" -> drawCapillaryActionIllustration(w, h)
         "ideal_gas_piston" -> {
             val cyW = w * 0.45f
             val cyH = h * 0.72f
@@ -4366,6 +4368,299 @@ private fun DrawScope.drawVenturiTubeIllustration(w: Float, h: Float) {
     }
     drawPath(arr2, AmberVibrant)
 }
+
+private fun DrawScope.drawHydraulicPressIllustration(w: Float, h: Float) {
+    val cy = h * 0.52f
+    val leftColX = w * 0.24f
+    val rightColX = w * 0.70f
+
+    val leftW = 18f
+    val rightW = 56f
+    val manifoldBaseY = cy + 38f
+    val pipeH = 14f
+
+    // 1. Hydraulic Fluid Pool in U-Tube Manifold (Glowing High Pressure Oil)
+    val fluidPath = Path().apply {
+        val leftFluidY = cy - 4f
+        val rightFluidY = cy + 8f
+
+        moveTo(leftColX - leftW * 0.5f + 1f, leftFluidY)
+        lineTo(leftColX + leftW * 0.5f - 1f, leftFluidY)
+        lineTo(leftColX + leftW * 0.5f - 1f, manifoldBaseY)
+        lineTo(rightColX - rightW * 0.5f + 1f, manifoldBaseY)
+        lineTo(rightColX - rightW * 0.5f + 1f, rightFluidY)
+        lineTo(rightColX + rightW * 0.5f - 1f, rightFluidY)
+        lineTo(rightColX + rightW * 0.5f - 1f, manifoldBaseY + pipeH)
+        lineTo(leftColX - leftW * 0.5f + 1f, manifoldBaseY + pipeH)
+        close()
+    }
+
+    drawPath(
+        path = fluidPath,
+        brush = Brush.verticalGradient(
+            colors = listOf(AmberVibrant.copy(alpha = 0.65f), CoralNeon.copy(alpha = 0.85f)),
+            startY = cy - 10f,
+            endY = manifoldBaseY + pipeH
+        )
+    )
+
+    // Fluid Pressure Pulse Particles along bottom conduit
+    for (i in 0..4) {
+        val px = (leftColX + leftW * 0.5f + 6f) + i * ((rightColX - rightW * 0.5f - 6f) - (leftColX + leftW * 0.5f + 6f)) / 4f
+        val py = manifoldBaseY + pipeH * 0.5f
+        drawCircle(Color.White.copy(alpha = 0.75f), 1.8f, Offset(px, py))
+    }
+
+    // 2. Structural Steel Cylinders & Base Bed Plate
+    val wallColor = Color.White.copy(alpha = 0.7f)
+    val wallThick = 2f
+
+    // Left Narrow Cylinder
+    drawRect(
+        color = wallColor,
+        topLeft = Offset(leftColX - leftW * 0.5f, cy - 32f),
+        size = Size(leftW, manifoldBaseY - (cy - 32f) + pipeH),
+        style = Stroke(wallThick)
+    )
+
+    // Right Wide Cylinder
+    drawRect(
+        color = wallColor,
+        topLeft = Offset(rightColX - rightW * 0.5f, cy - 18f),
+        size = Size(rightW, manifoldBaseY - (cy - 18f) + pipeH),
+        style = Stroke(wallThick)
+    )
+
+    // Bridge Pipe Walls
+    drawLine(wallColor, Offset(leftColX + leftW * 0.5f, manifoldBaseY), Offset(rightColX - rightW * 0.5f, manifoldBaseY), wallThick)
+    drawLine(wallColor, Offset(leftColX + leftW * 0.5f, manifoldBaseY + pipeH), Offset(rightColX - rightW * 0.5f, manifoldBaseY + pipeH), wallThick)
+
+    // Base Bed Plate
+    val bedTopY = manifoldBaseY + pipeH + 3f
+    drawRoundRect(
+        color = Color(0xFF334155),
+        topLeft = Offset(w * 0.12f, bedTopY),
+        size = Size(w * 0.76f, 8f),
+        cornerRadius = androidx.compose.ui.geometry.CornerRadius(2f, 2f)
+    )
+
+    // 3. Left Input Plunger (Narrow, Moving Down)
+    val leftPistonY = cy - 4f
+    drawRoundRect(
+        color = AmberVibrant,
+        topLeft = Offset(leftColX - leftW * 0.5f + 2f, leftPistonY - 8f),
+        size = Size(leftW - 4f, 8f),
+        cornerRadius = androidx.compose.ui.geometry.CornerRadius(1.5f, 1.5f)
+    )
+    // Plunger Rod & Handle
+    drawLine(Color(0xFFCBD5E1), Offset(leftColX, leftPistonY - 8f), Offset(leftColX, cy - 42f), 3f, StrokeCap.Round)
+    drawRoundRect(
+        color = Color(0xFFE2E8F0),
+        topLeft = Offset(leftColX - 12f, cy - 46f),
+        size = Size(24f, 5f),
+        cornerRadius = androidx.compose.ui.geometry.CornerRadius(1.5f, 1.5f)
+    )
+
+    // Input Force Vector F1 (Downwards, Amber)
+    val f1Y = cy - 48f
+    drawLine(AmberVibrant, Offset(leftColX, f1Y - 18f), Offset(leftColX, f1Y), 2.2f, StrokeCap.Round)
+    val f1Head = Path().apply {
+        moveTo(leftColX, f1Y + 2f)
+        lineTo(leftColX - 2.8f, f1Y - 3.5f)
+        lineTo(leftColX + 2.8f, f1Y - 3.5f)
+        close()
+    }
+    drawPath(f1Head, AmberVibrant)
+
+    // 4. Heavy Press Structural Frame (Right)
+    val frameTopY = cy - 78f
+    val pillar1X = rightColX - rightW * 0.5f - 10f
+    val pillar2X = rightColX + rightW * 0.5f + 4f
+    val pillarW = 6f
+
+    // Side Pillars
+    drawRect(Color(0xFF475569), Offset(pillar1X, frameTopY), Size(pillarW, manifoldBaseY - frameTopY))
+    drawRect(Color(0xFF475569), Offset(pillar2X, frameTopY), Size(pillarW, manifoldBaseY - frameTopY))
+
+    // Top Crosshead Reaction Beam
+    val beamW = (pillar2X - pillar1X) + pillarW + 8f
+    drawRoundRect(
+        color = Color(0xFF64748B),
+        topLeft = Offset(pillar1X - 4f, frameTopY - 10f),
+        size = Size(beamW, 12f),
+        cornerRadius = androidx.compose.ui.geometry.CornerRadius(2f, 2f)
+    )
+
+    // Stationary Top Anvil Die
+    val topAnvilBottomY = frameTopY + 12f
+    drawRect(Color(0xFF94A3B8), Offset(rightColX - 20f, frameTopY + 2f), Size(40f, 10f))
+
+    // 5. Output Hydraulic Ram & Moving Platen (Wide, Moving Up)
+    val ramTopY = topAnvilBottomY + 14f
+    val ramPistonY = cy + 8f
+
+    // Heavy Ram Body
+    drawRoundRect(
+        brush = Brush.horizontalGradient(listOf(Color(0xFF94A3B8), Color(0xFFE2E8F0), Color(0xFF64748B))),
+        topLeft = Offset(rightColX - rightW * 0.5f + 3f, ramTopY),
+        size = Size(rightW - 6f, ramPistonY - ramTopY + 6f),
+        cornerRadius = androidx.compose.ui.geometry.CornerRadius(2f, 2f)
+    )
+
+    // Moving Lower Platen Plate
+    drawRoundRect(
+        color = Color(0xFFCBD5E1),
+        topLeft = Offset(rightColX - 22f, ramTopY - 6f),
+        size = Size(44f, 6f),
+        cornerRadius = androidx.compose.ui.geometry.CornerRadius(1f, 1f)
+    )
+
+    // 6. Crushed Target (Compressed Aluminum Can / Block)
+    val targetH = (ramTopY - 6f) - topAnvilBottomY
+    val canW = 22f
+    drawRoundRect(
+        brush = Brush.horizontalGradient(listOf(CoralNeon, Color.White, CoralNeon)),
+        topLeft = Offset(rightColX - canW * 0.5f, topAnvilBottomY),
+        size = Size(canW, targetH),
+        cornerRadius = androidx.compose.ui.geometry.CornerRadius(1f, 1f)
+    )
+    // Buckling accordion folds
+    drawLine(Color(0xFF1E293B), Offset(rightColX - canW * 0.4f, topAnvilBottomY + targetH * 0.5f), Offset(rightColX + canW * 0.4f, topAnvilBottomY + targetH * 0.5f), 1.2f)
+
+    // 7. Output Force Vector F2 (Massive Upward Cyan Vector)
+    val f2Y = ramPistonY + 16f
+    val f2Len = 32f
+    drawLine(CyanNeon, Offset(rightColX, f2Y + f2Len), Offset(rightColX, f2Y), 3.2f, StrokeCap.Round)
+    val f2Head = Path().apply {
+        moveTo(rightColX, f2Y - 3.5f)
+        lineTo(rightColX - 4.5f, f2Y + 4f)
+        lineTo(rightColX + 4.5f, f2Y + 4f)
+        close()
+    }
+    drawPath(f2Head, CyanNeon)
+}
+
+private fun DrawScope.drawCapillaryActionIllustration(w: Float, h: Float) {
+    val basinY = h * 0.62f
+    val basinBottomY = h * 0.88f
+    val basinLeft = w * 0.08f
+    val basinRight = w * 0.92f
+    val basinW = basinRight - basinLeft
+
+    // 1. Water Reservoir Fluid Fill in Basin
+    drawRoundRect(
+        brush = Brush.verticalGradient(
+            colors = listOf(CyanNeon.copy(alpha = 0.45f), Color(0xFF0284C7).copy(alpha = 0.70f), Color(0xFF0F172A)),
+            startY = basinY,
+            endY = basinBottomY
+        ),
+        topLeft = Offset(basinLeft, basinY),
+        size = Size(basinW, basinBottomY - basinY),
+        cornerRadius = androidx.compose.ui.geometry.CornerRadius(4f, 4f)
+    )
+
+    // Glass Basin Outer Rim
+    drawRoundRect(
+        color = Color.White.copy(alpha = 0.65f),
+        topLeft = Offset(basinLeft - 2f, basinY - 2f),
+        size = Size(basinW + 4f, basinBottomY - basinY + 4f),
+        cornerRadius = androidx.compose.ui.geometry.CornerRadius(6f, 6f),
+        style = Stroke(1.8f)
+    )
+
+    // Basin Waterline Baseline
+    drawLine(Color.White.copy(alpha = 0.85f), Offset(basinLeft, basinY), Offset(basinRight, basinY), 1.6f)
+
+    // 2. Multi-Tube Array with Decreasing Radii (Showing h ∝ 1/r)
+    val tubeData = listOf(
+        // (xFrac, innerW, riseH)
+        Triple(0.22f, 24f, 15f), // Wide tube: low rise
+        Triple(0.40f, 17f, 27f), // Medium tube
+        Triple(0.60f, 11f, 46f), // Narrow tube
+        Triple(0.78f, 6.5f, 72f) // Ultra-fine micro-capillary: towering rise!
+    )
+
+    val tubeTopY = h * 0.10f
+    val tubeBottomY = basinBottomY - 8f
+
+    // 3. Hyperbolic Envelope Curve connecting the menisci
+    val envelopePath = Path()
+    tubeData.forEachIndexed { idx, (xFrac, _, riseH) ->
+        val tx = w * xFrac
+        val my = basinY - riseH
+        if (idx == 0) envelopePath.moveTo(tx, my) else envelopePath.lineTo(tx, my)
+    }
+    drawPath(
+        path = envelopePath,
+        color = AmberVibrant.copy(alpha = 0.60f),
+        style = Stroke(width = 1.4f, pathEffect = PathEffect.dashPathEffect(floatArrayOf(4f, 4f), 0f))
+    )
+
+    // 4. Render Each Capillary Tube & Water Column
+    tubeData.forEachIndexed { idx, (xFrac, innerW, riseH) ->
+        val tx = w * xFrac
+        val meniscusY = basinY - riseH
+
+        // Raised Water Column Fill
+        drawRect(
+            brush = Brush.verticalGradient(
+                colors = listOf(CyanNeon, Color(0xFF0284C7).copy(alpha = 0.65f)),
+                startY = meniscusY,
+                endY = basinBottomY - 4f
+            ),
+            topLeft = Offset(tx - innerW * 0.5f, meniscusY),
+            size = Size(innerW, (basinBottomY - 4f) - meniscusY)
+        )
+
+        // Concave Curved Meniscus
+        val curveH = (innerW * 0.32f).coerceIn(2f, 8f)
+        val meniscusPath = Path().apply {
+            moveTo(tx - innerW * 0.5f, meniscusY - curveH * 0.5f)
+            quadraticTo(tx, meniscusY + curveH * 0.5f, tx + innerW * 0.5f, meniscusY - curveH * 0.5f)
+        }
+        drawPath(meniscusPath, Color.White, style = Stroke(width = 1.6f, cap = StrokeCap.Round))
+
+        // Glass Tube Walls (Transparent neon cylinder)
+        val wallColor = if (idx == 3) CyanNeon else Color.White.copy(alpha = 0.70f)
+        drawLine(wallColor, Offset(tx - innerW * 0.5f, tubeTopY), Offset(tx - innerW * 0.5f, tubeBottomY), 1.8f, StrokeCap.Round)
+        drawLine(wallColor, Offset(tx + innerW * 0.5f, tubeTopY), Offset(tx + innerW * 0.5f, tubeBottomY), 1.8f, StrokeCap.Round)
+
+        // Top Rim Collar
+        drawOval(
+            color = wallColor,
+            topLeft = Offset(tx - innerW * 0.5f - 1f, tubeTopY - 2f),
+            size = Size(innerW + 2f, 4f),
+            style = Stroke(1f)
+        )
+    }
+
+    // 5. Capillary Pull Force Vectors on the tallest tube
+    val (tallXFrac, tallW, tallRiseH) = tubeData.last()
+    val tallX = w * tallXFrac
+    val tallMeniscusY = basinY - tallRiseH
+
+    // Upward Surface Tension Pull Arrow
+    val arrLen = 14f
+    val fVecX = tallX + tallW * 0.5f + 10f
+    drawLine(AmberVibrant, Offset(fVecX, tallMeniscusY + arrLen), Offset(fVecX, tallMeniscusY), 2f, StrokeCap.Round)
+    val head = Path().apply {
+        moveTo(fVecX, tallMeniscusY - 2.5f)
+        lineTo(fVecX - 2.8f, tallMeniscusY + 3f)
+        lineTo(fVecX + 2.8f, tallMeniscusY + 3f)
+        close()
+    }
+    drawPath(head, AmberVibrant)
+
+    // "h" Height Indicator Line
+    val hIndX = w * 0.22f - 18f
+    drawLine(Color.White.copy(alpha = 0.4f), Offset(w * 0.22f - 14f, basinY), Offset(hIndX - 4f, basinY), 1f)
+    drawLine(Color.White.copy(alpha = 0.4f), Offset(w * 0.22f - 14f, basinY - 15f), Offset(hIndX - 4f, basinY - 15f), 1f)
+    drawLine(CyanNeon, Offset(hIndX, basinY), Offset(hIndX, basinY - 15f), 1.5f)
+    drawCircle(CyanNeon, 1.8f, Offset(hIndX, basinY))
+    drawCircle(CyanNeon, 1.8f, Offset(hIndX, basinY - 15f))
+}
+
+
 
 
 

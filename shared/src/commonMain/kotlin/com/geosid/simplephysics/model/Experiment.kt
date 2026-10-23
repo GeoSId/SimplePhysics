@@ -703,7 +703,7 @@ object ExperimentRegistry {
             magicPhenomenonRes = Res.string.exp_hydraulic_press_magic,
             sciencePrincipleRes = Res.string.exp_hydraulic_press_principle,
             formulaTitleRes = Res.string.exp_hydraulic_press_formula_title,
-            formula = "\\frac{F_1}{A_1} = \\frac{F_2}{A_2} \\implies F_2 = F_1 \\left(\\frac{A_2}{A_1}\\right)",
+            formula = "P_1 = P_2 = F/A,  F_2 = F_1 · (A_2/A_1),  W = F_1 · d_1 = F_2 · d_2",
             howToTryAtHomeRes = Res.string.exp_hydraulic_press_how_to
         ),
         PhysicsExperiment(
@@ -718,7 +718,7 @@ object ExperimentRegistry {
             magicPhenomenonRes = Res.string.exp_capillary_action_magic,
             sciencePrincipleRes = Res.string.exp_capillary_action_principle,
             formulaTitleRes = Res.string.exp_capillary_action_formula_title,
-            formula = "h = \\frac{2 \\gamma \\cos\\theta}{\\rho g r}",
+            formula = "h = (2·γ·cos(θ)) / (ρ·g·r),  ΔP = (2·γ·cos(θ)) / r,  F_cap = 2π·r·γ·cos(θ)",
             howToTryAtHomeRes = Res.string.exp_capillary_action_how_to
         ),
         PhysicsExperiment(

@@ -1,0 +1,115 @@
+{
+  "day": 41,
+  "curiosity": "How do towering 300-foot redwood trees pull hundreds of gallons of water skyward against gravity with zero mechanical pumps?",
+  "titles": {
+    "desktop": "The Secret Physics of Capillary Action: Defying Gravity in Code",
+    "shorts": "Water Defies Gravity! The Capillary Secret #Shorts"
+  },
+  "desktop_mission": {
+    "mission_title": "Day 41: Capillary Action & Meniscus Rise",
+    "mission_sub": "Jurin's Law, Young-Laplace Pressure Deficit & Contact Angles",
+    "voice_mission": "Today we're simulating capillary action and Jurin's law in Kotlin.",
+    "math_cards": [
+      [
+        "JURIN'S CAPILLARY RISE LAW",
+        "h = (2·γ·cos(θ)) / (ρ·g·r)",
+        "Capillary column height is inversely proportional to tube radius and directly proportional to surface tension"
+      ],
+      [
+        "YOUNG-LAPLACE PRESSURE JUMP",
+        "ΔP = (2·γ·cos(θ)) / r",
+        "Curvature across the air-liquid meniscus generates a hydrostatic pressure deficit that draws fluid upward"
+      ],
+      [
+        "PERIMETER FORCE EQUILIBRIUM",
+        "F_cap = 2π·r·γ·cos(θ) = ρ·π·r²·h·g",
+        "Vertical surface tension pulling along the perimeter perfectly supports the hydrostatic column weight"
+      ]
+    ],
+    "voice_math": "The core physics: Jurin's inverse radius law, Young-Laplace meniscus pressure, and surface tension force balance."
+  },
+  "fact_cards": [
+    [
+      "Jurin's Law",
+      "h = (2·γ·cos(θ)) / (ρ·g·r)"
+    ],
+    [
+      "Laplace Pressure",
+      "ΔP = (2·γ·cos(θ)) / r"
+    ],
+    [
+      "Capillary Force",
+      "F_cap = 2π·r·γ·cos(θ)"
+    ]
+  ],
+  "math_steps": [
+    {
+      "step_num": 1,
+      "badge": "EQUATION 1 OF 3 • JURIN'S CAPILLARY RISE LAW",
+      "formula": "h = (2·γ·cos(θ)) / (ρ·g·r)",
+      "note": "Equilibrium height balances upward vertical surface tension against the downward hydrostatic weight of liquid column",
+      "color": [
+        0,
+        220,
+        255
+      ],
+      "code": "// 1. Jurin's Law: capillary equilibrium height\nval equilibriumHeightM = (2f * gammaNPerM * cosTheta) / max(densityKgM3 * g * radiusM, 1e-8f)\nval currentHeightMm = equilibriumHeightM * 1000f * climbProgress\n",
+      "sub_icon": "🧪",
+      "sub_tag": "STEP 1 • JURIN HEIGHT",
+      "sub_title": "Capillary Height",
+      "sub_desc": "Computes equilibrium column height from surface tension and tube radius."
+    },
+    {
+      "step_num": 2,
+      "badge": "EQUATION 2 OF 3 • YOUNG-LAPLACE PRESSURE DEFICIT",
+      "formula": "ΔP = (2·γ·cos(θ)) / r",
+      "note": "Curved meniscus creates a pressure jump across the air-liquid interface that pulls fluid upward",
+      "color": [
+        255,
+        215,
+        65
+      ],
+      "code": "// 2. Young-Laplace pressure jump across curved meniscus\nval laplacePressurePa = (2f * gammaNPerM * cosTheta) / max(radiusM, 1e-6f)\nval deltaPressureKPa = laplacePressurePa / 1000f\n",
+      "sub_icon": "🌊",
+      "sub_tag": "STEP 2 • LAPLACE PRESSURE",
+      "sub_title": "Meniscus Pressure Deficit",
+      "sub_desc": "Calculates the interface pressure jump driving liquid upward."
+    },
+    {
+      "step_num": 3,
+      "badge": "EQUATION 3 OF 3 • WETTING PERIMETER FORCE",
+      "formula": "F_cap = 2π·r·γ·cos(θ) = ρ·π·r²·h·g",
+      "note": "Surface tension acts along the circular contact line, perfectly supporting the weight of the elevated column",
+      "color": [
+        0,
+        230,
+        118
+      ],
+      "code": "// 3. Vertical capillary force balancing gravitational column weight\nval capillaryForceN = 2f * PI.toFloat() * radiusM * gammaNPerM * cosTheta\nval capillaryForceMicroN = capillaryForceN * 1_000_000f\n",
+      "sub_icon": "⚖",
+      "sub_tag": "STEP 3 • FORCE BALANCE",
+      "sub_title": "Vertical Perimeter Pull",
+      "sub_desc": "Evaluates boundary pull balancing hydrostatic liquid weight."
+    }
+  ],
+  "mystery": {
+    "en": "How do towering redwood trees pull water hundreds of feet into the sky against gravity with zero mechanical pumps?"
+  },
+  "phenomenon": {
+    "en": {
+      "tag": "★ CAPILLARY ACTION & MENISCUS RISE",
+      "title": "Capillary Action",
+      "teaser": "Adhesion and surface tension overpower gravity in narrow pores, drawing liquids upward through spontaneous capillary climb."
+    }
+  },
+  "narration": {
+    "en": {
+      "hook": "How do towering 300-foot trees draw hundreds of gallons of water into the sky against gravity without pumps?",
+      "math": "Jurin's law proves capillary rise scales inversely with pore radius, propelled by Young-Laplace meniscus pressure deficits.",
+      "question": "Can we simulate Jurin's law, dynamic meniscus climb, and multi-tube capillary arrays live in Kotlin Multiplatform?",
+      "code_intro": "Written in Kotlin Multiplatform.",
+      "code_tip": "We calculate Jurin's equilibrium heights, render dynamic meniscus curvatures, and plot hyperbolic inverse-radius envelopes on Canvas.",
+      "payoff": "Capillary action and meniscus dynamics running live in Kotlin."
+    }
+  }
+}
