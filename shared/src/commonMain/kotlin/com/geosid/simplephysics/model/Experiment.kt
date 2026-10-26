@@ -733,7 +733,7 @@ object ExperimentRegistry {
             magicPhenomenonRes = Res.string.exp_karman_vortex_street_magic,
             sciencePrincipleRes = Res.string.exp_karman_vortex_street_principle,
             formulaTitleRes = Res.string.exp_karman_vortex_street_formula_title,
-            formula = "f = \\text{St} \\frac{v}{D}, \\quad \\text{St} \\approx 0.2",
+            formula = "f = St · (v / D),  Re = (ρ·v·D) / μ,  F_L(t) = 0.5·C_L·ρ·v²·A·sin(2π·f·t)",
             howToTryAtHomeRes = Res.string.exp_karman_vortex_street_how_to
         ),
         // ==========================================

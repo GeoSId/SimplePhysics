@@ -1,0 +1,115 @@
+{
+  "day": 42,
+  "curiosity": "Why do giant industrial smokestacks and offshore oil rigs have spiral fins wrapped around them?",
+  "titles": {
+    "desktop": "The Secret Fluid Physics of Kármán Vortex Streets: How Wind Tears Bridges Apart",
+    "shorts": "The Fluid Secret That Destroys Bridges! #Shorts"
+  },
+  "desktop_mission": {
+    "mission_title": "Day 42: Kármán Vortex Street",
+    "mission_sub": "Boundary Layer Separation, Strouhal Shedding & von Kármán Stability",
+    "voice_mission": "Today we're simulating the Kármán vortex street and unsteady fluid wake dynamics in Kotlin.",
+    "math_cards": [
+      [
+        "STROUHAL VORTEX SHEDDING LAW",
+        "f = St · (v / D)",
+        "Periodic vortex detachment frequency scales linearly with flow velocity and inversely with obstacle diameter"
+      ],
+      [
+        "VORTEX-INDUCED FLUCTUATING LIFT",
+        "F_L(t) = 0.5·C_L·ρ·v²·A·sin(2π·f·t)",
+        "Asymmetric vortex shedding drives oscillating cross-flow lift forces that induce dangerous structural vibrations"
+      ],
+      [
+        "VON KÁRMÁN SPATIAL STABILITY RATIO",
+        "sinh(π·h / l) = 1 → h / l ≈ 0.281",
+        "Alternating double row of point vortices remains dynamically stable only at this exact spatial aspect ratio"
+      ]
+    ],
+    "voice_math": "The core physics: Strouhal shedding frequency, vortex-induced oscillating lift forces, and von Kármán's spatial stability ratio."
+  },
+  "fact_cards": [
+    [
+      "Strouhal Law",
+      "f = St · (v / D)"
+    ],
+    [
+      "Reynolds Number",
+      "Re = (ρ·v·D) / μ"
+    ],
+    [
+      "Kármán Ratio",
+      "h / l ≈ 0.281"
+    ]
+  ],
+  "math_steps": [
+    {
+      "step_num": 1,
+      "badge": "EQUATION 1 OF 3 • REYNOLDS WAKE REGIME",
+      "formula": "Re = (ρ · v · D) / μ",
+      "note": "Inertial to viscous force ratio dictates boundary layer separation and wake stability",
+      "color": [
+        0,
+        220,
+        255
+      ],
+      "code": "// 1. Reynolds number: inertial to viscous force ratio\nval diameterM = cylinderDiameterMm * 1e-3f\nval reynolds = (fluidDensityKgM3 * flowVelocityMS * diameterM) / max(fluidViscosityPaS, 1e-7f)\n",
+      "sub_icon": "🌊",
+      "sub_tag": "STEP 1 • REYNOLDS NUMBER",
+      "sub_title": "Wake Regime Criterion",
+      "sub_desc": "Determines boundary layer separation and laminar vs turbulent state."
+    },
+    {
+      "step_num": 2,
+      "badge": "EQUATION 2 OF 3 • STROUHAL SHEDDING FREQUENCY",
+      "formula": "f = St · (v / D),  St ≈ 0.198 · (1 - 19.7 / Re)",
+      "note": "Non-dimensional Strouhal number governs periodic vortex detachment rate",
+      "color": [
+        255,
+        215,
+        65
+      ],
+      "code": "// 2. Strouhal shedding frequency\nval strouhal = 0.198f * (1f - (19.7f / max(reynolds, 20f)))\nval sheddingFrequencyHz = strouhal * (flowVelocityMS / max(diameterM, 1e-5f))\n",
+      "sub_icon": "🌀",
+      "sub_tag": "STEP 2 • SHEDDING FREQUENCY",
+      "sub_title": "Strouhal Frequency",
+      "sub_desc": "Calculates the periodic vortex detachment rate in Hertz."
+    },
+    {
+      "step_num": 3,
+      "badge": "EQUATION 3 OF 3 • VORTEX-INDUCED LIFT FORCE",
+      "formula": "F_L(t) = 0.5 · C_L · ρ · v² · A · sin(2π · f · t)",
+      "note": "Alternating vortex shedding generates unsteady cross-flow aerodynamic lift",
+      "color": [
+        255,
+        110,
+        64
+      ],
+      "code": "// 3. Dynamic lift oscillation from alternating vortex pressure\nval dynamicPressurePa = 0.5f * fluidDensityKgM3 * flowVelocityMS * flowVelocityMS\nval maxLiftForceN = clMax * dynamicPressurePa * (diameterM * 1.0f)\nval currentLiftForceN = maxLiftForceN * sin(animPhase)\n",
+      "sub_icon": "⚡",
+      "sub_tag": "STEP 3 • OSCILLATING LIFT",
+      "sub_title": "Vortex-Induced Vibration",
+      "sub_desc": "Evaluates dynamic cross-flow lift driving structural resonance."
+    }
+  ],
+  "mystery": {
+    "en": "Why do tall smokestacks, car antennas, and offshore oil platforms have spiral fins wrapped around them?"
+  },
+  "phenomenon": {
+    "en": {
+      "tag": "★ KÁRMÁN VORTEX STREET",
+      "title": "Kármán Vortex Street",
+      "teaser": "Fluid flowing past a cylinder sheds alternating swirling eddies, creating periodic wake patterns and violent vibrations."
+    }
+  },
+  "narration": {
+    "en": {
+      "hook": "Why do tall smokestacks and submarine periscopes have spiral fins wrapped around their outer hulls?",
+      "math": "Kármán vortex shedding creates periodic pressure imbalances, driving violent cross-flow vibrations at Strouhal frequency.",
+      "question": "Can we simulate Kármán vortex streets, boundary layer detachment, and oscillating lift live in Kotlin Multiplatform?",
+      "code_intro": "Written in Kotlin Multiplatform.",
+      "code_tip": "We calculate Reynolds regimes, render alternating counter-rotating vortex cores, and animate streaklines on Canvas.",
+      "payoff": "The Kármán vortex street running live in Kotlin."
+    }
+  }
+}

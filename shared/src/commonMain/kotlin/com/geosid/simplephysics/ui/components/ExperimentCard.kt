@@ -1572,6 +1572,7 @@ internal fun DrawScope.drawExperimentIllustration(id: String) {
         "venturi_tube" -> drawVenturiTubeIllustration(w, h)
         "hydraulic_press" -> drawHydraulicPressIllustration(w, h)
         "capillary_action" -> drawCapillaryActionIllustration(w, h)
+        "karman_vortex_street" -> drawKarmanVortexIllustration(w, h)
         "ideal_gas_piston" -> {
             val cyW = w * 0.45f
             val cyH = h * 0.72f
@@ -4658,6 +4659,140 @@ private fun DrawScope.drawCapillaryActionIllustration(w: Float, h: Float) {
     drawLine(CyanNeon, Offset(hIndX, basinY), Offset(hIndX, basinY - 15f), 1.5f)
     drawCircle(CyanNeon, 1.8f, Offset(hIndX, basinY))
     drawCircle(CyanNeon, 1.8f, Offset(hIndX, basinY - 15f))
+}
+
+/**
+ * Custom vector thumbnail illustration for Day 42: Kármán Vortex Street.
+ * Features an upstream flow around a circular cylinder, alternating upper (CCW Cyan)
+ * and lower (CW Amber) swirling vortex street cores, streamline streaklines, and oscillating lift vector.
+ */
+private fun DrawScope.drawKarmanVortexIllustration(w: Float, h: Float) {
+    val cy = h * 0.50f
+    val cylCenter = Offset(w * 0.22f, cy)
+    val cylRadius = min(w * 0.085f, h * 0.17f)
+    val cylDiameter = cylRadius * 2f
+
+    // 1. Subtle Double Row Guides (von Kármán stability ratio h/l ≈ 0.281)
+    val rowSeparation = cylRadius * 1.55f
+    val topRowY = cy - rowSeparation
+    val botRowY = cy + rowSeparation
+
+    drawLine(
+        color = CyanNeon.copy(alpha = 0.20f),
+        start = Offset(cylCenter.x + cylRadius, topRowY),
+        end = Offset(w * 0.96f, topRowY),
+        strokeWidth = 1f,
+        pathEffect = PathEffect.dashPathEffect(floatArrayOf(6f, 5f), 0f)
+    )
+    drawLine(
+        color = AmberVibrant.copy(alpha = 0.20f),
+        start = Offset(cylCenter.x + cylRadius, botRowY),
+        end = Offset(w * 0.96f, botRowY),
+        strokeWidth = 1f,
+        pathEffect = PathEffect.dashPathEffect(floatArrayOf(6f, 5f), 0f)
+    )
+
+    // 2. Upstream and Bypass Streamlines
+    val streamYs = listOf(cy - cylRadius * 2.3f, cy - cylRadius * 1.3f, cy + cylRadius * 1.3f, cy + cylRadius * 2.3f)
+    for (by in streamYs) {
+        val sPath = Path()
+        val sSteps = 30
+        for (st in 0..sSteps) {
+            val sx = (st / sSteps.toFloat()) * (cylCenter.x + cylRadius * 1.2f)
+            val dx = sx - cylCenter.x
+            val dy = by - cylCenter.y
+            val d = sqrt(dx * dx + dy * dy).coerceAtLeast(1f)
+            val defl = if (d < cylRadius * 2.2f) dy * (1f + (cylRadius * cylRadius) / (d * d) * 0.5f) else dy
+            val sy = cylCenter.y + defl
+            if (st == 0) sPath.moveTo(sx, sy) else sPath.lineTo(sx, sy)
+        }
+        drawPath(sPath, CyanNeon.copy(alpha = 0.25f), style = Stroke(1.2f))
+    }
+
+    // 3. Central Sinuous Wake Streakline
+    val wakePath = Path()
+    val wakeSteps = 40
+    for (i in 0..wakeSteps) {
+        val frac = i / wakeSteps.toFloat()
+        val wx = (cylCenter.x + cylRadius) + frac * (w * 0.95f - (cylCenter.x + cylRadius))
+        val env = sin(frac * PI.toFloat()) * (cylRadius * 0.9f)
+        val wy = cy + sin(frac * 3.5f * PI.toFloat()) * env
+        if (i == 0) wakePath.moveTo(wx, wy) else wakePath.lineTo(wx, wy)
+    }
+    drawPath(
+        path = wakePath,
+        color = Color.White.copy(alpha = 0.35f),
+        style = Stroke(1.4f, pathEffect = PathEffect.dashPathEffect(floatArrayOf(8f, 5f), 0f))
+    )
+
+    // 4. Staggered Kármán Vortex Street Cores
+    // Alternating top (CCW, CyanNeon) and bottom (CW, AmberVibrant)
+    val vortexData = listOf(
+        Triple(cylCenter.x + cylDiameter * 1.0f, topRowY, true),    // Top 1 (CCW)
+        Triple(cylCenter.x + cylDiameter * 1.8f, botRowY, false),   // Bot 1 (CW)
+        Triple(cylCenter.x + cylDiameter * 2.6f, topRowY, true),    // Top 2 (CCW)
+        Triple(cylCenter.x + cylDiameter * 3.4f, botRowY, false)    // Bot 2 (CW)
+    )
+
+    for ((vx, vy, isTop) in vortexData) {
+        if (vx > w * 0.95f) continue
+        val vColor = if (isTop) CyanNeon else AmberVibrant
+        val spinDir = if (isTop) 1f else -1f
+        val coreRadius = cylRadius * 0.70f
+
+        // Glow halo
+        drawCircle(vColor.copy(alpha = 0.15f), coreRadius * 1.6f, Offset(vx, vy))
+        drawCircle(vColor.copy(alpha = 0.35f), coreRadius * 0.9f, Offset(vx, vy))
+
+        // Swirling spiral arms (3 arms)
+        for (arm in 0 until 3) {
+            val armBase = arm * (2f * PI.toFloat() / 3f)
+            val sPath = Path()
+            for (step in 0..12) {
+                val r = (step / 12f) * coreRadius * 1.1f
+                val theta = armBase + spinDir * (step / 12f) * 2.8f
+                val px = vx + r * cos(theta)
+                val py = vy + r * sin(theta)
+                if (step == 0) sPath.moveTo(px, py) else sPath.lineTo(px, py)
+            }
+            drawPath(sPath, vColor.copy(alpha = 0.85f), style = Stroke(1.5f, cap = StrokeCap.Round))
+        }
+
+        // Core central eye
+        drawCircle(Color.White, 2.2f, Offset(vx, vy))
+    }
+
+    // 5. Solid Obstacle Cylinder with Metallic Gradient & Rim
+    drawCircle(Color.Black.copy(alpha = 0.5f), cylRadius + 3f, cylCenter)
+    drawCircle(
+        brush = Brush.radialGradient(
+            colors = listOf(Color(0xFF64748B), Color(0xFF1E293B), Color(0xFF0F172A)),
+            center = Offset(cylCenter.x - cylRadius * 0.3f, cylCenter.y - cylRadius * 0.3f),
+            radius = cylRadius
+        ),
+        radius = cylRadius,
+        center = cylCenter
+    )
+    drawCircle(ScienceBorder, cylRadius, cylCenter, style = Stroke(2f))
+
+    // Boundary Layer Separation Nodes (±82°)
+    val sepRad = 82f * (PI.toFloat() / 180f)
+    val sepTop = Offset(cylCenter.x + cylRadius * cos(PI.toFloat() - sepRad), cylCenter.y - cylRadius * sin(sepRad))
+    val sepBot = Offset(cylCenter.x + cylRadius * cos(PI.toFloat() - sepRad), cylCenter.y + cylRadius * sin(sepRad))
+    drawCircle(CoralNeon, 3f, sepTop)
+    drawCircle(CoralNeon, 3f, sepBot)
+
+    // 6. Fluctuating Lift Force Vector Arrow (F_L pointing upwards)
+    val liftArrowH = cylRadius * 1.6f
+    val liftEnd = Offset(cylCenter.x, cylCenter.y - liftArrowH)
+    drawLine(CoralNeon, cylCenter, liftEnd, 2.4f, StrokeCap.Round)
+    val arrowHead = Path().apply {
+        moveTo(liftEnd.x, liftEnd.y - 5f)
+        lineTo(liftEnd.x - 4f, liftEnd.y + 3f)
+        lineTo(liftEnd.x + 4f, liftEnd.y + 3f)
+        close()
+    }
+    drawPath(arrowHead, CoralNeon)
 }
 
 
