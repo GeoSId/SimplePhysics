@@ -1,0 +1,115 @@
+{
+  "day": 43,
+  "curiosity": "Why do diesel engines ignite explosive fuel mixtures with zero spark plugs, purely by slamming a metal piston?",
+  "titles": {
+    "desktop": "The Secret Physics of the Ideal Gas Piston: How Compression Creates Fire",
+    "shorts": "Compression Creates Fire! The Piston Secret #Shorts"
+  },
+  "desktop_mission": {
+    "mission_title": "Day 43: Ideal Gas Piston & p-V Work",
+    "mission_sub": "The First Law of Thermodynamics, Adiabatic Heating & Indicator Diagrams",
+    "voice_mission": "Today we're simulating the ideal gas piston, thermodynamic work, and p-V indicator diagrams in Kotlin.",
+    "math_cards": [
+      [
+        "IDEAL GAS EQUATION OF STATE",
+        "P · V = n · R · T",
+        "Macroscopic pressure, volume, and absolute temperature are coupled by microscopic molecular collision kinetics"
+      ],
+      [
+        "FIRST LAW OF THERMODYNAMICS",
+        "ΔU = Q + W_on = n · C_v · ΔT",
+        "Mechanical boundary work done by an advancing piston directly pumps thermal internal energy into the gas"
+      ],
+      [
+        "REVERSIBLE ADIABATIC PATH",
+        "P · V^γ = const,  T · V^(γ - 1) = const",
+        "Without heat loss (Q = 0), rapid compression produces a steep pressure and temperature spike governed by gamma"
+      ]
+    ],
+    "voice_math": "The core physics: the ideal gas equation of state, the first law of thermodynamics, and adiabatic compression work."
+  },
+  "fact_cards": [
+    [
+      "Ideal Gas Law",
+      "P · V = n · R · T"
+    ],
+    [
+      "First Law",
+      "ΔU = Q + W_on"
+    ],
+    [
+      "Adiabatic Path",
+      "P · V^γ = const"
+    ]
+  ],
+  "math_steps": [
+    {
+      "step_num": 1,
+      "badge": "EQUATION 1 OF 3 • ADIABATIC TEMPERATURE SPIKE",
+      "formula": "T = T_0 · (V_0 / V)^(γ - 1)",
+      "note": "Rapid volume reduction raises absolute temperature inversely with volume ratio raised to gamma minus one",
+      "color": [
+        255,
+        110,
+        64
+      ],
+      "code": "// 1. Adiabatic temperature rise from volume compression\nval temperatureK = if (isAdiabatic) {\n    t0K * (1.0f / volumeFraction).pow(gamma - 1f)\n} else t0K\n",
+      "sub_icon": "🔥",
+      "sub_tag": "STEP 1 • THERMAL SPIKE",
+      "sub_title": "Adiabatic Temperature",
+      "sub_desc": "Calculates gas temperature escalation during insulated compression."
+    },
+    {
+      "step_num": 2,
+      "badge": "EQUATION 2 OF 3 • PRESSURE FROM EQUATION OF STATE",
+      "formula": "P = P_0 · (V_0 / V)^γ,  P · V = n · R · T",
+      "note": "Gas pressure surges dramatically as molecules bounce with higher root-mean-square kinetic velocities",
+      "color": [
+        255,
+        215,
+        65
+      ],
+      "code": "// 2. Pressure calculation along adiabatic vs isothermal path\nval pressureAtm = if (isAdiabatic) {\n    p0Atm * (1.0f / volumeFraction).pow(gamma)\n} else p0Atm / volumeFraction\n",
+      "sub_icon": "💨",
+      "sub_tag": "STEP 2 • PRESSURE SCALING",
+      "sub_title": "Chamber Pressure",
+      "sub_desc": "Evaluates cylinder internal pressure along the compression path."
+    },
+    {
+      "step_num": 3,
+      "badge": "EQUATION 3 OF 3 • BOUNDARY MECHANICAL WORK",
+      "formula": "W_on = -∫ P dV = n · C_v · (T - T_0)",
+      "note": "Mechanical boundary work performed on the gas equals the area under the curve on the p-V indicator diagram",
+      "color": [
+        0,
+        230,
+        118
+      ],
+      "code": "// 3. Mechanical work performed on the gas during compression\nval cvJoulePerMolK = 8.314f / (gamma - 1f)\nval workJoules = if (isAdiabatic) {\n    cvJoulePerMolK * (temperatureK - t0K)\n} else 8.314f * t0K * ln(1.0f / volumeFraction)\n",
+      "sub_icon": "⚙",
+      "sub_tag": "STEP 3 • p-V WORK",
+      "sub_title": "Mechanical Work Done",
+      "sub_desc": "Integrates boundary work transferred across the advancing piston."
+    }
+  ],
+  "mystery": {
+    "en": "Why do diesel engines ignite explosive fuel mixtures with zero spark plugs, purely by slamming a metal piston?"
+  },
+  "phenomenon": {
+    "en": {
+      "tag": "★ IDEAL GAS PISTON & p-V WORK",
+      "title": "Ideal Gas Piston",
+      "teaser": "Compressing gas molecules converts mechanical work directly into thermal kinetic energy, spiking temperature and pressure."
+    }
+  },
+  "narration": {
+    "en": {
+      "hook": "Why do diesel engines ignite explosive fuel without a single spark plug, purely by slamming a piston?",
+      "math": "The first law of thermodynamics proves boundary work pumps energy directly into molecules, spiking temperature adiabatically.",
+      "question": "Can we simulate gas molecule kinetics, adiabatic heating, and real-time p-V indicator diagrams live in Kotlin Multiplatform?",
+      "code_intro": "Written in Kotlin Multiplatform.",
+      "code_tip": "We model elastic molecular collisions, integrate adiabatic work equations, and render real-time p-V diagrams on Canvas.",
+      "payoff": "The ideal gas piston and thermodynamic work running live in Kotlin."
+    }
+  }
+}

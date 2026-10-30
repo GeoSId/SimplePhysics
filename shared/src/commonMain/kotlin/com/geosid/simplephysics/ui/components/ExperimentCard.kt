@@ -1573,30 +1573,7 @@ internal fun DrawScope.drawExperimentIllustration(id: String) {
         "hydraulic_press" -> drawHydraulicPressIllustration(w, h)
         "capillary_action" -> drawCapillaryActionIllustration(w, h)
         "karman_vortex_street" -> drawKarmanVortexIllustration(w, h)
-        "ideal_gas_piston" -> {
-            val cyW = w * 0.45f
-            val cyH = h * 0.72f
-            val cx = (w - cyW) / 2f
-            val cy = (h - cyH) / 2f
-
-            // Cylinder
-            drawRect(Color(0x55FFFFFF), Offset(cx, cy), Size(6f, cyH))
-            drawRect(Color(0x55FFFFFF), Offset(cx + cyW - 6f, cy), Size(6f, cyH))
-            drawRect(Color(0xFF455A64), Offset(cx - 4f, cy + cyH), Size(cyW + 8f, 10f))
-
-            // Piston head halfway down
-            val py = cy + cyH * 0.42f
-            drawRect(Color(0xFFB0BEC5), Offset(cx + cyW / 2f - 4f, cy - 10f), Size(8f, py - cy + 10f))
-            drawRoundRect(Color(0xFF78909C), Offset(cx + 6f, py), Size(cyW - 12f, 14f), cornerRadius = androidx.compose.ui.geometry.CornerRadius(3f))
-
-            // Compressed gas glow
-            drawRect(CoralNeon.copy(alpha = 0.28f), Offset(cx + 6f, py + 14f), Size(cyW - 12f, cy + cyH - py - 14f))
-
-            // Bouncing particles
-            drawCircle(CyanNeon, 3.5f, Offset(cx + cyW * 0.3f, py + 25f))
-            drawCircle(AmberVibrant, 4f, Offset(cx + cyW * 0.7f, py + 35f))
-            drawCircle(CoralNeon, 3.5f, Offset(cx + cyW * 0.5f, py + 48f))
-        }
+        "ideal_gas_piston" -> drawIdealGasPistonIllustration(w, h)
         "kepler_orbits" -> {
             val cx = w * 0.5f
             val cy = h * 0.5f
@@ -4793,6 +4770,148 @@ private fun DrawScope.drawKarmanVortexIllustration(w: Float, h: Float) {
         close()
     }
     drawPath(arrowHead, CoralNeon)
+}
+
+/**
+ * Custom vector thumbnail illustration for Day 43: Ideal Gas Piston & p-V Work.
+ * Features a glass compression cylinder with glowing thermal gas and bouncing particles on the left,
+ * and a synchronized p-V indicator diagram with hyperbolic isotherm and steeper adiabat curves on the right.
+ */
+private fun DrawScope.drawIdealGasPistonIllustration(w: Float, h: Float) {
+    // Left: Cylinder apparatus
+    val cylW = w * 0.38f
+    val cylH = h * 0.74f
+    val cylLeft = w * 0.08f
+    val cylBottom = h * 0.88f
+    val cylTop = cylBottom - cylH
+
+    // Piston position at 45% volume
+    val volumeFrac = 0.45f
+    val gasHeight = cylH * volumeFrac
+    val pistonHeadY = cylBottom - gasHeight
+
+    // 1. Cylinder glass walls & base
+    val wallThick = 4.5f
+    drawRect(Color.White.copy(alpha = 0.45f), Offset(cylLeft, cylTop), Size(wallThick, cylH))
+    drawRect(Color.White.copy(alpha = 0.45f), Offset(cylLeft + cylW - wallThick, cylTop), Size(wallThick, cylH))
+    drawRoundRect(
+        color = Color(0xFF455A64),
+        topLeft = Offset(cylLeft - 4f, cylBottom),
+        size = Size(cylW + 8f, 10f),
+        cornerRadius = androidx.compose.ui.geometry.CornerRadius(3f)
+    )
+
+    // Volume tick marks
+    for (i in 1..3) {
+        val ty = cylBottom - (cylH * 0.25f * i)
+        drawLine(Color.White.copy(alpha = 0.4f), Offset(cylLeft + wallThick, ty), Offset(cylLeft + wallThick + 8f, ty), 1.2f)
+    }
+
+    // 2. High-compression thermal gas glow (Hot CoralNeon gradient)
+    drawRect(
+        brush = Brush.verticalGradient(
+            colors = listOf(CoralNeon.copy(alpha = 0.45f), AmberVibrant.copy(alpha = 0.30f)),
+            startY = pistonHeadY,
+            endY = cylBottom
+        ),
+        topLeft = Offset(cylLeft + wallThick, pistonHeadY),
+        size = Size(cylW - wallThick * 2, gasHeight)
+    )
+
+    // 3. Fast gas molecules with energetic velocity vectors
+    val particles = listOf(
+        Triple(cylLeft + cylW * 0.25f, cylBottom - gasHeight * 0.35f, CyanNeon),
+        Triple(cylLeft + cylW * 0.70f, cylBottom - gasHeight * 0.25f, AmberVibrant),
+        Triple(cylLeft + cylW * 0.45f, cylBottom - gasHeight * 0.65f, CoralNeon),
+        Triple(cylLeft + cylW * 0.30f, cylBottom - gasHeight * 0.75f, EmeraldNeon),
+        Triple(cylLeft + cylW * 0.75f, cylBottom - gasHeight * 0.55f, Color.White)
+    )
+    particles.forEach { (px, py, col) ->
+        drawLine(col.copy(alpha = 0.6f), Offset(px - 6f, py + 4f), Offset(px, py), 1.4f)
+        drawCircle(col, 3.2f, Offset(px, py))
+    }
+
+    // 4. Metal Piston Head, Shaft & Compression Downward Arrow
+    val shaftW = 10f
+    val centerX = cylLeft + cylW * 0.5f
+    drawRect(Color(0xFFB0BEC5), Offset(centerX - shaftW * 0.5f, cylTop - 8f), Size(shaftW, pistonHeadY - cylTop + 8f))
+    drawRoundRect(
+        color = Color(0xFF78909C),
+        topLeft = Offset(cylLeft + wallThick, pistonHeadY),
+        size = Size(cylW - wallThick * 2, 14f),
+        cornerRadius = androidx.compose.ui.geometry.CornerRadius(2.5f)
+    )
+    // Piston face force arrow (Downward work vector)
+    val fArrowLen = 14f
+    val arrTopY = pistonHeadY - 20f
+    drawLine(AmberVibrant, Offset(centerX, arrTopY), Offset(centerX, arrTopY + fArrowLen), 2.2f, StrokeCap.Round)
+    val headP = Path().apply {
+        moveTo(centerX, arrTopY + fArrowLen + 3f)
+        lineTo(centerX - 3.5f, arrTopY + fArrowLen - 2f)
+        lineTo(centerX + 3.5f, arrTopY + fArrowLen - 2f)
+        close()
+    }
+    drawPath(headP, AmberVibrant)
+
+    // 5. Right: p-V Indicator Diagram with Isotherm & Adiabat
+    val pvLeft = w * 0.54f
+    val pvTop = h * 0.16f
+    val pvW = w * 0.38f
+    val pvH = h * 0.68f
+
+    // Diagram card container
+    drawRoundRect(
+        color = ScienceDarkSurface.copy(alpha = 0.85f),
+        topLeft = Offset(pvLeft - 6f, pvTop - 6f),
+        size = Size(pvW + 12f, pvH + 14f),
+        cornerRadius = androidx.compose.ui.geometry.CornerRadius(6f)
+    )
+    drawRoundRect(
+        color = ScienceBorder.copy(alpha = 0.4f),
+        topLeft = Offset(pvLeft - 6f, pvTop - 6f),
+        size = Size(pvW + 12f, pvH + 14f),
+        cornerRadius = androidx.compose.ui.geometry.CornerRadius(6f),
+        style = Stroke(1f)
+    )
+
+    // Axes
+    val origin = Offset(pvLeft + 12f, pvTop + pvH - 6f)
+    val axLenX = pvW - 18f
+    val axLenY = pvH - 14f
+    drawLine(Color.White.copy(alpha = 0.7f), origin, Offset(origin.x, origin.y - axLenY), 1.5f)
+    drawLine(Color.White.copy(alpha = 0.7f), origin, Offset(origin.x + axLenX, origin.y), 1.5f)
+
+    // Isotherm curve (Cyan dashed)
+    val isoPath = Path().apply {
+        val steps = 20
+        for (i in 0..steps) {
+            val vN = 0.22f + (i / steps.toFloat()) * 0.73f
+            val pN = 1.0f / vN
+            val px = origin.x + (vN - 0.22f) / 0.73f * axLenX
+            val py = origin.y - (pN / 5.5f).coerceIn(0f, 1f) * axLenY
+            if (i == 0) moveTo(px, py) else lineTo(px, py)
+        }
+    }
+    drawPath(isoPath, CyanNeon.copy(alpha = 0.5f), style = Stroke(1.2f, pathEffect = PathEffect.dashPathEffect(floatArrayOf(4f, 3f))))
+
+    // Adiabat curve (Coral solid, steeper)
+    val adiaPath = Path().apply {
+        val steps = 20
+        for (i in 0..steps) {
+            val vN = 0.22f + (i / steps.toFloat()) * 0.73f
+            val pN = (1.0f / vN).pow(1.4f)
+            val px = origin.x + (vN - 0.22f) / 0.73f * axLenX
+            val py = origin.y - (pN / 5.5f).coerceIn(0f, 1f) * axLenY
+            if (i == 0) moveTo(px, py) else lineTo(px, py)
+        }
+    }
+    drawPath(adiaPath, CoralNeon, style = Stroke(2f, cap = StrokeCap.Round))
+
+    // State point on curve at volumeFrac = 0.45f
+    val curPx = origin.x + (volumeFrac - 0.22f) / 0.73f * axLenX
+    val curPy = origin.y - ((1.0f / volumeFrac).pow(1.4f) / 5.5f).coerceIn(0f, 1f) * axLenY
+    drawCircle(AmberVibrant, 4.5f, Offset(curPx, curPy))
+    drawCircle(Color.White, 2f, Offset(curPx, curPy))
 }
 
 

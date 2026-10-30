@@ -751,7 +751,7 @@ object ExperimentRegistry {
             magicPhenomenonRes = Res.string.exp_ideal_gas_piston_magic,
             sciencePrincipleRes = Res.string.exp_ideal_gas_piston_principle,
             formulaTitleRes = Res.string.exp_ideal_gas_piston_formula_title,
-            formula = "p V = n R T, \\quad \\Delta U = Q - W, \\quad W = \\int p \\, dV",
+            formula = "P·V = n·R·T,  ΔU = Q + W,  W = -∫ P dV,  P·V^γ = const",
             howToTryAtHomeRes = Res.string.exp_ideal_gas_piston_how_to
         ),
         PhysicsExperiment(
