@@ -1,0 +1,115 @@
+{
+  "day": 44,
+  "curiosity": "How did the erratic jiggling of microscopic pollen grains in water provide Einstein with proof that atoms actually exist?",
+  "titles": {
+    "desktop": "The Secret Physics of Brownian Motion: How Pollen Proved Atoms Exist",
+    "shorts": "Pollen Proved Atoms Exist! The Brownian Secret #Shorts"
+  },
+  "desktop_mission": {
+    "mission_title": "Day 44: Brownian Motion & Random Walk",
+    "mission_sub": "Thermal Molecular Collisions, Langevin Force & Einstein Relation",
+    "voice_mission": "Today we're simulating Brownian motion, molecular collisions, and the Einstein relation in Kotlin.",
+    "math_cards": [
+      [
+        "EINSTEIN DIFFUSION RELATION",
+        "D = (k_B · T) / (6π · η · r)",
+        "Microscopic thermal energy and macroscopic hydrodynamic drag dictate the stochastic diffusion coefficient"
+      ],
+      [
+        "MEAN SQUARE DISPLACEMENT SCALING",
+        "⟨r²⟩ = 4 · D · t,  r_rms = 2 · √(D · t)",
+        "Stochastic random walks disperse with the square root of time rather than linear ballistic velocity"
+      ],
+      [
+        "LANGEVIN STOCHASTIC FORCE BALANCE",
+        "m · (dv / dt) = -γ · v + ξ(t)",
+        "Deterministic Stokes drag balances white-noise thermal bombardment impulses from trillions of solvent molecules"
+      ]
+    ],
+    "voice_math": "The core physics: the Einstein diffusion relation, mean square displacement scaling, and the Langevin stochastic force balance."
+  },
+  "fact_cards": [
+    [
+      "Einstein Relation",
+      "D = (k_B · T) / (6π · η · r)"
+    ],
+    [
+      "Displacement Law",
+      "⟨r²⟩ = 4 · D · t"
+    ],
+    [
+      "Langevin Equation",
+      "m · v' = -γ · v + ξ(t)"
+    ]
+  ],
+  "math_steps": [
+    {
+      "step_num": 1,
+      "badge": "EQUATION 1 OF 3 • EINSTEIN DIFFUSION COEFFICIENT",
+      "formula": "D = (k_B · T) / (6π · η · r)",
+      "note": "Connects thermal energy scale k_B T with Stokes viscous friction 6π η r",
+      "color": [
+        0,
+        220,
+        255
+      ],
+      "code": "// 1. Einstein-Smoluchowski diffusion coefficient\nval stokesDragGamma = 6f * PI.toFloat() * (mediumViscosityCP * 1e-3f) * (particleRadiusUm * 1e-6f)\nval diffusionCoefficientM2S = (1.380649e-23f * temperatureK) / max(stokesDragGamma, 1e-25f)\n",
+      "sub_icon": "🔬",
+      "sub_tag": "STEP 1 • DIFFUSION COEFFICIENT",
+      "sub_title": "Einstein Relation",
+      "sub_desc": "Evaluates the stochastic diffusion constant from temperature and viscosity."
+    },
+    {
+      "step_num": 2,
+      "badge": "EQUATION 2 OF 3 • MEAN SQUARE DISPLACEMENT",
+      "formula": "⟨r²⟩ = 4 · D · t,  r_rms = 2 · √(D · t)",
+      "note": "Root-mean-square diffusion radius expands with the square root of elapsed time",
+      "color": [
+        255,
+        215,
+        65
+      ],
+      "code": "// 2. Root-mean-square displacement radius in two dimensions\nval theoreticalRmsRUm = sqrt(4f * (diffusionCoefficientM2S * 1e12f) * max(elapsedTimeSec, 0.01f))\n",
+      "sub_icon": "📈",
+      "sub_tag": "STEP 2 • RANDOM WALK SCALING",
+      "sub_title": "MSD Diffusion Frontier",
+      "sub_desc": "Calculates the expanding probability cloud radius over time."
+    },
+    {
+      "step_num": 3,
+      "badge": "EQUATION 3 OF 3 • LANGEVIN STOCHASTIC DYNAMICS",
+      "formula": "m · (dv / dt) = -γ · v + ξ(t),  ⟨ξ(t)⟩ = 0",
+      "note": "Thermal white noise kicks drive stochastic particle velocity updates against viscous drag",
+      "color": [
+        255,
+        110,
+        64
+      ],
+      "code": "// 3. Langevin stochastic thermal impulse and velocity integration\nval kickIntensity = (rmsVelocityUmS * 0.08f * thermalSpeedScale / max(mediumViscosityCP.pow(0.4f), 0.1f))\nval kickForce = Offset(cos(kickAngle) * kickIntensity, sin(kickAngle) * kickIntensity)\nparticleVel = (particleVel * damping) + (kickForce * 3.5f)\n",
+      "sub_icon": "⚡",
+      "sub_tag": "STEP 3 • LANGEVIN IMPULSE",
+      "sub_title": "Molecular Bombardment",
+      "sub_desc": "Simulates random thermal collision impulses against fluid resistance."
+    }
+  ],
+  "mystery": {
+    "en": "How did the random jiggling of microscopic pollen grains in water provide Einstein with proof that atoms actually exist?"
+  },
+  "phenomenon": {
+    "en": {
+      "tag": "★ BROWNIAN MOTION & RANDOM WALK",
+      "title": "Brownian Motion",
+      "teaser": "Suspended microscopic particles dance erratically under thermal bombardment by billions of invisible fluid molecules."
+    }
+  },
+  "narration": {
+    "en": {
+      "hook": "How did the erratic jiggling of microscopic pollen in water give Einstein proof that atoms exist?",
+      "math": "Einstein proved that microscopic molecular collisions impart stochastic momentum, diffusing particles with the square root of time.",
+      "question": "Can we simulate molecular bombardment, random walks, and the Einstein relation live in Kotlin Multiplatform?",
+      "code_intro": "Written in Kotlin Multiplatform.",
+      "code_tip": "We integrate Langevin stochastic equations, render expanding diffusion frontiers, and trace random walks on Canvas.",
+      "payoff": "Brownian motion and atomic diffusion running live in Kotlin."
+    }
+  }
+}

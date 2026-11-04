@@ -766,7 +766,7 @@ object ExperimentRegistry {
             magicPhenomenonRes = Res.string.exp_brownian_motion_magic,
             sciencePrincipleRes = Res.string.exp_brownian_motion_principle,
             formulaTitleRes = Res.string.exp_brownian_motion_formula_title,
-            formula = "\\langle r^2 \\rangle = 4 D t, \\quad D = \\frac{k_B T}{6 \\pi \\eta r}",
+            formula = "⟨r²⟩ = 4·D·t,  D = (k_B·T) / (6π·η·r),  m·(dv/dt) = -γ·v + ξ(t)",
             howToTryAtHomeRes = Res.string.exp_brownian_motion_how_to
         ),
         PhysicsExperiment(

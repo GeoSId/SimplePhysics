@@ -1574,6 +1574,7 @@ internal fun DrawScope.drawExperimentIllustration(id: String) {
         "capillary_action" -> drawCapillaryActionIllustration(w, h)
         "karman_vortex_street" -> drawKarmanVortexIllustration(w, h)
         "ideal_gas_piston" -> drawIdealGasPistonIllustration(w, h)
+        "brownian_motion" -> drawBrownianMotionIllustration(w, h)
         "kepler_orbits" -> {
             val cx = w * 0.5f
             val cy = h * 0.5f
@@ -4912,6 +4913,127 @@ private fun DrawScope.drawIdealGasPistonIllustration(w: Float, h: Float) {
     val curPy = origin.y - ((1.0f / volumeFrac).pow(1.4f) / 5.5f).coerceIn(0f, 1f) * axLenY
     drawCircle(AmberVibrant, 4.5f, Offset(curPx, curPy))
     drawCircle(Color.White, 2f, Offset(curPx, curPy))
+}
+
+/**
+ * Custom vector thumbnail illustration for Day 44: Brownian Motion & Random Walk.
+ * Features an erratic amber zigzag trajectory path, an expanding dashed Einstein diffusion radius
+ * cloud (<r²> = 4Dt), microscopic solvent H2O impact molecules with velocity tails,
+ * and a suspended glowing pollen grain with stochastic momentum kick arrow.
+ */
+private fun DrawScope.drawBrownianMotionIllustration(w: Float, h: Float) {
+    val origin = Offset(w * 0.44f, h * 0.50f)
+    val diffRadius = min(w * 0.35f, h * 0.35f)
+
+    // 1. Einstein Theoretical Diffusion Radius Cloud (<r^2> = 4Dt)
+    drawCircle(
+        color = CyanNeon.copy(alpha = 0.08f),
+        radius = diffRadius,
+        center = origin
+    )
+    drawCircle(
+        color = CyanNeon.copy(alpha = 0.35f),
+        radius = diffRadius,
+        center = origin,
+        style = Stroke(
+            width = 1.2f,
+            pathEffect = PathEffect.dashPathEffect(floatArrayOf(6f, 4f), 0f)
+        )
+    )
+
+    // Origin Crosshair Anchor
+    drawLine(Color.White.copy(alpha = 0.35f), Offset(origin.x - 7f, origin.y), Offset(origin.x + 7f, origin.y), 1f)
+    drawLine(Color.White.copy(alpha = 0.35f), Offset(origin.x, origin.y - 7f), Offset(origin.x, origin.y + 7f), 1f)
+    drawCircle(CyanNeon, 2f, origin)
+
+    // 2. Microscopic Background Solvent Molecules (Fast H2O Bombers)
+    val solvents = listOf(
+        Pair(Offset(w * 0.16f, h * 0.32f), Offset(10f, 6f)),
+        Pair(Offset(w * 0.28f, h * 0.72f), Offset(-8f, 10f)),
+        Pair(Offset(w * 0.75f, h * 0.24f), Offset(-12f, 8f)),
+        Pair(Offset(w * 0.82f, h * 0.65f), Offset(7f, -9f)),
+        Pair(Offset(w * 0.35f, h * 0.20f), Offset(9f, -6f)),
+        Pair(Offset(w * 0.62f, h * 0.78f), Offset(-6f, -10f)),
+        Pair(Offset(w * 0.20f, h * 0.54f), Offset(12f, 2f))
+    )
+    solvents.forEach { (pos, v) ->
+        drawLine(
+            color = CyanNeon.copy(alpha = 0.35f),
+            start = Offset(pos.x - v.x * 0.8f, pos.y - v.y * 0.8f),
+            end = pos,
+            strokeWidth = 1.2f
+        )
+        drawCircle(Color.White.copy(alpha = 0.75f), 1.8f, pos)
+    }
+
+    // 3. Erratic Random Walk Trajectory Path
+    val pathPoints = listOf(
+        origin,
+        Offset(w * 0.40f, h * 0.44f),
+        Offset(w * 0.46f, h * 0.38f),
+        Offset(w * 0.39f, h * 0.32f),
+        Offset(w * 0.48f, h * 0.28f),
+        Offset(w * 0.55f, h * 0.34f),
+        Offset(w * 0.50f, h * 0.42f),
+        Offset(w * 0.58f, h * 0.46f),
+        Offset(w * 0.52f, h * 0.54f),
+        Offset(w * 0.62f, h * 0.58f),
+        Offset(w * 0.67f, h * 0.52f)
+    )
+
+    val walkPath = Path().apply {
+        pathPoints.forEachIndexed { idx, pt ->
+            if (idx == 0) moveTo(pt.x, pt.y) else lineTo(pt.x, pt.y)
+        }
+    }
+    // Glow path
+    drawPath(walkPath, AmberVibrant.copy(alpha = 0.30f), style = Stroke(3.5f, cap = StrokeCap.Round, join = StrokeJoin.Round))
+    drawPath(walkPath, AmberVibrant, style = Stroke(1.8f, cap = StrokeCap.Round, join = StrokeJoin.Round))
+
+    // Draw past nodes
+    pathPoints.forEach { pt ->
+        drawCircle(AmberVibrant.copy(alpha = 0.7f), 2.2f, pt)
+    }
+
+    // Displacement Vector (Origin -> Current Particle)
+    val curPos = pathPoints.last()
+    drawLine(
+        color = CoralNeon.copy(alpha = 0.55f),
+        start = origin,
+        end = curPos,
+        strokeWidth = 1.4f,
+        pathEffect = PathEffect.dashPathEffect(floatArrayOf(5f, 4f), 0f)
+    )
+
+    // 4. Suspended Pollen Grain Colloid with Glow & Shading
+    val pRadius = min(w * 0.055f, 15f)
+
+    drawCircle(AmberVibrant.copy(alpha = 0.18f), pRadius * 1.8f, curPos)
+    drawCircle(
+        brush = Brush.radialGradient(
+            colors = listOf(Color(0xFFFEF08A), AmberVibrant, Color(0xFFD97706)),
+            center = Offset(curPos.x - pRadius * 0.3f, curPos.y - pRadius * 0.3f),
+            radius = pRadius
+        ),
+        radius = pRadius,
+        center = curPos
+    )
+    drawCircle(Color.White.copy(alpha = 0.85f), pRadius, curPos, style = Stroke(1.6f))
+    drawCircle(Color.White, 2.5f, curPos)
+
+    // 5. Stochastic Thermal Momentum Impulse Vector (CoralNeon Arrow)
+    val kickLen = 16f
+    val kickAngle = -0.55f
+    val kickEnd = Offset(curPos.x + cos(kickAngle) * (pRadius + kickLen), curPos.y + sin(kickAngle) * (pRadius + kickLen))
+    drawLine(CoralNeon, curPos, kickEnd, 2.2f, StrokeCap.Round)
+    val arrowHead = Path().apply {
+        val hAngle = kickAngle + PI.toFloat()
+        moveTo(kickEnd.x, kickEnd.y)
+        lineTo(kickEnd.x + cos(hAngle + 0.45f) * 6f, kickEnd.y + sin(hAngle + 0.45f) * 6f)
+        lineTo(kickEnd.x + cos(hAngle - 0.45f) * 6f, kickEnd.y + sin(hAngle - 0.45f) * 6f)
+        close()
+    }
+    drawPath(arrowHead, CoralNeon)
 }
 
 
