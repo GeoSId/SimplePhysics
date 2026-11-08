@@ -1,0 +1,115 @@
+{
+  "day": 45,
+  "curiosity": "Why does a water droplet survive for minutes on a scorching pan above 200°C, but vanishes in two seconds on a warm pan?",
+  "titles": {
+    "desktop": "Why Liquid Skates on Fire: The Leidenfrost Effect",
+    "shorts": "Liquid Skates on Fire! The Leidenfrost Secret #Shorts"
+  },
+  "desktop_mission": {
+    "mission_title": "Day 45: The Leidenfrost Effect",
+    "mission_sub": "Vapor Cushion Thermal Insulation & Frictionless Levitation",
+    "voice_mission": "Today we're simulating the Leidenfrost effect, vapor cushion insulation, and film boiling in Kotlin.",
+    "math_cards": [
+      [
+        "LEIDENFROST VAPOR INSULATION",
+        "q\" = k_vapor · (ΔT / δ)",
+        "A micro-layer of vaporized gas insulates the liquid core, dropping heat conduction by over 90%"
+      ],
+      [
+        "VAPOR CUSHION HOVERING",
+        "F_lift = ΔP_vapor · A = m · g",
+        "Expanding vapor pressure creates upward thrust, balancing droplet weight for frictionless gliding"
+      ],
+      [
+        "NUKIYAMA HEAT FLUX COLLAPSE",
+        "q\"_film << q\"_CHF",
+        "Crossing the Leidenfrost threshold plunges heat flux, extending droplet lifespan by tenfold"
+      ]
+    ],
+    "voice_math": "The core physics: vapor cushion thermal insulation, hydrodynamic levitation, and the Nukiyama boiling heat flux collapse."
+  },
+  "fact_cards": [
+    [
+      "Vapor Insulation",
+      "q\" = k_v · (ΔT / δ)"
+    ],
+    [
+      "Vapor Cushion Lift",
+      "F_lift = ΔP · A = m · g"
+    ],
+    [
+      "Film Boiling Threshold",
+      "T_pan > T_Leid ≈ 193°C"
+    ]
+  ],
+  "math_steps": [
+    {
+      "step_num": 1,
+      "badge": "EQUATION 1 OF 3 • VAPOR CUSHION THICKNESS",
+      "formula": "δ ≈ [ (k_v · μ_v · ΔT · R) / (ρ_v · ρ_l · g · h_fg) ]^(1/4)",
+      "note": "Quarter-power scaling governs the insulating vapor gap thickness beneath the droplet",
+      "color": [
+        0,
+        220,
+        255
+      ],
+      "code": "// 1. Insulating vapor cushion thickness scaling (quarter-power law)\nval effectiveDeltaT = max(surfaceTempC - boilingPointC, 1f)\nval vaporThicknessUm = 55f * (effectiveDeltaT / 100f).pow(0.25f) * (dropletRadiusMm / 3f).pow(0.25f)\nval vaporThicknessM = vaporThicknessUm * 1e-6f\n",
+      "sub_icon": "💨",
+      "sub_tag": "STEP 1 • VAPOR LAYER",
+      "sub_title": "Vapor Film Thickness",
+      "sub_desc": "Solves for the microscopic insulating steam blanket thickness."
+    },
+    {
+      "step_num": 2,
+      "badge": "EQUATION 2 OF 3 • CONDUCTION HEAT FLUX & LIFETIME",
+      "formula": "q\" = k_vapor · (ΔT / δ),  dm/dt = -(q\" · A) / h_fg",
+      "note": "Thermal conductivity of vapor is 25x lower than liquid, starving the droplet of boil heat",
+      "color": [
+        255,
+        215,
+        65
+      ],
+      "code": "// 2. Vapor barrier heat conduction and droplet phase change rate\nval heatFluxWPerM2 = (kv * effectiveDeltaT / max(vaporThicknessM, 1e-6f))\nval massEvapRateKgPerS = (heatFluxWPerM2 * dropletBaseArea) / latentHeatOfVaporization\ndropletMassKg = max(0f, dropletMassKg - massEvapRateKgPerS * dt)\n",
+      "sub_icon": "🔥",
+      "sub_tag": "STEP 2 • HEAT TRANSFER",
+      "sub_title": "Film Heat Flux",
+      "sub_desc": "Computes reduced convective heat transfer and extended droplet lifetime."
+    },
+    {
+      "step_num": 3,
+      "badge": "EQUATION 3 OF 3 • FRICTIONLESS HYDRODYNAMIC GLIDING",
+      "formula": "a_x = g · sin(θ) - (μ_eff · g · cos(θ)),  μ_eff ≈ 0.002",
+      "note": "Complete absence of solid-liquid contact eliminates surface friction on tilted substrates",
+      "color": [
+        255,
+        110,
+        64
+      ],
+      "code": "// 3. Hydrodynamic gliding down tilted pan with near-zero vapor shear\nval tiltRad = tiltDeg * PI.toFloat() / 180f\nval frictionCoeff = if (isLeidenfrost) 0.002f else 0.45f\nval accelX = (9.81f * sin(tiltRad) - frictionCoeff * 9.81f * cos(tiltRad)) * 1000f\ndropletVelX = (dropletVelX + accelX * dt) * 0.998f\n",
+      "sub_icon": "🛹",
+      "sub_tag": "STEP 3 • LEVITATION GLIDE",
+      "sub_title": "Frictionless Motion",
+      "sub_desc": "Integrates acceleration on inclined surfaces with ultra-low vapor shear."
+    }
+  ],
+  "mystery": {
+    "en": "Why does a water droplet survive for minutes on a scorching pan above 200°C, but vanishes in two seconds on a warm pan?"
+  },
+  "phenomenon": {
+    "en": {
+      "tag": "★ THE LEIDENFROST EFFECT",
+      "title": "Leidenfrost Effect",
+      "teaser": "Liquid droplets skate frictionlessly across searing surfaces, hovering on an insulating cushion of their own vapor."
+    }
+  },
+  "narration": {
+    "en": {
+      "hook": "Why does a water droplet survive for minutes on a searing pan above 200 degrees, but vanishes in seconds on a warm pan?",
+      "math": "At extreme temperatures, instant vaporization creates an insulating steam cushion, slashing heat transfer and eliminating friction.",
+      "question": "Can we simulate vapor cushion insulation, the Nukiyama boiling curve, and frictionless gliding live in Kotlin Multiplatform?",
+      "code_intro": "Written in Kotlin Multiplatform.",
+      "code_tip": "We model film boiling heat flux collapse, evaluate vapor thickness scaling, and simulate levitating droplets on Canvas.",
+      "payoff": "The Leidenfrost effect running live in Kotlin."
+    }
+  }
+}

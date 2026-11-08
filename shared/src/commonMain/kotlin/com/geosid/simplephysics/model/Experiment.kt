@@ -781,7 +781,7 @@ object ExperimentRegistry {
             magicPhenomenonRes = Res.string.exp_leidenfrost_effect_magic,
             sciencePrincipleRes = Res.string.exp_leidenfrost_effect_principle,
             formulaTitleRes = Res.string.exp_leidenfrost_effect_formula_title,
-            formula = "\\dot{Q} = k_{vapor} A \\frac{T_{pan} - T_{drop}}{\\delta}",
+            formula = "q\" = k_vapor·(ΔT / δ),  δ ∝ (ΔT)^(1/4),  F_lift = ΔP_vapor·A = m·g",
             howToTryAtHomeRes = Res.string.exp_leidenfrost_effect_how_to
         ),
         PhysicsExperiment(

@@ -1575,6 +1575,7 @@ internal fun DrawScope.drawExperimentIllustration(id: String) {
         "karman_vortex_street" -> drawKarmanVortexIllustration(w, h)
         "ideal_gas_piston" -> drawIdealGasPistonIllustration(w, h)
         "brownian_motion" -> drawBrownianMotionIllustration(w, h)
+        "leidenfrost_effect" -> drawLeidenfrostIllustration(w, h)
         "kepler_orbits" -> {
             val cx = w * 0.5f
             val cy = h * 0.5f
@@ -5036,12 +5037,234 @@ private fun DrawScope.drawBrownianMotionIllustration(w: Float, h: Float) {
     drawPath(arrowHead, CoralNeon)
 }
 
+/**
+ * DAY 45: The Leidenfrost Effect
+ * Features a glowing hot skillet plate with radiant thermal heat waves,
+ * a hovering oblate liquid droplet elevated on a microscopic insulating vapor cushion (delta),
+ * upward vapor pressure lift force arrows, rising steam puff particles,
+ * and a mini Nukiyama boiling curve inset showing the film boiling regime.
+ */
+private fun DrawScope.drawLeidenfrostIllustration(w: Float, h: Float) {
+    val plateLeft = w * 0.08f
+    val plateRight = w * 0.92f
+    val plateY = h * 0.72f
+    val plateThickness = 12f
 
+    // 1. Hot Pan Radiation Glow & Substrate
+    val glowBrush = Brush.verticalGradient(
+        colors = listOf(
+            Color(0x00FF4500),
+            Color(0x26FF4500),
+            Color(0x66FF5722),
+            Color(0xFFDC2626)
+        ),
+        startY = plateY - 30f,
+        endY = plateY + plateThickness
+    )
+    drawRect(
+        brush = glowBrush,
+        topLeft = Offset(plateLeft, plateY - 24f),
+        size = Size(plateRight - plateLeft, 24f + plateThickness)
+    )
 
+    // Heated pan body
+    drawRoundRect(
+        color = Color(0xFF1E293B),
+        topLeft = Offset(plateLeft, plateY),
+        size = Size(plateRight - plateLeft, plateThickness),
+        cornerRadius = CornerRadius(4f, 4f)
+    )
+    // Red-hot top pan edge
+    drawLine(
+        brush = Brush.horizontalGradient(
+            colors = listOf(Color(0xFFDC2626), AmberVibrant, Color(0xFFDC2626)),
+            startX = plateLeft,
+            endX = plateRight
+        ),
+        start = Offset(plateLeft, plateY),
+        end = Offset(plateRight, plateY),
+        strokeWidth = 3f,
+        cap = StrokeCap.Round
+    )
 
+    // Radiant thermal waves beneath droplet
+    val wavePath = Path().apply {
+        moveTo(w * 0.22f, plateY + 16f)
+        quadraticTo(w * 0.35f, plateY + 22f, w * 0.48f, plateY + 16f)
+        quadraticTo(w * 0.62f, plateY + 10f, w * 0.76f, plateY + 16f)
+    }
+    drawPath(
+        path = wavePath,
+        color = Color(0x66F97316),
+        style = Stroke(width = 1.5f, pathEffect = PathEffect.dashPathEffect(floatArrayOf(5f, 4f), 0f))
+    )
 
+    // 2. Insulating Vapor Cushion (Microscopic Gap delta)
+    val dropCenter = Offset(w * 0.50f, plateY - 32f)
+    val vaporGapY = plateY - 6f
 
+    // Vapor cushion boundary layer glow
+    drawRect(
+        brush = Brush.verticalGradient(
+            colors = listOf(CyanNeon.copy(alpha = 0.25f), Color(0x00E0F2FE)),
+            startY = plateY - 10f,
+            endY = plateY
+        ),
+        topLeft = Offset(w * 0.30f, plateY - 10f),
+        size = Size(w * 0.40f, 10f)
+    )
 
+    // Vapor Cushion Indicator line
+    drawLine(
+        color = CyanNeon.copy(alpha = 0.85f),
+        start = Offset(w * 0.32f, vaporGapY),
+        end = Offset(w * 0.68f, vaporGapY),
+        strokeWidth = 1.5f,
+        pathEffect = PathEffect.dashPathEffect(floatArrayOf(4f, 3f), 0f)
+    )
 
+    // Upward Vapor Pressure Lift Force Arrows (F_lift = delta P * A)
+    listOf(w * 0.38f, w * 0.50f, w * 0.62f).forEach { arrowX ->
+        val arrowBottom = plateY - 2f
+        val arrowTop = plateY - 11f
+        drawLine(
+            color = CyanNeon,
+            start = Offset(arrowX, arrowBottom),
+            end = Offset(arrowX, arrowTop),
+            strokeWidth = 1.6f,
+            cap = StrokeCap.Round
+        )
+        val aHead = Path().apply {
+            moveTo(arrowX, arrowTop - 2f)
+            lineTo(arrowX - 2.5f, arrowTop + 2.5f)
+            lineTo(arrowX + 2.5f, arrowTop + 2.5f)
+            close()
+        }
+        drawPath(aHead, CyanNeon)
+    }
 
+    // 3. Hovering Capillary Droplet (Oblate Spheroid with Surface Tension)
+    val dropRx = w * 0.17f
+    val dropRy = 20f
 
+    // Droplet outer ambient glow
+    drawOval(
+        brush = Brush.radialGradient(
+            colors = listOf(CyanNeon.copy(alpha = 0.35f), Color(0x0038BDF8)),
+            center = dropCenter,
+            radius = dropRx * 1.3f
+        ),
+        topLeft = Offset(dropCenter.x - dropRx * 1.3f, dropCenter.y - dropRy * 1.3f),
+        size = Size(dropRx * 2.6f, dropRy * 2.6f)
+    )
+
+    // Liquid Core (Blue/Cyan Gradient with 3D Depth)
+    val dropBrush = Brush.radialGradient(
+        colors = listOf(
+            Color(0xFFE0F2FE),
+            CyanNeon,
+            Color(0xFF0284C7),
+            Color(0xFF0C4A6E)
+        ),
+        center = Offset(dropCenter.x - dropRx * 0.25f, dropCenter.y - dropRy * 0.35f),
+        radius = dropRx
+    )
+    drawOval(
+        brush = dropBrush,
+        topLeft = Offset(dropCenter.x - dropRx, dropCenter.y - dropRy),
+        size = Size(dropRx * 2f, dropRy * 2f)
+    )
+
+    // Specular highlight gleam on top curvature
+    drawOval(
+        color = Color.White.copy(alpha = 0.85f),
+        topLeft = Offset(dropCenter.x - dropRx * 0.45f, dropCenter.y - dropRy * 0.70f),
+        size = Size(dropRx * 0.50f, dropRy * 0.35f)
+    )
+    drawCircle(
+        color = Color.White,
+        radius = 2.2f,
+        center = Offset(dropCenter.x + dropRx * 0.25f, dropCenter.y - dropRy * 0.45f)
+    )
+
+    // 4. Steam Puff Particles Escaping Periphery
+    val steamPuffs = listOf(
+        Pair(Offset(w * 0.28f, plateY - 18f), 4.5f),
+        Pair(Offset(w * 0.23f, plateY - 28f), 6.5f),
+        Pair(Offset(w * 0.19f, plateY - 42f), 8.5f),
+        Pair(Offset(w * 0.72f, plateY - 18f), 4.5f),
+        Pair(Offset(w * 0.77f, plateY - 29f), 6.5f),
+        Pair(Offset(w * 0.81f, plateY - 44f), 9.0f)
+    )
+    steamPuffs.forEach { (pos, radius) ->
+        drawCircle(
+            color = Color.White.copy(alpha = 0.30f),
+            radius = radius,
+            center = pos
+        )
+        drawCircle(
+            color = CyanNeon.copy(alpha = 0.20f),
+            radius = radius * 0.65f,
+            center = pos
+        )
+    }
+
+    // 5. Inset: Mini Nukiyama Boiling Curve (Top Right)
+    val insetX = w * 0.66f
+    val insetY = h * 0.10f
+    val insetW = w * 0.28f
+    val insetH = h * 0.28f
+
+    // Inset Background Card
+    drawRoundRect(
+        color = Color(0xCC0F172A),
+        topLeft = Offset(insetX, insetY),
+        size = Size(insetW, insetH),
+        cornerRadius = CornerRadius(6f, 6f)
+    )
+    drawRoundRect(
+        color = ScienceBorder.copy(alpha = 0.45f),
+        topLeft = Offset(insetX, insetY),
+        size = Size(insetW, insetH),
+        cornerRadius = CornerRadius(6f, 6f),
+        style = Stroke(width = 1f)
+    )
+
+    // Nukiyama Curve axes
+    val axisX0 = insetX + 8f
+    val axisY0 = insetY + insetH - 8f
+    val axisX1 = insetX + insetW - 6f
+    val axisY1 = insetY + 8f
+    drawLine(Color.White.copy(alpha = 0.35f), Offset(axisX0, axisY0), Offset(axisX1, axisY0), 1f)
+    drawLine(Color.White.copy(alpha = 0.35f), Offset(axisX0, axisY0), Offset(axisX0, axisY1), 1f)
+
+    // Nukiyama curve path: Natural Convection -> Nucleate Peak (CHF) -> Leidenfrost Drop -> Film Boiling
+    val nukiPath = Path().apply {
+        moveTo(axisX0 + 2f, axisY0 - 3f)
+        // Up to Critical Heat Flux (CHF peak)
+        quadraticTo(
+            axisX0 + insetW * 0.30f, axisY0 - 6f,
+            axisX0 + insetW * 0.45f, axisY1 + insetH * 0.20f
+        )
+        // Sharp drop to Leidenfrost Point
+        quadraticTo(
+            axisX0 + insetW * 0.62f, axisY0 - 8f,
+            axisX0 + insetW * 0.72f, axisY0 - 10f
+        )
+        // Mild rise in film radiation
+        quadraticTo(
+            axisX0 + insetW * 0.85f, axisY0 - 13f,
+            axisX1 - 2f, axisY0 - 18f
+        )
+    }
+    drawPath(
+        path = nukiPath,
+        color = CoralNeon.copy(alpha = 0.85f),
+        style = Stroke(width = 1.8f, cap = StrokeCap.Round)
+    )
+
+    // Current Operating Point (Leidenfrost Film Boiling Marker)
+    val leidPt = Offset(axisX0 + insetW * 0.72f, axisY0 - 10f)
+    drawCircle(CyanNeon, 3.5f, leidPt)
+    drawCircle(Color.White, 1.8f, leidPt)
+}
