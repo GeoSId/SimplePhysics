@@ -1576,6 +1576,7 @@ internal fun DrawScope.drawExperimentIllustration(id: String) {
         "ideal_gas_piston" -> drawIdealGasPistonIllustration(w, h)
         "brownian_motion" -> drawBrownianMotionIllustration(w, h)
         "leidenfrost_effect" -> drawLeidenfrostIllustration(w, h)
+        "stirling_engine" -> drawStirlingEngineIllustration(w, h)
         "kepler_orbits" -> {
             val cx = w * 0.5f
             val cy = h * 0.5f
@@ -5268,3 +5269,261 @@ private fun DrawScope.drawLeidenfrostIllustration(w: Float, h: Float) {
     drawCircle(CyanNeon, 3.5f, leidPt)
     drawCircle(Color.White, 1.8f, leidPt)
 }
+
+/**
+ * DAY 46: Stirling Cycle Heat Engine
+ * Features an Alpha/Beta Stirling engine with a crimson glowing hot cylinder,
+ * an aluminum cold cylinder with cyan cooling fins, a central copper regenerator conduit,
+ * dual articulating connecting rods driving a gleaming counterweighted flywheel,
+ * and a mini P-V indicator diagram inset (W = oint P dV).
+ */
+private fun DrawScope.drawStirlingEngineIllustration(w: Float, h: Float) {
+    val cylY = h * 0.32f
+    val cylH = h * 0.22f
+    val cylW = w * 0.28f
+
+    // 1. Hot Expansion Cylinder (Left)
+    val hotX = w * 0.08f
+    // Thermal heat source glow beneath
+    drawRect(
+        brush = Brush.verticalGradient(
+            colors = listOf(Color.Transparent, CoralNeon.copy(alpha = 0.40f), Color(0xFFFF5722)),
+            startY = cylY + cylH,
+            endY = cylY + cylH + 18f
+        ),
+        topLeft = Offset(hotX, cylY + cylH),
+        size = Size(cylW * 0.75f, 18f)
+    )
+    // Hot cylinder casing
+    drawRoundRect(
+        brush = Brush.horizontalGradient(
+            colors = listOf(Color(0xFF7F1D1D), Color(0xFF991B1B), Color(0xFF1E293B)),
+            startX = hotX,
+            endX = hotX + cylW
+        ),
+        topLeft = Offset(hotX, cylY),
+        size = Size(cylW, cylH),
+        cornerRadius = CornerRadius(6f, 6f)
+    )
+    drawRoundRect(
+        color = CoralNeon.copy(alpha = 0.85f),
+        topLeft = Offset(hotX, cylY),
+        size = Size(cylW, cylH),
+        cornerRadius = CornerRadius(6f, 6f),
+        style = Stroke(width = 1.8f)
+    )
+    // Hot piston
+    val hotPistonW = cylW * 0.25f
+    val hotPistonX = hotX + cylW * 0.48f
+    drawRoundRect(
+        brush = Brush.horizontalGradient(
+            colors = listOf(Color(0xFFE2E8F0), Color(0xFF94A3B8), Color(0xFF475569)),
+            startX = hotPistonX,
+            endX = hotPistonX + hotPistonW
+        ),
+        topLeft = Offset(hotPistonX, cylY + 3f),
+        size = Size(hotPistonW, cylH - 6f),
+        cornerRadius = CornerRadius(3f, 3f)
+    )
+    // Burner coils
+    for (i in 0..2) {
+        val cx = hotX + 10f + i * 14f
+        drawLine(AmberVibrant, Offset(cx, cylY + cylH + 2f), Offset(cx + 8f, cylY + cylH + 12f), 2f, StrokeCap.Round)
+    }
+
+    // 2. Cold Compression Cylinder (Right)
+    val coldX = w * 0.64f
+    // Cold cylinder casing
+    drawRoundRect(
+        brush = Brush.horizontalGradient(
+            colors = listOf(Color(0xFF0F172A), Color(0xFF1E3A8A), Color(0xFF0284C7)),
+            startX = coldX,
+            endX = coldX + cylW
+        ),
+        topLeft = Offset(coldX, cylY),
+        size = Size(cylW, cylH),
+        cornerRadius = CornerRadius(6f, 6f)
+    )
+    drawRoundRect(
+        color = CyanNeon.copy(alpha = 0.85f),
+        topLeft = Offset(coldX, cylY),
+        size = Size(cylW, cylH),
+        cornerRadius = CornerRadius(6f, 6f),
+        style = Stroke(width = 1.8f)
+    )
+    // Cold cooling fins
+    for (i in 0..4) {
+        val fx = coldX + cylW * 0.35f + i * 12f
+        drawLine(CyanNeon.copy(alpha = 0.70f), Offset(fx, cylY - 10f), Offset(fx, cylY), 2f)
+        drawLine(CyanNeon.copy(alpha = 0.70f), Offset(fx, cylY + cylH), Offset(fx, cylY + cylH + 10f), 2f)
+    }
+    // Cold piston
+    val coldPistonW = cylW * 0.25f
+    val coldPistonX = coldX + cylW * 0.22f
+    drawRoundRect(
+        brush = Brush.horizontalGradient(
+            colors = listOf(Color(0xFF475569), Color(0xFF94A3B8), Color(0xFFE2E8F0)),
+            startX = coldPistonX,
+            endX = coldPistonX + coldPistonW
+        ),
+        topLeft = Offset(coldPistonX, cylY + 3f),
+        size = Size(coldPistonW, cylH - 6f),
+        cornerRadius = CornerRadius(3f, 3f)
+    )
+
+    // 3. Central Regenerator Duct & Wire Matrix
+    val ductLeft = hotX + cylW
+    val ductRight = coldX
+    val ductH = cylH * 0.42f
+    val ductTop = cylY + (cylH - ductH) * 0.5f
+
+    drawRect(
+        brush = Brush.horizontalGradient(
+            colors = listOf(CoralNeon.copy(alpha = 0.35f), PurpleNeon.copy(alpha = 0.25f), CyanNeon.copy(alpha = 0.35f)),
+            startX = ductLeft,
+            endX = ductRight
+        ),
+        topLeft = Offset(ductLeft, ductTop),
+        size = Size(ductRight - ductLeft, ductH)
+    )
+    drawRect(
+        color = ScienceBorder.copy(alpha = 0.85f),
+        topLeft = Offset(ductLeft, ductTop),
+        size = Size(ductRight - ductLeft, ductH),
+        style = Stroke(width = 1.2f)
+    )
+    // Copper regenerator matrix in center
+    val meshW = (ductRight - ductLeft) * 0.45f
+    val meshLeft = ductLeft + (ductRight - ductLeft - meshW) * 0.5f
+    drawRoundRect(
+        brush = Brush.horizontalGradient(
+            colors = listOf(Color(0xFFB45309), Color(0xFFD97706), Color(0xFF78350F)),
+            startX = meshLeft,
+            endX = meshLeft + meshW
+        ),
+        topLeft = Offset(meshLeft, ductTop + 2f),
+        size = Size(meshW, ductH - 4f),
+        cornerRadius = CornerRadius(2f, 2f)
+    )
+    var mx = meshLeft + 3f
+    while (mx < meshLeft + meshW - 2f) {
+        drawLine(AmberVibrant.copy(alpha = 0.65f), Offset(mx, ductTop + 2f), Offset(mx, ductTop + ductH - 2f), 1f)
+        mx += 4f
+    }
+
+    // 4. Central Rotating Flywheel & Kinematic Linkage
+    val flywheelCenter = Offset(w * 0.50f, h * 0.72f)
+    val flywheelRadius = min(w * 0.20f, h * 0.24f)
+    val crankRadius = flywheelRadius * 0.42f
+    val crankAngle = 0.78f // static snapshot ~45 deg
+
+    // Flywheel outer rim
+    drawCircle(
+        brush = Brush.radialGradient(
+            colors = listOf(Color(0xFF334155), Color(0xFF1E293B), Color(0xFF0F172A)),
+            center = flywheelCenter,
+            radius = flywheelRadius
+        ),
+        radius = flywheelRadius,
+        center = flywheelCenter
+    )
+    drawCircle(ScienceBorder, flywheelRadius, flywheelCenter, style = Stroke(3f))
+    drawCircle(Color(0xFF64748B), flywheelRadius * 0.86f, flywheelCenter, style = Stroke(1.5f))
+
+    // Spokes
+    val spokeCount = 6
+    for (i in 0 until spokeCount) {
+        val sAngle = crankAngle + i * (2f * PI.toFloat() / spokeCount)
+        val sEnd = Offset(
+            flywheelCenter.x + (flywheelRadius * 0.86f) * cos(sAngle),
+            flywheelCenter.y + (flywheelRadius * 0.86f) * sin(sAngle)
+        )
+        drawLine(Color(0xFF94A3B8), flywheelCenter, sEnd, 2f, StrokeCap.Round)
+    }
+
+    // Brass Counterweight
+    drawArc(
+        color = AmberVibrant.copy(alpha = 0.85f),
+        startAngle = crankAngle * (180f / PI.toFloat()) - 30f,
+        sweepAngle = 60f,
+        useCenter = false,
+        topLeft = Offset(flywheelCenter.x - flywheelRadius * 0.84f, flywheelCenter.y - flywheelRadius * 0.84f),
+        size = Size(flywheelRadius * 1.68f, flywheelRadius * 1.68f),
+        style = Stroke(width = 5f, cap = StrokeCap.Round)
+    )
+
+    // Crankpins & Connecting Rods
+    val hotPin = Offset(hotPistonX + hotPistonW * 0.5f, cylY + cylH * 0.5f)
+    val coldPin = Offset(coldPistonX + coldPistonW * 0.5f, cylY + cylH * 0.5f)
+    val hotCrankPin = Offset(
+        flywheelCenter.x + crankRadius * cos(crankAngle),
+        flywheelCenter.y + crankRadius * sin(crankAngle)
+    )
+    val coldCrankPin = Offset(
+        flywheelCenter.x + crankRadius * cos(crankAngle - (PI / 2f).toFloat()),
+        flywheelCenter.y + crankRadius * sin(crankAngle - (PI / 2f).toFloat())
+    )
+
+    drawLine(Color(0xFFCBD5E1), hotPin, hotCrankPin, 3.5f, StrokeCap.Round)
+    drawCircle(Color.White, 3f, hotPin)
+    drawCircle(AmberVibrant, 3f, hotCrankPin)
+
+    drawLine(Color(0xFFCBD5E1), coldPin, coldCrankPin, 3.5f, StrokeCap.Round)
+    drawCircle(Color.White, 3f, coldPin)
+    drawCircle(AmberVibrant, 3f, coldCrankPin)
+
+    // Axle hub
+    drawCircle(Color(0xFFE2E8F0), flywheelRadius * 0.22f, flywheelCenter)
+    drawCircle(Color(0xFF0F172A), 3f, flywheelCenter)
+
+    // 5. Inset: Mini P-V Diagram Card (Top Right)
+    val pvW = w * 0.28f
+    val pvH = h * 0.22f
+    val pvLeft = w * 0.68f
+    val pvTop = h * 0.06f
+
+    drawRoundRect(
+        color = Color(0xCC0F172A),
+        topLeft = Offset(pvLeft, pvTop),
+        size = Size(pvW, pvH),
+        cornerRadius = CornerRadius(5f, 5f)
+    )
+    drawRoundRect(
+        color = ScienceBorder.copy(alpha = 0.55f),
+        topLeft = Offset(pvLeft, pvTop),
+        size = Size(pvW, pvH),
+        cornerRadius = CornerRadius(5f, 5f),
+        style = Stroke(width = 1f)
+    )
+
+    // Axes
+    val ax0 = pvLeft + 8f
+    val ay0 = pvTop + pvH - 6f
+    val ax1 = pvLeft + pvW - 6f
+    val ay1 = pvTop + 6f
+    drawLine(Color.White.copy(alpha = 0.35f), Offset(ax0, ay0), Offset(ax1, ay0), 1f)
+    drawLine(Color.White.copy(alpha = 0.35f), Offset(ax0, ay0), Offset(ax0, ay1), 1f)
+
+    // Stirling loop path
+    val vMin = ax0 + (ax1 - ax0) * 0.22f
+    val vMax = ax0 + (ax1 - ax0) * 0.85f
+    val pTop = ay1 + (ay0 - ay1) * 0.15f
+    val pMedH = ay1 + (ay0 - ay1) * 0.45f
+    val pBot = ay1 + (ay0 - ay1) * 0.85f
+    val pMedC = ay1 + (ay0 - ay1) * 0.55f
+
+    val loop = Path().apply {
+        moveTo(vMin, pTop)
+        quadraticTo((vMin + vMax) * 0.5f, pTop + 4f, vMax, pMedH)
+        lineTo(vMax, pBot)
+        quadraticTo((vMin + vMax) * 0.5f, pBot + 3f, vMin, pMedC)
+        close()
+    }
+    drawPath(loop, CoralNeon.copy(alpha = 0.25f))
+    drawPath(loop, CoralNeon, style = Stroke(1.5f, cap = StrokeCap.Round))
+
+    // Operating point
+    drawCircle(CyanNeon, 3f, Offset(vMax * 0.95f, pMedH))
+    drawCircle(Color.White, 1.5f, Offset(vMax * 0.95f, pMedH))
+}
+

@@ -796,7 +796,7 @@ object ExperimentRegistry {
             magicPhenomenonRes = Res.string.exp_stirling_engine_magic,
             sciencePrincipleRes = Res.string.exp_stirling_engine_principle,
             formulaTitleRes = Res.string.exp_stirling_engine_formula_title,
-            formula = "\\eta = 1 - \\frac{T_C}{T_H}",
+            formula = "W = ∮ P dV,  η = W / Q_in ≤ 1 - T_C/T_H,  P(θ) = n·R / Σ(V_i/T_i)",
             howToTryAtHomeRes = Res.string.exp_stirling_engine_how_to
         ),
         PhysicsExperiment(

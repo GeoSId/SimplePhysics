@@ -1,0 +1,115 @@
+{
+  "day": 46,
+  "curiosity": "How can an engine run silently on the warmth of your palm alone, producing mechanical shaft power with zero exhaust?",
+  "titles": {
+    "desktop": "The Secret Physics of the Stirling Engine: Power From Pure Heat",
+    "shorts": "Power From Pure Heat! The Stirling Engine #Shorts"
+  },
+  "desktop_mission": {
+    "mission_title": "Day 46: Stirling Cycle Heat Engine",
+    "mission_sub": "Closed-Cycle Regenerative External Combustion",
+    "voice_mission": "Today we're simulating the Stirling heat engine, the regenerative thermal cycle, and the Schmidt analysis in Kotlin.",
+    "math_cards": [
+      [
+        "STIRLING CYCLE INDICATED WORK",
+        "W_net = ∮ P dV = n · R · (T_H - T_C) · ln(r_v)",
+        "Net mechanical shaft work equals the enclosed area of the closed P-V indicator loop"
+      ],
+      [
+        "CARNOT EFFICIENCY LIMIT",
+        "η_Carnot = 1 - (T_C / T_H)",
+        "Ideal thermodynamic efficiency matches the theoretical maximum reversible Carnot ceiling"
+      ],
+      [
+        "SCHMIDT PRESSURE KINEMATICS",
+        "P(θ) = n · R / Σ [ V_i(θ) / T_i ]",
+        "Instantaneous gas pressure arises from continuous 90° phase-shifted volume variation"
+      ]
+    ],
+    "voice_math": "The core physics: closed-cycle indicated work, the Carnot efficiency limit, and Schmidt pressure kinematics."
+  },
+  "fact_cards": [
+    [
+      "Indicated Work",
+      "W = ∮ P dV"
+    ],
+    [
+      "Carnot Limit",
+      "η = 1 - T_C / T_H"
+    ],
+    [
+      "Schmidt Pressure",
+      "P(θ) = n·R / Σ(V_i/T_i)"
+    ]
+  ],
+  "math_steps": [
+    {
+      "step_num": 1,
+      "badge": "EQUATION 1 OF 3 • SCHMIDT INSTANTANEOUS PRESSURE",
+      "formula": "P(θ) = (n · R) / [ V_H(θ)/T_H + V_C(θ)/T_C + V_D/T_D ]",
+      "note": "Harmonic piston volume variations govern instantaneous cycle pressure",
+      "color": [
+        0,
+        220,
+        255
+      ],
+      "code": "// 1. Schmidt equation for closed engine pressure\nval tRegenLogMean = max(1f, (hotTempK - coldTempK) / max(0.01f, ln(hotTempK / max(coldTempK, 1f))))\nval effectiveTRegen = coldTempK + (tRegenLogMean - coldTempK) * regeneratorEff\nval denom = (vHotCm3 / max(hotTempK, 1f)) + (vColdCm3 / max(coldTempK, 1f)) + (deadVolCm3 / max(effectiveTRegen, 1f))\nval pressureKPa = max(40f, (gasConstantMolesNR / max(denom, 0.001f)) * 1000f)\n",
+      "sub_icon": "⚙️",
+      "sub_tag": "STEP 1 • SCHMIDT PRESSURE",
+      "sub_title": "Cycle Pressure",
+      "sub_desc": "Solves closed-cycle gas pressure from harmonic cylinder volume changes."
+    },
+    {
+      "step_num": 2,
+      "badge": "EQUATION 2 OF 3 • CRANKSHAFT TORQUE & DYNAMICS",
+      "formula": "I · (dω / dt) = τ_gas(θ) - τ_friction(ω) - τ_load",
+      "note": "Pressure forces on hot and cold pistons generate driving shaft torque",
+      "color": [
+        255,
+        215,
+        65
+      ],
+      "code": "// 2. Instantaneous gas pressure torque and flywheel angular acceleration\nval pDiffKPa = pressureKPa - 101.3f\nval torqueHot = pDiffKPa * sin(crankAngleRad) * forceScale\nval torqueCold = pDiffKPa * sin(crankAngleRad - phaseOffsetRad) * forceScale\nval netTorque = (torqueHot + torqueCold) - frictionTorque - effectiveLoad\nangularVelocityRadS = max(0f, angularVelocityRadS + (netTorque / flywheelInertia) * dt)\n",
+      "sub_icon": "🔄",
+      "sub_tag": "STEP 2 • FLYWHEEL DYNAMICS",
+      "sub_title": "Angular Acceleration",
+      "sub_desc": "Integrates piston torque and rotational inertia to accelerate the flywheel."
+    },
+    {
+      "step_num": 3,
+      "badge": "EQUATION 3 OF 3 • NET WORK & CARNOT EFFICIENCY",
+      "formula": "W_net = ∮ P dV,  η_Stirling = W_net / Q_in ≤ 1 - T_C / T_H",
+      "note": "Regenerator thermal recovery approaches the theoretical Carnot ceiling",
+      "color": [
+        255,
+        110,
+        64
+      ],
+      "code": "// 3. Indicated cycle work and thermal Carnot efficiency\nval carnotEff = max(0f, 1f - (coldTempK / max(hotTempK, 1f)))\nval thermalEff = carnotEff * regeneratorEff * 0.62f\nval pMeanPa = pressureKPa * 1e3f\nindicatedWorkJ = max(0.1f, pMeanPa * deltaVMaxMin * (hotTempK - coldTempK) / max(hotTempK, 1f) * 0.85f)\nmechanicalPowerW = max(0f, (netTorque + effectiveLoad) * angularVelocityRadS * 0.75f)\n",
+      "sub_icon": "⚡",
+      "sub_tag": "STEP 3 • CARNOT WORK",
+      "sub_title": "Indicated Power",
+      "sub_desc": "Computes closed-loop indicated work and thermal conversion efficiency."
+    }
+  ],
+  "mystery": {
+    "en": "How can an engine run silently on the warmth of your palm alone, producing mechanical shaft power with zero exhaust?"
+  },
+  "phenomenon": {
+    "en": {
+      "tag": "★ STIRLING CYCLE HEAT ENGINE",
+      "title": "Stirling Heat Engine",
+      "teaser": "A sealed mass of gas shuttles cyclically between hot and cold reservoirs, converting pure heat into rotational work."
+    }
+  },
+  "narration": {
+    "en": {
+      "hook": "How can an engine run silently on the warmth of your palm alone, producing mechanical power with zero exhaust?",
+      "math": "By shuttling a sealed gas between hot and cold cylinders through a thermal regenerator, heat expands gas at high pressure and compresses it cold.",
+      "question": "Can we simulate the Stirling cycle, Schmidt pressure equations, and flywheel dynamics live in Kotlin Multiplatform?",
+      "code_intro": "Written in Kotlin Multiplatform.",
+      "code_tip": "We model closed-cycle Schmidt pressure equations, evaluate flywheel angular dynamics, and render real-time P-V indicator loops.",
+      "payoff": "The Stirling heat engine running live in Kotlin."
+    }
+  }
+}
