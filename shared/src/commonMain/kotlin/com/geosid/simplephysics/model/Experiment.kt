@@ -811,7 +811,7 @@ object ExperimentRegistry {
             magicPhenomenonRes = Res.string.exp_maxwells_demon_magic,
             sciencePrincipleRes = Res.string.exp_maxwells_demon_principle,
             formulaTitleRes = Res.string.exp_maxwells_demon_formula_title,
-            formula = "E_{dissipated} \\ge k_B T \\ln 2",
+            formula = "E_erasure ≥ k_B·T·ln(2),  ΔS_total = ΔS_gas + ΔS_demon ≥ 0",
             howToTryAtHomeRes = Res.string.exp_maxwells_demon_how_to
         ),
         PhysicsExperiment(

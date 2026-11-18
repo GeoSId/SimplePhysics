@@ -1577,6 +1577,7 @@ internal fun DrawScope.drawExperimentIllustration(id: String) {
         "brownian_motion" -> drawBrownianMotionIllustration(w, h)
         "leidenfrost_effect" -> drawLeidenfrostIllustration(w, h)
         "stirling_engine" -> drawStirlingEngineIllustration(w, h)
+        "maxwells_demon" -> drawMaxwellsDemonIllustration(w, h)
         "kepler_orbits" -> {
             val cx = w * 0.5f
             val cy = h * 0.5f
@@ -5526,4 +5527,195 @@ private fun DrawScope.drawStirlingEngineIllustration(w: Float, h: Float) {
     drawCircle(CyanNeon, 3f, Offset(vMax * 0.95f, pMedH))
     drawCircle(Color.White, 1.5f, Offset(vMax * 0.95f, pMedH))
 }
+
+/**
+ * DAY 47: Maxwell's Demon & Information Entropy
+ * Features dual partitioned gas chambers (Hot Coral left vs. Cold Cyan right),
+ * central dividing partition with sliding microscopic trapdoor,
+ * cybernetic Demon Gatekeeper with all-seeing glowing eye and sensor laser cone,
+ * fast particle passing through the aperture, and information entropy bit indicators.
+ */
+private fun DrawScope.drawMaxwellsDemonIllustration(w: Float, h: Float) {
+    val boxLeft = w * 0.08f
+    val boxRight = w * 0.92f
+    val boxTop = h * 0.20f
+    val boxBot = h * 0.82f
+    val partitionX = w * 0.50f
+    val gateTopY = h * 0.44f
+    val gateBotY = h * 0.62f
+    val wallW = 8f
+
+    // 1. Dual Chamber Thermal Ambient Glow
+    // Left Chamber A: Hot Coral Glow
+    drawRect(
+        brush = Brush.horizontalGradient(
+            colors = listOf(CoralNeon.copy(alpha = 0.25f), CoralNeon.copy(alpha = 0.08f)),
+            startX = boxLeft,
+            endX = partitionX
+        ),
+        topLeft = Offset(boxLeft, boxTop),
+        size = Size(partitionX - boxLeft, boxBot - boxTop)
+    )
+    // Right Chamber B: Cold Cyan Glow
+    drawRect(
+        brush = Brush.horizontalGradient(
+            colors = listOf(CyanNeon.copy(alpha = 0.08f), CyanNeon.copy(alpha = 0.25f)),
+            startX = partitionX,
+            endX = boxRight
+        ),
+        topLeft = Offset(partitionX, boxTop),
+        size = Size(boxRight - partitionX, boxBot - boxTop)
+    )
+
+    // 2. Chamber Boundary Frame
+    drawRoundRect(
+        color = Color(0xFF0F172A),
+        topLeft = Offset(boxLeft, boxTop),
+        size = Size(boxRight - boxLeft, boxBot - boxTop),
+        cornerRadius = CornerRadius(8f, 8f)
+    )
+    drawRoundRect(
+        color = ScienceBorder,
+        topLeft = Offset(boxLeft, boxTop),
+        size = Size(boxRight - boxLeft, boxBot - boxTop),
+        cornerRadius = CornerRadius(8f, 8f),
+        style = Stroke(width = 2f)
+    )
+
+    // 3. Central Partition Wall (Top & Bottom segments)
+    drawRect(
+        color = Color(0xFF475569),
+        topLeft = Offset(partitionX - wallW * 0.5f, boxTop),
+        size = Size(wallW, gateTopY - boxTop)
+    )
+    drawRect(
+        color = Color(0xFF475569),
+        topLeft = Offset(partitionX - wallW * 0.5f, gateBotY),
+        size = Size(wallW, boxBot - gateBotY)
+    )
+
+    // 4. Trapdoor Aperture (Open with emerald indicator)
+    drawRect(
+        color = EmeraldNeon.copy(alpha = 0.20f),
+        topLeft = Offset(partitionX - wallW * 0.5f, gateTopY),
+        size = Size(wallW, gateBotY - gateTopY)
+    )
+    // Retracted gate door
+    drawRoundRect(
+        color = Color(0xFF94A3B8),
+        topLeft = Offset(partitionX - wallW * 0.5f, gateTopY - 12f),
+        size = Size(wallW, 12f),
+        cornerRadius = CornerRadius(2f, 2f)
+    )
+
+    // 5. Cybernetic Demon Gatekeeper (Over Partition)
+    val demonCenter = Offset(partitionX, gateTopY - 22f)
+    val headR = 14f
+
+    // Demon halo
+    drawCircle(
+        brush = Brush.radialGradient(
+            colors = listOf(PurpleNeon.copy(alpha = 0.45f), Color.Transparent),
+            center = demonCenter,
+            radius = headR * 1.8f
+        ),
+        radius = headR * 1.8f,
+        center = demonCenter
+    )
+    // Head body
+    drawCircle(
+        color = Color(0xFF1E293B),
+        radius = headR,
+        center = demonCenter
+    )
+    drawCircle(ScienceBorder, headR, demonCenter, style = Stroke(1.2f))
+
+    // Horns / Antennas
+    val hornL = Path().apply {
+        moveTo(demonCenter.x - headR * 0.5f, demonCenter.y - headR * 0.5f)
+        lineTo(demonCenter.x - headR * 1.1f, demonCenter.y - headR * 1.3f)
+        lineTo(demonCenter.x - headR * 0.2f, demonCenter.y - headR * 0.9f)
+        close()
+    }
+    val hornR = Path().apply {
+        moveTo(demonCenter.x + headR * 0.5f, demonCenter.y - headR * 0.5f)
+        lineTo(demonCenter.x + headR * 1.1f, demonCenter.y - headR * 1.3f)
+        lineTo(demonCenter.x + headR * 0.2f, demonCenter.y - headR * 0.9f)
+        close()
+    }
+    drawPath(hornL, CoralNeon)
+    drawPath(hornR, CoralNeon)
+
+    // Glowing Central Eye
+    drawCircle(Color(0xFF0F172A), headR * 0.5f, demonCenter)
+    drawCircle(CoralNeon, headR * 0.35f, demonCenter)
+    drawCircle(Color.White, headR * 0.15f, Offset(demonCenter.x - 1f, demonCenter.y - 1f))
+
+    // Sensor Scan Cone downward
+    val scanPath = Path().apply {
+        moveTo(demonCenter.x, demonCenter.y + headR * 0.5f)
+        lineTo(demonCenter.x - 22f, gateBotY)
+        lineTo(demonCenter.x + 22f, gateBotY)
+        close()
+    }
+    drawPath(scanPath, CoralNeon.copy(alpha = 0.18f))
+
+    // 6. Gas Particles (Sorted: Fast Coral Left, Slow Cyan Right)
+    // Fast particles in Left Chamber
+    val hotParticles = listOf(
+        Pair(Offset(w * 0.18f, h * 0.32f), Offset(-8f, 5f)),
+        Pair(Offset(w * 0.32f, h * 0.28f), Offset(10f, 6f)),
+        Pair(Offset(w * 0.24f, h * 0.54f), Offset(9f, -7f)),
+        Pair(Offset(w * 0.38f, h * 0.68f), Offset(-11f, -4f)),
+        Pair(Offset(w * 0.16f, h * 0.72f), Offset(7f, 8f))
+    )
+    hotParticles.forEach { (pos, v) ->
+        drawCircle(CoralNeon, 4f, pos)
+        drawLine(CoralNeon.copy(alpha = 0.45f), pos, Offset(pos.x - v.x, pos.y - v.y), 1.6f, StrokeCap.Round)
+    }
+
+    // Fast particle traversing gate into left chamber
+    val transitPos = Offset(partitionX - 6f, gateTopY + (gateBotY - gateTopY) * 0.45f)
+    drawCircle(CoralNeon, 4.5f, transitPos)
+    drawCircle(Color.White, 2f, transitPos)
+    drawLine(CoralNeon.copy(alpha = 0.75f), transitPos, Offset(transitPos.x + 16f, transitPos.y), 2f, StrokeCap.Round)
+
+    // Slow particles in Right Chamber
+    val coldParticles = listOf(
+        Pair(Offset(w * 0.62f, h * 0.35f), Offset(3f, -2f)),
+        Pair(Offset(w * 0.78f, h * 0.30f), Offset(-2f, 3f)),
+        Pair(Offset(w * 0.84f, h * 0.55f), Offset(3f, 2f)),
+        Pair(Offset(w * 0.68f, h * 0.65f), Offset(-3f, -2f)),
+        Pair(Offset(w * 0.76f, h * 0.76f), Offset(2f, -3f))
+    )
+    coldParticles.forEach { (pos, v) ->
+        drawCircle(CyanNeon, 3.5f, pos)
+        drawLine(CyanNeon.copy(alpha = 0.40f), pos, Offset(pos.x - v.x, pos.y - v.y), 1.2f, StrokeCap.Round)
+    }
+
+    // 7. Information Bits Indicator in Upper Corner
+    val badgeLeft = w * 0.14f
+    val badgeTop = h * 0.08f
+    val badgeW = w * 0.72f
+    val badgeH = 18f
+    drawRoundRect(
+        color = Color(0xCC0F172A),
+        topLeft = Offset(badgeLeft, badgeTop),
+        size = Size(badgeW, badgeH),
+        cornerRadius = CornerRadius(4f, 4f)
+    )
+    drawRoundRect(
+        color = ScienceBorder.copy(alpha = 0.55f),
+        topLeft = Offset(badgeLeft, badgeTop),
+        size = Size(badgeW, badgeH),
+        cornerRadius = CornerRadius(4f, 4f),
+        style = Stroke(width = 1f)
+    )
+    // Small memory bits representation: 0 1 0 1 dots
+    listOf(w * 0.28f, w * 0.38f, w * 0.48f, w * 0.58f, w * 0.68f).forEachIndexed { idx, dotX ->
+        val bitColor = if (idx % 2 == 0) CoralNeon else CyanNeon
+        drawCircle(bitColor, 2.5f, Offset(dotX, badgeTop + badgeH * 0.5f))
+    }
+}
+
 

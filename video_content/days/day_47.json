@@ -1,0 +1,115 @@
+{
+  "day": 47,
+  "curiosity": "Can a microscopic gatekeeper break the Second Law of Thermodynamics, or does erasing information have a physical energy cost?",
+  "titles": {
+    "desktop": "The Secret Physics of Maxwell's Demon: Can Information Break Entropy?",
+    "shorts": "Can a Demon Break Entropy? Maxwell's Secret #Shorts"
+  },
+  "desktop_mission": {
+    "mission_title": "Day 47: Maxwell's Demon & Information Entropy",
+    "mission_sub": "Statistical Mechanics & Landauer's Principle",
+    "voice_mission": "Today we're simulating Maxwell's demon, microscopic particle sorting, and Landauer's information erasure limit in Kotlin.",
+    "math_cards": [
+      [
+        "LANDAUER ERASURE PRINCIPLE",
+        "E_dissipated ≥ k_B · T · ln(2)",
+        "Erasing one bit of information in any physical memory dissipates a fundamental minimum of thermal heat"
+      ],
+      [
+        "TOTAL ENTROPY BALANCE",
+        "ΔS_total = ΔS_gas + ΔS_demon ≥ 0",
+        "The demon's information acquisition and memory reset preserve the universal Second Law of Thermodynamics"
+      ],
+      [
+        "MAXWELL-BOLTZMANN SPEED SORTING",
+        "v_threshold = √(2 · k_B · T / m)",
+        "Selective particle gatekeeping creates an apparent temperature gradient without mechanical work"
+      ]
+    ],
+    "voice_math": "The core physics: Landauer's erasure principle, total entropy balance, and Maxwell-Boltzmann speed sorting."
+  },
+  "fact_cards": [
+    [
+      "Landauer Limit",
+      "E ≥ k_B · T · ln(2)"
+    ],
+    [
+      "Second Law Balance",
+      "ΔS_total = ΔS_gas + ΔS_demon ≥ 0"
+    ],
+    [
+      "Information Bit Cost",
+      "ΔS_bit = k_B · ln(2)"
+    ]
+  ],
+  "math_steps": [
+    {
+      "step_num": 1,
+      "badge": "EQUATION 1 OF 3 • MAXWELL SPEED THRESHOLD",
+      "formula": "v_threshold = √(2 · k_B · T_0 / m),  ⟨E_k⟩ = k_B · T",
+      "note": "Molecules are sorted into hot and cold chambers based on thermal velocity threshold",
+      "color": [
+        0,
+        220,
+        255
+      ],
+      "code": "// 1. Maxwell-Boltzmann mean speed evaluation and sorting\nvar totalSpeed = 0f\nparticles.forEach { totalSpeed += it.speed }\nval meanSpeed = totalSpeed / max(1, particles.size)\nval isFast = (p.speed > meanSpeed)\n",
+      "sub_icon": "🔬",
+      "sub_tag": "STEP 1 • VELOCITY SORTING",
+      "sub_title": "Thermal Threshold",
+      "sub_desc": "Evaluates particle speed against Maxwell-Boltzmann mean velocity."
+    },
+    {
+      "step_num": 2,
+      "badge": "EQUATION 2 OF 3 • THERMODYNAMIC GAS ENTROPY",
+      "formula": "ΔS_gas = N_A · ln(T_A / T_0) + N_B · ln(T_B / T_0) < 0",
+      "note": "Sorting creates an apparent entropy decrease inside the isolated gas container",
+      "color": [
+        255,
+        215,
+        65
+      ],
+      "code": "// 2. Chamber kinetic temperatures and gas entropy calculation\nval calculatedLeftT = (meanSqL / baseRefSpeedSq) * baseTempK\nval calculatedRightT = (meanSqR / baseRefSpeedSq) * baseTempK\nval deltaSGas = (leftCount * ln(leftTempK / baseTempK) + rightCount * ln(rightTempK / baseTempK)) * 0.25f\n",
+      "sub_icon": "📉",
+      "sub_tag": "STEP 2 • APPARENT VIOLATION",
+      "sub_title": "Gas Entropy Drop",
+      "sub_desc": "Calculates the thermodynamic entropy reduction in the sorted chambers."
+    },
+    {
+      "step_num": 3,
+      "badge": "EQUATION 3 OF 3 • LANDAUER ERASURE & TOTAL ENTROPY",
+      "formula": "E_erased ≥ N_bits · k_B · T · ln(2),  ΔS_total ≥ 0",
+      "note": "Erasing demon memory bits dissipates heat, completely restoring the Second Law",
+      "color": [
+        255,
+        110,
+        64
+      ],
+      "code": "// 3. Landauer memory bit erasure dissipation and universal entropy\nval deltaSDemon = (bitsProcessed * 0.6931f) * 0.25f\nval deltaSTotal = deltaSGas + deltaSDemon\nval landauerHeatJoules = (bitsErased.toDouble() * 0.957 * (baseTempK / 300.0))\n",
+      "sub_icon": "💾",
+      "sub_tag": "STEP 3 • LANDAUER PRINCIPLE",
+      "sub_title": "Entropy Restored",
+      "sub_desc": "Dissipates thermal energy upon memory erasure to uphold the Second Law."
+    }
+  ],
+  "mystery": {
+    "en": "Can a microscopic gatekeeper break the Second Law of Thermodynamics, or does erasing information have a physical energy cost?"
+  },
+  "phenomenon": {
+    "en": {
+      "tag": "★ MAXWELL'S DEMON & INFORMATION ENTROPY",
+      "title": "Maxwell's Demon",
+      "teaser": "A microscopic gatekeeper sorts fast and slow particles, revealing the profound physical cost of information and memory erasure."
+    }
+  },
+  "narration": {
+    "en": {
+      "hook": "Can an intelligent microscopic gatekeeper break the Second Law of Thermodynamics, or does information itself have a physical energy cost?",
+      "math": "Maxwell proposed sorting hot and cold particles without work, but Landauer proved that erasing information always dissipates heat.",
+      "question": "Can we simulate Maxwell's demon, kinetic gas sorting, and Landauer's erasure limit live in Kotlin Multiplatform?",
+      "code_intro": "Written in Kotlin Multiplatform.",
+      "code_tip": "We model particle kinetics in dual chambers, evaluate information bits processed, and compute total universal entropy on Canvas.",
+      "payoff": "Maxwell's demon and Landauer's principle running live in Kotlin."
+    }
+  }
+}
